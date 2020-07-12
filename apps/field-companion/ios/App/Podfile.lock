@@ -1,0 +1,45 @@
+PODS:
+  - ByteowlsCapacitorFilesharer (2.0.0):
+    - Capacitor
+  - Capacitor (2.2.1):
+    - CapacitorCordova
+  - CapacitorCordova (2.2.1)
+  - CapacitorDataStorageSqlite (2.2.0):
+    - Capacitor
+    - SQLCipher
+  - SQLCipher (4.3.0):
+    - SQLCipher/standard (= 4.3.0)
+  - SQLCipher/common (4.3.0)
+  - SQLCipher/standard (4.3.0):
+    - SQLCipher/common
+
+DEPENDENCIES:
+  - "ByteowlsCapacitorFilesharer (from `../../../../node_modules/@byteowls/capacitor-filesharer`)"
+  - "Capacitor (from `../../../../node_modules/@capacitor/ios`)"
+  - "CapacitorCordova (from `../../../../node_modules/@capacitor/ios`)"
+  - CapacitorDataStorageSqlite (from `../../../../node_modules/capacitor-data-storage-sqlite`)
+
+SPEC REPOS:
+  trunk:
+    - SQLCipher
+
+EXTERNAL SOURCES:
+  ByteowlsCapacitorFilesharer:
+    :path: "../../../../node_modules/@byteowls/capacitor-filesharer"
+  Capacitor:
+    :path: "../../../../node_modules/@capacitor/ios"
+  CapacitorCordova:
+    :path: "../../../../node_modules/@capacitor/ios"
+  CapacitorDataStorageSqlite:
+    :path: "../../../../node_modules/capacitor-data-storage-sqlite"
+
+SPEC CHECKSUMS:
+  ByteowlsCapacitorFilesharer: fb53acb4aba25134696ee965b460aed4b5be7538
+  Capacitor: 04d3276e3f433e4d3840a89cf700b1cd398bf8f2
+  CapacitorCordova: 84832ae8993607db6fdb56900af620409c0c8eaf
+  CapacitorDataStorageSqlite: 1bdda533284237709e692bfc776ad57df536604d
+  SQLCipher: d305a7bd9af4b64f095c79bdc1a1fa50f2a15116
+
+PODFILE CHECKSUM: 98fdcd0e1e037faaf435f885122074b56ea0d1d9
+
+COCOAPODS: 1.8.4

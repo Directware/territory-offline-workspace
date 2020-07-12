@@ -26,6 +26,8 @@ $field-companion-theme: mat-light-theme($field-companion-primary, $field-compani
 // that you are using.
 @include angular-material-theme($field-companion-theme);
 
+/* 3rd party libs styles */
+@import "node_modules/ngx-ui-switch/ui-switch.component.scss";
 
 /* You can add global styles to this file, and also import other style files */
 @import "libs/ui-components/src/lib/assets/styles/typography";

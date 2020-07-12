@@ -15,7 +15,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/territory-offline",
+            "outputPath": "apps/territory-offline/dist/territory-offline",
             "index": "apps/territory-offline/src/index.html",
             "main": "apps/territory-offline/src/main.ts",
             "polyfills": "apps/territory-offline/src/polyfills.ts",
@@ -53,7 +53,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumError": "20kb"
                 }
               ]
             }
@@ -173,18 +173,21 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/field-companion",
+            "outputPath": "apps/field-companion/dist/field-companion",
             "index": "apps/field-companion/src/index.html",
             "main": "apps/field-companion/src/main.ts",
             "polyfills": "apps/field-companion/src/polyfills.ts",
             "tsConfig": "apps/field-companion/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "apps/field-companion/src/favicon.ico",
               "apps/field-companion/src/assets"
             ],
-            "styles": ["apps/field-companion/src/styles.scss"],
-            "scripts": []
+            "styles": [
+              "apps/field-companion/src/styles.scss"
+            ],
+            "scripts": [
+              "node_modules/hammerjs/hammer.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -211,7 +214,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumError": "20kb"
                 }
               ]
             }

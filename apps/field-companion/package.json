@@ -1,0 +1,17 @@
+{
+  "appId": "com.territoryoffline.fieldcompanion",
+  "appName": "Field Companion",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist/field-companion",
+  "cordova": {},
+  "scripts": {
+    "capacitor:update": "npx cap update",
+    "start:ios": "npx cap sync && npx cap open ios",
+    "start:android": "npx cap sync && npx cap open android"
+  },
+  "dependencies": {
+    "capacitor-data-storage-sqlite": "^2.1.0",
+    "@byteowls/capacitor-filesharer": "^2.0.0"
+  }
+}
