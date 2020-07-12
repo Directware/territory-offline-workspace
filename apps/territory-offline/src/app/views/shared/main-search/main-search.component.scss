@@ -1,0 +1,37 @@
+@import "node_modules/territory-offline-ui/assets/styles/colors";
+
+:host {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 3rem;
+  padding: 0 1rem;
+  background: $very-light-blue-21;
+  color: $light-grey-blue;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px 0 rgba(32, 35, 39, 0.2);
+
+  .search-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    i-feather {
+      width: 16px;
+      height: 16px;
+    }
+
+    input {
+      margin: 0 0 0 0.5rem;
+    }
+  }
+
+  ::ng-deep .action-link {
+    white-space: nowrap;
+    display: flex;
+    flex-direction: row;
+  }
+}

@@ -1,0 +1,15 @@
+<ng-container *ngIf="(currentDailyReport$ | async) as currentDailyReport">
+  <h3 class="h3-grey">{{"service.duration" | translate}}</h3>
+  <input [(ngModel)]="hours" type="number">
+
+  <br/>
+  <br/>
+
+  <h3 class="h3-grey">{{"service.minutes" | translate}}</h3>
+  <input [(ngModel)]="minutes" type="number">
+
+  <br/>
+  <br/>
+
+  <button [disabled]="hours < 1 || minutes < 1" (click)="add(currentDailyReport)" class="button primary">{{"common.done" | translate}}</button>
+</ng-container>

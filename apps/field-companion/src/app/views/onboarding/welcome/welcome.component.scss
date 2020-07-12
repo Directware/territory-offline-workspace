@@ -1,0 +1,120 @@
+@import "libs/ui-components/src/lib/assets/styles/colors";
+
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 2rem 0 0 0;
+  box-sizing: border-box;
+  height: 100vh;
+  overflow: auto;
+
+  .h1-white, .h3-grey {
+    margin: 0;
+    text-align: center;
+  }
+
+  .scrollable-wrapper {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    height: calc(100% - 12rem);
+
+    .button {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 16rem;
+
+      @media (min-width: 375px) {
+        width: 19rem;
+      }
+    }
+  }
+
+  .app-features {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+
+    .app-feature {
+      font-family: Heebo-Medium, sans-serif;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      color: #adb1b8;
+      margin: 1rem 0;
+
+      .icon-wrapper {
+
+        .icon {
+          width: 1.5rem;
+          height: 1.5rem;
+          padding: 1rem;
+          margin: 0 1rem 0 0;
+          background: rgba(173, 177, 184, 0.24);
+          border-radius: 50%;
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+        }
+      }
+
+      .h3-grey {
+        text-align: left;
+      }
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+
+    input {
+      margin: 0.5rem 0;
+      width: 72vw;
+      height: 40px;
+      border: 0;
+      border-radius: 8px;
+      padding: 5px 20px;
+      outline: none;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
+      color: #fff;
+      font-size: 1.1rem;
+    }
+
+    app-language-search {
+      margin: 0;
+      width: 72vw;
+
+      ::ng-deep input {
+        margin: 0.5rem 0 0 0;
+        height: 40px;
+        border: 0;
+        border-radius: 8px;
+        padding: 5px 20px;
+        outline: none;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
+        color: #fff;
+        font-size: 1.1rem;
+        box-sizing: content-box;
+      }
+
+      ::ng-deep .list-wrapper {
+        width: 82.5vw;
+      }
+    }
+  }
+}

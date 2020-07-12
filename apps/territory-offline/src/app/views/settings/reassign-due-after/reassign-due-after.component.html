@@ -1,0 +1,67 @@
+<app-second-thread-header [valid]="valueIsValid" (onCancel)="back()" (onSave)="save()"></app-second-thread-header>
+
+<div class="scrollable-wrapper">
+
+  <app-panel>
+    <div class="wrapper">
+      <h3 class="h3-white">Zuteilung fällig nach</h3>
+      <app-list>
+        <app-list-item (click)="setNewValue(2)">
+          <p class="label">2 Monaten</p>
+          <i-feather class="info" name="check" *ngIf="value === 2"></i-feather>
+        </app-list-item>
+        <app-list-item (click)="setNewValue(3)">
+          <p class="label">3 Monaten</p>
+          <i-feather class="info" name="check" *ngIf="value === 3"></i-feather>
+        </app-list-item>
+        <app-list-item (click)="setNewValue(4)">
+          <p class="label">4 Monaten</p>
+          <i-feather class="info" name="check" *ngIf="value === 4"></i-feather>
+        </app-list-item>
+        <app-list-item (click)="setNewValue(5)">
+          <p class="label">5 Monaten</p>
+          <i-feather class="info" name="check" *ngIf="value === 5"></i-feather>
+        </app-list-item>
+        <app-list-item (click)="setNewValue(6)">
+          <p class="label">6 Monaten</p>
+          <i-feather class="info" name="check" *ngIf="value === 6"></i-feather>
+        </app-list-item>
+        <app-list-item (click)="setNewValue(7)">
+          <p class="label">7 Monaten</p>
+          <i-feather class="info" name="check" *ngIf="value === 7"></i-feather>
+        </app-list-item>
+        <app-list-item (click)="setNewValue(8)">
+          <p class="label">8 Monaten</p>
+          <i-feather class="info" name="check" *ngIf="value === 8"></i-feather>
+        </app-list-item>
+        <app-list-item (click)="setNewValue(9)">
+          <p class="label">9 Monaten</p>
+          <i-feather class="info" name="check" *ngIf="value === 9"></i-feather>
+        </app-list-item>
+        <app-list-item (click)="setNewValue(10)">
+          <p class="label">10 Monaten</p>
+          <i-feather class="info" name="check" *ngIf="value === 10"></i-feather>
+        </app-list-item>
+        <app-list-item (click)="setNewValue(11)">
+          <p class="label">11 Monaten</p>
+          <i-feather class="info" name="check" *ngIf="value === 11"></i-feather>
+        </app-list-item>
+        <app-list-item (click)="setNewValue(12)">
+          <p class="label">12 Monaten</p>
+          <i-feather class="info" name="check" *ngIf="value === 12"></i-feather>
+        </app-list-item>
+      </app-list>
+    </div>
+  </app-panel>
+
+  <div class="hint-wrapper">
+    <h4 class="h4-white">Hinweis</h4>
+    <p class="hint-text">
+      Dieser Zeitraum legt fest, ab wann ein Gebiet unbedingt bearbeitet werden sollte.
+      <br/>
+      <br/>
+      Wird dieser Zeitraum überschritten, wird das Gebiet im Dashboard im Bereich "Zuteilung fällig" angezeigt.</p>
+  </div>
+
+
+</div>

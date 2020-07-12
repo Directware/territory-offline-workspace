@@ -1,0 +1,42 @@
+<app-main-search (onSearch)="search= {value: $event}">
+  <div class="action-link" (click)="createVisitBan()">
+    <i-feather name="plus"></i-feather>
+    Nicht Besuchen
+  </div>
+</app-main-search>
+
+<app-panel class="sort-wrapper">
+  <div class="wrapper">
+    <h2 class="h2-white">Sortierung</h2>
+    <app-list-item (click)="changeSorting('alphabetic')">
+      <p class="label">Alphabetisch</p>
+      <i-feather *ngIf="sort === 'alphabetic'" class="icon checked" name="check-circle"></i-feather>
+    </app-list-item>
+    <app-list-item (click)="changeSorting('lastVisit')">
+      <p class="label">Letzter Besuch</p>
+      <i-feather *ngIf="sort === 'lastVisit'" class="icon checked" name="check-circle"></i-feather>
+    </app-list-item>
+  </div>
+</app-panel>
+
+<div class="scrollable-wrapper">
+
+  <app-list *ngIf="(visitBans$ | async) as visitBans; else infoBlock">
+    <app-list-item *ngFor="let visitBan of visitBans | searchVisitBan:search | async"
+                   [class.current]="currentVisitBanId === visitBan.id"
+                   (click)="editVisitBan(visitBan)">
+      <p class="label">
+        {{(visitBan.street | slice:0:20) + (visitBan.street.length > 20 ? "..." : "")}}
+        {{visitBan.streetSuffix}}
+        <strong>{{!!visitBan.name ? " - " + visitBan.name : ""}}</strong>
+      </p>
+      <p *ngIf="visitBan.lastVisit" class="info">{{visitBan | visitBanLastVisit}}</p>
+    </app-list-item>
+  </app-list>
+
+  <ng-template #infoBlock>
+    <app-info-block [title]="'Du hast noch keine Adressen!'"
+                    [image]="'assets/images/territories.svg'"
+                    [description]="'Erstelle oder importiere Adressen, um diese verwalten zu können.'"></app-info-block>
+  </ng-template>
+</div>

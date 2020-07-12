@@ -1,0 +1,136 @@
+@import "node_modules/territory-offline-ui/assets/styles/colors";
+
+:host {
+
+  app-panel {
+    padding: 0;
+    box-shadow: 0 8px 16px 0 rgba(24, 30, 37, 0.3);
+
+    .progress-wrapper {
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      margin: 0 0 1rem 0;
+
+
+      &.first-element {
+        margin: 1rem 0 1rem 0 !important;
+      }
+
+      > * {
+        flex: 1;
+        width: 100%;
+        font-size: 14px;
+      }
+
+    }
+  }
+
+  .scrollable-wrapper {
+    height: calc(100vh - 20.1rem);
+
+    @media (min-width: 568px) {
+      height: calc(100vh - 15.2rem);
+    }
+  }
+
+  .first-element {
+    progress {
+      border-radius: 4px;
+      height: 0.5rem;
+      margin: 0 0 4px 0;
+
+      &::-webkit-progress-value {
+        box-shadow: 0 0 6px 0 rgba(84, 237, 175, 0.6);
+        background-color: $seaweed;
+        border-radius: 4px;
+      }
+
+      &::-webkit-progress-bar {
+        background-color: $sea-green-30;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .second-element {
+    progress {
+      border-radius: 4px;
+      height: 0.5rem;
+      margin: 0 0 4px 0;
+
+      &::-webkit-progress-value {
+        box-shadow: 0 0 6px 0 rgba(84, 237, 201, 0.6);
+        background-color: #15c89e;
+        border-radius: 4px;
+      }
+
+      &::-webkit-progress-bar {
+        background-color: rgba(21, 200, 158, 0.3);
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .third-element {
+    progress {
+      border-radius: 4px;
+      height: 0.5rem;
+      margin: 0 0 4px 0;
+
+      &::-webkit-progress-value {
+        box-shadow: 0 0 6px 0 rgba(84, 237, 227, 0.6);
+        background-color: #15c8bc;
+        border-radius: 4px;
+      }
+
+      &::-webkit-progress-bar {
+        background-color: rgba(21, 200, 188, 0.3);
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .list-wrapper {
+    margin: 1rem 0 2rem 0;
+    padding: 0 0 0 1.5rem;
+
+    &:last-child {
+      margin: 1rem 0 0 0;
+    }
+
+    h2 {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1.5rem 0 0;
+    }
+
+    app-list {
+      padding: 0;
+
+      .active{
+        position: relative;
+        background: rgba(235, 237, 239, 0.1);
+        border-color: transparent;
+
+        &:before{
+          content: "";
+          position: absolute;
+          left: -1.5rem;
+          top: -1px;
+          width: 1.5rem;
+          height: calc(100% + 2px);
+          background: inherit;
+        }
+      }
+    }
+
+    i-feather {
+      margin: 0.5rem 0;
+    }
+  }
+}

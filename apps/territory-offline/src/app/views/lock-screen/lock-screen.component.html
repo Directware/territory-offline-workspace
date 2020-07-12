@@ -1,0 +1,17 @@
+<div class="lock-icon"></div>
+<p class="h1-white">Territory Offline <br> ist gesperrt!</p>
+<br />
+<ng-container *ngIf="passwordNeeded">
+  <form novalidate class="input-wrapper" [class.error-input]="!!unLockError" (submit)="tryToUnLockWithPassword()">
+    <input autofocus autocomplete="off" type="password" [(ngModel)]="appPassword" name="password" placeholder="Passwort eingeben">
+    <i-feather *ngIf="!coolDown" name="arrow-right-circle" [class.disabled]="!appPassword || coolDown" (click)="tryToUnLockWithPassword()" class="icon"></i-feather>
+    <div *ngIf="coolDown && !unLockError" class="fancy-spinner">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="dot"></div>
+    </div>
+  </form>
+</ng-container>
+
+<span class="encryption-info">{{encryptingNow}}</span>
+

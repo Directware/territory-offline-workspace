@@ -1,0 +1,86 @@
+<ng-container *ngIf="(settings$ | async) as settings">
+  <app-panel>
+    <div class="wrapper info-wrapper">
+      <i-feather name="info" class="changelog grey" (click)="openChangelogDialog()"></i-feather>
+
+      <img class="to-icon" src="assets/images/icon-to-transparent.png"/>
+
+      <h2 class="h2-white">Territory Offline</h2>
+      <p class="body-grey check-updates-wrapper">
+        <span>
+          Version: {{version}}
+          <i-feather (click)="checkUpdates()" name="refresh-cw" class="check-updates"></i-feather>
+        </span>
+      </p>
+
+      <div *ngIf="settings.releaseInfo && settings.releaseInfo.newReleaseExists" class="new-version body-white"
+           (click)="downloadNewRelease(settings.releaseInfo)">
+        Version {{settings.releaseInfo.version}} verfügbar
+        <i-feather name="download"></i-feather>
+      </div>
+    </div>
+  </app-panel>
+  <div class="scrollable-wrapper">
+    <div class="settings-wrapper">
+      <h2 class="h2-white">Gebiete</h2>
+      <app-list-item (click)="navigateInSecondThread('processing-due-after')">
+        <p class="label">Bearbeitung fällig nach</p>
+        <p class="info">{{settings.processingPeriodInMonths}} Monaten</p>
+      </app-list-item>
+      <app-list-item (click)="navigateInSecondThread('reassign-after')">
+        <p class="label">Neu zuteilen nach</p>
+        <p class="info">{{settings.processingBreakInMonths}} Monaten</p>
+      </app-list-item>
+      <app-list-item (click)="navigateInSecondThread('reassign-due-after')">
+        <p class="label">Zuteilung fällig nach</p>
+        <p class="info">{{settings.overdueBreakInMonths}} Monaten</p>
+      </app-list-item>
+      <app-list-item (click)="navigateInGlobalThread('choose-origin')" class="blue">
+        <p class="label">Ladkarte ausrichten</p>
+      </app-list-item>
+
+      <h2 class="h2-white">Sicherheit</h2>
+      <app-list-item style="opacity: 0.4;">
+        <p class="label">Passwort ändern</p>
+        <p class="info password-bullet-wrapper">
+          <span class="password-bullet"></span>
+          <span class="password-bullet"></span>
+          <span class="password-bullet"></span>
+          <span class="password-bullet"></span>
+          <span class="password-bullet"></span>
+        </p>
+      </app-list-item>
+      <app-list-item style="opacity: 0.4;">
+        <p class="label">Automatisch sperren</p>
+        <p class="info">{{settings.autoAppLockingInMinutes > 0 ? settings.autoAppLockingInMinutes + ' Min' : 'Nie'}}</p>
+      </app-list-item>
+      <app-list-item (click)="lockApp()">
+        <p class="label blue">App sperren</p>
+        <p class="info">shift + cmd + L</p>
+      </app-list-item>
+      <app-list-item (click)="clearAllAppData()" class="danger">
+        <p class="label">Alle Daten löschen</p>
+      </app-list-item>
+    </div>
+    <div class="footer">
+      <app-panel>
+        <app-list-item class="disabled">
+          <p class="label">Entwickler unterstützen</p>
+          <i-feather class="action" name="heart"></i-feather>
+        </app-list-item>
+      </app-panel>
+      <app-panel>
+        <app-list-item class="disabled">
+          <p class="label">Über die App</p>
+          <i-feather class="action" name="info"></i-feather>
+        </app-list-item>
+      </app-panel>
+      <app-panel (click)="contact()">
+        <app-list-item>
+          <p class="label">Kontakt</p>
+          <i-feather class="action" name="mail"></i-feather>
+        </app-list-item>
+      </app-panel>
+    </div>
+  </div>
+</ng-container>

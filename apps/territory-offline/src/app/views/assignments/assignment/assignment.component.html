@@ -1,0 +1,37 @@
+<app-second-thread-header [valid]="assignment.valid && !assignment.pristine"
+                          (onCancel)="back()"
+                          (onSave)="createAssignment()"></app-second-thread-header>
+
+<form [formGroup]="assignment">
+
+  <app-add-publisher [vFormControl]="assignment.get('publisherId')"></app-add-publisher>
+
+  <app-panel>
+    <app-list-item (click)="editStartTime=true">
+      <p class="label">Ausgabedatum</p>
+      <p class="info">{{assignment.get('startTime').value | date:'dd.MM.yyyy'}}</p>
+    </app-list-item>
+    <div class="wrapper" *ngIf="editStartTime">
+      <app-date-picker [vFormControl]="assignment.get('startTime')"></app-date-picker>
+    </div>
+  </app-panel>
+
+  <app-panel>
+    <app-list-item (click)="editEndTime=true">
+      <p class="label">Rückgabedatum</p>
+      <p class="info">{{(assignment.get('endTime').value | date:'dd.MM.yyyy') || '-'}}</p>
+    </app-list-item>
+    <div class="wrapper" *ngIf="editEndTime">
+      <app-date-picker [vFormControl]="assignment.get('endTime')"></app-date-picker>
+    </div>
+  </app-panel>
+
+  <app-panel *ngIf="!isCreation" class="delete-assignment animate-color-and-transform"
+             (click)="deleteAssignment()"
+             [class.ready-to-delete-button]="readyToDelete">
+    <app-list-item>
+      <p class="label">Zuteilung löschen</p>
+      <i-feather class="action" name="trash"></i-feather>
+    </app-list-item>
+  </app-panel>
+</form>

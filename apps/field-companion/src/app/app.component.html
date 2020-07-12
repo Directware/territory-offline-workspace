@@ -1,0 +1,7 @@
+<div class="animation-wrapper" [class.full-height]="hideMainNavigation" [@routeAnimations]="o && o.activatedRouteData && o.activatedRouteData['animation']">
+  <router-outlet #o="outlet" (activate)="activateRouterOutlet($event)"></router-outlet>
+</div>
+
+<ng-container *ngIf="(isAlreadyConfigured$ | async)">
+  <app-main-navigation *ngIf="!hideMainNavigation"></app-main-navigation>
+</ng-container>

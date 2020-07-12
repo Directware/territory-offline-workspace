@@ -1,0 +1,13 @@
+<h1 class="header">
+  {{"settings.changeLanguage" | translate}}
+  <span (click)="done()" class="done">{{"common.done" | translate}}</span>
+</h1>
+
+<app-panel *ngIf="(initialUserLanguage$ | async) as initialUserLanguage">
+  <div class="wrapper">
+    <app-language-search (onChoose)="formControl.patchValue($event)"
+                         [label]="'settings.language' | translate"
+                         [initLanguageCode]="initialUserLanguage"
+                         (onValueReset)="formControl.reset()"></app-language-search>
+  </div>
+</app-panel>

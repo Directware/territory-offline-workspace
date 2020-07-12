@@ -1,0 +1,214 @@
+@import "libs/ui-components/src/lib/assets/styles/colors";
+
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem 0 0 0;
+  box-sizing: border-box;
+  height: calc(100vh - 3.125rem - env(safe-area-inset-bottom) - env(safe-area-inset-top));
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 11;
+
+    font-family: Heebo-Medium, sans-serif;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #ffffff;
+
+    &.dimmed {
+      color: rgba(255, 255, 255, 0.2);
+    }
+
+    .more-wrapper {
+      position: relative;
+      width: 2rem;
+      height: 2rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background-color: rgba(173, 177, 184, 0.24);
+      border-radius: 50%;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .more {
+        position: relative;
+        top: -3px;
+      }
+
+      app-list {
+        position: absolute;
+        top: calc(100% + .5rem);
+        right: 0;
+        width: 17rem;
+        border-radius: 1rem;
+        box-shadow: 0 6px 24px 0 rgba(12, 17, 24, 0.5);
+        background-color: #373a44;
+        margin: 0;
+        box-sizing: border-box;
+        list-style-type: none;
+        padding: 0 0 0 1rem;
+        transform: scale(0);
+        transition: transform .1s;
+
+        &.opened {
+          transform: scale(1);
+        }
+
+        ::ng-deep .label {
+          font-family: Heebo-Regular, sans-serif;
+          font-size: 1rem;
+          line-height: 1.25;
+          letter-spacing: 0.4px;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
+  .more-backdrop {
+    position: fixed;
+    width: 100vw;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    background: $almost-black-70;
+  }
+
+  .scrollable-wrapper {
+    padding: 0 0 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+
+  app-panel.overview {
+    width: auto;
+    min-height: 7.5rem;
+    height: 7.5rem;
+    max-height: 7.5rem;
+    margin: .5rem 1rem .5rem 1rem;
+    padding: 0;
+    border-radius: 10px;
+    box-sizing: border-box;
+
+    ::ng-deep > .wrapper {
+      display: grid;
+      grid-template-columns: 7rem auto;
+      padding: 1rem 1rem 1rem 0;
+      justify-items: flex-end;
+
+      > .duration-overview {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        justify-self: center;
+
+        > * {
+          max-height: 88px;
+        }
+      }
+
+      > .monthly-overview {
+        display: grid;
+        grid-template-columns: 4.5rem 4.5rem;
+        grid-gap: 0.5rem;
+
+        @media (min-width: 375px) {
+          grid-template-columns: 6.375rem 6.375rem;
+        }
+
+        @media (min-width: 400px) {
+          grid-template-columns: 7.375rem 7.375rem;
+        }
+
+        app-panel {
+          margin: 0;
+          padding: 0;
+
+          .wrapper {
+            height: 2.5rem;
+            max-height: 2.5rem;
+            width: 100%;
+            padding: 0.5rem 1rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            font-family: Heebo-Medium, sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.17px;
+            text-align: right;
+            color: #ffffff;
+
+            i-feather {
+              width: 20px;
+              height: 20px;
+              color: #adb1b8;
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+  app-calendar {
+    width: auto;
+    margin: .5rem auto;
+  }
+
+  .service-input-wrapper {
+    position: relative;
+    margin: 0;
+    min-height: 7rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &.not-empty {
+      min-height: 12.5rem;
+      justify-content: flex-start;
+    }
+
+    .no-day-chosen {
+      margin: .5rem 0 .5rem 0;
+      font-family: Heebo-Medium, sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: 0.4px;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .no-day-chosen-desc {
+      margin: 0 0 .5rem 0;
+      max-width: 13.5rem;
+      font-family: Heebo-Medium, sans-serif;
+      font-size: 1rem;
+      line-height: 1.25;
+      letter-spacing: 0.4px;
+      text-align: center;
+      color: #adb1b8;
+    }
+  }
+}

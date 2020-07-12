@@ -1,0 +1,98 @@
+<app-second-thread-header [readonly]="readOnly"
+                          [valid]="publisher.valid && !publisher.pristine"
+                          (onEdit)="readOnly=false"
+                          (onBack)="back()"
+                          (onCancel)="cancel()"
+                          (onSave)="createPublisher()"></app-second-thread-header>
+
+<div class="scrollable-wrapper" *ngIf="readOnly">
+  <app-panel>
+    <app-list-item>
+      <p class="label">Name</p>
+      <p class="info">{{publisher.get('name').value}}</p>
+    </app-list-item>
+    <app-list-item>
+      <p class="label">Vorname</p>
+      <p class="info">{{publisher.get('firstName').value}}</p>
+    </app-list-item>
+  </app-panel>
+
+  <app-panel>
+    <app-list-item>
+      <p class="label">Mail</p>
+      <p class="info">{{publisher.get('email').value}}</p>
+    </app-list-item>
+    <app-list-item>
+      <p class="label">Telefon</p>
+      <p class="info">{{publisher.get('phone').value}}</p>
+    </app-list-item>
+  </app-panel>
+
+  <app-panel>
+    <app-list-item>
+      <p class="label">DSGVO</p>
+      <i-feather *ngIf="!!publisher.get('dsgvoSignature').value" class="action yes-dsgvo" name="check"></i-feather>
+      <i-feather *ngIf="!publisher.get('dsgvoSignature').value" class="action no-dsgvo" name="x"></i-feather>
+    </app-list-item>
+  </app-panel>
+
+  <app-panel class="tags-panel">
+    <div class="wrapper">
+      <h3 class="h3-white">Tags:</h3>
+      <app-tags-preview [tagIds]="publisher.get('tags').value"></app-tags-preview>
+    </div>
+  </app-panel>
+
+  <app-panel *ngIf="(publisherTerritories$ | async) as publisherTerritories">
+    <app-list-item>
+      <p class="label bold">Zugeteilte Gebiete</p>
+    </app-list-item>
+    <app-list-item *ngFor="let dto of publisherTerritories" (click)="navigateToTerritory(dto.t)">
+      <p class="label grey">
+        <span class="territory-with-duration">
+          <span>{{dto.t.key}} {{dto.t.name | slice:0:21}}{{dto.t.name.length > 21 ? "..." : ""}} </span>
+          <span class="duration">({{dto.durationPhrase}})</span>
+        </span>
+
+        <app-tags-preview class="tags-margin" [tagIds]="dto.t.tags"></app-tags-preview>
+      </p>
+      <i-feather class="icon" name="chevron-right"></i-feather>
+    </app-list-item>
+    <app-list-item *ngIf="publisherTerritories.length === 0">
+      <p class="label grey">Keine zugeteilten Gebiete</p>
+    </app-list-item>
+  </app-panel>
+</div>
+
+
+<form *ngIf="!readOnly" [formGroup]="publisher">
+  <app-panel>
+    <app-list-item>
+      <input placeholder="Vorname*" class="input" formControlName="firstName" name="firstName">
+    </app-list-item>
+    <app-list-item>
+      <input placeholder="Name*" class="input" formControlName="name" name="name">
+    </app-list-item>
+  </app-panel>
+
+  <app-panel>
+    <app-list-item>
+      <input placeholder="Mail" class="input" formControlName="email" name="email">
+    </app-list-item>
+    <app-list-item>
+      <input placeholder="Telefon" class="input" formControlName="phone" name="phone">
+    </app-list-item>
+  </app-panel>
+
+  <app-assigned-tags [assignedTags]="publisher.get('tags')"></app-assigned-tags>
+
+  <app-publisher-signature [signature]="publisher.get('dsgvoSignature')"></app-publisher-signature>
+
+  <app-panel *ngIf="!isCreation" class="delete-publisher animate-color-and-transform" (click)="tryToDeletePublisher()">
+    <app-list-item>
+      <p class="label">Verkündiger löschen</p>
+      <i-feather class="action" name="trash"></i-feather>
+    </app-list-item>
+  </app-panel>
+</form>
+

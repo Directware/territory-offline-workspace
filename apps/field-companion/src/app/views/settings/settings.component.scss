@@ -1,0 +1,75 @@
+@import "libs/ui-components/src/lib/assets/styles/colors";
+
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem 0 0 0;
+  box-sizing: border-box;
+  height: 100%;
+  overflow: auto;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 11;
+    font-family: Heebo-Medium, sans-serif;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #ffffff;
+  }
+
+  app-panel {
+    padding: 0;
+    margin: .5rem 0;
+
+    ::ng-deep .wrapper {
+      padding: 0;
+
+      &.actions {
+
+        .label, .info {
+          color: $dark-sky-blue;
+        }
+      }
+
+      &.danger {
+        .label, .info {
+          color: $reddish-orange;
+        }
+
+        .ready-to-factory-reset {
+          border-radius: 6px;
+          transform: scale(1.05);
+          background: $reddish-orange;
+
+          .label, .info {
+            color: #fff;
+          }
+        }
+      }
+
+      i-feather {
+        width: 20px;
+        height: 20px;
+      }
+
+      app-list {
+        padding: 0 0 0 1rem;
+        transition: transform .15s;
+
+        .label {
+          line-height: 1.25;
+          letter-spacing: 0.4px;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}

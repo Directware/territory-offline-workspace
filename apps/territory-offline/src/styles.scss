@@ -1,1 +1,415 @@
-/* You can add global styles to this file, and also import other style files */
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$territory-offline-v2-primary: mat-palette($mat-indigo);
+$territory-offline-v2-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$territory-offline-v2-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$territory-offline-v2-theme: mat-light-theme($territory-offline-v2-primary, $territory-offline-v2-accent, $territory-offline-v2-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($territory-offline-v2-theme);
+
+@import "node_modules/territory-offline-ui/assets/styles/typography";
+@import "node_modules/territory-offline-ui/assets/styles/colors";
+@import "node_modules/territory-offline-ui/assets/styles/to-base-styles";
+
+@include heebo-regular("node_modules/territory-offline-ui/assets/fonts/");
+@include heebo-medium("node_modules/territory-offline-ui/assets/fonts/");
+
+body {
+  margin: 0;
+  background: $almost-black;
+  font-family: Heebo-Regular, sans-serif;
+  overflow: hidden;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  box-sizing: border-box;
+  max-height: 100vh;
+}
+
+@media (max-width: 568px) {
+  .not-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (max-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+
+}
+
+@media print {
+
+  #perspective-3d {
+    padding-top: 5mm;
+    align-items: start;
+
+    #map {
+      right: unset;
+      transform: rotateX(0) !important;
+      margin: 0 !important;
+
+      .mapboxgl-canvas-container {
+        position: relative !important;
+        border-radius: 0 !important;
+      }
+
+      app-print-territory-back {
+        position: relative !important;
+        transform: none !important;
+        border-radius: 0 !important;
+        box-sizing: border-box;
+        margin: 0;
+        overflow: visible !important;
+        justify-content: flex-start !important;
+
+        .territory-card-visit-bans {
+          border-radius: 0 !important;
+          box-sizing: border-box;
+          border: 1px solid #eee;
+          margin: 0 !important;
+
+          &.has-bleeding-edges {
+            margin: 0.5cm 0 !important;
+          }
+
+          &:nth-child(even) {
+            margin-top: 8cm !important;
+          }
+        }
+      }
+    }
+  }
+
+  .menu, .main-thread, .second-thread {
+    display: none !important;
+
+    * {
+      display: none !important;
+    }
+  }
+
+  .mapboxgl-control-container {
+    display: none !important;
+  }
+}
+
+.action-link {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  color: $dark-sky-blue;
+
+  i-feather {
+    margin: 0 0.5rem;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.input {
+  width: 100%;
+  margin: 0;
+  font-size: 1rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: inherit;
+  padding: 0.5rem 0;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: background-color .3s;
+
+  &::placeholder {
+    margin: 0 0 0 0.5rem;
+    color: inherit;
+    font-weight: normal;
+  }
+
+  &:focus {
+    background: $charcoal-grey;
+    padding: 0.5rem 1rem;
+  }
+
+  &:focus::placeholder {
+    opacity: 0;
+  }
+}
+
+.animate-color-and-transform {
+  transition: color .25s, transform .25s;
+}
+
+.ready-to-delete-button {
+  color: $reddish-orange !important;
+  transform: scale(1.05) !important;
+  transition: color .25s, transform .25s;
+}
+
+.ready-to-delete {
+  color: $reddish-orange !important;
+  transform: scale(1.3) !important;
+  transition: color .25s, transform .25s;
+}
+
+.scrollable-wrapper {
+  height: calc(100vh - 8rem);
+  overflow: auto;
+
+  @media (min-width: 568px) {
+    height: calc(100vh - 3rem);
+  }
+}
+
+app-list-item {
+  position: relative;
+  cursor: pointer;
+  // transition: background-color .15s;
+
+  &.current {
+    background: $pale-blue-10;
+    border-color: transparent;
+
+    &:before {
+      content: "";
+      position: absolute;
+      transition: background-color .15s;
+      background: $pale-blue-10;
+      top: 0;
+      left: -1.5rem;
+      height: calc(100% + 1px);
+      width: 1.5rem;
+    }
+  }
+}
+
+.blue {
+  color: $dark-sky-blue !important;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.warn {
+  color: $yellowish-orange !important;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.danger {
+  color: $reddish-orange !important;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.mapboxgl-canvas {
+  transition: width .15s, height .15s;
+}
+
+/* Scroll bar */
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 4px;
+}
+
+.mat-dialog-container {
+  background: $almost-black;
+  color: #fff;
+}
+
+.button {
+  width: 100%;
+  height: 3rem;
+  border-radius: 6px;
+  border: none;
+  box-shadow: none;
+  font-family: Heebo-Medium, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.4px;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  outline: none;
+
+  &.primary {
+    color: #fff;
+    background: $dark-sky-blue;
+  }
+
+  &.success {
+    color: #fff;
+    background: $seaweed;
+  }
+}
+
+.no-user-selection {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+.no-border {
+  border: none !important;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.grey {
+  color: #bbbec4 !important;
+}
+
+body.with-error {
+
+  app-root {
+    filter: blur(3px);
+  }
+
+  #global-errors {
+    display: block !important;
+    position: fixed;
+    border-radius: 4px;
+    top: 50%;
+    left: 50%;
+    background: #181e25;
+    color: #fff;
+    padding: 16px 32px;
+    min-width: 350px;
+    min-height: 300px;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+    // box-shadow: 0px 0px 50px 10px rgba(212, 63, 0, 1);
+
+    .error-image {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      width: 3rem;
+      height: 3rem;
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZjVmMWIiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0iZmVhdGhlciBmZWF0aGVyLWFsZXJ0LXRyaWFuZ2xlIj48cGF0aCBkPSJNMTAuMjkgMy44NkwxLjgyIDE4YTIgMiAwIDAgMCAxLjcxIDNoMTYuOTRhMiAyIDAgMCAwIDEuNzEtM0wxMy43MSAzLjg2YTIgMiAwIDAgMC0zLjQyIDB6Ij48L3BhdGg+PGxpbmUgeDE9IjEyIiB5MT0iOSIgeDI9IjEyIiB5Mj0iMTMiPjwvbGluZT48bGluZSB4MT0iMTIiIHkxPSIxNyIgeDI9IjEyLjAxIiB5Mj0iMTciPjwvbGluZT48L3N2Zz4=);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+  }
+
+  #global-errors-backdrop {
+    display: block !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1000;
+    background: rgba(255, 95, 27, 0.2);
+  }
+}
+
+.excel-import-dialog mat-dialog-container.mat-dialog-container {
+  padding: 0;
+}
+
+ui-switch {
+  button.switch {
+    outline: none !important;
+  }
+}
+
+app-panel.tags-panel {
+  padding: 0;
+
+  .h3-white {
+    margin: 0 0 0.5rem 0;
+  }
+}
+
+.backup-changes-dialog {
+
+  mat-dialog-container {
+    overflow: hidden;
+    padding: 1.5rem 0;
+  }
+}
+
+/* Mapbox */
+
+.mapboxgl-control-container {
+
+  .mapboxgl-ctrl-bottom-left,
+  .mapboxgl-ctrl-bottom-right,
+  .mapboxgl-ctrl-top-left,
+  .mapboxgl-ctrl-top-right {
+    z-index: 10;
+  }
+}
+
+
+.mapbox-marker {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: $reddish-orange;
+    top: 0;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAABsklEQVR4Ae3XAYTCYBiA4TCEYQhhOBxCCOEQ4hAOEA4hhMPhEAKEcDiEQwiHACGEAwwhhCGEwzCEcAjh0L0oZrb17b/d7qiXB/D/vm22bZmz6NJ+v7/GEyaYwzmYYYwWzDQGqcKCtAlKvzGIjjFU+sIAWpKXZ4WgVmigiBIe4CKoGfI/HSaPNYKaIhuwxsACQS2hK1+miI03yEWsLWAXcSCaykA9hDUWrF8grJbKpdohrK5gjyHCWiMbZ6AXRDUS7DFDVI9xBnIQlQs9Yr2JLaKypMMUIWkYsl7Du/D5ZEgGakCahQp0GKjBhrSKZKA20qouGaiLtGr9t4GakoGaONUH+qijCBNXKKGBAVycqioZqIywJijHeHzcwkJYOelGn/C2RU20WH7W7TgbDODtPoHPmAm8deIsLsCbnsBANzi2g5Eh1bM0SvgMdVQ2MHx3yrPiIBpeccyGpnpUBd9LcgQjxnrT915zk/iMrWDj+5ZpI3dikJ7vbnVQSOpD38Q84G29wADdgzfY8DcVnFnl54kDaUvcpfXDOEZYI5T/4pe6D3/91AfxD5X+MJKhkLl0jn0Dc/UpQi2D4lMAAAAASUVORK5CYII=);
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+  }
+}

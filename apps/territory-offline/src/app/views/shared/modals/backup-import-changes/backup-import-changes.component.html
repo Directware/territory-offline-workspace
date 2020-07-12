@@ -1,0 +1,134 @@
+<h1 class="h1-white">Importbericht <span (click)="done()" class="skip">Überspringen &#10518;</span></h1>
+
+<div class="changes-body">
+  <ng-container *ngIf="data.potentiallyDeleted">
+    <p class="body-warning">Folgende Daten sind im Backup nicht vorhanden! <br/> Was möchtest du mit ihnen machen?</p>
+
+    <ng-container *ngIf="data.potentiallyDeleted.territories && data.potentiallyDeleted.territories.length">
+      <h3>Gebiete</h3>
+      <p [class.deleted-item]="deletedItems[territory.id]"
+         [class.keep-item]="keepItems[territory.id]"
+         class="body-grey potentially-deleted-item" *ngFor="let territory of data.potentiallyDeleted.territories">
+        {{territory.key}} {{territory.name}}
+        <span class="potentially-deleted-action-wrapper">
+        <span (click)="deleteItem(territory, entityTypes.territory)" class="potentially-deleted-action body-error">Löschen</span>
+        <span (click)="keepItem(territory)" class="potentially-deleted-action body-grey">Behalten</span>
+      </span>
+      </p>
+    </ng-container>
+
+    <ng-container *ngIf="data.potentiallyDeleted.publisher && data.potentiallyDeleted.publisher.length">
+      <h3>Verkündiger</h3>
+      <p [class.deleted-item]="deletedItems[publisher.id]"
+         [class.keep-item]="keepItems[publisher.id]"
+         class="body-grey potentially-deleted-item"
+         *ngFor="let publisher of data.potentiallyDeleted.publisher">{{publisher.firstName}} {{publisher.name}}</p>
+    </ng-container>
+
+    <ng-container *ngIf="data.potentiallyDeleted.visitBans && data.potentiallyDeleted.visitBans.length">
+      <h3>Nicht Besuchen</h3>
+      <p [class.deleted-item]="deletedItems[visitBan.id]"
+         [class.keep-item]="keepItems[visitBan.id]"
+         class="body-grey potentially-deleted-item"
+         *ngFor="let visitBan of data.potentiallyDeleted.visitBans">{{visitBan.street}} {{visitBan.streetSuffix}}</p>
+    </ng-container>
+
+    <ng-container *ngIf="data.potentiallyDeleted.tags && data.potentiallyDeleted.tags.length">
+      <h3>Tags</h3>
+      <p [class.deleted-item]="deletedItems[tag.id]"
+         [class.keep-item]="keepItems[tag.id]"
+         class="body-grey potentially-deleted-item" *ngFor="let tag of data.potentiallyDeleted.tags">{{tag.name}}</p>
+    </ng-container>
+
+    <ng-container *ngIf="data.potentiallyDeleted.assignments && data.potentiallyDeleted.assignments.length">
+      <h3>Zuteilungen</h3>
+      <p [class.deleted-item]="deletedItems[assignment.id]"
+         [class.keep-item]="keepItems[assignment.id]"
+         class="body-grey potentially-deleted-item" *ngFor="let assignment of data.potentiallyDeleted.assignments">
+      <span style="display: flex; flex-direction: column;">
+        <span class="body-grey"><strong>{{(assignment.publisherId | publisherIdToName) | async}}</strong></span>
+        <span class="body-grey">Beginn: <strong>{{assignment.startTime | date:'short'}}</strong></span>
+        <span class="body-grey">Rückgabe: <strong>{{assignment.endTime ? (assignment.endTime | date:'short') : '-'}}</strong></span>
+        <span class="body-grey">Gebiet: <strong>{{(assignment.territoryId | territoryIdToName) | async}}</strong></span>
+      </span>
+        <span class="potentially-deleted-action-wrapper">
+        <span (click)="deleteItem(assignment, entityTypes.assignment)" class="potentially-deleted-action body-error">Löschen</span>
+        <span (click)="keepItem(assignment)" class="potentially-deleted-action body-grey">Behalten</span>
+      </span>
+      </p>
+    </ng-container>
+  </ng-container>
+
+  <br/>
+  <p class="body-primary">Folgende Daten wurden hinzugefügt / verändert</p>
+
+  <p *ngIf="!data.toBeImported.territories.length
+  && !data.toBeImported.publisher.length
+  && !data.toBeImported.tags.length
+  && !data.toBeImported.visitBans.length
+  && !data.toBeImported.assignments.length" class="body-grey">Keine Daten wurden verändert.</p>
+
+  <ng-container *ngIf="data.toBeImported.territories.length">
+    <h3><span class="count">{{data.toBeImported.territories.length}}</span> Gebiete</h3>
+    <p class="body-grey imported-entry" *ngFor="let territory of (showAllImportedTerritories ? data.toBeImported.territories : data.toBeImported.territories | slice:0:4)">
+      {{territory.key}} {{territory.name}}
+    </p>
+    <i-feather *ngIf="data.toBeImported.territories.length > 4 && !showAllImportedTerritories"
+               (click)="showAllImportedTerritories=true" name="chevrons-down" class="blue"></i-feather>
+    <i-feather *ngIf="data.toBeImported.territories.length > 4 && showAllImportedTerritories"
+               (click)="showAllImportedTerritories=false" name="chevrons-up" class="blue"></i-feather>
+  </ng-container>
+
+  <ng-container *ngIf="data.toBeImported.publisher.length">
+    <h3><span class="count">{{data.toBeImported.publisher.length}}</span> Verkündiger</h3>
+    <p class="body-grey imported-entry" *ngFor="let publisher of (showAllImportedPublisher ? data.toBeImported.publisher : data.toBeImported.publisher |slice:0:4)">
+      {{publisher.firstName}} {{publisher.name}}
+    </p>
+    <i-feather *ngIf="data.toBeImported.publisher.length > 4 && !showAllImportedPublisher"
+               (click)="showAllImportedPublisher=true" name="chevrons-down" class="blue"></i-feather>
+    <i-feather *ngIf="data.toBeImported.publisher.length > 4 && showAllImportedPublisher"
+               (click)="showAllImportedPublisher=false" name="chevrons-up" class="blue"></i-feather>
+  </ng-container>
+
+  <ng-container *ngIf="data.toBeImported.visitBans.length">
+    <h3><span class="count">{{data.toBeImported.visitBans.length}}</span> Nicht Besuchen</h3>
+    <p class="body-grey imported-entry" *ngFor="let visitBan of (showAllImportedVisitBans ? data.toBeImported.visitBans : data.toBeImported.visitBans | slice:0:4)">
+      {{visitBan.street}} {{visitBan.streetSuffix}}
+    </p>
+    <i-feather *ngIf="data.toBeImported.visitBans.length > 4 && !showAllImportedVisitBans"
+               (click)="showAllImportedVisitBans=true" name="chevrons-down" class="blue"></i-feather>
+    <i-feather *ngIf="data.toBeImported.visitBans.length > 4 && showAllImportedVisitBans"
+               (click)="showAllImportedVisitBans=false" name="chevrons-up" class="blue"></i-feather>
+  </ng-container>
+
+  <ng-container *ngIf="data.toBeImported.tags.length">
+    <h3><span class="count">{{data.toBeImported.tags.length}}</span> Tags</h3>
+    <p class="body-grey imported-entry" *ngFor="let tag of (showAllImportedTags ? data.toBeImported.tags : data.toBeImported.tags | slice:0:4)">
+      {{tag.name}}
+    </p>
+    <i-feather *ngIf="data.toBeImported.tags.length > 4 && !showAllImportedTags"
+               (click)="showAllImportedTags=true" name="chevrons-down" class="blue"></i-feather>
+    <i-feather *ngIf="data.toBeImported.tags.length > 4 && showAllImportedTags"
+               (click)="showAllImportedTags=false" name="chevrons-up" class="blue"></i-feather>
+  </ng-container>
+
+  <ng-container *ngIf="data.toBeImported.assignments.length">
+    <h3><span class="count">{{data.toBeImported.assignments.length}}</span> Zuteilungen</h3>
+    <p class="body-grey imported-entry" *ngFor="let assignment of (showAllImportedAssignments ? data.toBeImported.assignments : data.toBeImported.assignments | slice:0:4)">
+      <span style="display: flex; flex-direction: column;">
+        <span class="body-grey"><strong>{{(assignment.publisherId | publisherIdToName) | async}}</strong></span>
+        <span class="body-grey">Beginn: <strong>{{assignment.startTime | date:'short'}}</strong></span>
+        <span class="body-grey">Rückgabe: <strong>{{assignment.endTime ? (assignment.endTime | date:'short') : '-'}}</strong></span>
+        <span class="body-grey">Gebiet: <strong>{{(assignment.territoryId | territoryIdToName) | async}}</strong></span>
+      </span>
+    </p>
+    <i-feather *ngIf="data.toBeImported.assignments.length > 4 && !showAllImportedAssignments"
+               (click)="showAllImportedAssignments=true" name="chevrons-down" class="blue"></i-feather>
+    <i-feather *ngIf="data.toBeImported.assignments.length > 4 && showAllImportedAssignments"
+               (click)="showAllImportedAssignments=false" name="chevrons-up" class="blue"></i-feather>
+  </ng-container>
+</div>
+
+<div class="footer">
+  <button class="button primary" (click)="done()">Fertig</button>
+</div>

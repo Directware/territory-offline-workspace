@@ -1,0 +1,27 @@
+<h1 class="header">
+  {{"territories.title" | translate}}
+  <div class="more-wrapper">
+    <i-feather *ngIf="!isMenuOpened" (click)="isMenuOpened=false" class="more" name="more-horizontal"></i-feather>
+    <i-feather *ngIf="isMenuOpened" (click)="isMenuOpened=false" class="more" name="x"></i-feather>
+
+    <!--
+    <app-list [class.opened]="isMenuOpened">
+      <app-list-item (click)="navigateTo('choose-month')"><p class="label">{{"service.chooseMonth" | translate}}</p></app-list-item>
+      <app-list-item (click)="navigateTo('studies-input')"><p class="label">{{"service.inputStudies" | translate}}</p></app-list-item>
+      <app-list-item (click)="navigateTo('goals-input')"><p class="label">{{"service.durationGoals" | translate}}</p></app-list-item>
+      <app-list-item (click)="navigateTo('send-report')"><p class="label">{{"service.sendReport" | translate}}</p></app-list-item>
+    </app-list>
+    -->
+  </div>
+</h1>
+
+<app-panel>
+  <div class="wrapper">
+    <img src="/assets/images/territories-icon.svg">
+
+    <div class="empty">
+      <p class="title">{{"territories.noTerritories" | translate}}</p>
+      <p class="desc">{{"territories.noTerritoriesDesc" | translate}}</p>
+    </div>
+  </div>
+</app-panel>

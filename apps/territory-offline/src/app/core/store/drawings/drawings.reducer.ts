@@ -1,0 +1,25 @@
+import {Action, createReducer, on} from '@ngrx/store';
+import {createEntityAdapter, EntityState} from '@ngrx/entity';
+import {Drawing} from './model/drawing.model';
+import {BulkImportDrawingsSuccess, DeleteDrawingSuccess, LoadDrawingsSuccess, UpsertDrawingSuccess} from './drawings.actions';
+
+export const drawingsAdapter = createEntityAdapter<Drawing>();
+
+export interface DrawingsState extends EntityState<Drawing>
+{
+}
+
+const initialState: DrawingsState = drawingsAdapter.getInitialState();
+
+const drawingsReducer = createReducer(
+  initialState,
+  on(LoadDrawingsSuccess, (state, action) => drawingsAdapter.addAll(action.drawings, state)),
+  on(UpsertDrawingSuccess, (state, action) => drawingsAdapter.upsertOne(action.drawing, state)),
+  on(BulkImportDrawingsSuccess, (state, action) => drawingsAdapter.upsertMany(action.drawings, state)),
+  on(DeleteDrawingSuccess, (state, action) => drawingsAdapter.removeOne(action.drawing.id, state))
+);
+
+export function drawingsReducerFunction(state: DrawingsState | undefined, action: Action)
+{
+  return drawingsReducer(state, action);
+}

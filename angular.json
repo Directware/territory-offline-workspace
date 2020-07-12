@@ -126,6 +126,161 @@
           }
         }
       }
+    },
+    "ui-components": {
+      "projectType": "library",
+      "root": "libs/ui-components",
+      "sourceRoot": "libs/ui-components/src",
+      "prefix": "territory-offline-workspace",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/ui-components/tsconfig.lib.json",
+              "libs/ui-components/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ui-components/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui-components/jest.config.js",
+            "tsConfig": "libs/ui-components/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/ui-components/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "field-companion": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/field-companion",
+      "sourceRoot": "apps/field-companion/src",
+      "prefix": "territory-offline-workspace",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/field-companion",
+            "index": "apps/field-companion/src/index.html",
+            "main": "apps/field-companion/src/main.ts",
+            "polyfills": "apps/field-companion/src/polyfills.ts",
+            "tsConfig": "apps/field-companion/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/field-companion/src/favicon.ico",
+              "apps/field-companion/src/assets"
+            ],
+            "styles": ["apps/field-companion/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/field-companion/src/environments/environment.ts",
+                  "with": "apps/field-companion/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "field-companion:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "field-companion:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "field-companion:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/field-companion/tsconfig.app.json",
+              "apps/field-companion/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/field-companion/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/field-companion/jest.config.js",
+            "tsConfig": "apps/field-companion/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/field-companion/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "field-companion-e2e": {
+      "root": "apps/field-companion-e2e",
+      "sourceRoot": "apps/field-companion-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/field-companion-e2e/cypress.json",
+            "tsConfig": "apps/field-companion-e2e/tsconfig.e2e.json",
+            "devServerTarget": "field-companion:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "field-companion:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/field-companion-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/field-companion-e2e/**/*"]
+          }
+        }
+      }
     }
   },
   "cli": {

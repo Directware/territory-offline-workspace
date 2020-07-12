@@ -1,0 +1,32 @@
+<div class="header">
+  <div class="header-item"><i-feather name="clock"></i-feather>{{"service.duration" | translate}}</div>
+  <div class="header-item"><i-feather name="book-open"></i-feather>{{"service.deliveries" | translate}}</div>
+  <div class="header-item"><i-feather name="play-circle"></i-feather>{{"service.videos" | translate}}</div>
+  <div class="header-item"><i-feather name="refresh-cw"></i-feather>{{"service.returnVisits" | translate}}</div>
+
+</div>
+<div *ngIf="(currentDailyReportWithDurationStep$ | async) as currentDailyReportWithDurationStep" class="body">
+  <app-panel><div class="wrapper">
+    <i-feather (click)="increase('duration', currentDailyReportWithDurationStep.dailyReport, currentDailyReportWithDurationStep.durationStep)" name="plus"></i-feather>
+    <span (click)="showDurationInput()" class="value">{{padDuration(currentDailyReportWithDurationStep.dailyReport.duration)}}</span>
+    <i-feather (click)="decrease('duration', currentDailyReportWithDurationStep.dailyReport, currentDailyReportWithDurationStep.durationStep)" name="minus"></i-feather>
+  </div></app-panel>
+
+  <app-panel><div class="wrapper">
+    <i-feather (click)="increase('deliveries', currentDailyReportWithDurationStep.dailyReport, 1)" name="plus"></i-feather>
+    <span class="value">{{currentDailyReportWithDurationStep.dailyReport.deliveries}}</span>
+    <i-feather (click)="decrease('deliveries', currentDailyReportWithDurationStep.dailyReport, 1)" name="minus"></i-feather>
+  </div></app-panel>
+
+  <app-panel><div class="wrapper">
+    <i-feather (click)="increase('videos', currentDailyReportWithDurationStep.dailyReport, 1)" name="plus"></i-feather>
+    <span class="value">{{currentDailyReportWithDurationStep.dailyReport.videos}}</span>
+    <i-feather (click)="decrease('videos', currentDailyReportWithDurationStep.dailyReport, 1)" name="minus"></i-feather>
+  </div></app-panel>
+
+  <app-panel><div class="wrapper">
+    <i-feather (click)="increase('returnVisits', currentDailyReportWithDurationStep.dailyReport, 1)" name="plus"></i-feather>
+    <span class="value">{{currentDailyReportWithDurationStep.dailyReport.returnVisits}}</span>
+    <i-feather (click)="decrease('returnVisits', currentDailyReportWithDurationStep.dailyReport, 1)" name="minus"></i-feather>
+  </div></app-panel>
+</div>

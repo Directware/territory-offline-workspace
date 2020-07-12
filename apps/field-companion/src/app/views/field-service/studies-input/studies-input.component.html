@@ -1,0 +1,24 @@
+<h1 class="header">{{"service.studies" | translate}} <span (click)="done()"
+                                                           class="done">{{"common.done" | translate}}</span></h1>
+
+<div class="scrollable-wrapper" [class.without-main-navigation]="hideMainNavigation">
+
+  <p class="description">{{"service.studiesDesc" | translate}}</p>
+
+  <br/>
+  <p class="info-title">{{"common.info" | translate}}</p>
+  <p class="info">{{"service.studiesInfo" | translate}}</p>
+
+  <div class="input-wrapper" *ngIf="(currentStudies$ | async) as currentStudies">
+    <div class="header-item">
+      <i-feather name="user"></i-feather>
+      {{"service.studies" | translate}}</div>
+    <app-panel>
+      <div class="wrapper">
+        <i-feather (click)="increase()" name="plus"></i-feather>
+        <span class="value">{{currentStudies.value}}</span>
+        <i-feather (click)="decrease()" name="minus"></i-feather>
+      </div>
+    </app-panel>
+  </div>
+</div>

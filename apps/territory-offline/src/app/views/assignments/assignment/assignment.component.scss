@@ -1,0 +1,19 @@
+@import "node_modules/territory-offline-ui/assets/styles/colors";
+
+:host {
+
+  app-panel .wrapper {
+    padding: 0 1rem 0 0;
+  }
+
+  .delete-assignment {
+    cursor: pointer;
+    background: $reddish-orange-20;
+
+    app-list-item,
+    app-list-item .label {
+
+      color: $reddish-orange;
+    }
+  }
+}

@@ -1,0 +1,83 @@
+@import "node_modules/territory-offline-ui/assets/styles/colors";
+
+:host {
+  position: absolute;
+  z-index: 10;
+  top: 2mm;
+  left: 2mm;
+  height: 26px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+
+  &.bleed-edges {
+    top: 5.1mm;
+    left: 5.1mm;
+  }
+
+  > * {
+    position: relative;
+    border-radius: 2px;
+    height: 26px;
+    font-size: 13px;
+    box-sizing: border-box;
+    padding: 2px 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.13;
+    letter-spacing: 0.4px;
+    color: #ffffff;
+    font-weight: bold;
+    margin: 0 4px 0 0;
+
+    > * {
+      margin: 0;
+
+      &.separator {
+        width: 4px;
+        height: 4px;
+      }
+    }
+
+    &.population-count {
+      font-weight: normal;
+      font-size: 13px;
+    }
+
+    &.compass {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      font-size: 13px;
+      line-height: 1.13;
+      letter-spacing: 0.4px;
+      font-weight: normal;
+
+      .north {
+        color: #fff;
+        font-weight: normal;
+        border-radius: 50%;
+        padding: 4px;
+        width: 16px;
+        height: 16px;
+        margin: 0 0 0 4px;
+      }
+    }
+
+    .background-color {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+    }
+  }
+}

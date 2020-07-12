@@ -1,0 +1,155 @@
+/* You can add global styles to this file, and also import other style files */
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$field-companion-primary: mat-palette($mat-indigo);
+$field-companion-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$field-companion-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$field-companion-theme: mat-light-theme($field-companion-primary, $field-companion-accent, $field-companion-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($field-companion-theme);
+
+
+/* You can add global styles to this file, and also import other style files */
+@import "libs/ui-components/src/lib/assets/styles/typography";
+@import "libs/ui-components/src/lib/assets/styles/colors";
+@import "libs/ui-components/src/lib/assets/styles/to-base-styles";
+
+@include heebo-regular("libs/ui-components/src/lib/assets/fonts/");
+@include heebo-medium("libs/ui-components/src/lib/assets/fonts/");
+
+html {
+  overflow: hidden;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  color: #ffffff;
+  font-family: Heebo-Regular, sans-serif;
+  background-color: rgba(173, 177, 184, 0.08);
+  background-image: linear-gradient(to bottom, #080c11 5%, rgba(13, 19, 28, 0.8) 55%, rgba(18, 27, 38, 0.8) 67%, rgba(28, 41, 59, 0.6) 91%, rgba(12, 17, 24, 0.1));
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  box-sizing: border-box;
+}
+
+*:not(input):not(textarea) {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+.button {
+  width: 100%;
+  height: 3rem;
+  min-height: 48px;
+  border-radius: 6px;
+  border: none;
+  box-shadow: none;
+  font-family: Heebo-Medium, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.4px;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  outline: none;
+
+  &:disabled {
+    opacity: 0.2;
+  }
+
+  &.primary {
+    color: #fff;
+    background: $dark-sky-blue;
+  }
+
+  &.danger {
+    font-family: Heebo-Medium, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: 0.4px;
+    text-align: center;
+    color: #ff5f1b;
+    background-color: rgba(255, 95, 27, 0.2);
+  }
+}
+
+.blue {
+  color: $dark-sky-blue !important;
+}
+
+.disabled {
+  opacity: 0.4;
+}
+
+app-list-item:last-child {
+  border-bottom: none;
+}
+
+.gold-tag {
+  display: inline-block;
+  border-radius: 4px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(255, 159, 27, 0.2);
+  font-family: Heebo-Medium, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.09px;
+  color: #ff9f1b;
+  padding: 0.1rem 0.5rem;
+}
+
+.header {
+  padding: 0 1rem;
+  font-size: 1.875rem;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.scrollable-wrapper {
+  height: 100%;
+  overflow: auto;
+  padding: 1rem;
+  box-sizing: border-box;
+
+  &.without-main-navigation {
+    max-height: calc(100vh - 3rem);
+  }
+
+  > * {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+ui-switch {
+  button.switch {
+    outline: none !important;
+  }
+}
+
+.mat-dialog-container {
+  background: $almost-black;
+  color: #fff;
+}

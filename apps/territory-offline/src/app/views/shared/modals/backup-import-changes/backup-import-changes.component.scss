@@ -1,0 +1,99 @@
+@import "node_modules/territory-offline-ui/assets/styles/colors";
+
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .h1-white {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+
+    .skip {
+      float: right;
+      font-size: 12px;
+      opacity: 0.5;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
+  .changes-body {
+    padding: 0 1.5rem;
+    max-height: 50vh;
+    overflow: auto;
+    box-sizing: border-box;
+    width: 100%;
+
+    .potentially-deleted-item {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0.25rem 0;
+      font-size: 14px;
+
+      .potentially-deleted-action-wrapper {
+        .potentially-deleted-action {
+          text-decoration: underline;
+          margin: 0 0.25rem;
+          cursor: pointer;
+          font-size: 12px;
+        }
+      }
+
+      &.deleted-item {
+        text-decoration: line-through;
+        color: $reddish-orange !important;
+
+        span {
+          text-decoration: line-through;
+          color: $reddish-orange !important;
+        }
+
+        .potentially-deleted-action-wrapper {
+          display: none;
+        }
+      }
+
+      &.keep-item {
+        color: $seaweed;
+
+        span {
+          color: $seaweed;
+        }
+
+        .potentially-deleted-action-wrapper {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .imported-entry {
+    margin: 0.25rem 0;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  i-feather {
+    position: relative;
+    left: -4px;
+    margin: 0.5rem 0 0 0;
+  }
+
+  .footer {
+    padding: 1.5rem 1.5rem 0 1.5rem;
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+  }
+}

@@ -1,0 +1,44 @@
+@import "node_modules/territory-offline-ui/assets/styles/colors";
+
+:host {
+
+  .yes-dsgvo {
+    color: $seaweed;
+  }
+
+  .no-dsgvo {
+    color: $reddish-orange;
+  }
+
+  ::ng-deep app-list-item .label {
+    color: #ffffff;
+  }
+
+  .delete-publisher {
+    cursor: pointer;
+    background: $reddish-orange-20;
+
+    app-list-item,
+    app-list-item .label {
+
+      color: $reddish-orange;
+    }
+  }
+
+  .tags-margin {
+    margin: 0.75rem 0 0 0;
+  }
+
+  .territory-with-duration {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    .duration {
+      font-size: 0.8rem;
+      opacity: 0.5;
+      margin: 0 0 0 0.25rem;
+    }
+  }
+}

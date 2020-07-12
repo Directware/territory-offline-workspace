@@ -1,0 +1,93 @@
+@import "node_modules/territory-offline-ui/assets/styles/colors";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  .header {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+    > * {
+      cursor: pointer;
+
+      &.continue {
+        color: $dark-sky-blue;
+      }
+    }
+  }
+
+  .step {
+    padding: 1.5rem;
+    box-sizing: border-box;
+    width: 100%;
+
+    .drop-zone {
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem 0 3rem;
+      box-sizing: border-box;
+      width: 100%;
+      height: 9.25rem;
+      border-radius: 6px;
+      border: solid 1px rgba(187, 190, 196, 0.3);
+      background-color: rgba(187, 190, 196, 0.1);
+
+      .label {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+
+        .h2-white {
+          margin-bottom: 1rem;
+        }
+      }
+
+      .icon {
+        width: 2rem;
+        height: 2rem;
+        color: $dark-sky-blue;
+        background: $dark-sky-blue-20;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        &.check {
+          background: $seaweed-20;
+          color: $seaweed;
+        }
+      }
+    }
+
+    .info-block {
+      padding: 5.0625rem 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      .h2-white {
+        margin: 0.5rem 0;
+      }
+
+      .body-grey {
+        max-width: 21.25rem;
+      }
+    }
+  }
+}

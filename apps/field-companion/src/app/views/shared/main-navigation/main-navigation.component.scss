@@ -1,0 +1,27 @@
+:host {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background-color: rgba(20, 25, 31, 0.8);
+  padding-bottom: env(safe-area-inset-bottom);
+  height: 3.125rem;
+
+  .navigation-items {
+    display: grid;
+    grid-template-columns: auto auto auto;
+
+    > * {
+      margin: 1rem auto;
+      width: 18px;
+      height: 18px;
+      outline: none;
+
+      &.active {
+        color: #3694e2;
+      }
+    }
+  }
+}

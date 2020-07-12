@@ -1,0 +1,140 @@
+@import "libs/ui-components/src/lib/assets/styles/colors";
+
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem 0 0 0;
+  box-sizing: border-box;
+  height: 100vh;
+  overflow: auto;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 11;
+    font-family: Heebo-Medium, sans-serif;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #ffffff;
+
+    .done {
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: 0.4px;
+      text-align: center;
+      color: #ffffff;
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background-color: rgba(173, 177, 184, 0.24);
+    }
+  }
+
+  .share-panel {
+    height: 5rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 6px 0 rgba(21, 200, 128, 0.5);
+    background-image: linear-gradient(135deg, #54ff6b, #15c880);
+
+    display: grid;
+    grid-template-columns: 5.75rem auto 4.75rem;
+
+    > * {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #111;
+
+      p {
+        white-space: nowrap;
+        margin: 0;
+      }
+
+      .icon {
+        background-image: url("/assets/images/icon-fc.png");
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 10px;
+      }
+    }
+  }
+
+  .text {
+    font-family: Heebo-Medium, sans-serif;
+    margin: 0;
+
+    &.title {
+      font-size: 1.25rem;
+      letter-spacing: 0.2px;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    &.desc {
+      font-size: 1rem;
+      letter-spacing: 0.16px;
+      text-align: center;
+      color: #d2d2d2;
+    }
+  }
+
+  .copyright {
+    font-size: 1rem;
+    letter-spacing: 0.16px;
+    text-align: center;
+    color: #ffffff;
+    position: fixed;
+    bottom: 7.5rem;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .rights {
+    font-size: 1rem;
+    letter-spacing: 0.16px;
+    text-align: center;
+    color: #ffffff;
+    position: fixed;
+    bottom: 6rem;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .version {
+    font-size: 1rem;
+    letter-spacing: 0.16px;
+    text-align: center;
+    color: #737373;
+    position: fixed;
+    bottom: 3rem;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .made-with-love {
+    font-size: 1rem;
+    letter-spacing: 0.16px;
+    text-align: center;
+    color: #737373;
+    position: fixed;
+    bottom: 1.5rem;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

@@ -28,6 +28,16 @@
     "territory-offline-e2e": {
       "tags": [],
       "implicitDependencies": ["territory-offline"]
+    },
+    "ui-components": {
+      "tags": []
+    },
+    "field-companion": {
+      "tags": []
+    },
+    "field-companion-e2e": {
+      "tags": [],
+      "implicitDependencies": ["field-companion"]
     }
   }
 }

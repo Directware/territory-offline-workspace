@@ -1,0 +1,77 @@
+import {Injectable} from '@angular/core';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {map, switchMap, tap} from 'rxjs/operators';
+import {TimedEntity} from '../../model/db/timed-entity.interface';
+import {from} from 'rxjs';
+import {DatabaseService} from '../../services/db/database.service';
+import {
+  BulkImportTerritories,
+  BulkImportTerritoriesSuccess, BulkUpsertTerritory, BulkUpsertTerritorySuccess,
+  DeleteTerritory,
+  DeleteTerritorySuccess,
+  LoadTerritories,
+  LoadTerritoriesSuccess,
+  UpsertTerritory,
+  UpsertTerritorySuccess
+} from './territories.actions';
+import {Territory} from './model/territory.model';
+import {LastDoingsService} from "../../services/common/last-doings.service";
+import {LastDoingActionsEnum} from "../last-doings/model/last-doing-actions.enum";
+
+@Injectable({providedIn: 'root'})
+export class TerritoriesEffects
+{
+  private readonly territoryCollectionName = btoa('territories');
+
+  private loadTerritories$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(LoadTerritories),
+      map((action) => this.database.load(this.territoryCollectionName)),
+      switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
+      map((territories: Territory[]) => LoadTerritoriesSuccess({territories: territories}))
+    )
+  );
+
+  private upsertTerritories$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UpsertTerritory),
+      map((action) => this.database.upsert(this.territoryCollectionName, action.territory)),
+      switchMap((promise: Promise<TimedEntity>) => from(promise)),
+      map((territory: Territory) => UpsertTerritorySuccess({territory: territory}))
+    )
+  );
+
+  private bulkUpsertTerritories$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(BulkUpsertTerritory),
+      map((action) => this.database.bulkUpsert(this.territoryCollectionName, action.territories)),
+      switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
+      map((territories: Territory[]) => BulkUpsertTerritorySuccess({territories: territories}))
+    )
+  );
+
+  private bulkImportTerritories$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(BulkImportTerritories),
+      map((action) => this.database.bulkUpsert(this.territoryCollectionName, action.territories)),
+      switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
+      map((territories: Territory[]) => BulkImportTerritoriesSuccess({territories: territories}))
+    )
+  );
+
+  private deleteTerritory$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(DeleteTerritory),
+      map((action) => this.database.delete(this.territoryCollectionName, action.territory)),
+      switchMap((promise: Promise<TimedEntity>) => from(promise)),
+      tap((territory: Territory) => this.lastDoingsService.createLastDoing(LastDoingActionsEnum.DELETE, territory.key + " " + territory.name)),
+      map((territory: Territory) => DeleteTerritorySuccess({territory: territory}))
+    )
+  );
+
+  constructor(private actions$: Actions,
+              private database: DatabaseService,
+              private lastDoingsService: LastDoingsService)
+  {
+  }
+}

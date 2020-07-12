@@ -1,0 +1,38 @@
+<h1 class="header">{{"service.goals" | translate}} <span (click)="done()"
+                                                         class="done">{{"common.done" | translate}}</span></h1>
+<div class="scrollable-wrapper" [class.without-main-navigation]="hideMainNavigation">
+
+  <p class="description">{{"service.goalsDesc" | translate}}</p>
+
+  <br/>
+  <p class="info-title">{{"common.info" | translate}}</p>
+  <p class="info">{{"service.goalsInfo" | translate}}</p>
+
+  <div class="input-wrapper" *ngIf="(durationGoals$ | async) as durationGoals">
+    <div class="input-wrapper-item">
+      <div class="header-item">
+        <i-feather name="clock"></i-feather>
+        {{"service.monthly" | translate}}</div>
+      <app-panel>
+        <div class="wrapper">
+          <i-feather (click)="increase('monthlyGoal', 2)" name="plus"></i-feather>
+          <span class="value">{{durationGoals.monthly}}</span>
+          <i-feather (click)="decrease('monthlyGoal', 2)" name="minus"></i-feather>
+        </div>
+      </app-panel>
+    </div>
+
+    <div class="input-wrapper-item">
+      <div class="header-item">
+        <i-feather name="clock"></i-feather>
+        {{"service.yearly" | translate}}</div>
+      <app-panel>
+        <div class="wrapper">
+          <i-feather (click)="increase('yearlyGoal', 10)" name="plus"></i-feather>
+          <span class="value">{{durationGoals.yearly}}</span>
+          <i-feather (click)="decrease('yearlyGoal', 10)" name="minus"></i-feather>
+        </div>
+      </app-panel>
+    </div>
+  </div>
+</div>

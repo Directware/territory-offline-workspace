@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  box-sizing: border-box;
+  margin: auto;
+  overflow: hidden;
+  // Dieser Hintergrund muss hier sein, alle overlays haben einen backdrop blur Effekt
+  background-image: url("/assets/images/background-map.jpeg");
+  background-size: auto 100%;
+  background-position-y: bottom;
+
+  .animation-wrapper {
+    overflow: hidden;
+    box-sizing: border-box;
+    height: calc(100% - 3rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+
+    &.full-height {
+      height: calc(100%);
+    }
+  }
+}

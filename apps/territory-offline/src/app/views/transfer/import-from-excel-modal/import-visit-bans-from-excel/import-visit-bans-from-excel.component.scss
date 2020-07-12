@@ -1,0 +1,107 @@
+@import "node_modules/territory-offline-ui/assets/styles/colors";
+
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+
+  .header {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+    > * {
+      cursor: pointer;
+
+      &.continue {
+        color: $dark-sky-blue;
+      }
+    }
+  }
+
+  .body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 7rem;
+    box-sizing: border-box;
+    max-height: 32rem;
+    overflow: auto;
+
+    &.import-done {
+      justify-content: center;
+      align-items: center;
+
+      img {
+        margin: 2rem 0 0 0;
+      }
+
+      .h3-white {
+        margin: 2rem 0 0.5rem 0;
+      }
+
+      .button {
+        margin: 2rem 0;
+      }
+
+      .not-imported {
+        color: $reddish-orange;
+        text-align: left;
+      }
+    }
+
+    ui-switch {
+      text-align: center;
+      margin: 1.5rem 0 0 0;
+
+      ::ng-deep .switch.checked {
+        background: $seaweed;
+      }
+    }
+
+    .body-grey {
+      text-align: center;
+
+      b {
+        color: $seaweed;
+      }
+    }
+
+    app-panel {
+      margin: 1.5rem 0 0 0;
+
+      .wrapper {
+        padding: 1rem 0 0 0;
+
+        .h2-white {
+          margin: 0;
+        }
+
+        app-list {
+          padding: 0 0 0 0.25rem;
+
+          app-list-item {
+
+            &.disabled {
+              display: none;
+            }
+
+            ::ng-deep .info.green {
+              color: $seaweed;
+            }
+
+            ::ng-deep &:last-child {
+              border-bottom: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

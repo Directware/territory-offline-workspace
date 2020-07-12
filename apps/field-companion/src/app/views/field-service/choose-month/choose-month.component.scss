@@ -1,0 +1,48 @@
+@import "libs/ui-components/src/lib/assets/styles/colors";
+
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem 0 0 0;
+  box-sizing: border-box;
+  height: 100%;
+  overflow: auto;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 11;
+    font-family: Heebo-Medium, sans-serif;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #ffffff;
+
+    .done {
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: 0.4px;
+      text-align: center;
+      color: #ffffff;
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background-color: rgba(173, 177, 184, 0.24);
+    }
+  }
+
+  app-panel {
+    margin: 0.5rem 0;
+  }
+
+  ui-single-option {
+    height: 10rem;
+  }
+}

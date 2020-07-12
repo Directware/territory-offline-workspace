@@ -1,0 +1,24 @@
+<app-second-thread-header [specific]="true" (onBack)="back()"></app-second-thread-header>
+
+<div class="scrollable-wrapper" *ngIf="(assignments$ | async) as assignments">
+  <app-panel *ngFor="let assignment of assignments">
+    <app-list-item>
+      <p class="label h3-white">{{assignment.territoryId | territoryIdToName | async}}</p>
+    </app-list-item>
+    <app-list-item>
+      <p class="label body-white">Ausgabedatum</p>
+      <p class="info">{{assignment.startTime | date:'dd.MM.yyyy'}}</p>
+    </app-list-item>
+    <app-list-item>
+      <p class="label body-white">Rückgabedatum</p>
+      <p class="info">{{assignment.endTime | date:'dd.MM.yyyy'}}</p>
+    </app-list-item>
+    <app-list-item>
+      <p (click)="editAssignment(assignment)" class="label blue">Zuteilung bearbeiten</p>
+      <div class="info" *ngIf="!assignment.endTime">
+        <i-feather (click)="giveBack(assignment)" name="download" class="blue short-action"></i-feather>
+        <i-feather (click)="giveBackAndAssign(assignment)" name="repeat" class="blue short-action"></i-feather>
+      </div>
+    </app-list-item>
+  </app-panel>
+</div>

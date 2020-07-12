@@ -1,0 +1,63 @@
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .progress {
+    transform: rotate(-90deg);
+  }
+
+  .progress__meter,
+  .progress__value {
+    fill: none;
+  }
+
+  .progress__meter {
+    stroke: rgba(173, 177, 184, 0.3);
+  }
+
+  .progress__value {
+    stroke-linecap: round;
+    transition: stroke-dashoffset .3s;
+  }
+
+  .label-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+
+    .hours {
+      font-family: Heebo-Medium, sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: 0.21px;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .minutes {
+      margin: 0.15rem 0 0 0.15rem;
+      font-family: Heebo-Medium, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: 0.13px;
+      text-align: center;
+      color: #ffffff;
+    }
+
+
+  }
+}

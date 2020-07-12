@@ -1,0 +1,14 @@
+<svg *ngIf="CIRCUMFERENCE" class="progress" width="120" height="120" viewBox="0 0 120 120">
+  <circle class="progress__meter" cx="60" cy="60" [attr.r]="radius" stroke-width="9" />
+  <circle stroke="url(#gradient)" [ngStyle]="{'strokeDasharray': CIRCUMFERENCE, 'strokeDashoffset': calculateStrokeDashoffset()}" class="progress__value" cx="60" cy="60" [attr.r]="radius" stroke-width="10" />
+
+  <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" [attr.stop-color]="startColor" />
+    <stop offset="100%" [attr.stop-color]="stopColor" />
+  </linearGradient>
+</svg>
+
+<div class="label-wrapper">
+  <span class="hours">{{padTimeNumber(hours)}}</span>
+  <span class="minutes">{{padTimeNumber(minutes)}}</span>
+</div>

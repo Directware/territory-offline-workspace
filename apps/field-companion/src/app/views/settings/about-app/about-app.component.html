@@ -1,0 +1,32 @@
+<h1 class="header">
+  {{"settings.aboutApp" | translate}}
+  <span (click)="done()" class="done">{{"common.done" | translate}}</span>
+</h1>
+
+<div class="scrollable-wrapper">
+  <div *ngIf="true" class="share-panel" (click)="shareApp()">
+    <div><div class="icon"></div></div>
+    <div style="align-items: flex-start;">
+      <p>{{"settings.share1" | translate}}</p>
+      <p>{{"settings.share2" | translate}}</p>
+    </div>
+    <div>
+      <i-feather name="send"></i-feather>
+    </div>
+
+  </div>
+  <br />
+  <br />
+  <p class="text title">{{"settings.appIdea" | translate}}</p>
+  <p class="text desc">Mateusz Klimentowicz</p>
+  <br />
+  <br />
+  <p class="text title">{{"settings.appDesign" | translate}}</p>
+  <p class="text desc">Luca Vitiello</p>
+  <br />
+  <br />
+  <p class="copyright">Copyright &copy; {{currentYear}} Mateusz Klimentowicz</p>
+  <p class="rights">All Rights Reserved</p>
+  <p class="version">Field Companion v.{{version}}</p>
+  <p class="made-with-love">Made with love in Augsburg</p>
+</div>

@@ -1,0 +1,130 @@
+<app-second-thread-header [readonly]="readOnly"
+                          [valid]="territory && territory.valid && !territory.pristine && allCurrentDrawings && allCurrentDrawings.features.length > 0"
+                          (onEdit)="editTerritory()"
+                          (onBack)="back()"
+                          (onCancel)="cancel()"
+                          (onSave)="saveTerritory()"></app-second-thread-header>
+
+<ng-container *ngIf="readOnly && territory">
+  <app-panel>
+    <app-list-item>
+      <p class="label">Ort</p>
+      <p *ngIf="territory.get('name').value as territoryName" class="info">{{territoryName | slice:0:38}} {{territoryName.length > 38 ? "..." : ""}}</p>
+    </app-list-item>
+    <app-list-item>
+      <p class="label">Nummer</p>
+      <p class="info">{{territory.get('key').value}}</p>
+    </app-list-item>
+  </app-panel>
+
+  <app-panel>
+    <app-list-item>
+      <p class="label">Wohneinheiten</p>
+      <p class="info">{{territory.get('populationCount').value}}</p>
+    </app-list-item>
+    <app-list-item>
+      <p class="label">Kommentar</p>
+      <p class="comment">{{territory.get('comment').value}}</p>
+    </app-list-item>
+  </app-panel>
+
+  <app-panel class="tags-panel">
+    <div class="wrapper">
+      <h3 class="h3-white">Tags:</h3>
+      <app-tags-preview [tagIds]="territory.get('tags').value"></app-tags-preview>
+    </div>
+  </app-panel>
+
+  <app-panel>
+    <app-list-item (click)="printTerritory(territory.get('id').value)">
+      <p class="label blue">Gebietskarte drucken</p>
+      <i-feather name="printer" class="action blue"></i-feather>
+    </app-list-item>
+  </app-panel>
+
+  <app-panel *ngIf="(assignment$ | async) as currentAssignment">
+    <app-list-item>
+      <p class="label h3-white">Aktuelle Zuteilung</p>
+    </app-list-item>
+    <app-list-item>
+      <p class="label body-white">Verkündiger</p>
+      <p
+        class="info">{{(currentAssignment.publisherId | publisherIdToName | async) || currentAssignment.removedPublisherLabel || 'Unbekannt'}}</p>
+    </app-list-item>
+    <app-list-item>
+      <p class="label body-white">Ausgabedatum</p>
+      <p class="info">{{currentAssignment.startTime | date:'dd.MM.yyyy'}}</p>
+    </app-list-item>
+    <app-list-item>
+      <p (click)="editAssignment(currentAssignment)" class="label blue">Zuteilung bearbeiten</p>
+      <div class="info">
+        <i-feather (click)="giveBack(currentAssignment)" name="download" class="blue short-action"></i-feather>
+        <i-feather (click)="giveBackAndAssign(currentAssignment)" name="repeat" class="blue short-action"></i-feather>
+      </div>
+    </app-list-item>
+  </app-panel>
+
+  <app-panel>
+    <app-list-item (click)="openAssignments(territory.get('id').value)">
+      <p class="label">Zuteilungen</p>
+      <i-feather name="chevron-right" class="action"></i-feather>
+    </app-list-item>
+    <app-list-item (click)="openVisitBans(territory.get('id').value)">
+      <p class="label">Nicht besuchen Adressen</p>
+      <i-feather name="chevron-right" class="action"></i-feather>
+    </app-list-item>
+  </app-panel>
+</ng-container>
+
+<form *ngIf="!readOnly" [formGroup]="territory">
+  <app-panel>
+    <app-list-item>
+      <input type="text" placeholder="Nummer*" class="input" formControlName="key" name="firstName" autocomplete="off">
+    </app-list-item>
+    <app-list-item>
+      <input type="text" placeholder="Ort*" class="input" formControlName="name" name="name" autocomplete="off">
+    </app-list-item>
+  </app-panel>
+
+  <app-panel>
+    <app-list-item>
+      <input type="number" placeholder="Wohneinheiten" class="input" formControlName="populationCount"
+             name="populationCount" autocomplete="off">
+    </app-list-item>
+    <app-list-item>
+      <textarea placeholder="Kommentar" class="input" formControlName="comment" name="comment"
+                autocomplete="off"></textarea>
+    </app-list-item>
+  </app-panel>
+
+  <app-panel>
+    <div class="wrapper boundary-names">
+      <h2 class="body-grey">Straßen:</h2>
+      <app-list-item *ngFor="let boundary of territory.get('boundaryNames').value">
+        <p class="label">{{boundary}}</p>
+        <i-feather (click)="removeBoundaryName(boundary)" name="trash" class="action red"></i-feather>
+      </app-list-item>
+      <app-list-item>
+        <input #boundaryNameInput (keyup.enter)="addBoundaryName(boundaryNameInput.value)" placeholder="Straße hinzufügen" class="input blue" autocomplete="off">
+        <i-feather (click)="addBoundaryName(boundaryNameInput.value)" class="action blue" name="plus"></i-feather>
+      </app-list-item>
+    </div>
+  </app-panel>
+
+  <app-assigned-tags [assignedTags]="territory.get('tags')"></app-assigned-tags>
+
+  <app-panel *ngIf="!isCreation" class="delete-territory animate-color-and-transform" (click)="deleteTerritory()">
+    <app-list-item>
+      <p class="label">Gebiet löschen</p>
+      <i-feather class="action" name="trash"></i-feather>
+    </app-list-item>
+  </app-panel>
+
+  <app-panel *ngIf="!isCreation && (!allCurrentDrawings || allCurrentDrawings.features.length === 0)" class="dont-forget-to-draw-territory">
+    <app-list-item>
+      <p class="label">Keine Zeichnung vorhanden! Um zu speichern musst du Gebietsgrenzen in die Karte einzeichnen.</p>
+      <i-feather class="action" name="alert-circle"></i-feather>
+    </app-list-item>
+  </app-panel>
+</form>
+

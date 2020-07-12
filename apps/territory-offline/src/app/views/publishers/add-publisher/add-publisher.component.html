@@ -1,0 +1,9 @@
+<app-panel *ngIf="(allPublishers$ | async) as publishers">
+  <app-list-item>
+    <input class="input" placeholder="Verkündiger" [formControl]="searchPublisherControl">
+  </app-list-item>
+  <app-list-item *ngFor="let result of searchResults" (click)="addPublisher(result)" class="search-result">
+    <p class="label">{{result.name}} {{result.firstName}}</p>
+    <i-feather class="action" (click)="addPublisher(result)" name="plus"></i-feather>
+  </app-list-item>
+</app-panel>

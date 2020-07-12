@@ -1,0 +1,68 @@
+<app-second-thread-header [readonly]="readOnly"
+                          [valid]="congregation.valid && !congregation.pristine"
+                          (onEdit)="readOnly=false"
+                          (onBack)="back()"
+                          (onCancel)="cancel()"
+                          (onSave)="createCongregation()"></app-second-thread-header>
+
+<div class="scrollable-wrapper" *ngIf="readOnly">
+  <app-panel>
+    <app-list-item>
+      <p class="label">Name</p>
+      <p class="info">{{congregation.get('name').value}}</p>
+    </app-list-item>
+    <app-list-item>
+      <p class="label">Sprache</p>
+      <p class="info">{{congregation.get('language').value}}</p>
+    </app-list-item>
+  </app-panel>
+
+  <ng-container *ngIf="(currentCongregationId$ | async) as currentCongregationId">
+    <app-panel>
+      <app-list-item [class.disabled]="currentCongregationId===congregation.get('id').value"
+                     (click)="useCongregation()">
+        <p class="label blue">Diese Versammlung verwalten</p>
+        <i-feather name="check" class="action blue"></i-feather>
+      </app-list-item>
+      <app-list-item [class.disabled]="currentCongregationId!==congregation.get('id').value"
+                     (click)="duplicateCongregation()">
+        <p class="label blue">Diese Versammlung duplizieren</p>
+        <i-feather name="copy" class="action blue"></i-feather>
+      </app-list-item>
+    </app-panel>
+
+    <app-panel *ngIf="!isCreation" class="delete-congregation animate-color-and-transform">
+      <app-list-item [class.disabled]="currentCongregationId===congregation.get('id').value" (click)="deleteCongregation()">
+        <p class="label">Versammlung löschen</p>
+        <i-feather class="action" name="trash"></i-feather>
+      </app-list-item>
+    </app-panel>
+
+    <app-panel *ngIf="currentCongregationId===congregation.get('id').value" class="last-doings">
+      <div class="wrapper">
+        <h3 class="h3-white">Letzte Aktionen</h3>
+        <app-list *ngIf="(lastDoings$ | async) as lastDoings; else noLastDoings">
+          <app-list-item *ngFor="let lastDoing of lastDoings">
+            <p class="label">{{lastDoing.label}} {{lastDoing.action | translate}}</p>
+          </app-list-item>
+        </app-list>
+        <ng-template #noLastDoings>
+          <p class="body-grey no-last-doings">Es ist noch nichts geschehen.</p>
+        </ng-template>
+      </div>
+    </app-panel>
+  </ng-container>
+</div>
+
+<form *ngIf="!readOnly" [formGroup]="congregation">
+  <app-panel>
+    <app-list-item>
+      <input placeholder="Name*" class="input" formControlName="name" name="name">
+    </app-list-item>
+    <app-list-item>
+      <app-language-search class="label"
+                           [initLanguageCode]="congregation.get('languageCode').value"
+                           (onChoose)="setLanguage($event)" (onValueReset)="setLanguage(null)"></app-language-search>
+    </app-list-item>
+  </app-panel>
+</form>

@@ -1,0 +1,66 @@
+<app-panel>
+  <div class="wrapper sync-wrapper">
+    <div class="refresh-icon">
+      <i-feather name="refresh-cw"></i-feather>
+    </div>
+    <h2 class="h2-white">Synchronisieren</h2>
+    <p *ngIf="(congregationName$ | async) as congregationName" class="body-grey">{{congregationName}}</p>
+    <button (click)="openSyncDialog()" class="button primary">Synchronisieren</button>
+  </div>
+</app-panel>
+
+<div class="scrollable-wrapper">
+  <div class="list-wrapper">
+    <h2 class="h2-white">Exportieren</h2>
+    <app-list>
+      <app-list-item (click)="exportToBackupFile()">
+        <p class="label">Backup-Datei</p>
+        <i-feather class="action" name="chevron-right"></i-feather>
+      </app-list-item>
+      <app-list-item (click)="exportS13()">
+        <p class="label">PDF: S13 Formular</p>
+        <i-feather class="action" name="chevron-right"></i-feather>
+      </app-list-item>
+      <app-list-item (click)="exportWholeMap()">
+        <p class="label">KML: Gesamtkarte</p>
+        <i-feather class="action" name="chevron-right"></i-feather>
+      </app-list-item>
+      <app-list-item (click)="exportVisitBans()">
+        <p class="label">EXCEL: Nicht besuchen Adressen</p>
+        <i-feather class="action" name="chevron-right"></i-feather>
+      </app-list-item>
+      <app-list-item (click)="exportPublishers()">
+        <p class="label">EXCEL: Verkündiger</p>
+        <i-feather class="action" name="chevron-right"></i-feather>
+      </app-list-item>
+    </app-list>
+  </div>
+
+  <div class="list-wrapper">
+    <h2 class="h2-white">Aus Apps importieren</h2>
+    <app-list>
+      <app-list-item (click)="showTerritoryHelperImportDialog()">
+        <p class="label">Territory Helper</p>
+        <i-feather class="action" name="chevron-right"></i-feather>
+      </app-list-item>
+      <app-list-item class="disabled">
+        <p class="label">Territory Web</p>
+        <i-feather *ngIf="false" class="action" name="chevron-right"></i-feather>
+      </app-list-item>
+    </app-list>
+  </div>
+
+  <div class="list-wrapper">
+    <h2 class="h2-white">Aus Excel importieren</h2>
+    <app-list>
+      <app-list-item (click)="importFromExcel('visitbans')">
+        <p class="label">Nicht besuchen Adressen</p>
+        <i-feather class="action" name="chevron-right"></i-feather>
+      </app-list-item>
+      <app-list-item (click)="importFromExcel('publisher')" class="disabled">
+        <p class="label">Verkündiger</p>
+        <i-feather *ngIf="false" class="action" name="chevron-right"></i-feather>
+      </app-list-item>
+    </app-list>
+  </div>
+</div>

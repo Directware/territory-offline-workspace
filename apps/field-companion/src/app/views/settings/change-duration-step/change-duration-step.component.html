@@ -1,0 +1,24 @@
+<h1 class="header">
+  {{"settings.changeDurationStep" | translate}}
+  <span (click)="done()" class="done">{{"common.done" | translate}}</span>
+</h1>
+
+<div class="scrollable-wrapper" [class.without-main-navigation]="hideMainNavigation">
+
+  <p class="description">{{"service.durationDesc" | translate}}</p>
+
+  <br/>
+  <p class="info-title">{{"common.info" | translate}}</p>
+  <p class="info">{{"service.durationInfo" | translate}}</p>
+
+  <div class="input-wrapper" *ngIf="(currentDurationStep$ | async) as currentDurationStep">
+    <div class="header-item">
+      <i-feather name="clock"></i-feather>
+      {{"settings.durationStep" | translate}}</div>
+    <app-panel>
+      <div class="wrapper">
+        <ui-single-option [optionSource]="options" [vFormControl]="formControl" type="normal"></ui-single-option>
+      </div>
+    </app-panel>
+  </div>
+</div>

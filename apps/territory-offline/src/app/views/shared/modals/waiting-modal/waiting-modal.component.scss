@@ -1,0 +1,17 @@
+@import "node_modules/territory-offline-ui/assets/styles/colors";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 3rem;
+
+  mat-spinner {
+    margin: 1rem 0 0 0;
+  }
+
+  ::ng-deep .mat-spinner circle {
+    stroke: $dark-sky-blue;
+  }
+}

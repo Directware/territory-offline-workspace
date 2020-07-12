@@ -1,0 +1,37 @@
+@import "node_modules/territory-offline-ui/assets/styles/colors";
+
+:host {
+
+  app-panel .wrapper{
+    padding-left: 0;
+    padding-bottom: 0;
+  }
+
+  app-list-item {
+
+    .action.trash {
+      color: $light-grey-blue;
+    }
+
+    .input, .action {
+      cursor: pointer;
+      color: $dark-sky-blue;
+    }
+  }
+
+  ::ng-deep .search-result {
+    cursor: pointer;
+
+    &:hover {
+      font-weight: bold;
+    }
+
+    .label {
+      padding: 0 0 0 1rem;
+    }
+
+    .label, .action {
+      color: $light-grey-blue !important;
+    }
+  }
+}

@@ -1,0 +1,71 @@
+<ng-container *ngIf="(backCards$ | async) as cards">
+  <div *ngFor="let card of cards"
+       class="territory-card-visit-bans"
+       [class.has-bleeding-edges]="showBleedingEdges"
+       [ngStyle]="{'min-height': cardHeight}">
+    <span class="first-item">
+      <i-feather name="bell-off"></i-feather>
+      Nicht besuchen
+    </span>
+    <div class="body">
+      <div class="address-line first">
+        <div class="street">Adresse</div>
+        <div class="visit-ban">Name / Klingel</div>
+        <div class="date">Datum</div>
+      </div>
+      <div class="address-line" *ngFor="let address of card;let i = index">
+        <div class="street-name">{{address?.street}} {{address?.streetSuffix}}</div>
+        <div class="visit-ban-name">{{address?.name}}</div>
+        <div class="date-value">
+          <ng-container *ngIf="address && address.creationTime && !address.lastVisit">
+            {{address.creationTime | date:'dd.MM.yyyy'}}
+          </ng-container>
+          <ng-container *ngIf="address && address.lastVisit">
+            {{address.lastVisit | date:'dd.MM.yyyy'}}
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="comment" *ngIf="showComment">
+      <i-feather name="info"></i-feather>
+      {{territory.comment}}
+    </div>
+
+    <i-feather *ngIf="cards.length > 1 || showBoundaryNames" class="more-backs" name="arrow-down-circle"></i-feather>
+
+    <ng-container *ngIf="showBleedingEdges">
+      <div class="bleed-edge-shadow top"></div>
+      <div class="bleed-edge-shadow right"></div>
+      <div class="bleed-edge-shadow bottom"></div>
+      <div class="bleed-edge-shadow left"></div>
+    </ng-container>
+
+    <div *ngIf="showBleedingEdges" class="for-printing">
+      <div class="line top left horizontal"></div>
+      <div class="line top left vertical"></div>
+      <div class="line top right horizontal"></div>
+      <div class="line top right vertical"></div>
+      <div class="line bottom left horizontal"></div>
+      <div class="line bottom left vertical"></div>
+      <div class="line bottom right horizontal"></div>
+      <div class="line bottom right vertical"></div>
+    </div>
+  </div>
+
+  <div *ngIf="showBoundaryNames" class="territory-card-visit-bans" [ngStyle]="{'min-height': cardHeight}">
+    <span class="first-item">
+      <i-feather name="map"></i-feather>
+      Liste der Straßen
+    </span>
+    <div class="body">
+      <div class="address-line first">
+        <div class="street">Straßen</div>
+      </div>
+      <div class="address-line" *ngFor="let boundaryName of boundaryNamesWithPadding();let i = index">
+        <div class="street-name">{{boundaryName}}</div>
+      </div>
+    </div>
+  </div>
+
+</ng-container>

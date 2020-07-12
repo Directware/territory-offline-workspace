@@ -1,0 +1,25 @@
+@import "node_modules/territory-offline-ui/assets/styles/colors";
+
+:host {
+
+  .delete-visit-ban {
+    cursor: pointer;
+    background: $reddish-orange-20;
+
+    app-list-item,
+    app-list-item .label {
+
+      color: $reddish-orange;
+    }
+  }
+
+  .no-territory-hint {
+    background: $yellowish-orange-20;
+
+    app-list-item,
+    app-list-item .label {
+
+      color: $yellowish-orange;
+    }
+  }
+}

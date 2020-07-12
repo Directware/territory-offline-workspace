@@ -1,0 +1,46 @@
+@import "node_modules/territory-offline-ui/assets/styles/colors";
+
+:host {
+
+  .delete-congregation {
+    cursor: pointer;
+    background: $reddish-orange-20;
+
+    app-list-item,
+    app-list-item .label {
+
+      color: $reddish-orange;
+    }
+  }
+
+  .last-doings {
+
+    .wrapper {
+      padding: 1rem 1rem 0 0;
+
+      app-list {
+        padding: 0.5rem 0 0 0;
+      }
+    }
+
+    .no-last-doings {
+      margin: 1rem 0;
+    }
+  }
+
+  app-language-search {
+    align-items: flex-start;
+    max-width: 17.5rem;
+
+    ::ng-deep input {
+      background: transparent;
+      backdrop-filter: none;
+      box-shadow: none;
+
+      &:focus {
+        background: $charcoal-grey;
+        padding: 0.5rem 1rem;
+      }
+    }
+  }
+}

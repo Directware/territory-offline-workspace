@@ -1,0 +1,77 @@
+<div *ngIf="!importDone" class="header">
+  <p (click)="close()">Abbrechen</p>
+  <p class="continue" *ngIf="currentStep < steps.length" [class.disabled]="!chosenProps['sheetName']" (click)="currentStep=currentStep+1">Weiter</p>
+  <p class="continue" *ngIf="currentStep === steps.length" (click)="import()">Importieren</p>
+</div>
+<div *ngIf="!importDone" class="body">
+  <p *ngIf="currentStep === 1" class="body-grey">Bitte wähle aus, in welcher der <b>Sheets</b> deine Daten sind</p>
+  <p *ngIf="currentStep === 2" class="body-grey">Bitte wähle aus, in welcher der Spalten die <b>Namen</b> sind.</p>
+  <p *ngIf="currentStep === 3" class="body-grey">Bitte wähle aus, in welcher der Spalten die <b>Straßen</b> sind.</p>
+  <p *ngIf="currentStep === 4" class="body-grey">Bitte wähle aus, in welcher der Spalten die <b>Hausnummern</b> sind.</p>
+  <p *ngIf="currentStep === 5" class="body-grey">Bitte wähle aus, in welcher der Spalten die <b>Städte</b> sind.</p>
+  <p *ngIf="currentStep === 6" class="body-grey">Bitte wähle aus, in welcher der Spalten die <b>Breitengrade</b> sind.</p>
+  <p *ngIf="currentStep === 7" class="body-grey">Bitte wähle aus, in welcher der Spalten die <b>Längengrade</b> sind.</p>
+  <p *ngIf="currentStep === 8" class="body-grey">Bitte wähle aus, in welcher der Spalten die <b>Kommentare</b> sind.</p>
+  <p *ngIf="currentStep === 9" class="body-grey">Bitte wähle aus, in welcher der Spalten die <b>letzte Besuche</b> sind.</p>
+  <p *ngIf="currentStep === steps.length" class="body-grey">
+    Bitte überprüfe ob die Spalten richtig zugeordnet sind.
+    <br />
+    <br />
+    <b class="danger">Sollen bereits existierende Daten aktualisiert werden?</b></p>
+  <ui-switch *ngIf="currentStep === steps.length" [(ngModel)]="overrideExistingData"></ui-switch>
+
+  <app-panel *ngIf="currentStep === 1">
+    <div class="wrapper">
+      <h2 class="h2-white">Gefundene sheets</h2>
+      <app-list>
+        <app-list-item *ngFor="let sheetName of workbook.SheetNames" (click)="setSheet(sheetName)">
+          <p class="label">{{sheetName}}</p>
+          <i-feather *ngIf="chosenProps[steps[currentStep]] === sheetName" name="check" class="action"></i-feather>
+        </app-list-item>
+      </app-list>
+    </div>
+  </app-panel>
+
+  <app-panel *ngIf="currentStep > 1 && currentStep < steps.length">
+    <div class="wrapper">
+      <h2 class="h2-white">Gefundene Spalten</h2>
+      <app-list>
+        <app-list-item *ngFor="let column of foundColumns" [class.disabled]="shouldHide(column)"
+                       (click)="setChosenProp(column)">
+          <p class="label">{{column.label}}</p>
+          <i-feather *ngIf="column.index === chosenProps[steps[currentStep]]" name="check" class="action"></i-feather>
+        </app-list-item>
+      </app-list>
+    </div>
+  </app-panel>
+
+  <app-panel *ngIf="currentStep === steps.length">
+    <div class="wrapper">
+      <h2 class="h2-white">Zugewiesene Spalten</h2>
+      <app-list>
+        <app-list-item *ngFor="let column of foundColumns">
+          <p class="label">{{column.label}}</p>
+          <p *ngIf="showChosenProp(column) as result" class="info" [class.green]="result.isGreen">{{result.label | translate}}</p>
+        </app-list-item>
+      </app-list>
+    </div>
+  </app-panel>
+</div>
+<div *ngIf="importDone" class="body import-done">
+  <img src="assets/images/import-done.svg">
+  <h3 class="h3-white">Erfolgreich Importiert</h3>
+  <p class="body-grey">Die nicht besuchen Adressen deiner Versammlung wurden importiert und stehen dir jetzt zur Bearbeitung bereit.</p>
+  <button (click)="close()" class="button primary">OK</button>
+
+  <app-panel *ngIf="visitBansWithoutTerritory">
+    <div class="wrapper">
+      <p class="body-grey not-imported">Folgende Einträge konnten nicht importiert werden</p>
+      <app-list>
+        <app-list-item *ngFor="let vb of visitBansWithoutTerritory; let i = index">
+          <p class="label">{{i+1}}. {{vb.street}} {{vb.streetSuffix}}</p>
+          <p class="info" >{{vb.name}}</p>
+        </app-list-item>
+      </app-list>
+    </div>
+  </app-panel>
+</div>

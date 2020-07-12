@@ -1,0 +1,43 @@
+<app-main-search (onSearch)="search={value:$event}" (onBlur)="considerClearingSearchValue($event)">
+  <div class="action-link" (click)="createTerritory()">
+    <i-feather name="plus"></i-feather>
+    Neues Gebiet
+  </div>
+</app-main-search>
+<app-panel *ngIf="(territories$ | async) as territories;">
+  <div class="wrapper">
+    <p *ngIf="(congregationName$ | async) as congregationName" class="h2-white">{{congregationName}}</p>
+    <br/>
+    <p class="h4-white">Filter</p>
+    <div class="filter-grid">
+      <div [class.active]="mapFilter.inProgress.show" (click)="toggleMapFilter('inProgress')" class="blue">
+        <i-feather name="bell" class="icon"></i-feather>
+        <span class="text">In Bearbeitung</span></div>
+      <div [class.active]="mapFilter.done.show" (click)="toggleMapFilter('done')" class="green">
+        <i-feather name="check" class="icon"></i-feather>
+        <span class="text">Bearbeitet</span></div>
+      <div [class.active]="mapFilter.assignable.show" (click)="toggleMapFilter('assignable')" class="yellow">
+        <i-feather name="plus" class="icon"></i-feather>
+        <span class="text">Neu zuteilen</span></div>
+      <div [class.active]="mapFilter.overdueAssignation.show" (click)="toggleMapFilter('overdueAssignation')"
+           class="red">
+        <i-feather name="alert-circle" class="icon"></i-feather>
+        <span class="text">Zuteilung fällig</span></div>
+    </div>
+  </div>
+</app-panel>
+<div class="scrollable-wrapper">
+  <app-list *ngIf="(territories$ | async) as territories; else infoBlock">
+    <app-list-item *ngFor="let territory of territories | searchTerritory:search:currentlyFilteredDrawings | async"
+                   [class.current]="currentTerritoryId === territory.id"
+                   (click)="editTerritory(territory)">
+      <p class="label">{{territory.key}} {{territory.name | slice:0:38}} {{territory.name.length > 38 ? "..." : ""}}</p>
+    </app-list-item>
+  </app-list>
+
+  <ng-template #infoBlock>
+    <app-info-block [title]="'Du hast noch keine Gebiete!'"
+                    [image]="'assets/images/territories.svg'"
+                    [description]="'Erstelle oder importiere Gebiete, um diese verwalten zu können.'"></app-info-block>
+  </ng-template>
+</div>

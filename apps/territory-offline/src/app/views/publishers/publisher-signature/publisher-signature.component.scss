@@ -1,0 +1,23 @@
+@import "node_modules/territory-offline-ui/assets/styles/colors";
+
+:host {
+  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  box-sizing: border-box;
+
+  h4, p {
+    padding: 0 0.5rem;
+  }
+
+  #dsgvo-signature {
+    margin: 1rem 0 0 0;
+    border-radius: 6px;
+    border: solid 1px rgba(255, 255, 255, 0.2);
+    background-color: rgba(236, 237, 238, 0.1);
+    width: 100%;
+    height: 8rem;
+    box-sizing: border-box;
+  }
+}
