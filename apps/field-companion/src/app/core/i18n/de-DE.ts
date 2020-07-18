@@ -98,9 +98,13 @@ export const deDE = {
     monthlyReminder: "Erinnerung für Berichtabgabe",
     noBackupFile: "Es ist keine Backup-Datei.",
     importSucceed: "Import war erfolgreich!",
-    changeDurationStep: "Stundenerfassung",
+    changeDurationStep: "Schritte der Zeiterfassung",
     durationStep: "Schritt in Minuten",
     ldc: "LDC Stunden",
+    general: "Allgemein",
+    report: "Bericht",
+    data: "Daten",
+    app: "App",
 
     actions: {
       grapesImport: "Daten aus Grapes importieren",
@@ -112,9 +116,9 @@ export const deDE = {
       resetApp: "Alle Daten löschen",
       reallyReset: "Möchten Sie die App wirklich zurücksetzen?",
       sendYourId: "Deine User ID teilen",
-      exportReports: "Excel-Export",
-      exportBackup: "Backup erstellen",
-      importBackup: "Backup einspielen"
+      exportReports: "Daten nach Excel exportieren",
+      exportBackup: "Backup der Daten erstellen",
+      importBackup: "Daten aus Backup wiederherstellen"
     }
   },
   localNotifications: {

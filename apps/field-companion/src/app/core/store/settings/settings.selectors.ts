@@ -31,7 +31,5 @@ export const selectUserLanguage = createSelector(
 
 export const selectDurationStep = createSelector(
   selectSettingsFeature,
-  (settings) => settings.durationStep
+  (settings) => settings.durationStep || 30
 );
-
-

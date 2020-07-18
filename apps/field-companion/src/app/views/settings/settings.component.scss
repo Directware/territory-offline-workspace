@@ -25,49 +25,70 @@
     color: #ffffff;
   }
 
-  app-panel {
-    padding: 0;
-    margin: .5rem 0;
+  .scrollable-wrapper {
+    padding: 0 0 1rem 0;
 
-    ::ng-deep .wrapper {
+    h3 {
+      margin: 1rem;
+      font-family: Heebo-Regular, sans-serif;
+      box-sizing: border-box;
+      font-size: 1rem;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.25;
+      letter-spacing: 0.4px;
+      color: #adb1b8;
+    }
+
+    app-panel {
       padding: 0;
+      margin: .5rem 0 2rem 0;
+      border-radius: 0;
 
-      &.actions {
+      ::ng-deep .wrapper {
+        padding: 0;
 
-        .label, .info {
-          color: $dark-sky-blue;
-        }
-      }
-
-      &.danger {
-        .label, .info {
-          color: $reddish-orange;
-        }
-
-        .ready-to-factory-reset {
-          border-radius: 6px;
-          transform: scale(1.05);
-          background: $reddish-orange;
+        &.actions {
 
           .label, .info {
-            color: #fff;
+            color: $dark-sky-blue;
           }
         }
-      }
 
-      i-feather {
-        width: 20px;
-        height: 20px;
-      }
+        i-feather {
+          width: 20px;
+          height: 20px;
+        }
 
-      app-list {
-        padding: 0 0 0 1rem;
-        transition: transform .15s;
+        app-list {
+          padding: 0 0 0 1rem;
+          transition: transform .15s;
 
-        .label {
-          line-height: 1.25;
-          letter-spacing: 0.4px;
-          color: #ffffff;
+          app-list-item {
+
+            &.danger {
+              .label, .info {
+                color: $reddish-orange;
+              }
+
+              .ready-to-factory-reset {
+                border-radius: 6px;
+                transform: scale(1.05);
+                background: $reddish-orange;
+
+                .label, .info {
+                  color: #fff;
+                }
+              }
+            }
+
+            .label {
+              line-height: 1.25;
+              letter-spacing: 0.4px;
+              color: #ffffff;
+            }
+          }
         }
       }
     }

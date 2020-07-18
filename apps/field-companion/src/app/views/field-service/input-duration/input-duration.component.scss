@@ -2,23 +2,82 @@
 
 :host {
 
-  input {
-    width: 100%;
-    margin: 0;
-    font-size: 1rem;
-    background: $charcoal-grey;
-    padding: 0.5rem 1rem;
-    border: none;
-    outline: none;
-    color: inherit;
-    border-radius: 8px;
-    box-sizing: border-box;
-    transition: background-color .3s;
+  .header {
+    font-family: Heebo-Medium, sans-serif;
+    font-size: 1.375rem;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.27;
+    letter-spacing: 0.21px;
+    color: #ffffff;
+    text-align: center;
+    margin: 1rem 0 0.5rem 0;
+  }
 
-    &::placeholder {
-      margin: 0 0 0 0.5rem;
-      color: rgba(255, 255, 255, 0.2);
-      font-weight: normal;
+  .duration-picker-wrapper {
+    position: absolute;
+    border-radius: 9px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background-color: rgba(173, 177, 184, 0.24);
+
+    app-duration-picker {
+      min-width: 14.5rem;
+    }
+  }
+
+  .body {
+    position: absolute;
+
+    app-panel {
+      margin: 0;
+      padding: 0;
+      border-radius: 10px;
+      min-width: 5rem;
+      height: 100%;
+
+      ::ng-deep .wrapper {
+        position: relative;
+        padding: .5rem 0;
+        display: grid;
+        grid-template-rows: auto;
+        align-items: center;
+        justify-items: center;
+        height: 100%;
+
+        i-feather {
+          width: 24px;
+          height: 24px;
+          color: #adb1b8;
+        }
+
+        .value {
+          margin: .5rem 0;
+          font-family: Heebo-Medium, sans-serif;
+          font-size: 1.375rem;
+          font-weight: 500;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.27;
+          letter-spacing: 0.21px;
+          text-align: center;
+          color: #ffffff;
+          box-sizing: border-box;
+
+          &.single-option-wrapper {
+            width: 100%;
+            height: 100%;
+            max-height: 100%;
+            overflow: hidden;
+
+            ui-single-option {
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
     }
   }
 }

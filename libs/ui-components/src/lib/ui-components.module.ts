@@ -8,10 +8,12 @@ import {ListItemComponent} from "./list/list-item/list-item.component";
 import {PanelComponent} from "./panel/panel.component";
 import {LanguageSearchComponent} from "./form-controls/language-search/language-search.component";
 import {ReactiveFormsModule} from "@angular/forms";
+import {DurationPickerComponent} from "./form-controls/duration-picker/duration-picker.component";
 
 @NgModule({
   declarations: [
     DatePickerComponent,
+    DurationPickerComponent,
     SingleOptionComponent,
     InfoBlockComponent,
     ListComponent,
@@ -25,6 +27,7 @@ import {ReactiveFormsModule} from "@angular/forms";
   ],
   exports: [
     DatePickerComponent,
+    DurationPickerComponent,
     SingleOptionComponent,
     InfoBlockComponent,
     ListComponent,

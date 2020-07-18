@@ -1,7 +1,9 @@
 <h1 class="header">{{"settings.title" | translate}}</h1>
 
-<div class="scrollable-wrapper">
-  <app-panel *ngIf="(settings$ | async) as settings">
+<div class="scrollable-wrapper" *ngIf="(settings$ | async) as settings">
+  <h3>{{"settings.general" | translate}}</h3>
+
+  <app-panel>
     <div class="wrapper">
       <app-list>
         <app-list-item *ngIf="false">
@@ -16,6 +18,18 @@
           <p class="label">{{"settings.yourId" | translate}}</p>
           <p class="info">{{settings.userId | slice:0:12}}...</p>
         </app-list-item>
+      </app-list>
+    </div>
+  </app-panel>
+
+  <h3>{{"settings.report" | translate}}</h3>
+  <app-panel>
+    <div class="wrapper">
+      <app-list>
+        <app-list-item routerLink="/change-duration-step">
+          <p class="label">{{"settings.changeDurationStep" | translate}}</p>
+          <p class="info">{{settings.durationStep || 30}} min</p>
+        </app-list-item>
         <app-list-item>
           <p class="label">{{"settings.monthlyReminder" | translate}}</p>
           <p class="info"><ui-switch [checked]="settings.monthlyReminder" (change)="requestLocalNotificationPermission($event)"></ui-switch></p>
@@ -24,33 +38,10 @@
     </div>
   </app-panel>
 
+  <h3>{{"settings.data" | translate}}</h3>
   <app-panel>
     <div class="wrapper actions">
       <app-list>
-        <app-list-item routerLink="/change-duration-step">
-          <p class="label">{{"settings.changeDurationStep" | translate}}</p>
-          <p class="info"><i-feather name="clock"></i-feather></p>
-        </app-list-item>
-      </app-list>
-    </div>
-  </app-panel>
-
-  <app-panel>
-    <div class="wrapper actions">
-      <app-list>
-        <app-list-item (click)="grapesFileChooser.click()">
-          <p class="label">{{"settings.actions.grapesImport" | translate}}</p>
-          <p class="info">
-            <input #grapesFileChooser style="display: none;" type="file" (change)="importDataFromGrapes($event)"/>
-            <i-feather name="download"></i-feather>
-          </p>
-        </app-list-item>
-        <app-list-item (click)="backupFileChooser.click()"><p class="label">{{"settings.actions.importBackup" | translate}}</p>
-          <p class="info">
-            <input #backupFileChooser style="display: none;" type="file" (change)="importBackup($event)"/>
-            <i-feather name="download"></i-feather>
-          </p>
-        </app-list-item>
         <app-list-item (click)="exportToExcel()"><p class="label">{{"settings.actions.exportReports" | translate}}</p>
           <p class="info">
             <i-feather name="share"></i-feather>
@@ -61,10 +52,30 @@
             <i-feather name="share"></i-feather>
           </p>
         </app-list-item>
+        <app-list-item (click)="backupFileChooser.click()"><p class="label">{{"settings.actions.importBackup" | translate}}</p>
+          <p class="info">
+            <input #backupFileChooser style="display: none;" type="file" (change)="importBackup($event)"/>
+            <i-feather name="download"></i-feather>
+          </p>
+        </app-list-item>
+        <app-list-item (click)="grapesFileChooser.click()">
+          <p class="label">{{"settings.actions.grapesImport" | translate}}</p>
+          <p class="info">
+            <input #grapesFileChooser style="display: none;" type="file" (change)="importDataFromGrapes($event)"/>
+            <i-feather name="download"></i-feather>
+          </p>
+        </app-list-item>
+        <app-list-item class="danger" (click)="factoryReset()">
+          <p class="label">{{"settings.actions.resetApp" | translate}}</p>
+          <p class="info">
+            <i-feather name="trash"></i-feather>
+          </p>
+        </app-list-item>
       </app-list>
     </div>
   </app-panel>
 
+  <h3>{{"settings.app" | translate}}</h3>
   <app-panel>
     <div class="wrapper actions">
       <app-list>
@@ -86,19 +97,6 @@
         <app-list-item routerLink="/about-app"><p class="label">{{"settings.actions.about" | translate}}</p>
           <p class="info">
             <i-feather name="info"></i-feather>
-          </p>
-        </app-list-item>
-      </app-list>
-    </div>
-  </app-panel>
-
-
-  <app-panel>
-    <div class="wrapper danger">
-      <app-list [class.ready-to-factory-reset]="readyToFactoryReset">
-        <app-list-item (click)="factoryReset()"><p class="label">{{"settings.actions.resetApp" | translate}}</p>
-          <p class="info">
-            <i-feather name="trash"></i-feather>
           </p>
         </app-list-item>
       </app-list>

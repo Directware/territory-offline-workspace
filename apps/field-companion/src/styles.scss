@@ -155,3 +155,18 @@ ui-switch {
   background: $almost-black;
   color: #fff;
 }
+
+.duration-input-modal {
+  background: transparent;
+
+  .mat-dialog-container {
+    background: inherit;
+    box-shadow: none;
+  }
+}
+
+.duration-input-modal-backdrop {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(20, 25, 31, 0.5);
+}

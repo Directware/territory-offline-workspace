@@ -2,6 +2,7 @@ export * from './lib/ui-components.module';
 
 /* Components */
 export * from './lib/form-controls/date-picker/date-picker.component';
+export * from './lib/form-controls/duration-picker/duration-picker.component';
 export * from './lib/form-controls/single-option/single-option.component';
 export * from './lib/form-controls/language-search/language-search.component';
 export * from './lib/info-block/info-block.component';
