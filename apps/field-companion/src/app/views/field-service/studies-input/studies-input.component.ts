@@ -1,20 +1,27 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {DecreaseStudies, IncreaseStudies} from "../../../core/store/reports/daily-reports.actions";
+import {SetStudies} from "../../../core/store/reports/daily-reports.actions";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../core/store/index.reducers";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {selectCurrentDailyReportStudies} from "../../../core/store/reports/daily-reports.selectors";
+import {IosSelectorOptionSource} from "../../../../../../../libs/ui-components/src/lib/form-controls/model/ios-selector-option-source.interface";
+import {FormControl} from "@angular/forms";
+import {take, takeUntil, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-studies-input',
   templateUrl: './studies-input.component.html',
   styleUrls: ['./studies-input.component.scss']
 })
-export class StudiesInputComponent implements OnInit
+export class StudiesInputComponent implements OnInit, OnDestroy
 {
   public currentStudies$: Observable<{ value: number }>
   public hideMainNavigation = true;
+
+  public studies: FormControl;
+  public studiesOptions: IosSelectorOptionSource[];
+  private destroyer = new Subject();
 
   constructor(private store: Store<ApplicationState>, private router: Router)
   {
@@ -23,6 +30,20 @@ export class StudiesInputComponent implements OnInit
   public ngOnInit(): void
   {
     this.currentStudies$ = this.store.pipe(select(selectCurrentDailyReportStudies));
+
+    this.studiesOptions = [];
+    for (let i = 0; i < 24; i++)
+    {
+      this.studiesOptions.push({text: "" + i, value: i});
+    }
+
+    this.initInitialValue();
+  }
+
+  public ngOnDestroy()
+  {
+    this.destroyer.next();
+    this.destroyer.complete();
   }
 
   public done()
@@ -30,13 +51,33 @@ export class StudiesInputComponent implements OnInit
     this.router.navigate(["field-service"]);
   }
 
-  public increase()
+  public initInitialValue()
   {
-    this.store.dispatch(IncreaseStudies());
-  }
+    let isInitialising = true;
 
-  public decrease()
-  {
-    this.store.dispatch(DecreaseStudies());
+    this.store
+      .pipe(
+        take(1),
+        select(selectCurrentDailyReportStudies),
+        tap((studies) =>
+        {
+          this.studies = new FormControl(studies.value);
+
+          this.studies
+            .valueChanges
+            .pipe(
+              takeUntil(this.destroyer),
+              tap((value) =>
+              {
+                if (!isInitialising)
+                {
+                  this.store.dispatch(SetStudies({count: value}));
+                }
+              })
+            ).subscribe();
+
+          setTimeout(() => isInitialising = false, 500);
+        })
+      ).subscribe();
   }
 }

@@ -10,7 +10,7 @@ import {
   DeleteDailyReportSuccess,
   IncreaseStudies,
   LoadDailyReports,
-  LoadDailyReportsSuccess,
+  LoadDailyReportsSuccess, SetStudies,
   UpsertDailyReport,
   UpsertDailyReportSuccess
 } from "./daily-reports.actions";
@@ -58,6 +58,17 @@ export class DailyReportsEffects
       map((action) => this.database.delete(dailyReportCollectionName, action.dailyReport)),
       switchMap((promise: Promise<TimedEntity>) => from(promise)),
       map((dailyReport: DailyReport) => DeleteDailyReportSuccess({dailyReport: dailyReport}))
+    )
+  );
+
+  private setStudies$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SetStudies),
+      concatMap(action => of(action).pipe(withLatestFrom(this.store.pipe(select(selectDailyReportForStudy))))),
+      map(([action, dailyReport]) => UpsertDailyReport({
+          dailyReport: {...dailyReport, studies: action.count}
+        })
+      )
     )
   );
 

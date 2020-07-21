@@ -13,6 +13,7 @@ import {CalendarCell} from "../shared/calendar/model/calendar-cell.model";
 import {MergedDailyReport} from "../../core/store/reports/model/merged-daily-report.model";
 import {ChooseCalendarCell, IncreaseStudies} from "../../core/store/reports/daily-reports.actions";
 import {Router} from "@angular/router";
+import {FeatureConfirmationService} from "../../core/services/feature-confirmation.service";
 
 @Component({
   selector: 'app-field-service',
@@ -28,7 +29,7 @@ export class FieldServiceComponent implements OnInit
   public isYearDurationOverview: boolean;
   public isMenuOpened: boolean;
 
-  constructor(private store: Store<ApplicationState>, private router: Router)
+  constructor(private store: Store<ApplicationState>, private router: Router, private featureConfirmationService: FeatureConfirmationService)
   {
   }
 
@@ -38,6 +39,7 @@ export class FieldServiceComponent implements OnInit
     this.chosenCalendarCell$ = this.store.pipe(select(selectChosenCalendarCell));
     this.mergedDailyReports$ = this.store.pipe(select(selectMergedCurrentDailyReports));
     this.durationProgress$ = this.store.pipe(select(durationProgress));
+    this.featureConfirmationService.check();
   }
 
   public chooseDay(calendarCell: CalendarCell)

@@ -64,7 +64,8 @@ export class WelcomeComponent implements OnInit
         yearlyGoal: 0,
         monthlyReminder: false,
         prefix: settingsCollectionName,
-        durationStep: 30
+        durationStep: 30,
+        confirmedFeatures: null
       }
     }));
   }

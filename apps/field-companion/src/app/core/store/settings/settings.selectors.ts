@@ -33,3 +33,8 @@ export const selectDurationStep = createSelector(
   selectSettingsFeature,
   (settings) => settings.durationStep || 30
 );
+
+export const selectConfirmedFeatures = createSelector(
+  selectSettingsFeature,
+  (settings) => settings.confirmedFeatures
+);

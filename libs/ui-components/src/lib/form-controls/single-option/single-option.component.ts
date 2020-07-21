@@ -2,6 +2,7 @@ import {AfterViewInit, Component, Input, OnDestroy, OnInit} from '@angular/core'
 import {v4 as uuid} from 'uuid';
 import {FormControl} from '@angular/forms';
 import {IosSelector} from "../common/ios-date-selector.class";
+import {IosSelectorOptionSource} from "../model/ios-selector-option-source.interface";
 
 @Component({
   selector: 'ui-single-option',
@@ -14,7 +15,7 @@ export class SingleOptionComponent implements OnInit, AfterViewInit, OnDestroy
   public vFormControl: FormControl;
 
   @Input()
-  public optionSource: {text: string, value: any}[];
+  public optionSource: IosSelectorOptionSource[];
 
   @Input()
   public type: string; // infinite || normal

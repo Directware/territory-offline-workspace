@@ -22,9 +22,6 @@ export class DurationService
     this.selectDurationStep()
       .subscribe(step =>
         {
-          console.log("increase duration");
-          console.log(step);
-
           this.store.dispatch(UpsertDailyReport({
             dailyReport: {
               ...dailyReport,

@@ -8,7 +8,7 @@
 <div *ngIf="(currentDailyReport$ | async) as currentDailyReport" class="body">
   <app-panel id="duration-input"><div class="wrapper">
     <i-feather (click)="increaseDuration(currentDailyReport)" name="plus"></i-feather>
-    <span (click)="showDurationInput()" class="value">{{padDuration(currentDailyReport.duration)}}</span>
+    <span (press)="showDurationInput()" class="value">{{padDuration(currentDailyReport.duration)}}</span>
     <i-feather (click)="decreaseDuration(currentDailyReport)" name="minus"></i-feather>
   </div></app-panel>
 

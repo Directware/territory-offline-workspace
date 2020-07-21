@@ -38,7 +38,6 @@
     }
   }
 
-
   .description {
     font-size: 1rem;
     line-height: 1.25;
@@ -46,22 +45,6 @@
     color: #ffffff;
   }
 
-  .info-title {
-    margin: 0;
-    font-size: 1rem;
-    line-height: 1.25;
-    letter-spacing: 0.4px;
-    color: #adb1b8;
-    font-weight: bold;
-  }
-
-  .info {
-    margin: 0;
-    font-size: 1rem;
-    line-height: 1.25;
-    letter-spacing: 0.4px;
-    color: #adb1b8;
-  }
 
   .input-wrapper {
     display: flex;
@@ -70,38 +53,26 @@
     align-items: center;
     margin: 2rem 0;
 
-    .header-item {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      i-feather {
-        margin: 0 auto 0.5rem auto;
-        display: block;
-        width: 18px;
-        height: 18px;
-        color: #adb1b8;
-      }
-    }
-
     app-panel {
       padding: 0;
-      width: 5rem;
+      width: 100%;
 
-      ::ng-deep .wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 0.5rem 1rem;
+      app-list-item {
+        padding: 0;
 
-        ui-single-option {
+        .label {
+          color: #fff;
+          padding-left: 1rem;
+        }
+        .info {
+          padding-right: 1rem;
+        }
+
+        ::ng-deep ui-single-option {
           width: 100%;
-          height: 7rem;
+          height: 150px;
         }
       }
     }
   }
-
 }

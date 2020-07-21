@@ -3,6 +3,7 @@ import {LoadSettingsSuccess, UpsertSettingsSuccess} from './settings.actions';
 import {TimedEntity} from "../../services/database/timed-entity.interface";
 import {ToLanguage} from "@territory-offline-workspace/ui-components";
 import {settingsCollectionName} from "../../services/database/collection-names";
+import {Dictionary} from "@ngrx/entity";
 
 export interface SettingsState extends TimedEntity
 {
@@ -17,6 +18,7 @@ export interface SettingsState extends TimedEntity
   monthlyReminder: boolean;
   prefix: string;
   durationStep: number;
+  confirmedFeatures: Dictionary<string>;
 }
 
 const initialState = {
@@ -30,7 +32,8 @@ const initialState = {
   monthlyGoal: 0,
   monthlyReminder: false,
   prefix: settingsCollectionName,
-  durationStep: 30
+  durationStep: 30,
+  confirmedFeatures: null
 };
 
 const settingsReducer = createReducer(

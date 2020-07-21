@@ -18,5 +18,6 @@ export const DeleteDailyReportSuccess = createAction('[DailyReport] delete daily
 export const ChooseCalendarCell = createAction("[DailyReport] choose calendar cell", props<{ cell: CalendarCell }>());
 export const ChangeChosenTime = createAction("[DailyReport] change chosen time", props<{ chosenTime: CalendarDatasource }>());
 
+export const SetStudies = createAction("[DailyReport] set studies", props<{count: number}>());
 export const IncreaseStudies = createAction("[DailyReport] increase studies");
 export const DecreaseStudies = createAction("[DailyReport] decrease studies");

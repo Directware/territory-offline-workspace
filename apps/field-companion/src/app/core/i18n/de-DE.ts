@@ -2,11 +2,19 @@ export const deDE = {
   title: "Field Companion",
   common: {
     done: "Fertig",
-    info: "Info",
+    info: "Tipp",
     comment: "Kommentar",
     preview: "Vorschau",
     leave: "Verlassen",
-    soon: "Bald Verfügbar"
+    soon: "Bald Verfügbar",
+    newFeature: "Neues Feature!",
+    cool: "Cool!"
+  },
+  featureConfirmation: {
+    reportUpToTheMinute: {
+      title: "Minutengenau Berichten",
+      description: "Halte die Schaltfläche zur Stundenerfassung gedrückt, um deine Zeit auf die Minute genau zu Berichten. Außerdem kannst du jetzt in den Einstellungen festlegen, in welchen Schritten du deine Zeit erfassen möchtest."
+    }
   },
   actions: {
     continue: "Fortfahren",

@@ -7,18 +7,21 @@
 
   <p class="description">{{"service.durationDesc" | translate}}</p>
 
-  <br/>
-  <p class="info-title">{{"common.info" | translate}}</p>
-  <p class="info">{{"service.durationInfo" | translate}}</p>
-
   <div class="input-wrapper" *ngIf="(currentDurationStep$ | async) as currentDurationStep">
-    <div class="header-item">
-      <i-feather name="clock"></i-feather>
-      {{"settings.durationStep" | translate}}</div>
+
     <app-panel>
-      <div class="wrapper">
-        <ui-single-option [optionSource]="options" [vFormControl]="formControl" type="normal"></ui-single-option>
-      </div>
+      <app-list-item>
+        <p class="label">{{"settings.durationStep" | translate}}</p>
+        <p class="info">{{currentDurationStep}}</p>
+      </app-list-item>
+      <app-list-item *ngIf="duration">
+        <ui-single-option type="normal" [vFormControl]="duration" [optionSource]="durationOptions"></ui-single-option>
+      </app-list-item>
     </app-panel>
+  </div>
+
+  <div class="tip-wrapper">
+    <p class="title">{{"common.info" | translate}}</p>
+    <p class="info">{{"service.durationInfo" | translate}}</p>
   </div>
 </div>

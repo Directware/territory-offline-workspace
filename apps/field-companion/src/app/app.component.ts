@@ -10,14 +10,15 @@ import {LocalNotificationsService} from "./core/services/local-notifications.ser
   selector: 'territory-offline-workspace-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [ slideInAnimation ]
+  animations: [slideInAnimation]
 })
 export class AppComponent implements OnInit
 {
   public hideMainNavigation: boolean;
   public isAlreadyConfigured$: Observable<boolean>;
 
-  constructor(private store: Store<ApplicationState>, private localNotificationsService: LocalNotificationsService)
+  constructor(private store: Store<ApplicationState>,
+              private localNotificationsService: LocalNotificationsService)
   {
   }
 

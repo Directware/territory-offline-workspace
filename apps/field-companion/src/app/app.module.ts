@@ -45,6 +45,7 @@ import {CircleProgressComponent} from './views/shared/circle-progress/circle-pro
 import { ChangeDurationStepComponent } from './views/settings/change-duration-step/change-duration-step.component';
 import { InputDurationComponent } from './views/field-service/input-duration/input-duration.component';
 import {UiComponentsModule} from "@territory-offline-workspace/ui-components";
+import { ReportUpToTheMinuteComponent } from './views/feature-confirmation-modals/report-up-to-the-minute/report-up-to-the-minute.component';
 
 const {Device} = Plugins;
 
@@ -71,7 +72,8 @@ const {Device} = Plugins;
     BackupImportProgressComponent,
     CircleProgressComponent,
     ChangeDurationStepComponent,
-    InputDurationComponent
+    InputDurationComponent,
+    ReportUpToTheMinuteComponent
   ],
   imports: [
     BrowserAnimationsModule,
