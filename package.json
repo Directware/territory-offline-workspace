@@ -47,6 +47,7 @@
     "rxjs": "~6.5.4",
     "zone.js": "^0.10.2",
     "@capacitor/ios": "^2.0.2",
+    "@capacitor/android": "^2.0.1",
     "@mapbox/mapbox-gl-draw": "^1.1.2",
     "@mapbox/mapbox-gl-geocoder": "^4.5.1",
     "@ngrx/effects": "^8.3.0",

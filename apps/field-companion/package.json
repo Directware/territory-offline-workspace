@@ -11,7 +11,8 @@
     "start:android": "npx cap sync && npx cap open android"
   },
   "dependencies": {
-    "capacitor-data-storage-sqlite": "^2.1.0",
-    "@byteowls/capacitor-filesharer": "^2.0.0"
+    "@byteowls/capacitor-filesharer": "^2.0.0",
+    "@capacitor/android": "^2.3.0",
+    "capacitor-data-storage-sqlite": "^2.1.0"
   }
 }
