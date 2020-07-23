@@ -26,9 +26,12 @@
   <app-panel>
     <div class="wrapper">
       <app-list>
-        <app-list-item routerLink="/change-duration-step">
+        <app-list-item (click)="toggleDurationStepSetting(settings.durationStep || 30)">
           <p class="label">{{"settings.changeDurationStep" | translate}}</p>
           <p class="info">{{settings.durationStep || 30}} min</p>
+        </app-list-item>
+        <app-list-item *ngIf="duration" class="no-padding">
+          <ui-single-option type="normal" [vFormControl]="duration" [optionSource]="durationOptions"></ui-single-option>
         </app-list-item>
         <app-list-item>
           <p class="label">{{"settings.monthlyReminder" | translate}}</p>

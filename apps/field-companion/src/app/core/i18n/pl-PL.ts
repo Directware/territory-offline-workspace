@@ -6,7 +6,15 @@ export const plPL = {
     comment: "Komentarz",
     preview: "Podgląd",
     leave: "Wyjście",
-    soon: "Wkrótce dostępne"
+    soon: "Wkrótce dostępne",
+    newFeature: "Nowa funkcja!",
+    cool: "Cool!"
+  },
+  featureConfirmation: {
+    reportUpToTheMinute: {
+      title: "Sprawozdawczość minutowa",
+      description: "Naciśnij i przytrzymaj przycisk nagrywania godzin, aby zgłosić swój czas do minuty. Teraz możesz również określić w ustawieniach kroki, które chcesz podjąć, aby nagrać swój czas."
+    }
   },
   actions: {
     continue: "Kontynuuj",
@@ -96,6 +104,13 @@ export const plPL = {
     monthlyReminder: "Przypomnienie o owocu",
     noBackupFile: "Plik nie jest typem kopii zapasowej",
     importSucceed: "Import zakończył się sukcesem!",
+    changeDurationStep: "Etapy zapisu czasu",
+    durationStep: "Krok zapisu czasu w minutach",
+    ldc: "LDC Godziny",
+    general: "Ogólne",
+    report: "Owoc",
+    data: "Dane",
+    app: "App",
 
     actions: {
       grapesImport: "Importowanie danych z Grapes",

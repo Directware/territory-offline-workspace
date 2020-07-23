@@ -54,9 +54,7 @@ export const deDE = {
     studiesDesc: "Trage die Anzahl der unterschiedlichen Personen, mit denen du die Bibel studierst ein, damit sie in deinem Bericht erscheint.",
     studiesInfo: "Tippe in der Bericht Übersicht auf das Studien-Icon (Person), um die Anzahl der Studien zu ändern.",
     explainDurationTrimmer: "Deine berichteten Stunden werden abgerundet und die restliche Zeit in den nächsten Monat übernommen.",
-    durationInfo: "Wenn du in der Eingabe-Ansicht auf die Stundenzahl tippst, erscheint ein Dialog in dem du deine Zeit auf die Minute genau erfassen kannst.",
-    durationDesc: "Stelle ein in welchen Sprüngen die Zeit beim eingeben sich verändert."
-  },
+},
   week: {
     shortNames: {
       monday: "Mo",

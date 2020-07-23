@@ -10,12 +10,10 @@ import {GoalsInputComponent} from "./views/field-service/goals-input/goals-input
 import {SendReportComponent} from "./views/field-service/send-report/send-report.component";
 import {EditReportBeforeSendComponent} from "./views/field-service/send-report/edit-report-before-send/edit-report-before-send.component";
 import {SettingsComponent} from "./views/settings/settings.component";
-import {TerritoriesComponent} from "./views/territories/territories.component";
 import {TerritoryPreviewComponent} from "./views/territories/territory-preview/territory-preview.component";
 import {TerritoryFeaturePreviewComponent} from "./views/territories/territory-feature-preview/territory-feature-preview.component";
 import {ChangeLanguageComponent} from "./views/settings/change-language/change-language.component";
 import {AboutAppComponent} from "./views/settings/about-app/about-app.component";
-import {ChangeDurationStepComponent} from "./views/settings/change-duration-step/change-duration-step.component";
 
 const routes: Routes = [
   {path: 'welcome', component: WelcomeComponent, canActivate: [InitialConfigurationNotDoneGuard], data: {animation: 'Welcome'}},
@@ -28,7 +26,6 @@ const routes: Routes = [
   {path: 'edit-report', component: EditReportBeforeSendComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'EditReport'}},
   {path: 'settings', component: SettingsComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Settings'}},
   {path: 'change-language', component: ChangeLanguageComponent, canActivate: [InitialConfigurationGuard]},
-  {path: 'change-duration-step', component: ChangeDurationStepComponent, canActivate: [InitialConfigurationGuard]},
   {path: 'about-app', component: AboutAppComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Modal'}},
   // {path: 'territories', component: TerritoriesComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Territories'}},
   {path: 'territories', component: TerritoryPreviewComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Territories'}},

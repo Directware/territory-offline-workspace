@@ -6,7 +6,15 @@ export const enUS = {
     comment: "Comment",
     preview: "Preview",
     leave: "Leave",
-    soon: "Available soon"
+    soon: "Available soon",
+    newFeature: "New Feature!",
+    cool: "Cool!"
+  },
+  featureConfirmation: {
+    reportUpToTheMinute: {
+      title: "Minute-based reporting",
+      description: "Press and hold the hour recording button to report your time to the minute. You can now also specify in the settings the steps you want to take to record your time."
+    }
   },
   actions: {
     continue: "Continue",
@@ -96,6 +104,13 @@ export const enUS = {
     monthlyReminder: "Reminder for report submission",
     noBackupFile: "It is not a backup file.",
     importSucceed: "Import was successful!",
+    changeDurationStep: "Steps in time recording",
+    durationStep: "Step in minutes",
+    ldc: "LDC Duration",
+    general: "General",
+    report: "Report",
+    data: "Data",
+    app: "App",
 
     actions: {
       grapesImport: "Import data from Grapes",
