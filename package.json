@@ -10,6 +10,8 @@
     "start:territory-offline": "ng run territory-offline:serve",
     "start:field-companion": "ng run field-companion:serve",
     "build": "ng build",
+    "build:territory-offline": "ng run field-companion:build",
+    "build:territory-offline:prod": "ng run field-companion:build --prod",
     "build:field-companion": "ng run field-companion:build",
     "build:field-companion:prod": "ng run field-companion:build --prod",
     "test": "ng test",
@@ -67,7 +69,8 @@
     "pdfmake": "^0.1.65",
     "tweetnacl": "^1.0.3",
     "tweetnacl-util": "^0.15.1",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "showdown": "^1.9.1"
   },
   "devDependencies": {
     "@angular/cli": "9.1.0",
@@ -95,6 +98,7 @@
     "@types/jest": "25.1.4",
     "ts-jest": "25.2.1",
     "cypress": "^4.1.0",
-    "@nrwl/cypress": "9.5.1"
+    "@nrwl/cypress": "9.5.1",
+    "tokml": "^0.4.0"
   }
 }

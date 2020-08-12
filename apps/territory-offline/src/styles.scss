@@ -1,3 +1,7 @@
+@import "/libs/ui-components/src/lib/assets/styles/typography";
+@import "/libs/ui-components/src/lib/assets/styles/colors";
+@import "/libs/ui-components/src/lib/assets/styles/to-base-styles";
+
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
@@ -24,13 +28,6 @@ $territory-offline-v2-theme: mat-light-theme($territory-offline-v2-primary, $ter
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($territory-offline-v2-theme);
-
-@import "node_modules/territory-offline-ui/assets/styles/typography";
-@import "node_modules/territory-offline-ui/assets/styles/colors";
-@import "node_modules/territory-offline-ui/assets/styles/to-base-styles";
-
-@include heebo-regular("node_modules/territory-offline-ui/assets/fonts/");
-@include heebo-medium("node_modules/territory-offline-ui/assets/fonts/");
 
 body {
   margin: 0;

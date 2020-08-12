@@ -17,7 +17,7 @@ import {Congregation} from '../../core/store/congregation/model/congregation.mod
 import {LoadDrawings} from "../../core/store/drawings/drawings.actions";
 import {DataSecurityService} from "../../core/services/common/data-security.service";
 import {environment} from "../../../environments/environment";
-import {ToLanguage} from "territory-offline-ui";
+import {ToLanguage} from "@territory-offline-workspace/ui-components";
 
 @Component({
   selector: 'app-initial-configuration',

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {select, Store} from '@ngrx/store';
-import {ApplicationState} from 'src/app/core/store/index.reducers';
 import {UpsertAssignment, UpsertAssignmentSuccess} from './../../../core/store/assignments/assignments.actions';
 import {Assignment} from '../../store/assignments/model/assignment.model';
 import {v4 as uuid} from 'uuid';
@@ -11,6 +10,7 @@ import {LastDoingsService} from "../common/last-doings.service";
 import {selectTerritoryById} from "../../store/territories/territories.selectors";
 import {Territory} from "../../store/territories/model/territory.model";
 import {TerritoryMapsService} from "../territory/territory-maps.service";
+import {ApplicationState} from "../../store/index.reducers";
 
 @Injectable({
   providedIn: 'root',
