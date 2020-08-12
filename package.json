@@ -7,7 +7,7 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
     "nx": "nx",
     "start": "ng serve",
-    "start:territory-offline": "ng run territory-offline:serve",
+    "start:territory-offline": "ng run territory-offline:serve --base-href / --no-live-reload",
     "start:field-companion": "ng run field-companion:serve",
     "build": "ng build",
     "build:territory-offline": "ng run field-companion:build",

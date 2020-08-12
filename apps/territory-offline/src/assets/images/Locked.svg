@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Website/Graphics/Locked</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#2079C2" stop-opacity="0.4" offset="0%"></stop>
+            <stop stop-color="#2079C2" stop-opacity="0.8" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-2">
+            <stop stop-color="#2079C2" stop-opacity="0.4" offset="0%"></stop>
+            <stop stop-color="#2079C2" stop-opacity="0.8" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#2079C2" stop-opacity="0.4" offset="0%"></stop>
+            <stop stop-color="#2079C2" stop-opacity="0.8" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Website/Graphics/Locked" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" fill="url(#linearGradient-1)" x="16" y="32" width="48" height="40" rx="3"></rect>
+        <rect id="Rectangle" fill="#2079C2" x="38" y="48" width="4" height="16" rx="2"></rect>
+        <path d="M19,32 L61,32 C62.6568542,32 64,33.3431458 64,35 L64,40 L16,40 L16,35 C16,33.3431458 17.3431458,32 19,32 Z" id="Rectangle" fill="url(#linearGradient-2)"></path>
+        <path d="M48,32 L48,24 C48,19.581722 44.418278,16 40,16 C35.581722,16 32,19.581722 32,24 L32,32 L24,32 L24,24 C24,15.163444 31.163444,8 40,8 C48.836556,8 56,15.163444 56,24 L56,32 L48,32 Z" id="Combined-Shape" fill="url(#linearGradient-3)"></path>
+        <circle id="Oval" fill="#2079C2" cx="40" cy="52" r="4"></circle>
+    </g>
+</svg>

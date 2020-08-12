@@ -17,7 +17,7 @@ import {BulkImportDrawingsSuccess, LoadDrawingsSuccess} from './core/store/drawi
 import {DataImportService} from './core/services/import/data-import.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'territory-offline-workspace-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush,

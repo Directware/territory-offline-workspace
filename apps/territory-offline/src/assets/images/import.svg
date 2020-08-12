@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="96" viewBox="0 0 96 96">
+    <defs>
+        <linearGradient id="a" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#2079C2" stop-opacity=".3"/>
+            <stop offset="100%" stop-color="#2079C2" stop-opacity=".8"/>
+        </linearGradient>
+        <linearGradient id="b" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#2079C2" stop-opacity=".2"/>
+            <stop offset="100%" stop-color="#2079C2" stop-opacity=".4"/>
+        </linearGradient>
+        <path id="c" d="M3 0h22.757a3 3 0 0 1 2.122.879L47.12 20.12A3 3 0 0 1 48 22.243V69a3 3 0 0 1-3 3H3a3 3 0 0 1-3-3V3a3 3 0 0 1 3-3z"/>
+        <linearGradient id="d" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#2079C2" stop-opacity=".2"/>
+            <stop offset="100%" stop-color="#2079C2" stop-opacity=".6"/>
+        </linearGradient>
+        <linearGradient id="f" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#2079C2" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#2079C2" stop-opacity=".5"/>
+        </linearGradient>
+        <path id="g" d="M20.5 16.25v3c0 1.7-1.3 3-3 3h-14c-1.7 0-3-1.3-3-3v-3c0-.6.4-1 1-1s1 .4 1 1v3c0 .6.4 1 1 1h14c.6 0 1-.4 1-1v-3c0-.6.4-1 1-1s1 .4 1 1zm-10.7-.3c.1.1.2.2.3.2.1.1.3.1.4.1.1 0 .3 0 .4-.1.1-.1.2-.1.3-.2l4-4c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0l-2.3 2.3V1.25c0-.6-.4-1-1-1s-1 .4-1 1v11.6l-2.3-2.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g transform="translate(0 36)">
+            <rect width="84" height="60" fill="url(#a)" rx="3"/>
+            <path fill="url(#b)" d="M3 0h21v60H3a3 3 0 0 1-3-3V3a3 3 0 0 1 3-3z"/>
+            <circle cx="15" cy="4.5" r="1.5" fill="#2079C2" opacity=".8"/>
+            <circle cx="10.5" cy="4.5" r="1.5" fill="#2079C2" opacity=".8"/>
+            <circle cx="6" cy="4.5" r="1.5" fill="#2079C2" opacity=".8"/>
+        </g>
+        <g transform="translate(48)">
+            <mask id="e" fill="#fff">
+                <use xlink:href="#c"/>
+            </mask>
+            <path fill="url(#d)" d="M0 0h27l21 21v51H0z" mask="url(#e)"/>
+            <path fill="url(#f)" d="M27 3c-.172-.84-.506-1.506-1-2s-1.16-.828-2-1h3l21 21H30a3 3 0 0 1-3-3V3z" mask="url(#e)"/>
+        </g>
+        <use fill="#2079C2" transform="translate(55.5 42.75)" xlink:href="#g"/>
+    </g>
+</svg>

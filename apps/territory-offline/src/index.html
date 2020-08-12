@@ -3,11 +3,28 @@
   <head>
     <meta charset="utf-8" />
     <title>TerritoryOffline</title>
-    <base href="/" />
+    <base href="./" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
   </head>
   <body>
     <territory-offline-workspace-root></territory-offline-workspace-root>
+    <div id="global-errors" style="display: none;z-index: 10000; max-width: 90vw;">
+      <h1 class="title">Ein Fehler ist aufgetreten!</h1>
+      <br/>
+      <p class="message body-grey">Du musst die App neustarten damit du weiter arbeiten kannst.
+        <br/>
+        Falls dies wiederholt auftritt, kontaktiere bitte den Support unter
+        <br/>
+        <a style="color: #4f9cdc;" href="mailto:info@territory-offline.com">info@territory-offline.com</a>
+      </p>
+      <div class="error-image"></div>
+      <br/>
+      <p class="body-grey">Teile bitte folgendes an den Support:</p>
+      <pre id="global-error-text"
+           style="font-size: 11px; color: #ff5f1b;overflow: auto;padding: 8px;box-sizing: border-box;"></pre>
+      <br/>
+      <button onclick="window.location.href = 'index.html'" class="button primary">App neustarten</button>
+    </div>
+    <div id="global-errors-backdrop" style="display: none;"></div>
   </body>
 </html>

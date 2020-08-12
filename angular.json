@@ -25,8 +25,17 @@
               "apps/territory-offline/src/favicon.ico",
               "apps/territory-offline/src/assets"
             ],
-            "styles": ["apps/territory-offline/src/styles.scss"],
-            "scripts": []
+            "styles": [
+              "apps/territory-offline/src/styles.scss",
+              "node_modules/mapbox-gl/dist/mapbox-gl.css",
+              "node_modules/@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css",
+              "node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css",
+              "node_modules/ngx-ui-switch/ui-switch.component.css"
+            ],
+            "scripts": [
+              "node_modules/paper/dist/paper-full.min.js",
+              "node_modules/hammerjs/hammer.min.js"
+            ]
           },
           "configurations": {
             "production": {

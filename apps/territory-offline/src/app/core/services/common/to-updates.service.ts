@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {catchError, map, take, tap} from 'rxjs/operators';
-// @ts-ignore
+
 import {version as currentVersion} from './../../../../../package.json';
 import {ReleaseInfo} from '../../model/common/release-info.interface';
 import {environment} from '../../../../environments/environment';

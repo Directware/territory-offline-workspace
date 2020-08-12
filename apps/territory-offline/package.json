@@ -1,0 +1,27 @@
+{
+  "name": "territory-offline",
+  "version": "2.1.12",
+  "description": "Gebietsverwaltung",
+  "author": {
+    "name": "Mateusz Klimentowicz",
+    "email": "info@territory-offline.com"
+  },
+  "scripts": {
+    "ng": "ng",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "capacitor:sync": "npx cap sync",
+    "capacitor:update": "npx cap update",
+    "capacitor:copy": "npx cap copy",
+    "capacitor:electron:start": "npx cap open electron",
+    "capacitor:ios:start": "npx cap open ios",
+    "cypress:open": "npx cypress open"
+  },
+  "private": true,
+  "standard-version": {
+    "skip": {
+      "tag": false
+    }
+  }
+}
