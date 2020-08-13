@@ -1,0 +1,8 @@
+{
+  "appId": "com.territoryoffline.to",
+  "appName": "Territory Offline",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist/territory-offline",
+  "cordova": {}
+}

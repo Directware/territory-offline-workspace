@@ -1,0 +1,89 @@
+{
+  "name": "territory-offline",
+  "version": "2.1.12",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "electron:start": "electron ./",
+    "postinstall": "electron-builder install-app-deps",
+    "sqlite3:build": "./node_modules/.bin/electron-rebuild -w sqlite3 -p",
+    "dist:mac": "electron-builder -m",
+    "dist:win": "electron-builder -w",
+    "dist:linux": "electron-builder -l",
+    "dist:all": "npm run dist:mac && npm run dist:win && npm run dist:linux",
+    "upload:azure-blob": "node ./scripts/az-release.js",
+    "release": "npm run dist:all && npm run upload:azure-blob"
+  },
+  "dependencies": {
+    "@capacitor/electron": "^2.0.2",
+    "electron-is-dev": "^1.1.0",
+    "sqlite3": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/sqlite3": "^3.1.6",
+    "azure-storage": "^2.10.3",
+    "cli-progress": "^3.5.0",
+    "dotenv": "^8.2.0",
+    "electron": "^8.2.5",
+    "electron-builder": "^22.6.0",
+    "electron-notarize": "^0.3.0",
+    "electron-rebuild": "^1.11.0"
+  },
+  "keywords": [
+    "capacitor",
+    "electron"
+  ],
+  "author": "Mateusz Klimentowicz",
+  "license": "ISC",
+  "build": {
+    "afterSign": "scripts/notarize.js",
+    "appId": "com.territoryoffline.to",
+    "productName": "Territory-Offline",
+    "files": [
+      "index.js",
+      "preload.js",
+      "app/**/*",
+      "splash_assets/**/*"
+    ],
+    "directories": {
+      "output": "release",
+      "buildResources": "app"
+    },
+    "mac": {
+      "category": "com.territoryoffline.to",
+      "target": "dmg",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "icon": "./app/assets/images/icon-to-transparent.icns",
+      "artifactName": "territory-offline.${ext}",
+      "entitlements": "entitlements.mac.plist",
+      "entitlementsInherit": "entitlements.mac.plist"
+    },
+    "dmg": {
+      "sign": false,
+      "background": "./splash_assets/mac-installer-background.png"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "./app/assets/images/icon-to-transparent.png"
+    },
+    "linux": {
+      "target": "AppImage",
+      "artifactName": "territory-offline.${ext}"
+    },
+    "nsis": {
+      "deleteAppDataOnUninstall": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Territory-Offline",
+      "artifactName": "territory-offline.${ext}"
+    }
+  }
+}

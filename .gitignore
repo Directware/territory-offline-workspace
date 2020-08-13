@@ -38,3 +38,4 @@ testem.log
 .DS_Store
 Thumbs.db
 /apps/field-companion/dist/
+/apps/territory-offline/dist/

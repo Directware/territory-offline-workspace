@@ -22,7 +22,6 @@
             "tsConfig": "apps/territory-offline/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "apps/territory-offline/src/favicon.ico",
               "apps/territory-offline/src/assets"
             ],
             "styles": [
@@ -56,13 +55,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "20mb",
+                  "maximumError": "50mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "20kb"
+                  "maximumWarning": "60kb",
+                  "maximumError": "200kb"
                 }
               ]
             }
