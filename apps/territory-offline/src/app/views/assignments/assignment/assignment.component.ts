@@ -20,6 +20,7 @@ import {selectTerritoryById} from "../../../core/store/territories/territories.s
 import {Territory} from "../../../core/store/territories/model/territory.model";
 import {DatePipe} from "@angular/common";
 import {TerritoryMapsService} from "../../../core/services/territory/territory-maps.service";
+import {AssignmentsService} from "../../../core/services/assignment/assignments.service";
 
 @Component({
   selector: 'app-assignment',
@@ -34,6 +35,7 @@ export class AssignmentComponent implements OnInit
   public existsButNotReturned: boolean;
   public editStartTime: boolean;
   public editEndTime: boolean;
+  public sendToPublisher: boolean;
 
   constructor(private fb: FormBuilder,
               private store: Store<ApplicationState>,
@@ -42,6 +44,7 @@ export class AssignmentComponent implements OnInit
               private datePipe: DatePipe,
               private lastDoingsService: LastDoingsService,
               private territoryMapsService: TerritoryMapsService,
+              private assignmentService: AssignmentsService,
               private activatedRoute: ActivatedRoute)
   {
   }
@@ -64,6 +67,13 @@ export class AssignmentComponent implements OnInit
       ofType(UpsertAssignmentSuccess),
       take(1),
       tap((action) => this.createLastDoing(action.assignment)),
+      tap((action) =>
+      {
+        if (this.sendToPublisher)
+        {
+          this.assignmentService.sendToPublisher(action.assignment);
+        }
+      }),
       tap((action) => this.territoryMapsService.updateDrawingStatus()),
       tap(() => this.back())
     ).subscribe();

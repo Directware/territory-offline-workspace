@@ -5,5 +5,6 @@ export enum ExportableTypesEnum
     VISIT_BANS = "[ExportableTypesEnum] visit bans",
     PUBLISHERS = "[ExportableTypesEnum] publishers",
     CONGREGATIONS = "[ExportableTypesEnum] congregations",
+    DIGITAL_TERRITORY = "[ExportableTypesEnum] digital territory",
     ALL = "[ExportableTypesEnum] all",
 }

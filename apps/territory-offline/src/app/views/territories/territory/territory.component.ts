@@ -2,7 +2,7 @@ import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angul
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {v4 as uuid} from 'uuid';
 import {Territory} from '../../../core/store/territories/model/territory.model';
-import {map, take, takeUntil, tap} from 'rxjs/operators';
+import {first, map, take, takeUntil, tap} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Actions, ofType} from '@ngrx/effects';
 import {select, Store} from '@ngrx/store';
@@ -53,6 +53,7 @@ export class TerritoryComponent implements OnInit, OnDestroy
               private activatedRoute: ActivatedRoute,
               private actions$: Actions,
               private lastDoingsService: LastDoingsService,
+              private assignmentService: AssignmentsService,
               private territoryMapsService: TerritoryMapsService,
               private store: Store<ApplicationState>)
   {
@@ -99,19 +100,10 @@ export class TerritoryComponent implements OnInit, OnDestroy
     this.territoryMapsService.destroyDrawMode();
   }
 
-  public shareTerritory()
+  public async sendToPublisher()
   {
-    // https://www.npmjs.com/package/qrcode
-    this.store.pipe(
-      select(selectDrawingById, this.territory.get("territoryDrawingId").value),
-      tap((drawing) =>
-      {
-        const stringifiedDrawing = JSON.stringify(drawing);
-        console.log(drawing);
-        console.log("raw: " + stringifiedDrawing.length + "bytes");
-        console.log("gzip: " + Pako.gzip(stringifiedDrawing).length + "bytes");
-      })
-    ).subscribe();
+    const assignment = await this.assignment$.pipe(first()).toPromise();
+    this.assignmentService.sendToPublisher(assignment);
   }
 
   public editTerritory()

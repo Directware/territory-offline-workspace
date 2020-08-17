@@ -40,6 +40,10 @@
       <p class="label blue">Gebietskarte drucken</p>
       <i-feather name="printer" class="action blue"></i-feather>
     </app-list-item>
+    <app-list-item *ngIf="(assignment$ | async)" (click)="sendToPublisher()">
+      <p class="label blue">Gebietskarte an Verkündiger senden</p>
+      <i-feather name="share" class="action blue"></i-feather>
+    </app-list-item>
   </app-panel>
 
   <app-panel *ngIf="(assignment$ | async) as currentAssignment">

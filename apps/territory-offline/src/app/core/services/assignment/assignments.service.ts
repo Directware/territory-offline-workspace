@@ -4,13 +4,25 @@ import {UpsertAssignment, UpsertAssignmentSuccess} from './../../../core/store/a
 import {Assignment} from '../../store/assignments/model/assignment.model';
 import {v4 as uuid} from 'uuid';
 import {Actions, ofType} from '@ngrx/effects';
-import {take, tap} from 'rxjs/operators';
+import {first, take, tap} from 'rxjs/operators';
 import {LastDoingActionsEnum} from "../../store/last-doings/model/last-doing-actions.enum";
 import {LastDoingsService} from "../common/last-doings.service";
 import {selectTerritoryById} from "../../store/territories/territories.selectors";
 import {Territory} from "../../store/territories/model/territory.model";
 import {TerritoryMapsService} from "../territory/territory-maps.service";
 import {ApplicationState} from "../../store/index.reducers";
+import {selectPublisherById} from "../../store/publishers/publishers.selectors";
+import {Plugins} from '@capacitor/core';
+import {FileSharer} from "@byteowls/capacitor-filesharer";
+
+const {Device} = Plugins;
+import * as Pako from 'pako';
+import {ExportableTypesEnum} from "../../model/common/exportable-types.enum";
+import {selectDrawingById} from "../../store/drawings/drawings.selectors";
+import {selectVisitBansByTerritoryId} from "../../store/visit-bans/visit-bans.selectors";
+import {Publisher} from "../../store/publishers/model/publisher.model";
+import {selectSettings} from "../../store/settings/settings.selectors";
+import {SettingsState} from "../../store/settings/settings.reducer";
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +34,48 @@ export class AssignmentsService
               private territoryMapsService: TerritoryMapsService,
               private actions$: Actions)
   {
+  }
+
+  public async sendToPublisher(assignment: Assignment)
+  {
+    const territory: Territory = await this.store.pipe(select(selectTerritoryById, assignment.territoryId), first()).toPromise();
+    const publisher: Publisher = await this.store.pipe(select(selectPublisherById, assignment.publisherId), first()).toPromise();
+    const drawing = await this.store.pipe(select(selectDrawingById, territory.territoryDrawingId), first()).toPromise();
+    const visitBans = await this.store.pipe(select(selectVisitBansByTerritoryId, territory.id), first()).toPromise();
+    const settings: SettingsState = await this.store.pipe(select(selectSettings), first()).toPromise();
+
+    const deviceInfo = await Device.getInfo();
+
+    const digitalTerritoryCard = {
+      id: uuid(),
+      territory: territory,
+      drawing: drawing,
+      publisher: publisher,
+      assignment: assignment,
+      visitBans: visitBans,
+      type: ExportableTypesEnum.DIGITAL_TERRITORY,
+      estimationInMonths: settings.processingPeriodInMonths,
+      creationDate: new Date()
+    };
+
+    const gzippedData = Pako.gzip(JSON.stringify(digitalTerritoryCard), {to: "string"});
+
+    await FileSharer.share({
+      filename: `${territory.key} ${territory.name}.territory`,
+      base64Data: btoa(gzippedData),
+      contentType: "text/plain;charset=utf-8",
+      android: {
+        chooserTitle: "Digital Territory"
+      }
+    }).catch(error => console.error("File sharing failed", error.message));
+
+    if (deviceInfo.platform !== "ios" && deviceInfo.platform !== "android")
+    {
+      const subject = `Neue Zuteilung - ${territory.key} ${territory.name}`;
+      const body = `Hallo ${publisher.firstName},\n\n im Anhang findest du dein neues Gebiet!`;
+      const mailto = `mailto:${publisher.email}?subject=${subject}&body=${body}`;
+      window.location.href = encodeURI(mailto);
+    }
   }
 
   public giveBackNow(assignment: Assignment)
@@ -61,12 +115,12 @@ export class AssignmentsService
 
   private giveBack(assignment: Assignment)
   {
-      this.store.dispatch(UpsertAssignment({
-        assignment: {
-          ...assignment,
-          endTime: new Date()
-        }
-      }));
+    this.store.dispatch(UpsertAssignment({
+      assignment: {
+        ...assignment,
+        endTime: new Date()
+      }
+    }));
   }
 
   private createLastDoingAndUpdateStatus(assignment: Assignment, action: LastDoingActionsEnum)

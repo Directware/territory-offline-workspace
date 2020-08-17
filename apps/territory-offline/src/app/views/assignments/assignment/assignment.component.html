@@ -26,6 +26,17 @@
     </div>
   </app-panel>
 
+
+  <app-panel *ngIf="isCreation">
+    <app-list-item (click)="sendToPublisher=!sendToPublisher">
+      <p class="label">Gebietskarte an Verkündiger senden</p>
+      <p class="info">
+        <i-feather class="send-to-publisher" *ngIf="sendToPublisher" name="check"></i-feather>
+        <i-feather class="send-not-to-publisher" *ngIf="!sendToPublisher" name="x"></i-feather>
+      </p>
+    </app-list-item>
+  </app-panel>
+
   <app-panel *ngIf="!isCreation" class="delete-assignment animate-color-and-transform"
              (click)="deleteAssignment()"
              [class.ready-to-delete-button]="readyToDelete">
