@@ -1,5 +1,6 @@
 import { getGreeting } from '../support/app.po';
 
+
 describe('territory-offline', () => {
   beforeEach(() => cy.visit('/'));
 
@@ -8,6 +9,9 @@ describe('territory-offline', () => {
     cy.login('my-email@something.com', 'myPassword');
 
     // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome to territory-offline!');
+    getGreeting().contains('Willkommen');
   });
 });
+
+
+
