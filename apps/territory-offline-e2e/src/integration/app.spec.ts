@@ -1,6 +1,6 @@
 import { getGreeting } from '../support/app.po';
 
-
+/*
 describe('territory-offline', () => {
   beforeEach(() => cy.visit('/'));
 
@@ -13,5 +13,6 @@ describe('territory-offline', () => {
   });
 });
 
+*/
 
 

@@ -12,8 +12,8 @@ describe('InitialeKonfiguration', () =>
   {
     cy.get('.password-wrapper input').first()
       .clear()
-      .type('Hallo')
-      .should('have.value', 'Hallo')
+      .type('Augsburg LM')
+      .should('have.value', 'Augsburg LM')
   }
   )
   it('Eingabe/Auswahl Sprache', () =>
@@ -25,6 +25,24 @@ describe('InitialeKonfiguration', () =>
       .click()
     cy.get(languageInput)
       .should('have.value', 'Deutsch')
+  }
+  )
+  it('Eingabe Passwort', () =>
+  {
+    cy.get('.password-wrapper input[id="new-password-text-field"]')
+      .clear()
+      .type('password')
+      .should('have.value', 'password')
+      .should('not.have.value', 'blablabla')
+  }
+  )
+  it('Eingabe Passwort wiederholen', () =>
+  {
+    cy.get('.password-wrapper input[id="confirm-password-text-field"]')
+      .clear()
+      .type('password')
+      .should('have.value', 'password')
+      .should('not.have.value', 'blablabla')
   }
   )
   it('Button Weiter', () =>
