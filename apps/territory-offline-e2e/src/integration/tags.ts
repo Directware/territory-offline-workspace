@@ -29,7 +29,7 @@ describe('TagKomponente', () =>
       .type('NewTag')
       .should('have.value', 'NewTag')
       .should('not.have.value', 'blablabla')
-    cy.get('i-feather[name="plus"')
+    cy.get('i-feather[name="plus"]')
       .click()
     cy.get('input[placeholder="Tag hinzufügen"]')
       .type('TestTag')
@@ -72,6 +72,40 @@ describe('TagKomponente', () =>
       .type('Te')
     cy.get('p.label')
       .should('contain', 'Te')
+      .should('not.contain', 'blabla')
+    cy.get('.search-wrapper input')
+      .clear()
+  }
+  )
+  it('Duplikat vorhanden?', () =>
+  {
+    cy.get('.action-link')
+      .click()
+    cy.get('input[placeholder="Tag hinzufügen"]')
+      .type('NewTag')
+    cy.get('i-feather[name="plus"]')
+      .click()
+    cy.on('window:alert', (alertText) =>
+    {
+      expect(alertText).to.contain('existiert bereits')
+      expect(alertText).not.to.contain('blabla')
+    })
+    cy.get('.action-link')
+      .click()
+  }
+  )
+  it('Alle Tags löschen', () =>
+  {
+    cy.get('.action-link')
+      .click()
+    cy.get('i-feather[name = "trash"]').first()
+      .click()
+    cy.get('i-feather[name = "trash"]').first()
+      .click()
+    cy.get('i-feather[name = "trash"]').first()
+      .click()
+    cy.get('.action-link')
+      .click()
   }
   )
 })
