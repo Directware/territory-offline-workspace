@@ -1,20 +1,15 @@
 describe('TagKomponente', () =>
 {
-  it('Startseite öffnen', () =>
-  {
-    cy.visit('/dashboard')
-  }
-  )
-  it('Passwort eingeben (Lock-Screen)', () =>
-  {
-    cy.get('.input-wrapper input[name="password"]')
-      .type('password')
-      .should('have.value', 'password')
-      .should('not.have.value', 'blablabla')
-    cy.get('i-feather[name="arrow-right-circle"]')
-      .click()
-  }
-  )
+  // it('Passwort eingeben (Lock-Screen)', () =>
+  // {
+  //   cy.get('.input-wrapper input[name="password"]')
+  //     .type('password')
+  //     .should('have.value', 'password')
+  //     .should('not.have.value', 'blablabla')
+  //   cy.get('i-feather[name="arrow-right-circle"]')
+  //     .click()
+  // }
+  // )
   it('Rufe Tagübersicht auf', () =>
   {
     cy.get('i-feather[name="tag"]')
@@ -26,8 +21,8 @@ describe('TagKomponente', () =>
     cy.get('.action-link')
       .click()
     cy.get('input[placeholder="Tag hinzufügen"]')
-      .type('NewTag')
-      .should('have.value', 'NewTag')
+      .type('ATag')
+      .should('have.value', 'ATag')
       .should('not.have.value', 'blablabla')
     cy.get('i-feather[name="plus"]')
       .click()
@@ -47,6 +42,13 @@ describe('TagKomponente', () =>
       .click()
   }
   )
+  //TODO elemente sortieren --> array vergleichen (elemente bereits in array wie einzelen auswählen?)
+  // it('Reihenfolge prüfen', () =>
+  // {
+  //   let sortedTagsArray = ['ATag']
+  //   cy.expect(cy.get('p.label').invoke('text')).to.eq(sortedTagsArray)
+  // }
+  // )
   it('Tag bearbeiten', () =>
   {
     cy.get('.action-link')
@@ -82,7 +84,7 @@ describe('TagKomponente', () =>
     cy.get('.action-link')
       .click()
     cy.get('input[placeholder="Tag hinzufügen"]')
-      .type('NewTag')
+      .type('ATag')
     cy.get('i-feather[name="plus"]')
       .click()
     cy.on('window:alert', (alertText) =>
