@@ -1,5 +1,6 @@
 describe('TagKomponente', () =>
 {
+  const tagsToBeAdded = ["A-Tag", "B-Tag", "C-Tag"];
   // it('Passwort eingeben (Lock-Screen)', () =>
   // {
   //   cy.get('.input-wrapper input[name="password"]')
@@ -20,35 +21,30 @@ describe('TagKomponente', () =>
   {
     cy.get('.action-link')
       .click()
-    cy.get('input[placeholder="Tag hinzufügen"]')
-      .type('ATag')
-      .should('have.value', 'ATag')
-      .should('not.have.value', 'blablabla')
-    cy.get('i-feather[name="plus"]')
-      .click()
-    cy.get('input[placeholder="Tag hinzufügen"]')
-      .type('TestTag')
-      .should('have.value', 'TestTag')
-      .should('not.have.value', 'blablabla')
-    cy.get('i-feather[name="plus"]')
-      .click()
-    cy.get('input[placeholder="Tag hinzufügen"]')
-      .type('Tennis')
-      .should('have.value', 'Tennis')
-      .should('not.have.value', 'blablabla')
-    cy.get('i-feather[name="plus"]')
-      .click()
+
+    tagsToBeAdded.forEach(tag =>
+    {
+      cy.get('input[placeholder="Tag hinzufügen"]')
+        .type(tag)
+        .should('have.value', tag)
+      cy.get('i-feather[name="plus"]')
+        .click()
+    })
+
     cy.get('.action-link')
       .click()
   }
   )
-  //TODO elemente sortieren --> array vergleichen (elemente bereits in array wie einzelen auswählen?)
-  // it('Reihenfolge prüfen', () =>
-  // {
-  //   let sortedTagsArray = ['ATag']
-  //   cy.expect(cy.get('p.label').invoke('text')).to.eq(sortedTagsArray)
-  // }
-  // )
+  it('Reihenfolge prüfen', () =>
+  {
+    const addedTags = cy.get(".label");
+    addedTags.each((htmlTag, index) =>
+    {
+      // console.log(htmlTag.text())
+      // console.log(index.toExponential())
+      expect(htmlTag.text()).to.include(tagsToBeAdded[index]);
+    });
+  })
   it('Tag bearbeiten', () =>
   {
     cy.get('.action-link')
@@ -71,10 +67,9 @@ describe('TagKomponente', () =>
   it('Tag suchen', () =>
   {
     cy.get('.search-wrapper input')
-      .type('Te')
+      .type('A')
     cy.get('p.label')
-      .should('contain', 'Te')
-      .should('not.contain', 'blabla')
+      .should('contain', 'A-Tag')
     cy.get('.search-wrapper input')
       .clear()
   }
@@ -84,13 +79,12 @@ describe('TagKomponente', () =>
     cy.get('.action-link')
       .click()
     cy.get('input[placeholder="Tag hinzufügen"]')
-      .type('ATag')
+      .type('A-Tag')
     cy.get('i-feather[name="plus"]')
       .click()
     cy.on('window:alert', (alertText) =>
     {
       expect(alertText).to.contain('existiert bereits')
-      expect(alertText).not.to.contain('blabla')
     })
     cy.get('.action-link')
       .click()
@@ -100,12 +94,11 @@ describe('TagKomponente', () =>
   {
     cy.get('.action-link')
       .click()
-    cy.get('i-feather[name = "trash"]').first()
-      .click()
-    cy.get('i-feather[name = "trash"]').first()
-      .click()
-    cy.get('i-feather[name = "trash"]').first()
-      .click()
+    tagsToBeAdded.forEach(() =>
+    {
+      cy.get('i-feather[name = "trash"]').first()
+        .click()
+    })
     cy.get('.action-link')
       .click()
   }
