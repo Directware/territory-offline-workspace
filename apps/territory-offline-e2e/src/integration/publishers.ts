@@ -25,20 +25,6 @@ describe('VerkuendigerKomponente', () =>
     }
   ];
   const alphabet = ['A', 'B', 'C'];
-  const publishersToBeAddedTwisted = [
-    {
-      firstName: 'Cäsar',
-      name: 'Cäsar',
-    },
-    {
-    firstName: 'Amadeus',
-    name: 'Amadeus',
-    },
-    {
-    firstName: 'Bertholt',
-    name: 'Bertholt',
-    },
-  ];
 
   it('Zwei Tags hinzufügen', () =>
   {
@@ -142,20 +128,34 @@ describe('VerkuendigerKomponente', () =>
   })
   it('Verkündiger suchen', () =>
   {
-    alphabet.forEach((char, index) =>
-    {
-      cy.get('.input')
-        .type(char)
-        .wait(500)
-      // console.log(publishersToBeAdded[index].firstName)
-      cy.get('.main-wrapper > .label')
-        .should('contain', publishersToBeAdded[index].firstName)
-        .and('contain', publishersToBeAdded[index].name)
-        // TODO wie kann man sicherstellen dass
-        .and('not.contain', publishersToBeAddedTwisted[index].firstName)
-      cy.get('.input')
-        .clear()
-    })
-
+    // alphabet.forEach((char, index) =>
+    // {
+    //   cy.get('.input')
+    //     .type(char)
+    //     .wait(500)
+    //   // console.log(publishersToBeAdded[index].firstName)
+    //   cy.get('.main-wrapper > .label')
+    //     .should('contain', publishersToBeAdded[index].firstName)
+    //     .and('contain', publishersToBeAdded[index].name)
+    //   cy.get('.input')
+    //     .clear()
+    // })
+    cy.get('.input')
+        .type('R')
+    cy.get('.main-wrapper > .label')
+      .should('contain', publishersToBeAdded[1].firstName)
+      .and('contain', publishersToBeAdded[2].firstName)
+      .and('not.contain', publishersToBeAdded[0].firstName)
+    cy.get('.input')
+      .clear()
+  })
+  it('Tags "Getauft" & "Ungetauft" wieder löschen', () =>
+  {
+    cy.get('i-feather[name="tag"]')
+      .click()
+    cy.get('.action-link')
+      .click()
+    cy.get('div.action > .action > .feather')
+      .dblclick()
   })
 })

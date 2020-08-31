@@ -43,5 +43,6 @@ before(() =>
 // 'Button Landkarte ausrichten anklicken'
   cy.get('div.button')
     .click()
+  cy.wait(2000)
 }
 )
