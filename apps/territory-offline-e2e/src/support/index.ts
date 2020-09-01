@@ -16,6 +16,8 @@
 // Import commands.js using ES2015 syntax:
 import './commands';
 
+export const congregation = 'Augsburg LM'
+
 before(() =>
 {
   indexedDB.deleteDatabase('territory-offlineIDB')
@@ -23,7 +25,7 @@ before(() =>
 // 'Eingabe Name-Versammlungsgebiet'
   cy.get('.password-wrapper input').first()
     .clear()
-    .type('Augsburg LM')
+    .type(congregation)
 // 'Eingabe/Auswahl Sprache'
   const languageInput = '.password-wrapper input[name="language"]'
   cy.get(languageInput)
@@ -43,6 +45,5 @@ before(() =>
 // 'Button Landkarte ausrichten anklicken'
   cy.get('div.button')
     .click()
-  cy.wait(2000)
 }
 )
