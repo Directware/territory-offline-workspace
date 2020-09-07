@@ -21,18 +21,13 @@ const territoriesToBeAdded = [{
 },
 {
   number: '2',
-  place: 'Haunstetten-Süd',
+  place: 'Haunstetten-Nord',
   units: '30',
   commentary: 'Das ist ein Test-Kommentar',
   streets: streetsToBeAdded,
-},
-{
-  number: '3',
-  place: 'Haunstetten-Nord',
-  units: '10',
-  commentary: 'Das ist ein Test-Kommentar',
-  streets: streetsToBeAdded,
-}]
+  }]
+
+  const tagToBeAdded = 'Dienstwoche'
 
 describe('GebietsKomponente', () =>
 {
@@ -43,7 +38,7 @@ describe('GebietsKomponente', () =>
     cy.get('.action-link')
       .click()
     cy.get('input[placeholder="Tag hinzufügen"]')
-      .type('Dienstwoche')
+      .type(tagToBeAdded)
     cy.get('i-feather[name="plus"]')
       .click()
     cy.get('.action-link')
@@ -74,7 +69,7 @@ describe('GebietsKomponente', () =>
   it('Gebiete hinzufügen', () =>
   {
     let yTop = 100
-    let yBottom = 120
+    let yBottom = 160
 
     territoriesToBeAdded.forEach((territory) => {
       cy.get('.action-link')
@@ -105,14 +100,14 @@ describe('GebietsKomponente', () =>
         .click()
       cy.get('.mapboxgl-canvas')
         .click(800, yTop)
-        .click(850, yTop)
-        .click(850, yBottom)
+        .click(900, yTop)
+        .click(900, yBottom)
         .click(800, yBottom)
         .click(800, yTop)
       cy.get('.save')
         .click()
-      yTop = yTop + 40
-      yBottom = yBottom + 40
+      yTop = yTop + 60
+      yBottom = yBottom + 60
     })
   })
   it('Gebietsübersicht prüfen: \n Vollständigkeit & Reihenfolge hinzugefügter Gebiete', () =>
@@ -156,8 +151,47 @@ describe('GebietsKomponente', () =>
       .type('Ha')
     cy.get('.main-wrapper > .label')
       .should('contain', territoriesToBeAdded[1].place)
-      .and('contain', territoriesToBeAdded[2].place)
+    cy.get('.back')
+      .click()
     cy.get('.input')
       .clear()
+  })
+  it('Gebiet auf Karte anklicken \n Felder prüfen', () =>
+  {
+    cy.get('.mapboxgl-canvas')
+      .click('center')
+    cy.get(':nth-child(2) > :nth-child(1) > .main-wrapper > .label')
+      .should('contain', 'Ort')
+    cy.get(':nth-child(2) > :nth-child(1) > div.info > .info')
+      .should('contain', territoriesToBeAdded[1].place)
+    cy.get(':nth-child(2) > :nth-child(2) > .main-wrapper > .label')
+      .should('contain', 'Nummer')
+    cy.get(':nth-child(2) > div.info > .info')
+      .should('contain', territoriesToBeAdded[1].number)
+    cy.get(':nth-child(3) > :nth-child(1) > .main-wrapper > .label')
+      .should('contain', 'Wohneinheiten')
+    cy.get(':nth-child(3) > :nth-child(1) > div.info > .info')
+      .should('contain', territoriesToBeAdded[1].units)
+    cy.get(':nth-child(3) > :nth-child(2) > .main-wrapper > .label')
+      .should('contain', 'Kommentar')
+    cy.get('.comment')
+      .should('contain', territoriesToBeAdded[1].commentary)
+    cy.get('.h3-white')
+      .should('contain', 'Tags')
+    cy.get('app-tags-preview')
+      .should('contain', tagToBeAdded)
+    cy.get(':nth-child(5) > app-list-item > .main-wrapper > .label')
+      .should('contain', 'Gebietskarte drucken')
+    cy.get(':nth-child(6) > :nth-child(1) > .main-wrapper > .label')
+      .should('contain', 'Zuteilungen')
+    cy.get(':nth-child(6) > :nth-child(2) > .main-wrapper > .label')
+      .should('contain', 'Nicht besuchen Adressen')
+  })
+  // TODO Code einfacher machen
+  it('Gebietskarte drucken', () =>
+  {
+    cy.get('app-list-item > .main-wrapper > .label.blue')
+      .click()
+
   })
 })
