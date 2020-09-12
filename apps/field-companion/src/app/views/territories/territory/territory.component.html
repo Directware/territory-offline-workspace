@@ -1,0 +1,22 @@
+<ng-container *ngIf="(territoryCard$ | async) as territoryCard">
+  <h1 class="header">{{territoryCard.territory.name}} {{territoryCard.territory.key}}
+    <span (click)="done()" class="done">{{"common.done" | translate}}</span>
+  </h1>
+
+  <app-list>
+    <app-list-item>
+      <p class="label">{{"territories.assignTime" | translate}}</p>
+      <p class="info">{{territoryCard.assignment.startTime | date:'shortDate'}}</p>
+    </app-list-item>
+    <app-list-item>
+      <p class="label">{{"territories.assignEndTime" | translate}}</p>
+      <p class="info">{{assignEndTime(territoryCard) | date:'shortDate'}}</p>
+    </app-list-item>
+    <app-list-item class="danger">
+      <p class="label">{{"territories.giveBack" | translate}}</p>
+      <i-feather name="log-out" class="icon"></i-feather>
+    </app-list-item>
+  </app-list>
+
+  <fc-visit-bans [territoryCard]="territoryCard"></fc-visit-bans>
+</ng-container>

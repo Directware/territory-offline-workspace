@@ -6,6 +6,7 @@ import {LoadSettings, LoadSettingsSuccess} from "../store/settings/settings.acti
 import {take} from "rxjs/operators";
 import {LoadDailyReports} from "../store/reports/daily-reports.actions";
 import {AppDatabaseService} from "./database/app-database.service";
+import {LoadTerritoryCards} from "../store/territory-card/territory-card.actions";
 
 @Injectable({providedIn: "root"})
 export class AppInitializerService
@@ -35,6 +36,7 @@ export class AppInitializerService
 
     this.store.dispatch(LoadSettings());
     this.store.dispatch(LoadDailyReports());
+    this.store.dispatch(LoadTerritoryCards());
     return promise;
   }
 }

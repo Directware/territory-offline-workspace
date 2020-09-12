@@ -45,6 +45,9 @@ import {CircleProgressComponent} from './views/shared/circle-progress/circle-pro
 import { InputDurationComponent } from './views/field-service/input-duration/input-duration.component';
 import {UiComponentsModule} from "@territory-offline-workspace/ui-components";
 import { ReportUpToTheMinuteComponent } from './views/feature-confirmation-modals/report-up-to-the-minute/report-up-to-the-minute.component';
+import { DurationLeftForTerritoryCardPipe } from './views/territories/pipe/duration-left-for-territory-card.pipe';
+import { TerritoryComponent } from './views/territories/territory/territory.component';
+import { VisitBansComponent } from './views/territories/territory/visit-bans/visit-bans.component';
 
 const {Device} = Plugins;
 
@@ -71,7 +74,10 @@ const {Device} = Plugins;
     BackupImportProgressComponent,
     CircleProgressComponent,
     InputDurationComponent,
-    ReportUpToTheMinuteComponent
+    ReportUpToTheMinuteComponent,
+    DurationLeftForTerritoryCardPipe,
+    TerritoryComponent,
+    VisitBansComponent
   ],
   imports: [
     BrowserAnimationsModule,

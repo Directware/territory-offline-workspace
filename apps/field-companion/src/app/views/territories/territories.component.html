@@ -2,23 +2,34 @@
   {{"territories.title" | translate}}
 </h1>
 
-<app-panel>
-  <div class="wrapper">
-    <img src="/assets/images/territories-icon.svg">
+<ng-container *ngIf="(territoryCards$ | async) as territoryCards">
+  <app-panel>
+    <div *ngIf="territoryCards.length === 0" class="wrapper">
+      <img src="/assets/images/territories-icon.svg">
 
-    <div class="empty">
-      <p class="title">{{"territories.noTerritories" | translate}}</p>
-      <p class="desc">{{"territories.noTerritoriesDesc" | translate}}</p>
+      <div class="empty">
+        <p class="title">{{"territories.noTerritories" | translate}}</p>
+        <p class="desc">{{"territories.noTerritoriesDesc" | translate}}</p>
+      </div>
     </div>
-  </div>
-</app-panel>
+    <div *ngIf="territoryCards.length > 0" class="wrapper map-preview">
+      <div class="footer">
+        <h3 class="h3-grey">{{"territories.map" | translate}}</h3>
+        <button>{{"common.open" | translate}}</button>
+      </div>
+    </div>
+  </app-panel>
 
-<app-list class="territories">
-  <app-list-item (click)="territoryFileChooser.click()" class="add-territory">
-    <p class="label">{{"territories.addTerritory" | translate}}</p>
-    <i-feather class="icon" name="plus"></i-feather>
-  </app-list-item>
-</app-list>
+  <app-list class="territories">
+    <app-list-item *ngFor="let territoryCard of territoryCards" [routerLink]="'/territory/' + territoryCard.id">
+      <p class="label">{{territoryCard.territory.key}} {{territoryCard.territory.name}}</p>
+      <p class="info">{{territoryCard.assignment.startTime | durationLeftForTerritoryCard:territoryCard.estimationInMonths}}</p>
+    </app-list-item>
+    <app-list-item (click)="territoryFileChooser.click()" class="add-territory">
+      <p class="label">{{"territories.addTerritory" | translate}}</p>
+      <i-feather class="icon" name="plus"></i-feather>
+    </app-list-item>
+  </app-list>
 
-<input #territoryFileChooser style="display: none;" type="file" (change)="openTerritoryFile($event)"/>
-
+  <input #territoryFileChooser style="display: none;" type="file" (change)="openTerritoryFile($event)"/>
+</ng-container>

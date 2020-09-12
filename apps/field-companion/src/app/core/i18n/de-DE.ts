@@ -2,6 +2,7 @@ export const deDE = {
   title: "Field Companion",
   common: {
     done: "Fertig",
+    open: "Öffnen",
     info: "Tipp",
     comment: "Kommentar",
     preview: "Vorschau",
@@ -89,6 +90,12 @@ export const deDE = {
     feature1: "Empfange Gebiete per Link von deinem Gebietsdiener",
     feature2: "Betrachte dein Gebiet auf detailierten Karten",
     feature3: "Tracke deinen Standort und verfolge, wo du schon warst",
+    map: "Landkarte",
+    still: "noch",
+    toLate: "Darüber",
+    assignTime: "Zugeteilt am",
+    assignEndTime: "Verfügbar bis",
+    giveBack: "Gebiet abgeben",
   },
   settings: {
     title: "Einstellungen",

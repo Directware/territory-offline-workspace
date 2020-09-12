@@ -11,7 +11,9 @@ export const {
   selectTotal,
 } = territoryCardsAdapter.getSelectors(selectTerritoryCardsFeature);
 
-export const selectAllTerritoryCards = createSelector(
-  selectAll,
-  (reports) => reports
+export const selectAllTerritoryCards = selectAll;
+
+export const selectTerritoryCardById = createSelector(
+  selectEntities,
+  (entities, id) => entities[id]
 );

@@ -88,6 +88,9 @@ export const slideInAnimation =
     transition('Settings => Modal', modalSlideUpTransition),
     transition('Modal => Settings', modalSlideDownTransition),
 
+    transition('Territories => Modal', modalSlideUpTransition),
+    transition('Modal => Territories', modalSlideDownTransition),
+
     transition('Time => Modal', modalSlideUpTransition),
     transition('Modal => Time', modalSlideDownTransition),
 

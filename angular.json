@@ -10,7 +10,7 @@
       },
       "root": "apps/territory-offline",
       "sourceRoot": "apps/territory-offline/src",
-      "prefix": "territory-offline-workspace",
+      "prefix": "to",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -137,7 +137,7 @@
       "projectType": "library",
       "root": "libs/ui-components",
       "sourceRoot": "libs/ui-components/src",
-      "prefix": "territory-offline-workspace",
+      "prefix": "ui",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -174,7 +174,7 @@
       },
       "root": "apps/field-companion",
       "sourceRoot": "apps/field-companion/src",
-      "prefix": "territory-offline-workspace",
+      "prefix": "fc",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -289,7 +289,7 @@
       "projectType": "library",
       "root": "libs/api",
       "sourceRoot": "libs/api/src",
-      "prefix": "territory-offline-workspace",
+      "prefix": "api",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",

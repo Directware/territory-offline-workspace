@@ -18,6 +18,7 @@
     justify-content: space-between;
     align-items: center;
     margin: 1rem 1rem 1rem 1rem;
+    padding-left: 0;
     z-index: 11;
     font-family: Heebo-Medium, sans-serif;
     font-size: 30px;
@@ -28,6 +29,9 @@
 
   app-panel {
     padding: 0;
+    border-radius: 0.625rem;
+    margin: 0 1rem 1rem 1rem;
+    overflow: hidden;
 
     ::ng-deep .wrapper {
       padding: 2rem;
@@ -63,6 +67,53 @@
             letter-spacing: 0.4px;
             text-align: center;
             color: #adb1b8;
+          }
+        }
+      }
+
+      &.map-preview {
+        position: relative;
+        height: 15rem;
+        background-image: url("../../../assets/images/background-map.jpeg");
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        .footer {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          height: 3.5rem;
+          width: 100%;
+          padding: 1rem;
+          box-sizing: border-box;
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          background-color: rgba(173, 177, 184, 0.24);
+
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+
+          h3 {
+            color: #0c1118;
+          }
+
+          button{
+            padding: 0.25rem 0.5rem;
+            box-sizing: border-box;
+            border: none;
+            border-radius: 16px;
+            background-color: #3694e2;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 500;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.25;
+            letter-spacing: 0.4px;
+            text-align: center;
+            outline: none;
           }
         }
       }
