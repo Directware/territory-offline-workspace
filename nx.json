@@ -38,6 +38,9 @@
     "field-companion-e2e": {
       "tags": [],
       "implicitDependencies": ["field-companion"]
+    },
+    "api": {
+      "tags": []
     }
   }
 }

@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {Publisher} from '../../core/store/publishers/model/publisher.model';
 import {Observable} from 'rxjs';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../core/store/index.reducers';
 import {selectPublishersByFirstNameLetter} from '../../core/store/publishers/publishers.selectors';
 import {map} from "rxjs/operators";
+import {Publisher} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-preachers',

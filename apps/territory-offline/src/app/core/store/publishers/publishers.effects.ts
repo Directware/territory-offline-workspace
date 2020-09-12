@@ -1,11 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {map, switchMap, tap} from 'rxjs/operators';
-import {TimedEntity} from '../../model/db/timed-entity.interface';
 import {from} from 'rxjs';
 import {DatabaseService} from '../../services/db/database.service';
 import {
-  BulkImportPublishers, BulkImportPublishersSuccess, BulkUpsertPublisher, BulkUpsertPublisherSuccess,
+  BulkImportPublishers,
+  BulkImportPublishersSuccess,
+  BulkUpsertPublisher,
+  BulkUpsertPublisherSuccess,
   DeletePublisher,
   DeletePublisherSuccess,
   LoadPublishers,
@@ -13,9 +15,8 @@ import {
   UpsertPublisher,
   UpsertPublisherSuccess
 } from './publishers.actions';
-import {Publisher} from './model/publisher.model';
 import {LastDoingsService} from "../../services/common/last-doings.service";
-import {LastDoingActionsEnum} from "../last-doings/model/last-doing-actions.enum";
+import {LastDoingActionsEnum, Publisher, TimedEntity} from "@territory-offline-workspace/api";
 
 @Injectable({providedIn: 'root'})
 export class PublishersEffects

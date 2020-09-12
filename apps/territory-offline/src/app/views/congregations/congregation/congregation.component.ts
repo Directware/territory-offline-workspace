@@ -7,7 +7,6 @@ import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../../core/store/index.reducers';
 import {map, take, takeUntil, tap} from 'rxjs/operators';
 import {selectCongregationById} from '../../../core/store/congregation/congregations.selectors';
-import {Congregation} from '../../../core/store/congregation/model/congregation.model';
 import {v4 as uuid} from 'uuid';
 import {
   DeleteCongregation,
@@ -16,14 +15,13 @@ import {
   UpsertCongregationSuccess, UseCongregation
 } from '../../../core/store/congregation/congregations.actions';
 import {selectCurrentCongregationId} from '../../../core/store/settings/settings.selectors';
-import {LastDoingActionsEnum} from "../../../core/store/last-doings/model/last-doing-actions.enum";
 import {LastDoingsService} from "../../../core/services/common/last-doings.service";
-import {LastDoing} from "../../../core/store/last-doings/model/last-doing.model";
 import {selectLastDoings} from "../../../core/store/last-doings/last-doings.selectors";
 import {ToLanguage} from "@territory-offline-workspace/ui-components";
 import {uuid4} from "@capacitor/core/dist/esm/util";
 import {DataExportService} from "../../../core/services/import/data-export.service";
 import {DataImportService} from "../../../core/services/import/data-import.service";
+import {Congregation, LastDoing, LastDoingActionsEnum} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-congregation',

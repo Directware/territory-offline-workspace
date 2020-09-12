@@ -1,10 +1,10 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Publisher} from '../../store/publishers/model/publisher.model';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../store/index.reducers';
 import {selectPublisherById} from '../../store/publishers/publishers.selectors';
 import {map} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
+import {Publisher} from "@territory-offline-workspace/api";
 
 @Pipe({
   name: 'publisherIdToName'

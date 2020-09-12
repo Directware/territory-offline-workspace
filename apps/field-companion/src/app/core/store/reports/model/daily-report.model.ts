@@ -1,6 +1,6 @@
-import {TimedEntity} from "../../../services/database/timed-entity.interface";
 import {uuid4} from "@capacitor/core/dist/esm/util";
 import {dailyReportCollectionName} from "../../../services/database/collection-names";
+import {TimedEntity} from "@territory-offline-workspace/api";
 
 export interface DailyReport extends TimedEntity
 {

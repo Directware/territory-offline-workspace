@@ -1,13 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../core/store/index.reducers';
-import {selectDashboardData, selectOverdueAssignments, selectOverdueTerritories} from '../../core/store/assignments/assignments.selectors';
+import {
+  selectDashboardData,
+  selectOverdueAssignments,
+  selectOverdueTerritories
+} from '../../core/store/assignments/assignments.selectors';
 import {Observable, Subject} from 'rxjs';
-import {selectOverdueVisitBans} from '../../core/store/visit-bans/visit-bans.selectors';
-import {Territory} from '../../core/store/territories/model/territory.model';
 import {filter, map, takeUntil, tap} from 'rxjs/operators';
-import {VisitBan} from '../../core/store/visit-bans/model/visit-ban.model';
+import {Territory} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-dashboard',
@@ -36,7 +38,6 @@ export class DashboardComponent implements OnInit, OnDestroy
   public ngOnInit(): void
   {
     this.dashboardData$ = this.store.pipe(select(selectDashboardData));
-    this.activatedRoute.params.pipe(tap(t => console.log(this.activatedRoute)));
     this.overdueAssignments$ = this.store.pipe(select(selectOverdueAssignments));
     this.overdueTerritories$ = this.store.pipe(select(selectOverdueTerritories));
     this.router.navigate([{outlets: {'second-thread': null}}]);

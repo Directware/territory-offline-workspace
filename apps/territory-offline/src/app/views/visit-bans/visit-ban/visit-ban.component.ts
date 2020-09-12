@@ -6,7 +6,6 @@ import {Actions, ofType} from '@ngrx/effects';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {debounceTime, map, take, takeUntil, tap} from 'rxjs/operators';
 import {selectVisitBanById} from '../../../core/store/visit-bans/visit-bans.selectors';
-import {VisitBan} from '../../../core/store/visit-bans/model/visit-ban.model';
 import {
   DeleteVisitBan,
   DeleteVisitBanSuccess,
@@ -16,14 +15,12 @@ import {
 import {v4 as uuid} from 'uuid';
 import {combineLatest, Subject} from 'rxjs';
 import {TerritoryMapsService} from '../../../core/services/territory/territory-maps.service';
-import {GeocodingResult} from '../../../core/model/territory/geocoding/geocoding-result.interface';
 import {LastDoingsService} from "../../../core/services/common/last-doings.service";
-import {LastDoingActionsEnum} from "../../../core/store/last-doings/model/last-doing-actions.enum";
 import {selectAllDrawings} from "../../../core/store/drawings/drawings.selectors";
 import {selectAllTerritories} from "../../../core/store/territories/territories.selectors";
 import * as Turf from '@turf/turf';
 import {isInLocationPath} from "../../../core/utils/usefull.functions";
-import {Territory} from "../../../core/store/territories/model/territory.model";
+import {GeocodingResult, LastDoingActionsEnum, VisitBan} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-visit-ban',

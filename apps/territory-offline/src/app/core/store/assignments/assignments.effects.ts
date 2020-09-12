@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {concatMap, map, switchMap, withLatestFrom} from 'rxjs/operators';
-import {TimedEntity} from '../../model/db/timed-entity.interface';
 import {from, of} from 'rxjs';
 import {DatabaseService} from '../../services/db/database.service';
 import {
@@ -14,11 +13,11 @@ import {
   UpsertAssignment,
   UpsertAssignmentSuccess
 } from './assignments.actions';
-import {Assignment} from './model/assignment.model';
 import {BulkImportAssignments, BulkImportAssignmentsSuccess} from '../assignments/assignments.actions';
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../index.reducers";
 import {selectAssignmentsByTerritoryId} from "./assignments.selectors";
+import {Assignment, TimedEntity} from "@territory-offline-workspace/api";
 
 @Injectable({providedIn: 'root'})
 export class AssignmentsEffects

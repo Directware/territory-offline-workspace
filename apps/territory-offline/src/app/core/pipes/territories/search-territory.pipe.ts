@@ -1,13 +1,12 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Territory} from "../../store/territories/model/territory.model";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/index.reducers";
 import {selectTags} from "../../store/tags/tags.selectors";
 import {map, tap} from "rxjs/operators";
-import {Tag} from "../../store/tags/model/tag.model";
 import {Observable, of} from "rxjs";
 import {TerritoryMapsService} from "../../services/territory/territory-maps.service";
 import {Router} from "@angular/router";
+import {Tag, Territory} from "@territory-offline-workspace/api";
 
 @Pipe({
   name: 'searchTerritory'

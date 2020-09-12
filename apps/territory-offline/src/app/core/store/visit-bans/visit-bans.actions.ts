@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {VisitBan} from './model/visit-ban.model';
+import {VisitBan} from "@territory-offline-workspace/api";
 
 export const LoadVisitBans = createAction('[Visit bans] load visit bans');
 export const LoadVisitBansSuccess = createAction('[Visit bans] load visit bans success', props<{visitBans: VisitBan[]}>());

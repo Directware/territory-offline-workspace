@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable, Subject} from 'rxjs';
-import {Assignment} from '../../../core/store/assignments/model/assignment.model';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../../core/store/index.reducers';
 import {selectOverdueAssignmentsByPreacher} from '../../../core/store/assignments/assignments.selectors';
@@ -9,6 +8,7 @@ import {take, takeUntil, tap} from 'rxjs/operators';
 import {AssignmentsService} from '../../../core/services/assignment/assignments.service';
 import {TerritoryMapsService} from "../../../core/services/territory/territory-maps.service";
 import {selectAllTerritories} from "../../../core/store/territories/territories.selectors";
+import {Assignment} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-overdue-assignments',

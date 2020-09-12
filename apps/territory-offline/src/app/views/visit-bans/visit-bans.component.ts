@@ -3,10 +3,10 @@ import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../core/store/index.reducers';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
-import {VisitBan} from '../../core/store/visit-bans/model/visit-ban.model';
 import {selectVisitBansByTerritoryId} from '../../core/store/visit-bans/visit-bans.selectors';
 import {take, tap} from "rxjs/operators";
 import {TerritoryMapsService} from "../../core/services/territory/territory-maps.service";
+import {VisitBan} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-visit-bans',

@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {Assignment} from './model/assignment.model';
+import {Assignment} from "@territory-offline-workspace/api";
 
 export const LoadAssignments = createAction('[Assignments] load assignments');
 export const LoadAssignmentsSuccess = createAction('[Assignments] load assignments success', props<{assignments: Assignment[]}>());

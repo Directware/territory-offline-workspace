@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {concatMap, map, switchMap, take, tap, withLatestFrom} from 'rxjs/operators';
-import {TimedEntity} from '../../model/db/timed-entity.interface';
 import {from, of} from 'rxjs';
 import {DatabaseService} from '../../services/db/database.service';
 import {
@@ -13,13 +12,12 @@ import {
   UpsertCongregationSuccess,
   UseCongregation
 } from './congregations.actions';
-import {Congregation} from './model/congregation.model';
+import {Congregation, LastDoingActionsEnum, TimedEntity} from "@territory-offline-workspace/api";
 import {select, Store} from '@ngrx/store';
 import {selectSettings} from '../settings/settings.selectors';
 import {UpsertSettings, UpsertSettingsSuccess} from '../settings/settings.actions';
 import {ApplicationState} from '../index.reducers';
 import {LastDoingsService} from "../../services/common/last-doings.service";
-import {LastDoingActionsEnum} from "../last-doings/model/last-doing-actions.enum";
 import {PlatformAgnosticActionsService} from "../../services/common/platform-agnostic-actions.service";
 import {MatDialog} from "@angular/material/dialog";
 import {WaitingModalComponent} from "../../../views/shared/modals/waiting-modal/waiting-modal.component";

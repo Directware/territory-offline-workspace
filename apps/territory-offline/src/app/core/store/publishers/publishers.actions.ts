@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {Publisher} from './model/publisher.model';
+import {Publisher} from "@territory-offline-workspace/api";
 
 export const LoadPublishers = createAction('[Publisher] load publishers');
 export const LoadPublishersSuccess = createAction('[Publisher] load publishers success', props<{publishers: Publisher[]}>());

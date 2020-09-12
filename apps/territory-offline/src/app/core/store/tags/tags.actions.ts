@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {Tag} from './model/tag.model';
+import {Tag} from "@territory-offline-workspace/api";
 
 export const LoadTags = createAction("[Tags] load tags");
 export const LoadTagsSuccess = createAction("[Tags] load tags success", props<{tags: Tag[]}>());

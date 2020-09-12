@@ -1,6 +1,5 @@
 import {Action, createReducer, on} from '@ngrx/store';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {Publisher} from './model/publisher.model';
 import {
   BulkImportPublishersSuccess,
   BulkUpsertPublisherSuccess,
@@ -8,6 +7,7 @@ import {
   LoadPublishersSuccess,
   UpsertPublisherSuccess
 } from './publishers.actions';
+import {Publisher} from "@territory-offline-workspace/api";
 
 export const publishersAdapter = createEntityAdapter<Publisher>();
 

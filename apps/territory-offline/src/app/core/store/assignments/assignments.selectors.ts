@@ -3,13 +3,11 @@ import {createSelector} from '@ngrx/store';
 import {assignmentsAdapter} from './assignments.reducer';
 import {selectAllTerritories} from '../territories/territories.selectors';
 import {selectSettings} from '../settings/settings.selectors';
-import {Assignment} from './model/assignment.model';
-import {createDurationPhrase, evaluateTerritoryStatus, pastDateByMonths} from '../../utils/usefull.functions';
+import {Assignment, Territory} from "@territory-offline-workspace/api";
+import {createDurationPhrase, pastDateByMonths} from '../../utils/usefull.functions';
 import {selectPublisherEntities, selectPublishersFeature} from '../publishers/publishers.selectors';
-import {Territory} from '../territories/model/territory.model';
 import {SettingsState} from '../settings/settings.reducer';
 import {selectTagsFeature} from "../tags/tags.selectors";
-import {TerritoryStatus} from "../../model/territory/territory-status.enum";
 
 export const selectAssignmentsFeature = (state: ApplicationState) => state.assignments;
 
@@ -67,7 +65,7 @@ export const selectDashboardData = createSelector(
   selectSettings,
   (lastAssignments, territories, settings) =>
   {
-    const currentlyDone = lastAssignments.filter(a => a && !!a.startTime && !!a.endTime && TerritoryStatus.DONE === evaluateTerritoryStatus(a, settings).status);
+    const currentlyDone = lastAssignments.filter(a => a && !!a.startTime && !!a.endTime && a.endTime > pastDateByMonths(12));
     const currentlyInProgress = lastAssignments.filter(a => a && !!a.startTime && !a.endTime);
 
     const totalPopulationCount = territories && territories.length > 0 ? territories.map(t => t.populationCount).reduce((total, current) => total + current, 0) : 0;
@@ -160,10 +158,12 @@ export const selectAllAssignmentsOrderedByRelevantTags = createSelector(
   selectAllTerritories,
   selectPublishersFeature,
   selectTagsFeature,
-  (assignments: Assignment[], territories, publisher, tagState) => {
+  (assignments: Assignment[], territories, publisher, tagState) =>
+  {
     /* Zuteilungen anhand des Gebiets sammeln */
     const assignmentsByTerritory = new Map<string, any>();
-    territories.filter(territory => !territory.deactivated).forEach((territory: Territory) => {
+    territories.filter(territory => !territory.deactivated).forEach((territory: Territory) =>
+    {
       assignmentsByTerritory.set(territory.id, {
         territory: territory,
         showCount: 4,
@@ -180,17 +180,21 @@ export const selectAllAssignmentsOrderedByRelevantTags = createSelector(
     /* Zuteilungen sortieren (neuste zuerst) */
     Array.from(assignmentsByTerritory.values())
       .forEach(dto =>
-        dto.assignmentDtos.sort((dto1, dto2) => {
-          if (!dto1 || !dto1.assignment || !dto2 || !dto2.assignment) {
+        dto.assignmentDtos.sort((dto1, dto2) =>
+        {
+          if (!dto1 || !dto1.assignment || !dto2 || !dto2.assignment)
+          {
             return -1;
           }
           return dto1.assignment.startTime.getTime() > dto2.assignment.startTime.getTime() ? -1 : 1;
         }));
 
     /* ShowCount anpassen */
-    Array.from(assignmentsByTerritory.values()).forEach(dto => {
+    Array.from(assignmentsByTerritory.values()).forEach(dto =>
+    {
       const firstAssignmentDto = dto.assignmentDtos[0];
-      if (firstAssignmentDto && firstAssignmentDto.assignment.endTime) {
+      if (firstAssignmentDto && firstAssignmentDto.assignment.endTime)
+      {
         dto.showCount = 3;
         dto.initialShowCount = 3;
       }
@@ -201,10 +205,12 @@ export const selectAllAssignmentsOrderedByRelevantTags = createSelector(
 
     /* Zur Gesamtstruktur zusammenfügen */
     Array.from(assignmentsByTerritory.values())
-      .forEach((dto) => {
+      .forEach((dto) =>
+      {
         const firstTagId = dto.territory.tags[0];
 
-        if (!dtosByTag.get(dto.territory.tags[0])) {
+        if (!dtosByTag.get(dto.territory.tags[0]))
+        {
           dtosByTag.set(firstTagId, {
             tag: tagState.entities[firstTagId],
             territoryDtos: []

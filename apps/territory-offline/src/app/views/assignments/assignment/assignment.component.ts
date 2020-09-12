@@ -4,7 +4,6 @@ import {select, Store} from '@ngrx/store';
 import {take, tap} from 'rxjs/operators';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {v4 as uuid} from 'uuid';
-import {Assignment} from '../../../core/store/assignments/model/assignment.model';
 import {ApplicationState} from '../../../core/store/index.reducers';
 import {selectAssignmentById} from '../../../core/store/assignments/assignments.selectors';
 import {
@@ -15,12 +14,11 @@ import {
 } from '../../../core/store/assignments/assignments.actions';
 import {Actions, ofType} from '@ngrx/effects';
 import {LastDoingsService} from "../../../core/services/common/last-doings.service";
-import {LastDoingActionsEnum} from "../../../core/store/last-doings/model/last-doing-actions.enum";
 import {selectTerritoryById} from "../../../core/store/territories/territories.selectors";
-import {Territory} from "../../../core/store/territories/model/territory.model";
 import {DatePipe} from "@angular/common";
 import {TerritoryMapsService} from "../../../core/services/territory/territory-maps.service";
 import {AssignmentsService} from "../../../core/services/assignment/assignments.service";
+import {Assignment, LastDoingActionsEnum, Territory} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-assignment',

@@ -3,14 +3,13 @@ import {Observable, of} from 'rxjs';
 import {catchError, map, take, tap} from 'rxjs/operators';
 
 import {version as currentVersion} from './../../../../../package.json';
-import {ReleaseInfo} from '../../model/common/release-info.interface';
 import {environment} from '../../../../environments/environment';
-import {OsNames} from '../../model/common/os-name.enum';
 import {HttpClient} from '@angular/common/http';
 import {select, Store} from '@ngrx/store';
 import {selectSettings} from '../../store/settings/settings.selectors';
 import {UpsertSettings} from '../../store/settings/settings.actions';
 import {ApplicationState} from '../../store/index.reducers';
+import {OsNames, ReleaseInfo} from "@territory-offline-workspace/api";
 
 @Injectable({
   providedIn: 'root'

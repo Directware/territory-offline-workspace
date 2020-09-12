@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Assignment} from '../../core/store/assignments/model/assignment.model';
 import {Observable} from 'rxjs';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../core/store/index.reducers';
 import {selectAssignmentsByTerritoryId} from '../../core/store/assignments/assignments.selectors';
 import {AssignmentsService} from '../../core/services/assignment/assignments.service';
+import {Assignment} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-assignments',

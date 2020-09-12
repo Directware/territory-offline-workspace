@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../core/store/index.reducers";
 import {Observable} from "rxjs";
-import {VisitBan} from "../../../core/store/visit-bans/model/visit-ban.model";
 import {selectAllVisitBans} from "../../../core/store/visit-bans/visit-bans.selectors";
 import {map} from "rxjs/operators";
 import {Router} from "@angular/router";
+import {VisitBan} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-whole-visit-bans',

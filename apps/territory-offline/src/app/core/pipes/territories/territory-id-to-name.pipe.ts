@@ -4,7 +4,7 @@ import {ApplicationState} from '../../store/index.reducers';
 import {map} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import {selectTerritoryById} from '../../store/territories/territories.selectors';
-import {Territory} from '../../store/territories/model/territory.model';
+import {Territory} from "@territory-offline-workspace/api";
 
 @Pipe({
   name: 'territoryIdToName'

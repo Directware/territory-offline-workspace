@@ -1,12 +1,12 @@
 import {Action, createReducer, on} from '@ngrx/store';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {Assignment} from './model/assignment.model';
 import {
   BulkImportAssignmentsSuccess, BulkUpsertAssignmentsSuccess, DeleteAssignmentsByTerritorySuccess,
   DeleteAssignmentSuccess,
   LoadAssignmentsSuccess,
   UpsertAssignmentSuccess
 } from './assignments.actions';
+import {Assignment} from "@territory-offline-workspace/api";
 
 export const assignmentsAdapter = createEntityAdapter<Assignment>();
 

@@ -3,11 +3,10 @@ import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/index.reducers";
 import {Actions, ofType} from "@ngrx/effects";
 import {map, take, tap} from "rxjs/operators";
-import {LastDoingActionsEnum} from "../../store/last-doings/model/last-doing-actions.enum";
 import {DeleteLastDoing, UpsertLastDoing} from "../../store/last-doings/last-doings.actions";
 import {uuid4} from "@capacitor/core/dist/esm/util";
-import {LastDoing} from "../../store/last-doings/model/last-doing.model";
 import {selectLastDoingsForTidyUp} from "../../store/last-doings/last-doings.selectors";
+import {LastDoing, LastDoingActionsEnum} from "@territory-offline-workspace/api";
 
 @Injectable({
   providedIn: 'root'

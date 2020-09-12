@@ -3,10 +3,9 @@ import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/index.reducers";
 import {selectTags} from "../../store/tags/tags.selectors";
 import {map} from "rxjs/operators";
-import {Tag} from "../../store/tags/model/tag.model";
 import {Observable, of} from "rxjs";
 import {Router} from "@angular/router";
-import {VisitBan} from "../../store/visit-bans/model/visit-ban.model";
+import {Tag, VisitBan} from "@territory-offline-workspace/api";
 
 @Pipe({
   name: 'searchVisitBan'

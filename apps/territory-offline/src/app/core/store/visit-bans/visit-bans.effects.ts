@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {map, switchMap, tap} from 'rxjs/operators';
-import {TimedEntity} from '../../model/db/timed-entity.interface';
 import {from} from 'rxjs';
 import {DatabaseService} from '../../services/db/database.service';
 import {
@@ -14,9 +13,8 @@ import {
   UpsertVisitBan,
   UpsertVisitBanSuccess
 } from './visit-bans.actions';
-import {VisitBan} from './model/visit-ban.model';
 import {LastDoingsService} from "../../services/common/last-doings.service";
-import {LastDoingActionsEnum} from "../last-doings/model/last-doing-actions.enum";
+import {LastDoingActionsEnum, TimedEntity, VisitBan} from "@territory-offline-workspace/api";
 
 @Injectable({providedIn: 'root'})
 export class VisitBansEffects

@@ -1,19 +1,21 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Publisher} from "../../../core/store/publishers/model/publisher.model";
-import {Territory} from "../../../core/store/territories/model/territory.model";
-import {Drawing} from "../../../core/store/drawings/model/drawing.model";
-import {Tag} from "../../../core/store/tags/model/tag.model";
-import {Assignment} from "../../../core/store/assignments/model/assignment.model";
-import {VisitBan} from "../../../core/store/visit-bans/model/visit-ban.model";
 import {Store} from "@ngrx/store";
 import {ApplicationState} from "../../../core/store/index.reducers";
 import {DataImportService} from "../../../core/services/import/data-import.service";
 import {Router} from "@angular/router";
 import {uuid4} from "@capacitor/core/dist/esm/util";
-import {TagSymbol} from "../../../core/store/tags/model/tag-symbol.enum";
 import * as XLSX from 'xlsx';
-import {ExportableTypesEnum} from "../../../core/model/common/exportable-types.enum";
 import {MatDialogRef} from "@angular/material/dialog";
+import {
+  Assignment,
+  Drawing,
+  ExportableTypesEnum,
+  Publisher,
+  Tag,
+  TagSymbol,
+  Territory,
+  VisitBan
+} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-territory-helper-import',

@@ -1,9 +1,9 @@
 import {Action, createReducer, on} from '@ngrx/store';
 import {LoadSettingsSuccess, UpsertSettingsSuccess} from './settings.actions';
-import {TimedEntity} from "../../services/database/timed-entity.interface";
 import {ToLanguage} from "@territory-offline-workspace/ui-components";
 import {settingsCollectionName} from "../../services/database/collection-names";
 import {Dictionary} from "@ngrx/entity";
+import {TimedEntity} from "@territory-offline-workspace/api";
 
 export interface SettingsState extends TimedEntity
 {

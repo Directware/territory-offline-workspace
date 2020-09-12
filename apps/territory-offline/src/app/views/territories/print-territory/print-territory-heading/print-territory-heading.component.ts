@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Territory} from "../../../../core/store/territories/model/territory.model";
 import {TerritoryMapsService} from "../../../../core/services/territory/territory-maps.service";
-import {PrintedMapConfiguration} from "../../../../core/model/territory/print/printed-map-configuration.interface";
+import {PrintedMapConfiguration, Territory} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-print-territory-heading',

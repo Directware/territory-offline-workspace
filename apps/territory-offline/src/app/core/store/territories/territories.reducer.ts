@@ -1,6 +1,5 @@
 import {Action, createReducer, on} from '@ngrx/store';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {Territory} from './model/territory.model';
 import {
   BulkImportTerritoriesSuccess,
   BulkUpsertTerritorySuccess,
@@ -8,6 +7,7 @@ import {
   LoadTerritoriesSuccess,
   UpsertTerritorySuccess
 } from './territories.actions';
+import {Territory} from "@territory-offline-workspace/api";
 
 export const territoriesAdapter = createEntityAdapter<Territory>();
 

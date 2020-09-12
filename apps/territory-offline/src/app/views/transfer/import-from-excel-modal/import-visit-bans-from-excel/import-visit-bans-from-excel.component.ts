@@ -9,15 +9,13 @@ import {take, tap} from "rxjs/operators";
 import {selectAllTerritories} from "../../../../core/store/territories/territories.selectors";
 import {selectAllDrawings} from "../../../../core/store/drawings/drawings.selectors";
 import {combineLatest} from "rxjs";
-import {Territory} from "../../../../core/store/territories/model/territory.model";
-import {Drawing} from "../../../../core/store/drawings/model/drawing.model";
 import * as Turf from '@turf/turf';
-import {BulkImportVisitBans, BulkImportVisitBansSuccess} from "../../../../core/store/visit-bans/visit-bans.actions";
+import {BulkImportVisitBansSuccess} from "../../../../core/store/visit-bans/visit-bans.actions";
 import {uuid4} from "@capacitor/core/dist/esm/util";
 import {Actions, ofType} from "@ngrx/effects";
-import {VisitBan} from "../../../../core/store/visit-bans/model/visit-ban.model";
 import {WaitingModalComponent} from "../../../shared/modals/waiting-modal/waiting-modal.component";
 import {parseXlsxDate} from "../../../../core/utils/usefull.functions";
+import {Drawing, Territory, VisitBan} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-import-visit-bans-from-excel',

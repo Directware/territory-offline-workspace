@@ -1,20 +1,22 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {ToBackup} from "../../../../core/model/common/to-backup.model";
-import {DatabaseEntity} from "../../../../core/model/db/database-entity.interface";
 import {Store} from "@ngrx/store";
 import {ApplicationState} from "../../../../core/store/index.reducers";
 import {DeleteTerritory} from "../../../../core/store/territories/territories.actions";
-import {Territory} from "../../../../core/store/territories/model/territory.model";
 import {DeletePublisher} from "../../../../core/store/publishers/publishers.actions";
-import {Publisher} from "../../../../core/store/publishers/model/publisher.model";
 import {DeleteVisitBan} from "../../../../core/store/visit-bans/visit-bans.actions";
-import {VisitBan} from "../../../../core/store/visit-bans/model/visit-ban.model";
 import {DeleteAssignment} from "../../../../core/store/assignments/assignments.actions";
-import {Assignment} from "../../../../core/store/assignments/model/assignment.model";
 import {DeleteTag} from "../../../../core/store/tags/tags.actions";
-import {Tag} from "../../../../core/store/tags/model/tag.model";
 import {DeleteDrawing} from "../../../../core/store/drawings/drawings.actions";
+import {
+  Assignment,
+  DatabaseEntity,
+  Publisher,
+  Tag,
+  Territory,
+  ToBackup,
+  VisitBan
+} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-backup-import-changes',

@@ -1,6 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {Drawing} from './model/drawing.model';
-import {TerritoryDrawingPrintConfiguration} from '../../model/territory/print/territory-drawing-print-configuration.interface';
+import {Drawing, TerritoryDrawingPrintConfiguration} from "@territory-offline-workspace/api";
 
 export const LoadDrawings = createAction('[Drawings] load drawings');
 export const LoadDrawingsSuccess = createAction('[Drawings] load drawings success', props<{ drawings: Drawing[] }>());

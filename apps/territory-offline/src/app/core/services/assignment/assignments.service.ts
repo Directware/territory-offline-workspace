@@ -1,14 +1,11 @@
 import {Injectable} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {UpsertAssignment, UpsertAssignmentSuccess} from './../../../core/store/assignments/assignments.actions';
-import {Assignment} from '../../store/assignments/model/assignment.model';
 import {v4 as uuid} from 'uuid';
 import {Actions, ofType} from '@ngrx/effects';
 import {first, take, tap} from 'rxjs/operators';
-import {LastDoingActionsEnum} from "../../store/last-doings/model/last-doing-actions.enum";
 import {LastDoingsService} from "../common/last-doings.service";
 import {selectTerritoryById} from "../../store/territories/territories.selectors";
-import {Territory} from "../../store/territories/model/territory.model";
 import {TerritoryMapsService} from "../territory/territory-maps.service";
 import {ApplicationState} from "../../store/index.reducers";
 import {selectPublisherById} from "../../store/publishers/publishers.selectors";
@@ -17,12 +14,18 @@ import {FileSharer} from "@byteowls/capacitor-filesharer";
 
 const {Device} = Plugins;
 import * as Pako from 'pako';
-import {ExportableTypesEnum} from "../../model/common/exportable-types.enum";
 import {selectDrawingById} from "../../store/drawings/drawings.selectors";
 import {selectVisitBansByTerritoryId} from "../../store/visit-bans/visit-bans.selectors";
-import {Publisher} from "../../store/publishers/model/publisher.model";
 import {selectSettings} from "../../store/settings/settings.selectors";
 import {SettingsState} from "../../store/settings/settings.reducer";
+import {
+  Assignment,
+  ExportableTypesEnum,
+  LastDoingActionsEnum,
+  Publisher,
+  Territory,
+  TerritoryCard
+} from "@territory-offline-workspace/api";
 
 @Injectable({
   providedIn: 'root',
@@ -46,7 +49,7 @@ export class AssignmentsService
 
     const deviceInfo = await Device.getInfo();
 
-    const digitalTerritoryCard = {
+    const digitalTerritoryCard: TerritoryCard = {
       id: uuid(),
       territory: territory,
       drawing: drawing,
@@ -55,7 +58,7 @@ export class AssignmentsService
       visitBans: visitBans,
       type: ExportableTypesEnum.DIGITAL_TERRITORY,
       estimationInMonths: settings.processingPeriodInMonths,
-      creationDate: new Date()
+      creationTime: new Date()
     };
 
     const gzippedData = Pako.gzip(JSON.stringify(digitalTerritoryCard), {to: "string"});

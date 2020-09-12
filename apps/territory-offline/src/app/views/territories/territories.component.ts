@@ -1,14 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
-import {Territory} from '../../core/store/territories/model/territory.model';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../core/store/index.reducers';
 import {selectAllTerritories} from '../../core/store/territories/territories.selectors';
 import {map} from "rxjs/operators";
 import {TerritoryMapsService} from "../../core/services/territory/territory-maps.service";
-import {TerritoryStatus} from "../../core/model/territory/territory-status.enum";
 import {selectCurrentCongregation} from "../../core/store/congregation/congregations.selectors";
+import {Territory, TerritoryStatus} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-territories',

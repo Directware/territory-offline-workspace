@@ -3,10 +3,8 @@ import {Store} from '@ngrx/store';
 import {ApplicationState} from '../../../core/store/index.reducers';
 import {UpsertTag, UpsertTagSuccess} from '../../../core/store/tags/tags.actions';
 import {v4 as uuid} from 'uuid';
-import {TagSymbol} from '../../../core/store/tags/model/tag-symbol.enum';
-import {Tag} from '../../../core/store/tags/model/tag.model';
-import {LastDoingActionsEnum} from "../../../core/store/last-doings/model/last-doing-actions.enum";
 import {LastDoingsService} from "../../../core/services/common/last-doings.service";
+import {LastDoingActionsEnum, Tag, TagSymbol} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-add-tag',

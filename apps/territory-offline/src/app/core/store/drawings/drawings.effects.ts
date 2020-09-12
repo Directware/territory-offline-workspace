@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {concatMap, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
-import {TimedEntity} from '../../model/db/timed-entity.interface';
+import {concatMap, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {from, of} from 'rxjs';
 import {DatabaseService} from '../../services/db/database.service';
 import {
@@ -15,12 +14,11 @@ import {
   UpsertDrawing,
   UpsertDrawingSuccess
 } from './drawings.actions';
-import {Drawing} from './model/drawing.model';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../index.reducers';
 import {selectDrawingById} from './drawings.selectors';
 import {LastDoingsService} from "../../services/common/last-doings.service";
-import {LastDoingActionsEnum} from "../last-doings/model/last-doing-actions.enum";
+import {Drawing, TimedEntity} from "@territory-offline-workspace/api";
 
 @Injectable({providedIn: 'root'})
 export class DrawingsEffects
@@ -76,5 +74,7 @@ export class DrawingsEffects
   constructor(private actions$: Actions,
               private store: Store<ApplicationState>,
               private database: DatabaseService,
-              private lastDoingsService: LastDoingsService) {}
+              private lastDoingsService: LastDoingsService)
+  {
+  }
 }

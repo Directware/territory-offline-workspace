@@ -12,19 +12,16 @@ import {
 import {ActivatedRoute, Router} from '@angular/router';
 import {Actions, ofType} from '@ngrx/effects';
 import {map, take, takeUntil, tap} from 'rxjs/operators';
-import {Publisher} from '../../../core/store/publishers/model/publisher.model';
 import {selectPublisherById} from '../../../core/store/publishers/publishers.selectors';
 import {Observable, Subject} from 'rxjs';
 import {LastDoingsService} from "../../../core/services/common/last-doings.service";
-import {LastDoingActionsEnum} from "../../../core/store/last-doings/model/last-doing-actions.enum";
 import {
   selectAssignmentsByPublisherId,
   selectTerritoriesByPublisher
 } from "../../../core/store/assignments/assignments.selectors";
 import {BulkUpsertAssignments} from "../../../core/store/assignments/assignments.actions";
-import {Assignment} from "../../../core/store/assignments/model/assignment.model";
 import {TerritoryMapsService} from "../../../core/services/territory/territory-maps.service";
-import {Territory} from "../../../core/store/territories/model/territory.model";
+import {Assignment, LastDoingActionsEnum, Publisher, Territory} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-create-publisher',

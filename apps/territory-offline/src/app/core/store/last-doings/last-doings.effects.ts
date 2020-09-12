@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {map, switchMap, tap} from 'rxjs/operators';
-import {TimedEntity} from '../../model/db/timed-entity.interface';
 import {from} from 'rxjs';
 import {DatabaseService} from '../../services/db/database.service';
 import {
@@ -12,8 +11,8 @@ import {
   UpsertLastDoing,
   UpsertLastDoingSuccess
 } from './last-doings.actions';
-import {LastDoing} from './model/last-doing.model';
 import {LastDoingsService} from "../../services/common/last-doings.service";
+import {LastDoing, TimedEntity} from "@territory-offline-workspace/api";
 
 @Injectable({providedIn: 'root'})
 export class LastDoingsEffects

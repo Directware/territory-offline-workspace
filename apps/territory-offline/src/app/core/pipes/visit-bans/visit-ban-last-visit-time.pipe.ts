@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {VisitBan} from "../../store/visit-bans/model/visit-ban.model";
 import {createDurationPhrase} from "../../utils/usefull.functions";
+import {VisitBan} from "@territory-offline-workspace/api";
 
 @Pipe({
   name: 'visitBanLastVisit'

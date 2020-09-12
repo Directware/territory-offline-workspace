@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {WelcomeComponent} from "./views/onboarding/welcome/welcome.component";
 import {InitialConfigurationGuard} from "./core/guards/initial-configuration.guard";
 import {FieldServiceComponent} from "./views/field-service/field-service.component";
@@ -10,10 +10,9 @@ import {GoalsInputComponent} from "./views/field-service/goals-input/goals-input
 import {SendReportComponent} from "./views/field-service/send-report/send-report.component";
 import {EditReportBeforeSendComponent} from "./views/field-service/send-report/edit-report-before-send/edit-report-before-send.component";
 import {SettingsComponent} from "./views/settings/settings.component";
-import {TerritoryPreviewComponent} from "./views/territories/territory-preview/territory-preview.component";
-import {TerritoryFeaturePreviewComponent} from "./views/territories/territory-feature-preview/territory-feature-preview.component";
 import {ChangeLanguageComponent} from "./views/settings/change-language/change-language.component";
 import {AboutAppComponent} from "./views/settings/about-app/about-app.component";
+import {TerritoriesComponent} from "./views/territories/territories.component";
 
 const routes: Routes = [
   {path: 'welcome', component: WelcomeComponent, canActivate: [InitialConfigurationNotDoneGuard], data: {animation: 'Welcome'}},
@@ -27,9 +26,9 @@ const routes: Routes = [
   {path: 'settings', component: SettingsComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Settings'}},
   {path: 'change-language', component: ChangeLanguageComponent, canActivate: [InitialConfigurationGuard]},
   {path: 'about-app', component: AboutAppComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Modal'}},
-  // {path: 'territories', component: TerritoriesComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Territories'}},
-  {path: 'territories', component: TerritoryPreviewComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Territories'}},
-  {path: 'territories-feature', component: TerritoryFeaturePreviewComponent, canActivate: [InitialConfigurationGuard]},
+  {path: 'territories', component: TerritoriesComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Territories'}},
+  // {path: 'territories', component: TerritoryPreviewComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Territories'}},
+  // {path: 'territories-feature', component: TerritoryFeaturePreviewComponent, canActivate: [InitialConfigurationGuard]},
 
   {path: '**', redirectTo: 'field-service'}
 ];

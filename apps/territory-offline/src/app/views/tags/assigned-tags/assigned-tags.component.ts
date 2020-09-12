@@ -3,10 +3,10 @@ import {FormControl} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../../core/store/index.reducers';
 import {Observable, Subject} from 'rxjs';
-import {Tag} from '../../../core/store/tags/model/tag.model';
 import {selectTagEntities, selectTags} from '../../../core/store/tags/tags.selectors';
 import {debounceTime, takeUntil, tap, withLatestFrom} from 'rxjs/operators';
 import {Dictionary} from '@ngrx/entity';
+import {Tag} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-assigned-tags',

@@ -6,7 +6,7 @@ import {ApplicationState} from "../../store/index.reducers";
 import {selectPublishers} from "../../store/publishers/publishers.selectors";
 import {take, tap} from "rxjs/operators";
 import {selectAllVisitBans} from "../../store/visit-bans/visit-bans.selectors";
-import {VisitBan} from "../../store/visit-bans/model/visit-ban.model";
+import {VisitBan} from "@territory-offline-workspace/api";
 
 @Injectable({
   providedIn: 'root'

@@ -19,7 +19,8 @@
     "paths": {
       "@territory-offline-workspace/ui-components": [
         "libs/ui-components/src/index.ts"
-      ]
+      ],
+      "@territory-offline-workspace/api": ["libs/api/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

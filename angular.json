@@ -21,9 +21,7 @@
             "polyfills": "apps/territory-offline/src/polyfills.ts",
             "tsConfig": "apps/territory-offline/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/territory-offline/src/assets"
-            ],
+            "assets": ["apps/territory-offline/src/assets"],
             "styles": [
               "apps/territory-offline/src/styles.scss",
               "node_modules/mapbox-gl/dist/mapbox-gl.css",
@@ -187,15 +185,9 @@
             "polyfills": "apps/field-companion/src/polyfills.ts",
             "tsConfig": "apps/field-companion/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/field-companion/src/assets"
-            ],
-            "styles": [
-              "apps/field-companion/src/styles.scss"
-            ],
-            "scripts": [
-              "node_modules/hammerjs/hammer.min.js"
-            ]
+            "assets": ["apps/field-companion/src/assets"],
+            "styles": ["apps/field-companion/src/styles.scss"],
+            "scripts": ["node_modules/hammerjs/hammer.min.js"]
           },
           "configurations": {
             "production": {
@@ -290,6 +282,38 @@
             "tsConfig": ["apps/field-companion-e2e/tsconfig.e2e.json"],
             "exclude": ["**/node_modules/**", "!apps/field-companion-e2e/**/*"]
           }
+        }
+      }
+    },
+    "api": {
+      "projectType": "library",
+      "root": "libs/api",
+      "sourceRoot": "libs/api/src",
+      "prefix": "territory-offline-workspace",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/api/tsconfig.lib.json",
+              "libs/api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/api/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api/jest.config.js",
+            "tsConfig": "libs/api/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/api/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
         }
       }
     }

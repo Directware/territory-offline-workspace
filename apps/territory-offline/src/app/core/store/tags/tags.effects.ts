@@ -4,11 +4,9 @@ import {map, switchMap, tap} from 'rxjs/operators';
 import {from} from 'rxjs';
 import {DatabaseService} from '../../services/db/database.service';
 import {DeleteTag, DeleteTagSuccess, LoadTags, LoadTagsSuccess, UpsertTag, UpsertTagSuccess} from './tags.actions';
-import {TimedEntity} from '../../model/db/timed-entity.interface';
-import {Tag} from './model/tag.model';
 import {BulkImportTags, BulkImportTagsSuccess} from '../tags/tags.actions';
-import {LastDoingActionsEnum} from "../last-doings/model/last-doing-actions.enum";
 import {LastDoingsService} from "../../services/common/last-doings.service";
+import {LastDoingActionsEnum, Tag, TimedEntity} from "@territory-offline-workspace/api";
 
 @Injectable({providedIn: 'root'})
 export class TagsEffects

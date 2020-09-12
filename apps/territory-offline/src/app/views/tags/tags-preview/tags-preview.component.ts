@@ -2,8 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../core/store/index.reducers";
 import {Observable} from "rxjs";
-import {Tag} from "../../../core/store/tags/model/tag.model";
 import {selectTagsByIds} from "../../../core/store/tags/tags.selectors";
+import {Tag} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-tags-preview',

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {combineLatest, Observable} from 'rxjs';
-import {Tag} from '../../core/store/tags/model/tag.model';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../core/store/index.reducers';
 import {selectTags} from '../../core/store/tags/tags.selectors';
@@ -11,6 +10,7 @@ import {selectPublishers} from "../../core/store/publishers/publishers.selectors
 import {take, tap} from "rxjs/operators";
 import {BulkUpsertPublisher} from "../../core/store/publishers/publishers.actions";
 import {BulkUpsertTerritory} from "../../core/store/territories/territories.actions";
+import {Tag} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-tags',

@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Territory} from "../../../../core/store/territories/model/territory.model";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../../core/store/index.reducers";
-import {VisitBan} from "../../../../core/store/visit-bans/model/visit-ban.model";
 import {Observable} from "rxjs";
 import {selectVisitBansByTerritoryId} from "../../../../core/store/visit-bans/visit-bans.selectors";
 import {filter, map} from "rxjs/operators";
-import {TerritoryCardFormat} from "../../../../core/model/territory/print/territory-card-format.interface";
+import {Territory, TerritoryCardFormat, VisitBan} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-print-territory-back',

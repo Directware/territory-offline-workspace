@@ -4,14 +4,7 @@ import {select, Store} from '@ngrx/store';
 import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs';
 import {take, tap} from 'rxjs/operators';
 import {ApplicationState} from '../../store/index.reducers';
-import {Publisher} from '../../store/publishers/model/publisher.model';
 import {BulkImportPublishers, BulkImportPublishersSuccess} from '../../store/publishers/publishers.actions';
-import {ExportableTypesEnum} from '../../model/common/exportable-types.enum';
-import {Territory} from '../../store/territories/model/territory.model';
-import {Drawing} from '../../store/drawings/model/drawing.model';
-import {Tag} from '../../store/tags/model/tag.model';
-import {Assignment} from '../../store/assignments/model/assignment.model';
-import {VisitBan} from '../../store/visit-bans/model/visit-ban.model';
 import {BulkImportAssignments, BulkImportAssignmentsSuccess} from '../../store/assignments/assignments.actions';
 import {BulkImportTerritories, BulkImportTerritoriesSuccess} from '../../store/territories/territories.actions';
 import {BulkImportDrawings, BulkImportDrawingsSuccess} from '../../store/drawings/drawings.actions';
@@ -20,7 +13,6 @@ import {BulkImportVisitBans, BulkImportVisitBansSuccess} from '../../store/visit
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {BackupImportProgressComponent} from "../../../views/shared/modals/backup-import-progress/backup-import-progress.component";
 import {LastDoingsService} from "../common/last-doings.service";
-import {LastDoingActionsEnum} from "../../store/last-doings/model/last-doing-actions.enum";
 import * as Pako from 'pako';
 import {selectAllTerritoryEntities} from "../../store/territories/territories.selectors";
 import {selectAllDrawingEntities} from "../../store/drawings/drawings.selectors";
@@ -28,10 +20,15 @@ import {selectPublisherEntities} from "../../store/publishers/publishers.selecto
 import {selectAllAssignmentEntities} from "../../store/assignments/assignments.selectors";
 import {selectAllVisitBanEntities} from "../../store/visit-bans/visit-bans.selectors";
 import {selectTagEntities} from "../../store/tags/tags.selectors";
-import {TimedEntity} from "../../model/db/timed-entity.interface";
 import {BackupImportChangesComponent} from "../../../views/shared/modals/backup-import-changes/backup-import-changes.component";
-import {ToBackup} from "../../model/common/to-backup.model";
-import {ToBackupEntities} from "../../model/common/to-backup-entities.model";
+import {
+  Assignment,
+  Drawing,
+  ExportableTypesEnum,
+  LastDoingActionsEnum,
+  Publisher, Tag,
+  Territory, TimedEntity, ToBackup, ToBackupEntities, VisitBan
+} from "@territory-offline-workspace/api";
 
 @Injectable({
   providedIn: 'root'

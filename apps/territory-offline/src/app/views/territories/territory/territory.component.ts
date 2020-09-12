@@ -1,7 +1,6 @@
 import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {v4 as uuid} from 'uuid';
-import {Territory} from '../../../core/store/territories/model/territory.model';
 import {first, map, take, takeUntil, tap} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Actions, ofType} from '@ngrx/effects';
@@ -18,14 +17,12 @@ import {
 import {TerritoryMapsService} from '../../../core/services/territory/territory-maps.service';
 import {DeleteDrawing, UpsertDrawing} from '../../../core/store/drawings/drawings.actions';
 import {selectDrawingById} from '../../../core/store/drawings/drawings.selectors';
-import * as Pako from 'pako';
 import {LastDoingsService} from "../../../core/services/common/last-doings.service";
-import {LastDoingActionsEnum} from "../../../core/store/last-doings/model/last-doing-actions.enum";
 import {FeatureCollection, Geometry} from '@turf/turf';
 import {DeleteAssignmentsByTerritory} from "../../../core/store/assignments/assignments.actions";
 import {selectAssignmentsByTerritoryId} from "../../../core/store/assignments/assignments.selectors";
-import {Assignment} from "../../../core/store/assignments/model/assignment.model";
 import {AssignmentsService} from "../../../core/services/assignment/assignments.service";
+import {Assignment, LastDoingActionsEnum, Territory} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-territory',

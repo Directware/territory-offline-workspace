@@ -13,11 +13,11 @@ import {
   UpsertCongregationSuccess,
   UseCongregation
 } from '../../core/store/congregation/congregations.actions';
-import {Congregation} from '../../core/store/congregation/model/congregation.model';
 import {LoadDrawings} from "../../core/store/drawings/drawings.actions";
 import {DataSecurityService} from "../../core/services/common/data-security.service";
 import {environment} from "../../../environments/environment";
 import {ToLanguage} from "@territory-offline-workspace/ui-components";
+import {Congregation} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-initial-configuration',

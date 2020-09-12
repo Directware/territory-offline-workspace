@@ -2,13 +2,13 @@ import {Injectable} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../store/index.reducers';
 import {CryptoService} from '../encryption/crypto.service';
-import {TimedEntity} from '../../model/db/timed-entity.interface';
 import {Actions} from '@ngrx/effects';
 import {take} from 'rxjs/operators';
 import {selectCurrentCongregationId} from '../../store/settings/settings.selectors';
 import {DataSecurityService} from "../common/data-security.service";
 import {Plugins} from "@capacitor/core";
 import * as CDSSPlugin from 'capacitor-data-storage-sqlite';
+import {TimedEntity} from "@territory-offline-workspace/api";
 const {CapacitorDataStorageSqlite, Device} = Plugins;
 
 @Injectable({providedIn: 'root'})

@@ -1,7 +1,7 @@
 import {Action, createReducer, on} from '@ngrx/store';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {Tag} from './model/tag.model';
 import {UpsertTagSuccess, DeleteTagSuccess, LoadTagsSuccess, BulkImportTagsSuccess} from './tags.actions';
+import {Tag} from "@territory-offline-workspace/api";
 
 export const tagsAdapter = createEntityAdapter<Tag>();
 

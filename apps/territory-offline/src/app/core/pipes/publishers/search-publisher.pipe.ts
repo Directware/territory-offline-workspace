@@ -1,11 +1,10 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Publisher} from '../../store/publishers/model/publisher.model';
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/index.reducers";
 import {Observable, of} from "rxjs";
 import {selectTags} from "../../store/tags/tags.selectors";
 import {map} from "rxjs/operators";
-import {Tag} from "../../store/tags/model/tag.model";
+import {Publisher, Tag} from "@territory-offline-workspace/api";
 
 @Pipe({
   name: 'searchPublisher'

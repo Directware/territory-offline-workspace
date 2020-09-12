@@ -4,9 +4,9 @@ import * as MapBox from 'mapbox-gl';
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js';
 import {FeatureCollection} from '@turf/turf';
 import {Plugins} from '@capacitor/core';
-import {ToMapBoxSources} from '../../model/territory/mapbox/to-mapbox-sources.enum';
 import {environment} from '../../../../environments/environment';
 import {logger} from '../../utils/usefull.functions';
+import {ToMapBoxSources} from "@territory-offline-workspace/api";
 
 const {Network} = Plugins;
 

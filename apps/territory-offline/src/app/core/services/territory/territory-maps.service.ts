@@ -9,17 +9,18 @@ import {Actions, ofType} from '@ngrx/effects';
 import {ApplicationState} from '../../store/index.reducers';
 import {selectSettings} from '../../store/settings/settings.selectors';
 import {environment} from '../../../../environments/environment';
-import {GeocodingResult} from '../../model/territory/geocoding/geocoding-result.interface';
-import {TerritoryDrawingPrintConfiguration} from '../../model/territory/print/territory-drawing-print-configuration.interface';
-import {ToMapBoxSources} from '../../model/territory/mapbox/to-mapbox-sources.enum';
 import {selectAllDrawings} from '../../store/drawings/drawings.selectors';
 import {logger, mergeDrawings} from '../../utils/usefull.functions';
-import {Drawing} from '../../store/drawings/model/drawing.model';
 import {SettingsState} from '../../store/settings/settings.reducer';
 import {UpsertDrawingSuccess} from '../../store/drawings/drawings.actions';
-import {allTerritoryStatus, TerritoryStatus} from "../../model/territory/territory-status.enum";
 import {Router} from "@angular/router";
 import {selectTerritoryByDrawingId} from "../../store/territories/territories.selectors";
+import {
+  allTerritoryStatus,
+  Drawing,
+  GeocodingResult,
+  TerritoryDrawingPrintConfiguration, TerritoryStatus, ToMapBoxSources
+} from "@territory-offline-workspace/api";
 
 @Injectable({providedIn: 'root'})
 export class TerritoryMapsService

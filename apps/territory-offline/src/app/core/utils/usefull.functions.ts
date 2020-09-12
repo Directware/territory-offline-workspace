@@ -1,7 +1,5 @@
-import {Assignment} from "../store/assignments/model/assignment.model";
 import {SettingsState} from "../store/settings/settings.reducer";
-import {TerritoryStatus} from "../model/territory/territory-status.enum";
-import {Drawing} from "../store/drawings/model/drawing.model";
+import {Assignment, Drawing, TerritoryStatus} from "@territory-offline-workspace/api";
 
 export function logger(message: string, ...args: any)
 {

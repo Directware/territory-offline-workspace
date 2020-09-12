@@ -9,10 +9,10 @@ import {selectPublishers} from "../../store/publishers/publishers.selectors";
 import {selectTags} from "../../store/tags/tags.selectors";
 import {selectAllAssignments} from "../../store/assignments/assignments.selectors";
 import {selectAllVisitBans} from "../../store/visit-bans/visit-bans.selectors";
-import {ExportableTypesEnum} from "../../model/common/exportable-types.enum";
 import * as Pako from 'pako';
 import {selectCurrentCongregation} from "../../store/congregation/congregations.selectors";
 import {PlatformAgnosticActionsService} from "../common/platform-agnostic-actions.service";
+import {ExportableTypesEnum} from "@territory-offline-workspace/api";
 
 @Injectable({providedIn: "root"})
 export class DataExportService

@@ -9,8 +9,6 @@ import {
   OnInit,
   Renderer2
 } from '@angular/core';
-import {TerritoryCardFormat} from '../../../core/model/territory/print/territory-card-format.interface';
-import {TerritoryCardFormats} from '../../../core/model/territory/print/territory-card-formats';
 import {TerritoryMapsService} from '../../../core/services/territory/territory-maps.service';
 import {PrintTerritoryBackComponent} from "./print-territory-back/print-territory-back.component";
 import {PrintTerritoryHeadingComponent} from "./print-territory-heading/print-territory-heading.component";
@@ -20,12 +18,15 @@ import {Subject} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../core/store/index.reducers";
 import {selectTerritoryById} from "../../../core/store/territories/territories.selectors";
-import {Territory} from "../../../core/store/territories/model/territory.model";
-import {PrintedMapConfiguration} from "../../../core/model/territory/print/printed-map-configuration.interface";
 import {SaveDrawingPrintAlignmentConfiguration} from "../../../core/store/drawings/drawings.actions";
 import {selectDrawingById} from "../../../core/store/drawings/drawings.selectors";
-import {UpsertTerritory} from "../../../core/store/territories/territories.actions";
 import {IpcService} from "../../../core/services/common/ipc.service";
+import {
+  PrintedMapConfiguration,
+  Territory,
+  TerritoryCardFormat,
+  TerritoryCardFormats
+} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-print-territory',

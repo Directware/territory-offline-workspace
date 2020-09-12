@@ -3,10 +3,10 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {LoadSettings, LoadSettingsSuccess, UpsertSettings, UpsertSettingsSuccess} from './settings.actions';
 import {map, switchMap} from 'rxjs/operators';
 import {from} from 'rxjs';
-import {TimedEntity} from "../../services/database/timed-entity.interface";
 import {SettingsState} from "./settings.reducer";
 import {AppDatabaseService} from "../../services/database/app-database.service";
 import {settingsCollectionName} from "../../services/database/collection-names";
+import {TimedEntity} from "@territory-offline-workspace/api";
 
 @Injectable()
 export class SettingsEffects

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Congregation} from '../../core/store/congregation/model/congregation.model';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../core/store/index.reducers';
 import {selectAllCongregationsWithActiveFirst} from '../../core/store/congregation/congregations.selectors';
@@ -9,6 +8,7 @@ import {selectCurrentCongregationId} from '../../core/store/settings/settings.se
 import {selectTerritoriesCount, selectWholePopulationCount} from '../../core/store/territories/territories.selectors';
 import {selectPublishersCount} from '../../core/store/publishers/publishers.selectors';
 import {selectVisitBansCount} from '../../core/store/visit-bans/visit-bans.selectors';
+import {Congregation} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-congregations',

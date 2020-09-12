@@ -2,10 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../../core/store/index.reducers';
-import {Publisher} from '../../../core/store/publishers/model/publisher.model';
 import {selectPublishers} from '../../../core/store/publishers/publishers.selectors';
 import {FormControl} from '@angular/forms';
 import {debounceTime, takeUntil, tap, withLatestFrom} from 'rxjs/operators';
+import {Publisher} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-add-publisher',

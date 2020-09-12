@@ -82,8 +82,9 @@ export const deDE = {
   },
   territories: {
     title: "Gebiete",
+    addTerritory: "Gebiet hinzufügen",
     noTerritories: "Keine Gebiete",
-    noTerritoriesDesc: "Dieses Feature ist noch nicht Freigeschaltet.",
+    noTerritoriesDesc: "Bitte deinen Gebietsdiener um ein Gebiet",
     yourTerritories: "Deine Gebiete",
     feature1: "Empfange Gebiete per Link von deinem Gebietsdiener",
     feature2: "Betrachte dein Gebiet auf detailierten Karten",

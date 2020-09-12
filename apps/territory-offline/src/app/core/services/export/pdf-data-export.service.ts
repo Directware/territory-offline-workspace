@@ -1,14 +1,12 @@
 import {Injectable} from '@angular/core';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfMakeFonts from "pdfmake/build/vfs_fonts.js";
-import {Publisher} from "../../store/publishers/model/publisher.model";
-import {VisitBan} from "../../store/visit-bans/model/visit-ban.model";
-import {Assignment} from "../../store/assignments/model/assignment.model";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/index.reducers";
 import {selectCurrentCongregation} from "../../store/congregation/congregations.selectors";
 import {take} from "rxjs/operators";
 import {selectAllAssignmentsOrderedByRelevantTags} from "../../store/assignments/assignments.selectors";
+import {Assignment, Publisher, VisitBan} from "@territory-offline-workspace/api";
 
 @Injectable({
   providedIn: 'root'
