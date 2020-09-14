@@ -186,7 +186,11 @@
             "tsConfig": "apps/field-companion/tsconfig.app.json",
             "aot": true,
             "assets": ["apps/field-companion/src/assets"],
-            "styles": ["apps/field-companion/src/styles.scss"],
+            "styles": [
+              "apps/field-companion/src/styles.scss",
+              "node_modules/mapbox-gl/dist/mapbox-gl.css",
+              "node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css"
+            ],
             "scripts": ["node_modules/hammerjs/hammer.min.js"]
           },
           "configurations": {

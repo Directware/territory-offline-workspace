@@ -1,0 +1,64 @@
+@import "libs/ui-components/src/lib/assets/styles/colors";
+
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem 0 0 0;
+  box-sizing: border-box;
+  height: 100%;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  #fc-map {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .territory-card {
+    height: 3rem;
+    padding: 0 0.75rem;
+    margin: 0.5rem 0 0 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    border-radius: 6px;
+    background-color: rgba(173, 177, 184, 0.2);
+
+    .icon-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.3);
+      margin: 0 0.75rem 0 0;
+      border-radius: 50%;
+      width: 1.75rem;
+      height: 1.75rem;
+
+      i-feather {
+        width: 1.125rem;
+        height: 1.125rem;
+      }
+    }
+  }
+
+  .button.leave {
+    outline: none;
+    border: none;
+    margin: 1.5rem 0 1rem 0;
+    height: 3rem;
+    padding: 0 0.75rem;
+    border-radius: 6px;
+    background-color: #ff5f1b;
+    color: #fff;
+  }
+}

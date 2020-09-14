@@ -15,7 +15,7 @@
     <div *ngIf="territoryCards.length > 0" class="wrapper map-preview">
       <div class="footer">
         <h3 class="h3-grey">{{"territories.map" | translate}}</h3>
-        <button>{{"common.open" | translate}}</button>
+        <button routerLink="/map">{{"common.open" | translate}}</button>
       </div>
     </div>
   </app-panel>
@@ -26,8 +26,7 @@
       <p class="info">{{territoryCard.assignment.startTime | durationLeftForTerritoryCard:territoryCard.estimationInMonths}}</p>
     </app-list-item>
     <app-list-item (click)="territoryFileChooser.click()" class="add-territory">
-      <p class="label">{{"territories.addTerritory" | translate}}</p>
-      <i-feather class="icon" name="plus"></i-feather>
+      <p class="label blue">{{"territories.addTerritory" | translate}}</p>
     </app-list-item>
   </app-list>
 

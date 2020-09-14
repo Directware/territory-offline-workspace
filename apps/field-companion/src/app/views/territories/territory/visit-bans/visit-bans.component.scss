@@ -1,0 +1,27 @@
+:host {
+
+  app-panel {
+    padding: 0;
+
+    h3 {
+      margin: 0;
+    }
+
+    ::ng-deep .wrapper {
+      padding: 1rem 1rem 0 1rem;
+
+      app-list {
+        padding: 1rem 0 0 0;
+
+        app-list-item {
+          padding: 0 0 0 0;
+
+          .label {
+            color: #fff;
+          }
+        }
+      }
+    }
+
+  }
+}

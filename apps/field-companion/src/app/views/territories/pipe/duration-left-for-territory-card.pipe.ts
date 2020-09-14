@@ -15,14 +15,15 @@ export class DurationLeftForTerritoryCardPipe implements PipeTransform
   {
     const today = moment(new Date());
     const end = moment(startTime).add(args[0], "M");
-    const duration = moment.duration(today.diff(end));
 
     if (end.isAfter(today))
     {
+      const duration = moment.duration(end.diff(today));
       return `${this.translateService.instant("territories.still")} ${duration.months()}M ${duration.days()}T`;
     }
     else
     {
+      const duration = moment.duration(today.diff(end));
       return `${this.translateService.instant("territories.toLate")} ${duration.months()}M ${duration.days()}T`;
     }
   }

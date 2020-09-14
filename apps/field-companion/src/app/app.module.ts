@@ -28,8 +28,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SettingsComponent} from './views/settings/settings.component';
 import {TerritoriesComponent} from './views/territories/territories.component';
 import {StackPanelComponent} from './views/shared/stack-panel/stack-panel.component';
-import {TerritoryPreviewComponent} from './views/territories/territory-preview/territory-preview.component';
-import {TerritoryFeaturePreviewComponent} from './views/territories/territory-feature-preview/territory-feature-preview.component';
 import {Plugins} from '@capacitor/core';
 import {plPL} from "./core/i18n/pl-PL";
 import {selectUserLanguage} from "./core/store/settings/settings.selectors";
@@ -48,6 +46,9 @@ import { ReportUpToTheMinuteComponent } from './views/feature-confirmation-modal
 import { DurationLeftForTerritoryCardPipe } from './views/territories/pipe/duration-left-for-territory-card.pipe';
 import { TerritoryComponent } from './views/territories/territory/territory.component';
 import { VisitBansComponent } from './views/territories/territory/visit-bans/visit-bans.component';
+import { VisitBanComponent } from './views/territories/territory/visit-bans/visit-ban/visit-ban.component';
+import { MapComponent } from './views/territories/map/map.component';
+import { MapControlsComponent } from './views/territories/map/map-controls/map-controls.component';
 
 const {Device} = Plugins;
 
@@ -67,8 +68,6 @@ const {Device} = Plugins;
     SettingsComponent,
     TerritoriesComponent,
     StackPanelComponent,
-    TerritoryPreviewComponent,
-    TerritoryFeaturePreviewComponent,
     ChangeLanguageComponent,
     AboutAppComponent,
     BackupImportProgressComponent,
@@ -77,7 +76,10 @@ const {Device} = Plugins;
     ReportUpToTheMinuteComponent,
     DurationLeftForTerritoryCardPipe,
     TerritoryComponent,
-    VisitBansComponent
+    VisitBansComponent,
+    VisitBanComponent,
+    MapComponent,
+    MapControlsComponent
   ],
   imports: [
     BrowserAnimationsModule,

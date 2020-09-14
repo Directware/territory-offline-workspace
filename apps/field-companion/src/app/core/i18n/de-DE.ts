@@ -2,6 +2,9 @@ export const deDE = {
   title: "Field Companion",
   common: {
     done: "Fertig",
+    add: "Hinzufügen",
+    save: "Speichern",
+    cancel: "Abbrechen",
     open: "Öffnen",
     info: "Tipp",
     comment: "Kommentar",
@@ -92,10 +95,17 @@ export const deDE = {
     feature3: "Tracke deinen Standort und verfolge, wo du schon warst",
     map: "Landkarte",
     still: "noch",
-    toLate: "Darüber",
+    toLate: "darüber",
     assignTime: "Zugeteilt am",
     assignEndTime: "Verfügbar bis",
     giveBack: "Gebiet abgeben",
+    visitBans: "Nicht Besuchen Adressen",
+    addVisitBans: "Adresse hinzufügen",
+    newVisitBan: "Neue Adresse",
+    editVisitBan: "Adresse bearbeiten",
+    visitBanName: "Name (nur bei Mehrfamilienhaus)",
+    visitBanAddress: "Adresse",
+    leaveMap: "Karte verlassen"
   },
   settings: {
     title: "Einstellungen",

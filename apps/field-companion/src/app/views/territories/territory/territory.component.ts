@@ -17,7 +17,8 @@ export class TerritoryComponent implements OnInit
   public territoryCard$: Observable<TerritoryCard>;
   public hideMainNavigation = true;
 
-  public constructor(private store: Store<ApplicationState>, private activatedRoute: ActivatedRoute)
+  public constructor(private store: Store<ApplicationState>,
+                     private activatedRoute: ActivatedRoute)
   {
   }
 

@@ -9,6 +9,7 @@ import {PanelComponent} from "./panel/panel.component";
 import {LanguageSearchComponent} from "./form-controls/language-search/language-search.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {DurationPickerComponent} from "./form-controls/duration-picker/duration-picker.component";
+import { HideablePanelComponent } from './hideable-panel/hideable-panel.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {DurationPickerComponent} from "./form-controls/duration-picker/duration-
     ListComponent,
     ListItemComponent,
     PanelComponent,
-    LanguageSearchComponent
+    LanguageSearchComponent,
+    HideablePanelComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import {DurationPickerComponent} from "./form-controls/duration-picker/duration-
     ListComponent,
     ListItemComponent,
     PanelComponent,
-    LanguageSearchComponent
+    LanguageSearchComponent,
+    HideablePanelComponent
   ]
 })
 export class UiComponentsModule {}

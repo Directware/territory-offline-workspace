@@ -8,7 +8,7 @@ export interface TerritoryCard extends TimedEntity
   drawing: Drawing;
   publisher: Publisher;
   assignment: Assignment;
-  visitBans: VisitBan;
+  visitBans: VisitBan[];
   type: ExportableTypesEnum.DIGITAL_TERRITORY;
   estimationInMonths: number;
 }

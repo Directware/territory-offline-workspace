@@ -1,0 +1,13 @@
+<div id="fc-map"></div>
+
+<fc-map-controls></fc-map-controls>
+
+<ui-hideable-panel #hideablePanelComponent *ngIf="(territoryCards$ | async) as territoryCards" [header]="'Deine Gebiete'">
+  <div class="territory-card" *ngFor="let territoryCard of territoryCards" (click)="focusOn(territoryCard)">
+    <div class="icon-wrapper"><i-feather name="map"></i-feather></div>
+    <p class="label">{{territoryCard.territory.name}} {{territoryCard.territory.key}}</p>
+  </div>
+
+  <button (click)="close()" class="button leave">{{"territories.leaveMap" | translate}}</button>
+
+</ui-hideable-panel>

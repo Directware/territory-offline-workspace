@@ -1,1 +1,15 @@
-<p>visit-bans works!</p>
+<app-panel>
+  <div class="wrapper">
+    <h3>{{"territories.visitBans" | translate}}</h3>
+
+    <app-list *ngIf="territoryCard.visitBans">
+      <app-list-item *ngFor="let visitBan of territoryCard.visitBans" [routerLink]="'/territory/' + territoryCard.id + '/visit-ban/' + visitBan.id">
+        <p class="label">{{visitBan.street}} {{visitBan.streetSuffix}}</p>
+        <p *ngIf="visitBan.name" class="info">{{visitBan.name}}</p>
+      </app-list-item>
+      <app-list-item [routerLink]="'/territory/' + territoryCard.id + '/visit-ban'">
+        <p class="label blue">{{"territories.addVisitBans" | translate}}</p>
+      </app-list-item>
+    </app-list>
+  </div>
+</app-panel>

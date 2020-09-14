@@ -14,6 +14,8 @@ import {ChangeLanguageComponent} from "./views/settings/change-language/change-l
 import {AboutAppComponent} from "./views/settings/about-app/about-app.component";
 import {TerritoriesComponent} from "./views/territories/territories.component";
 import {TerritoryComponent} from "./views/territories/territory/territory.component";
+import {VisitBanComponent} from "./views/territories/territory/visit-bans/visit-ban/visit-ban.component";
+import {MapComponent} from "./views/territories/map/map.component";
 
 const routes: Routes = [
   {path: 'welcome', component: WelcomeComponent, canActivate: [InitialConfigurationNotDoneGuard], data: {animation: 'Welcome'}},
@@ -27,8 +29,11 @@ const routes: Routes = [
   {path: 'settings', component: SettingsComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Settings'}},
   {path: 'change-language', component: ChangeLanguageComponent, canActivate: [InitialConfigurationGuard]},
   {path: 'about-app', component: AboutAppComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Modal'}},
+  {path: 'map', component: MapComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Modal'}},
   {path: 'territories', component: TerritoriesComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Territories'}},
   {path: 'territory/:id', component: TerritoryComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Modal'}},
+  {path: 'territory/:id/visit-ban', component: VisitBanComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Modal'}},
+  {path: 'territory/:id/visit-ban/:visitBanId', component: VisitBanComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Modal'}},
   // {path: 'territories', component: TerritoryPreviewComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Territories'}},
   // {path: 'territories-feature', component: TerritoryFeaturePreviewComponent, canActivate: [InitialConfigurationGuard]},
 

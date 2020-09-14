@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TerritoryPreviewComponent } from './territory-preview.component';
+import { HideablePanelComponent } from './hideable-panel.component';
 
-describe('TerritoryPreviewComponent', () => {
-  let component: TerritoryPreviewComponent;
-  let fixture: ComponentFixture<TerritoryPreviewComponent>;
+describe('HideablePanelComponent', () => {
+  let component: HideablePanelComponent;
+  let fixture: ComponentFixture<HideablePanelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TerritoryPreviewComponent ]
+      declarations: [ HideablePanelComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TerritoryPreviewComponent);
+    fixture = TestBed.createComponent(HideablePanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

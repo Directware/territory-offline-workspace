@@ -9,6 +9,7 @@ export * from './lib/info-block/info-block.component';
 export * from './lib/list/list.component';
 export * from './lib/list/list-item/list-item.component';
 export * from './lib/panel/panel.component';
+export * from './lib/hideable-panel/hideable-panel.component';
 
 /* Services */
 export * from './lib/services/territory-language.service';
