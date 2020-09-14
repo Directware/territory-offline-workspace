@@ -16,8 +16,6 @@
 // Import commands.js using ES2015 syntax:
 import './commands';
 
-export const congregation = 'Augsburg LM'
-
 before(() =>
 {
   indexedDB.deleteDatabase('territory-offlineIDB')
@@ -25,7 +23,7 @@ before(() =>
 // 'Eingabe Name-Versammlungsgebiet'
   cy.get('.password-wrapper input').first()
     .clear()
-    .type(congregation)
+    .type('Augsburg LM')
 // 'Eingabe/Auswahl Sprache'
   const languageInput = '.password-wrapper input[name="language"]'
   cy.get(languageInput)

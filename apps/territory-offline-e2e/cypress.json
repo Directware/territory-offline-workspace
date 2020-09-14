@@ -10,5 +10,7 @@
   "video": true,
   "videosFolder": "../../dist/cypress/apps/territory-offline-e2e/videos",
   "screenshotsFolder": "../../dist/cypress/apps/territory-offline-e2e/screenshots",
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "trashAssetsBeforeRuns": true,
+  "screenshotOnRunFailure": true
 }

@@ -1,4 +1,5 @@
-import { congregation } from '../support/index';
+// import { congregation } from '../support/index';
+
 function territorySelection()
 {
   cy.get('.mapbox-gl-draw_polygon')
@@ -9,8 +10,9 @@ function territorySelection()
     .click('topRight')
     .click('top')
     .click('center')
-}
-const streetsToBeAdded = ['Metzstraße', 'Neuburgerstraße']
+};
+
+const streetsToBeAdded = ['Metzstraße', 'Neuburgerstraße'];
 
 const territoriesToBeAdded = [{
   number: '1',
@@ -25,14 +27,15 @@ const territoriesToBeAdded = [{
   units: '30',
   commentary: 'Das ist ein Test-Kommentar',
   streets: streetsToBeAdded,
-  }]
+}];
 
-  const tagToBeAdded = 'Dienstwoche'
+const tagToBeAdded = 'Dienstwoche';
 
 describe('GebietsKomponente', () =>
 {
   it('Tag hinzufügen', () =>
   {
+    cy.wait(4000)
     cy.get('i-feather[name="tag"]')
       .click()
     cy.get('.action-link')
@@ -74,23 +77,23 @@ describe('GebietsKomponente', () =>
     territoriesToBeAdded.forEach((territory) => {
       cy.get('.action-link')
         .click()
-      cy.get('input[placeholder="Nummer*"')
+      cy.get('input[placeholder="Nummer*"]')
         .type(territory.number)
-      cy.get('input[placeholder="Ort*"')
+      cy.get('input[placeholder="Ort*"]')
         .type(territory.place)
-      cy.get('input[placeholder="Wohneinheiten"')
+      cy.get('input[placeholder="Wohneinheiten"]')
         .clear()
         .type(territory.units)
-      cy.get('textarea[placeholder="Kommentar"')
+      cy.get('textarea[placeholder="Kommentar"]')
         .type(territory.commentary)
       streetsToBeAdded.forEach((street) =>
       {
-        cy.get('input[placeholder="Straße hinzufügen"')
+        cy.get('input[placeholder="Straße hinzufügen"]')
           .type(street)
         cy.get('.wrapper.boundary-names i-feather[name="plus"]')
           .click()
       })
-      cy.get('input[placeholder="Tag hinzufügen"')
+      cy.get('input[placeholder="Tag hinzufügen"]')
         .clear()
         .type('Dienstwoche')
       cy.get('.search-result i-feather[name="plus"]')
@@ -122,7 +125,7 @@ describe('GebietsKomponente', () =>
   it('Gebietsübersicht prüfen: \n Versammlungsname und Filter vorhanden', () =>
   {
     cy.get('.h2-white')
-      .should('contain', congregation)
+      .should('contain', 'Augsburg LM')
     cy.get('.blue')
       .should('contain', 'In Bearbeitung')
     cy.get('.green')
@@ -192,10 +195,36 @@ describe('GebietsKomponente', () =>
     cy.get('app-list-item > .main-wrapper > .label.blue')
       .click()
     cy.get('.card-format-TerritoryCardFormat\\.s12 > .main-wrapper > .label')
-    cy.get('.mapboxgl-canvas').should('have.height', '712')
+    cy.get('.mapboxgl-canvas')
+      .should('have.attr', 'height', '712')
     cy.get('.card-format-TerritoryCardFormat\\.a6 > .main-wrapper > .label')
       .click()
+    cy.get('.mapboxgl-canvas')
+      .should('have.attr', 'height', '792')
     cy.get('.card-format-TerritoryCardFormat\\.a6 > .action > .icon > .feather')
-
+    cy.get('.bleed-edge-shadow')
+      .should('not.be.visible')
+    cy.get('.comment')
+      .should('not.contain', 'Das ist ein Test-Kommentar')
+    cy.get('.preferences.ng-star-inserted > .wrapper').children().click({ multiple: true })
+    cy.get('.bleed-edge-shadow')
+      .should('be.visible')
+    cy.get('.place')
+      .should('contain', territoriesToBeAdded[1].place)
+    cy.get('.number')
+      .should('contain', territoriesToBeAdded[1].number)
+    cy.get('.population-count')
+      .should('contain', territoriesToBeAdded[1].units + ' WE')
+    cy.get('.compass')
+    cy.get('i-feather[name="rotate-cw"]')
+      .click()
+    cy.get('.comment')
+      .should('contain', 'Das ist ein Test-Kommentar')
+    cy.get('i-feather[name="arrow-down-circle"]')
+    cy.get('.street-name')
+      .should('contain', streetsToBeAdded[0])
+      .and('contain', streetsToBeAdded[1])
+    cy.get('.cancel')
+      .click()
   })
 })
