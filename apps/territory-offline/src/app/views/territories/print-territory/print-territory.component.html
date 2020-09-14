@@ -5,7 +5,7 @@
   <app-panel class="preferences">
     <div class="wrapper">
       <h2 class="h2-white">Format</h2>
-      <app-list-item *ngFor="let format of territoryCardFormats" (click)="changeFormat(format)">
+      <app-list-item *ngFor="let format of territoryCardFormats" (click)="changeFormat(format)" [ngClass]="'card-format-'+format.id">
         <p class="label">{{format.label}}</p>
         <i-feather *ngIf="tcf && format.id === tcf.id" class="icon checked" name="check-circle"></i-feather>
       </app-list-item>

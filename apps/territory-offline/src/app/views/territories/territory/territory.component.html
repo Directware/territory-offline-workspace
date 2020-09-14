@@ -8,23 +8,23 @@
 <ng-container *ngIf="readOnly && territory">
   <app-panel>
     <app-list-item>
-      <p class="label">Ort</p>
-      <p *ngIf="territory.get('name').value as territoryName" class="info">{{territoryName | slice:0:38}} {{territoryName.length > 38 ? "..." : ""}}</p>
+      <p class="label location">Ort</p>
+      <p *ngIf="territory.get('name').value as territoryName" class="info location">{{territoryName | slice:0:38}} {{territoryName.length > 38 ? "..." : ""}}</p>
     </app-list-item>
     <app-list-item>
-      <p class="label">Nummer</p>
-      <p class="info">{{territory.get('key').value}}</p>
+      <p class="label number">Nummer</p>
+      <p class="info number">{{territory.get('key').value}}</p>
     </app-list-item>
   </app-panel>
 
   <app-panel>
     <app-list-item>
-      <p class="label">Wohneinheiten</p>
-      <p class="info">{{territory.get('populationCount').value}}</p>
+      <p class="label units">Wohneinheiten</p>
+      <p class="info units">{{territory.get('populationCount').value}}</p>
     </app-list-item>
     <app-list-item>
-      <p class="label">Kommentar</p>
-      <p class="comment">{{territory.get('comment').value}}</p>
+      <p class="label comment">Kommentar</p>
+      <p class="info comment">{{territory.get('comment').value}}</p>
     </app-list-item>
   </app-panel>
 
@@ -70,11 +70,11 @@
 
   <app-panel>
     <app-list-item (click)="openAssignments(territory.get('id').value)">
-      <p class="label">Zuteilungen</p>
+      <p class="label assignment">Zuteilungen</p>
       <i-feather name="chevron-right" class="action"></i-feather>
     </app-list-item>
     <app-list-item (click)="openVisitBans(territory.get('id').value)">
-      <p class="label">Nicht besuchen Adressen</p>
+      <p class="label do-not-visit">Nicht besuchen Adressen</p>
       <i-feather name="chevron-right" class="action"></i-feather>
     </app-list-item>
   </app-panel>
