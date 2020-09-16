@@ -44,10 +44,15 @@ describe('VerkuendigerKomponente', () =>
       .click()
   }
   )
-  it('Rufe Verkündigerübersicht auf', () =>
+  it('Verkündigerübersicht prüfen', () =>
   {
     cy.get('i-feather[name="users"]')
       .click()
+    cy.get('img')
+    cy.get('p')
+      .should('contain', 'Erstelle oder importiere Verkündiger, um diesen Gebiete zuteilen zu können.')
+    cy.get('h4')
+      .should('contain', 'Du hast noch keine Verkündiger!')
   })
   it('Neuen Verkündiger hinzufügen & Abbrechen', () =>
   {
@@ -70,7 +75,7 @@ describe('VerkuendigerKomponente', () =>
         .type(publisher.email)
       cy.get('.main-wrapper input[name="phone"]')
         .type(publisher.phone)
-      cy.get('input[placeholder="Tag hinzufügen"]')
+       cy.get('input[placeholder="Tag hinzufügen"]')
         .type('ge')
       cy.get('.search-result > .main-wrapper > .label').first()
         .should('contain', 'Getauft')

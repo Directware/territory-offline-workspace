@@ -31,11 +31,24 @@ const territoriesToBeAdded = [{
 
 const tagToBeAdded = 'Dienstwoche';
 
+const publishersToBeAdded = [{
+  firstName: '',
+  lastName: 'Pfersee',
+  mail: '20',
+  phone: 'Das ist ein Test-Kommentar',
+},
+{
+  firstName: '1',
+  lastName: 'Pfersee',
+  mail: '20',
+  phone: 'Das ist ein Test-Kommentar',
+}];
+
 describe('GebietsKomponente', () =>
 {
   it('Tag hinzufügen', () =>
   {
-    cy.wait(4000)
+    cy.wait(2000)
     cy.get('i-feather[name="tag"]')
       .click()
     cy.get('.action-link')

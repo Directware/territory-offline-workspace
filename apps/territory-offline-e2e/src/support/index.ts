@@ -41,6 +41,7 @@ before(() =>
   cy.get('.main-button').first() //Klasse gibt immer eine Liste zurück, deswegen Auswahl mit first(), auch wenn es nur einen Button gibt
     .click()
 // 'Button Landkarte ausrichten anklicken'
+  cy.wait(2000)
   cy.get('div.button')
     .click()
 }
