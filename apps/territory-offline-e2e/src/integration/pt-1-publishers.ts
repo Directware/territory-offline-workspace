@@ -162,5 +162,7 @@ describe('VerkuendigerKomponente', () =>
       .click()
     cy.get('div.action > .action > .feather')
       .dblclick()
+    cy.get('.action-link')
+      .click()
   })
 })

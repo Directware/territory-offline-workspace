@@ -12,6 +12,7 @@ function territorySelection()
     .click('center')
 };
 
+
 const streetsToBeAdded = ['Metzstraße', 'Neuburgerstraße'];
 
 const territoriesToBeAdded = [{
@@ -42,7 +43,12 @@ const publishersToBeAdded = [{
   lastName: 'Pfersee',
   mail: '20',
   phone: 'Das ist ein Test-Kommentar',
-}];
+  }];
+
+const date = new Date();
+const currDate = ('0' + date.getDate()).slice(-2) + '.'
+              + ('0' + (date.getMonth() + 1)).slice(-2) + '.'
+              + date.getFullYear();
 
 describe('GebietsKomponente', () =>
 {
@@ -239,5 +245,26 @@ describe('GebietsKomponente', () =>
       .and('contain', streetsToBeAdded[1])
     cy.get('.cancel')
       .click()
+  })
+  it('Zuteilungen', () =>
+  {
+    cy.get('.label.assignment')
+      .click()
+    cy.get('.action.edit')
+      .should('contain', '+ Neue Zuteilung')
+      .click()
+    cy.get('.save.not-valid')
+      .should('contain', 'Speichern')
+    cy.get('input[placeholder="Verkündiger"]')
+      .type('A')
+    cy.get('.search-result')
+      .should('contain', 'Amadeus Amadeus')
+      .click()
+
+
+    cy.contains('Ausgabedatum')
+      .click()
+    cy.get('.info')
+      .should('contain', currDate)
   })
 })
