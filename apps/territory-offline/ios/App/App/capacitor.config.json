@@ -3,6 +3,6 @@
   "appName": "Territory Offline",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "dist",
+  "webDir": "dist/territory-offline",
   "cordova": {}
 }

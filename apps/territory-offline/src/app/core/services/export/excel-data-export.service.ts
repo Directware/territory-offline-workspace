@@ -7,6 +7,7 @@ import {selectPublishers} from "../../store/publishers/publishers.selectors";
 import {take, tap} from "rxjs/operators";
 import {selectAllVisitBans} from "../../store/visit-bans/visit-bans.selectors";
 import {VisitBan} from "@territory-offline-workspace/api";
+import {selectAllTerritories} from "../../store/territories/territories.selectors";
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,25 @@ export class ExcelDataExportService
         const ws = XLSX.utils.aoa_to_sheet(tmp);
         wb.Sheets["Verkündiger"] = ws;
         this.saveWorkBook(wb, "Verkündiger");
+      })
+    ).subscribe();
+  }
+
+  public exportTerritoryNames()
+  {
+    this.store.pipe(
+      select(selectAllTerritories),
+      take(1),
+      tap(territories =>
+      {
+        const wb = this.craeteWorkBook("Territory");
+        wb.SheetNames.push("Gebiete");
+
+        const tmp = [["Nummer", "Bezeichnung"]];
+        territories.forEach((t, index) => tmp[index + 1] = [t.key, t.name]);
+        const ws = XLSX.utils.aoa_to_sheet(tmp);
+        wb.Sheets["Gebiete"] = ws;
+        this.saveWorkBook(wb, "Gebiete");
       })
     ).subscribe();
   }

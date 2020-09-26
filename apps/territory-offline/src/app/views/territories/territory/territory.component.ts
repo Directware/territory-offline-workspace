@@ -252,6 +252,7 @@ export class TerritoryComponent implements OnInit, OnDestroy
     {
       this.readOnly = false;
       this.isCreation = true;
+      this.territoryMapsService.setShouldBlockMapSynchronizer(true);
       this.initFormGroup(null);
       this.initDrawMode();
     }

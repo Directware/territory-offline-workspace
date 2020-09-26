@@ -1,5 +1,10 @@
 # Changelog
 
+#### v. 2.1.13
+###### 26.09.2020
+- Fixed map synchronizer when creating a territory
+- Added export territory names
+
 #### v. 2.1.12
 ###### 05.07.2020
 - Improvement of data synchronising
