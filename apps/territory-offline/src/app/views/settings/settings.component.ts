@@ -59,7 +59,13 @@ export class SettingsComponent implements OnInit
   {
     const releaseInfo = await this.toUpdatesService.considerToGetReleaseInfos();
 
-    if(!releaseInfo.newReleaseExists)
+    if (releaseInfo.hasError)
+    {
+      alert("Es ist ein Fehler aufgetreten. Bitte versuche es später erneut oder gehe auf unsere Seite: https://territory-offline.com");
+      return;
+    }
+
+    if (!releaseInfo.newReleaseExists)
     {
       alert("Du hast die neuste Version.");
     }

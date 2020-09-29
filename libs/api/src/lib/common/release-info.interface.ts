@@ -6,4 +6,5 @@ export interface ReleaseInfo
   linuxFileName: string;
   creation: string;
   currentOsDownloadUrl?: string;
+  hasError?: boolean;
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+#### v. 2.1.14
+###### 26.09.2020
+- Added remove button to main search on each entity
+- Changed style of main search
+- Improved update service
+- Fixed opening app from active state on mac
+
 #### v. 2.1.13
 ###### 26.09.2020
 - Fixed map synchronizer when creating a territory

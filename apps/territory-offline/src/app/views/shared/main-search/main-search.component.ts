@@ -39,6 +39,12 @@ export class MainSearchComponent implements OnInit, OnDestroy
     this.onBlur.emit(this.searchFormControl.value);
   }
 
+  public clearSearch(inputElement)
+  {
+    inputElement.value = "";
+    this.searchFormControl.setValue("");
+  }
+
   private registerValueChangesHandler()
   {
     this.searchFormControl

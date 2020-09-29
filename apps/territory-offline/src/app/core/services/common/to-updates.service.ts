@@ -25,7 +25,7 @@ export class ToUpdatesService
     // console.log("ToUpdatesService", isNewer);
   }
 
-  public async considerToGetReleaseInfos(): Promise<{newReleaseExists: boolean, version: string}>
+  public async considerToGetReleaseInfos(): Promise<{newReleaseExists: boolean, version: string, hasError: boolean}>
   {
     const releaseInfo = await this.getCurrentReleaseInfos()
       .pipe(
@@ -33,7 +33,8 @@ export class ToUpdatesService
         map(resp => ({
             newReleaseExists: this.isVersionAGreater(resp.version, currentVersion),
             version: resp.version,
-            currentOsDownloadUrl: resp.currentOsDownloadUrl
+            currentOsDownloadUrl: resp.currentOsDownloadUrl,
+            hasError: resp.hasError
           })
         )
       ).toPromise();
@@ -67,7 +68,7 @@ export class ToUpdatesService
         catchError(error =>
         {
           console.warn(`Could not get current release info.`, error);
-          return of(error);
+          return of({...error, hasError: true});
         })
       );
   }
