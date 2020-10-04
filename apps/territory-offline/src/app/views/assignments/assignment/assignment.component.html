@@ -6,8 +6,8 @@
 
   <app-add-publisher [vFormControl]="assignment.get('publisherId')"></app-add-publisher>
 
-  <app-panel>
-    <app-list-item (click)="editStartTime=true">
+  <app-panel class="start-time">
+    <app-list-item  (click)="editStartTime=true">
       <p class="label">Ausgabedatum</p>
       <p class="info">{{assignment.get('startTime').value | date:'dd.MM.yyyy'}}</p>
     </app-list-item>
@@ -16,8 +16,8 @@
     </div>
   </app-panel>
 
-  <app-panel>
-    <app-list-item (click)="editEndTime=true">
+  <app-panel class="end-time">
+    <app-list-item  (click)="editEndTime=true">
       <p class="label">Rückgabedatum</p>
       <p class="info">{{(assignment.get('endTime').value | date:'dd.MM.yyyy') || '-'}}</p>
     </app-list-item>

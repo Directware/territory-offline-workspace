@@ -54,7 +54,6 @@ describe('GebietsKomponente', () =>
 {
   it('Tag hinzufügen', () =>
   {
-    cy.wait(2000)
     cy.get('i-feather[name="tag"]')
       .click()
     cy.get('.action-link')
@@ -253,8 +252,15 @@ describe('GebietsKomponente', () =>
     cy.get('.action.edit')
       .should('contain', '+ Neue Zuteilung')
       .click()
+    cy.get('.cancel')
+      .click()
+
+    cy.get('.action.edit')
+      .should('contain', '+ Neue Zuteilung')
+      .click()
     cy.get('.save.not-valid')
       .should('contain', 'Speichern')
+
     cy.get('input[placeholder="Verkündiger"]')
       .type('A')
     cy.get('.search-result')
@@ -262,9 +268,63 @@ describe('GebietsKomponente', () =>
       .click()
 
 
-    cy.contains('Ausgabedatum')
+    cy.get('.start-time .label')
+      .should('contain', 'Ausgabedatum')
       .click()
     cy.get('.info')
       .should('contain', currDate)
+
+    cy.get('.end-time .label')
+      .should('contain', 'Rückgabedatum')
+      .click()
+    cy.get('.end-time .info')
+      .should('contain', '-')
+    cy.get('.end-time .highlight').first()
+      .wait(2000)
+      .click()
+    cy.get('.end-time .info')
+      .should('contain', currDate)
+
+    cy.get('i-feather[name="x"]')
+    cy.contains('Gebietskarte an Verkündiger senden')
+      .click()
+    cy.get('i-feather[name="check"]')
+    cy.contains('Gebietskarte an Verkündiger senden')
+      .click()
+
+    cy.get('.save')
+      .click()
+    cy.get('app-assignments')
+      .should('contain', 'Amadeus')
+
+    cy.get('.label.blue')
+      .should('contain', 'Zuteilung bearbeiten')
+      .click()
+    cy.get('.delete-assignment')
+      .dblclick()
+
+    cy.get('app-assignments')
+      .should('not.contain', 'Amadeus')
+
+    cy.get('.action.edit')
+      .click()
+    cy.get('.save.not-valid')
+      .should('contain', 'Speichern')
+    cy.get('input[placeholder="Verkündiger"]')
+      .type('B')
+    cy.get('.search-result')
+      .click()
+    cy.get('.save')
+      .click()
+    cy.get('app-assignments')
+      .should('contain', 'Bertholt')
+
+    cy.get('[name="repeat"] > .feather')
+      .click()
+    cy.get('.scrollable-wrapper > :nth-child(2)')
+
+
+    // cy.get('.back')
+    //   .click()
   })
 })
