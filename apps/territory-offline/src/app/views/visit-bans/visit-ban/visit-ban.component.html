@@ -21,11 +21,19 @@
       <p class="label blue">{{r.place_name}}</p>
       <i-feather class="info blue" name="map-pin"></i-feather>
     </app-list-item>
-    <app-list-item *ngIf="geoCodingResults && geoCodingResults.length === 0">
+    <app-list-item *ngIf="geoCodingResults && geoCodingResults.length === 0 && !isManuallyPositioning">
       <p class="label warn">Keine Adresse gefunden</p>
       <i-feather class="info warn" name="alert-circle"></i-feather>
     </app-list-item>
-    <app-list-item *ngIf="geoCodingResults && geoCodingResults.length === 0">
+    <app-list-item *ngIf="isManuallyPositioning">
+      <p class="label">Markierung im Gebiet setzen</p>
+      <i-feather class="info" name="arrow-right"></i-feather>
+    </app-list-item>
+    <app-list-item (click)="reset()" *ngIf="visitBan.get('territoryId').value && visitBan.get('street').value">
+      <p class="label blue">Zurücksetzen</p>
+      <i-feather class="info blue" name="refresh-cw"></i-feather>
+    </app-list-item>
+    <app-list-item (click)="setVisitBanManually()" *ngIf="geoCodingResults && geoCodingResults.length === 0 && !isManuallyPositioning">
       <p class="label blue">Adresse manuell platzieren</p>
       <i-feather class="info blue" name="map-pin"></i-feather>
     </app-list-item>

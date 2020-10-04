@@ -35,6 +35,7 @@ export class VisitBanComponent implements OnInit, OnDestroy
   public visitBan: FormGroup;
   public isCreation: boolean;
   public editLastVisit: boolean;
+  public isManuallyPositioning: boolean;
   private destroyer = new Subject();
   private geoCodingInitialisationDone: boolean;
 
@@ -51,6 +52,7 @@ export class VisitBanComponent implements OnInit, OnDestroy
 
   public ngOnInit(): void
   {
+    this.mapsService.setShouldBlockMapSynchronizer(true);
     this.activatedRoute.params
       .pipe(
         takeUntil(this.destroyer),
@@ -69,6 +71,7 @@ export class VisitBanComponent implements OnInit, OnDestroy
   public ngOnDestroy(): void
   {
     this.mapsService.clearMarkers();
+    this.mapsService.setShouldBlockMapSynchronizer(false);
     this.destroyer.next();
     this.destroyer.complete();
   }
@@ -81,6 +84,30 @@ export class VisitBanComponent implements OnInit, OnDestroy
       return;
     }
     this.router.navigate([{outlets: {'second-thread': ['visit-bans', this.activatedRoute.snapshot.params.territoryId]}}]);
+  }
+
+  public reset()
+  {
+    this.visitBan.patchValue({territoryId: null, street: ""});
+    this.geoCodingForm.reset();
+    this.mapsService.clearMarkers();
+  }
+
+  public setVisitBanManually()
+  {
+    this.isManuallyPositioning = true;
+
+    this.mapsService
+      .getMap()
+      .once('click', async (e) =>
+      {
+        const address = this.geoCodingForm.value.split(" ");
+        const street = address.shift();
+        const streetSuffix = address.join(" ");
+
+        await this.setVisitBan(e.lngLat.lng,  e.lngLat.lat, street, streetSuffix, "");
+        this.isManuallyPositioning = false;
+      });
   }
 
   public createVisitBans()
@@ -139,22 +166,32 @@ export class VisitBanComponent implements OnInit, OnDestroy
       }
     }
 
-    const territory = await this.chooseTerritoryConsideringFeature(feature);
+    await this.setVisitBan(feature.center[0], feature.center[1], street, feature.address, cityName);
+  }
+
+  private async setVisitBan(lng: number, lat: number, street: string, streetSuffix: string, cityName: string)
+  {
+    const territory = await this.chooseTerritoryConsideringFeature(lng, lat);
+
+    if(!territory)
+    {
+      alert("Die Markierung kann keinem Gebiet zugeordnet werden. Setze bitte eine Markierung auf ein Gebiet.");
+      return;
+    }
 
     this.visitBan.patchValue({
       street: street,
-      streetSuffix: feature.address,
+      streetSuffix: streetSuffix,
       city: cityName,
       territoryId: territory ? territory.id : null,
       gpsPosition: {
-        lng: feature.center[0],
-        lat: feature.center[1]
+        lng: lng,
+        lat: lat
       }
     });
 
     this.mapsService.clearMarkers();
-    this.mapsService.goTo(feature.center[0], feature.center[1]);
-    this.mapsService.setMarker(feature.center, "");
+    this.mapsService.setMarker([lng, lat], "");
     this.visitBan.markAsDirty();
     this.geoCodingResults = null;
 
@@ -211,7 +248,7 @@ export class VisitBanComponent implements OnInit, OnDestroy
     }
   }
 
-  private async chooseTerritoryConsideringFeature(feature): Promise<any>
+  private async chooseTerritoryConsideringFeature(lng: number, lat: number): Promise<any>
   {
     const territory = await combineLatest([
       this.store.pipe(select(selectAllDrawings)),
@@ -228,7 +265,7 @@ export class VisitBanComponent implements OnInit, OnDestroy
             {
               // @ts-ignore
               const polygon = Turf.polygon(f.geometry.coordinates);
-              return Turf.booleanPointInPolygon(feature.center, polygon);
+              return Turf.booleanPointInPolygon(Turf.point([lng, lat]), polygon);
             }).length > 0
         )[0];
 

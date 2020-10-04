@@ -59,6 +59,22 @@ export const selectLastAssignmentOfEachTerritory = createSelector(
   }
 );
 
+export const selectLastEndedAssignmentOfEachTerritory = createSelector(
+  selectAll,
+  selectAllTerritories,
+  (assignments: Assignment[], territories) =>
+  {
+    const lastAssignments = [];
+    territories.forEach((t) =>
+    {
+      const lastAssignment = assignments.filter(a => a.territoryId === t.id).sort((a1, a2) => a1.endTime > a2.endTime ? -1 : 1)[0];
+      lastAssignments.push(lastAssignment || {});
+    });
+
+    return lastAssignments;
+  }
+);
+
 export const selectDashboardData = createSelector(
   selectLastAssignmentOfEachTerritory,
   selectAllTerritories,

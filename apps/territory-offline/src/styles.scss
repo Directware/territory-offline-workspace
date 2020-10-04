@@ -383,30 +383,18 @@ app-panel.tags-panel {
   }
 }
 
-
 .mapbox-marker {
   position: relative;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 6px;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
   cursor: pointer;
   overflow: hidden;
+  border: 0.125rem solid #fff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+  background: $reddish-orange;
+}
 
-  &::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: $reddish-orange;
-    top: 0;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAABsklEQVR4Ae3XAYTCYBiA4TCEYQhhOBxCCOEQ4hAOEA4hhMPhEAKEcDiEQwiHACGEAwwhhCGEwzCEcAjh0L0oZrb17b/d7qiXB/D/vm22bZmz6NJ+v7/GEyaYwzmYYYwWzDQGqcKCtAlKvzGIjjFU+sIAWpKXZ4WgVmigiBIe4CKoGfI/HSaPNYKaIhuwxsACQS2hK1+miI03yEWsLWAXcSCaykA9hDUWrF8grJbKpdohrK5gjyHCWiMbZ6AXRDUS7DFDVI9xBnIQlQs9Yr2JLaKypMMUIWkYsl7Du/D5ZEgGakCahQp0GKjBhrSKZKA20qouGaiLtGr9t4GakoGaONUH+qijCBNXKKGBAVycqioZqIywJijHeHzcwkJYOelGn/C2RU20WH7W7TgbDODtPoHPmAm8deIsLsCbnsBANzi2g5Eh1bM0SvgMdVQ2MHx3yrPiIBpeccyGpnpUBd9LcgQjxnrT915zk/iMrWDj+5ZpI3dikJ7vbnVQSOpD38Q84G29wADdgzfY8DcVnFnl54kDaUvcpfXDOEZYI5T/4pe6D3/91AfxD5X+MJKhkLl0jn0Dc/UpQi2D4lMAAAAASUVORK5CYII=);
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-  }
+.mapboxgl-popup {
+  z-index: 10;
 }

@@ -113,6 +113,11 @@ export class TransferComponent implements OnInit
     this.excelDataExportService.exportTerritoryNames();
   }
 
+  public exportTerritoryState()
+  {
+    this.excelDataExportService.exportTerritoryState();
+  }
+
   public importFromExcel(type: string)
   {
     this.matDialog.open(ImportFromExcelModalComponent, {

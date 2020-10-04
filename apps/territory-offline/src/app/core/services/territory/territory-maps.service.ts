@@ -18,7 +18,7 @@ import {selectTerritoryByDrawingId} from "../../store/territories/territories.se
 import {
   allTerritoryStatus,
   Drawing,
-  GeocodingResult,
+  GeocodingResult, Territory,
   TerritoryDrawingPrintConfiguration, TerritoryStatus, ToMapBoxSources
 } from "@territory-offline-workspace/api";
 
@@ -219,9 +219,9 @@ export class TerritoryMapsService
       this.store.pipe(
         select(selectTerritoryByDrawingId, e.features[0].properties.drawingId),
         take(1),
-        tap((territory) =>
+        tap((territory: Territory) =>
         {
-          if (territory && !this.shouldBlockMapSynchronizer)
+          if (!this.shouldBlockMapSynchronizer && territory && !this.currentlyFocusedOnDrawingIds.includes(territory.territoryDrawingId))
           {
             this.router.navigate([{outlets: {'second-thread': ['territory', territory.id]}}]);
           }

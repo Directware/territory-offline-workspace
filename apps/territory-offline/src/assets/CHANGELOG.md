@@ -1,5 +1,18 @@
 # Changelog
 
+#### v. 2.10.17
+###### 01.10.2020
+- Added new export function (territory state)
+
+#### v. 2.10.16
+###### 01.10.2020
+- Visit Ban bug fix
+
+#### v. 1.10.15
+###### 01.10.2020
+- Added manually positioning of visit bans
+- Minor bug fixes
+
 #### v. 2.1.14
 ###### 26.09.2020
 - Added remove button to main search on each entity

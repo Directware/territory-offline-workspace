@@ -68,8 +68,7 @@ export class TerritoryMapsResourcesService
 
     const marker = new MapBox.Marker(mapMarker)
       .setLngLat(coordinates)
-      .setPopup(new MapBox.Popup({offset: 25}) // add popups
-        .setHTML(popupText))
+      .setPopup(new MapBox.Popup({offset: 25}).setHTML(popupText))
       .addTo(this.map);
 
     this.currentMarkers.push(marker);

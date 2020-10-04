@@ -1,5 +1,5 @@
 import {BrowserModule, HammerModule} from '@angular/platform-browser';
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {APP_INITIALIZER, LOCALE_ID, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -49,7 +49,9 @@ import { VisitBansComponent } from './views/territories/territory/visit-bans/vis
 import { VisitBanComponent } from './views/territories/territory/visit-bans/visit-ban/visit-ban.component';
 import { MapComponent } from './views/territories/map/map.component';
 import { MapControlsComponent } from './views/territories/map/map-controls/map-controls.component';
-
+import {registerLocaleData} from "@angular/common";
+import localeDe from '@angular/common/locales/de';
+import localePl from '@angular/common/locales/pl';
 const {Device} = Plugins;
 
 @NgModule({
@@ -108,14 +110,22 @@ const {Device} = Plugins;
       useFactory: startupServiceFactory,
       deps: [AppInitializerService],
       multi: true
+    },
+    {
+      provide: LOCALE_ID,
+      deps: [TranslateService],      //some service handling global settings
+      useFactory: (translateService) => translateService.currentLang //returns locale string
     }
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule
 {
-  constructor(private translateService: TranslateService, private store: Store<ApplicationState>)
+  constructor(private translateService: TranslateService,
+              private store: Store<ApplicationState>)
   {
+    registerLocaleData(localeDe, 'de');
+    registerLocaleData(localePl, 'pl');
     this.initLanguage();
   }
 

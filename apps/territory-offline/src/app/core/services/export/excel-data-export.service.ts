@@ -4,10 +4,16 @@ import {PlatformAgnosticActionsService} from "../common/platform-agnostic-action
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/index.reducers";
 import {selectPublishers} from "../../store/publishers/publishers.selectors";
-import {take, tap} from "rxjs/operators";
+import {first, take, tap} from "rxjs/operators";
 import {selectAllVisitBans} from "../../store/visit-bans/visit-bans.selectors";
-import {VisitBan} from "@territory-offline-workspace/api";
+import {Assignment, VisitBan} from "@territory-offline-workspace/api";
 import {selectAllTerritories} from "../../store/territories/territories.selectors";
+import {
+  selectLastAssignmentOfEachTerritory,
+  selectLastEndedAssignmentOfEachTerritory
+} from "../../store/assignments/assignments.selectors";
+import {selectSettings} from "../../store/settings/settings.selectors";
+import * as moment from "moment";
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +60,57 @@ export class ExcelDataExportService
         this.saveWorkBook(wb, "Gebiete");
       })
     ).subscribe();
+  }
+
+  /*
+  Anzahl Gebiete, die:
+    - Stand jetzt nicht bearbeitet sind
+    - länger als 1.5 Jahren nicht bearbeitet sind
+    - länger als 3 Jahre nicht bearbeitet sind
+    - länger als 5 Jahre nicht bearbeitet sind
+    - länger als 10 Jahre nicht bearbeitet sind
+* */
+  public async exportTerritoryState()
+  {
+    const assignments = await this.store.pipe(select(selectLastEndedAssignmentOfEachTerritory), first()).toPromise();
+    const settings = await this.store.pipe(select(selectSettings), first()).toPromise();
+    const today = moment(new Date());
+
+    const countOfAllNotProcessed = assignments.map(a => moment(a.endTime))
+      .filter((endTime) => today.diff(endTime, "months") > settings.processingPeriodInMonths)
+      .length;
+
+    const oneYear = assignments.map(a => moment(a.endTime))
+      .filter((endTime) => today.diff(endTime, "months") >= 12)
+      .length;
+
+    const oneAndHalfYear = assignments.map(a => moment(a.endTime))
+      .filter((endTime) => today.diff(endTime, "months") >= 18)
+      .length;
+
+    const threeYears = assignments.map(a => moment(a.endTime))
+      .filter((endTime) => today.diff(endTime, "months") >= 36)
+      .length;
+
+    const fiveYears = assignments.map(a => moment(a.endTime))
+      .filter((endTime) => today.diff(endTime, "months") >= 60)
+      .length;
+
+    const tenYears = assignments.map(a => moment(a.endTime))
+      .filter((endTime) => today.diff(endTime, "months") >= 120)
+      .length;
+
+    const wb = this.craeteWorkBook("Territory state");
+    wb.SheetNames.push("Gebietszustand");
+
+    const tmp = [
+      [`${settings.processingPeriodInMonths} Monate nicht bearbeitet`, "1 Jahr nicht bearbeitet", "1.5 Jahre nicht bearbeitet", "3 Jahre nicht bearbeitet", "5 Jahre nicht bearbeitet", "10 Jahre nicht bearbeitet"],
+      [countOfAllNotProcessed, oneYear, oneAndHalfYear, threeYears, fiveYears, tenYears]
+    ];
+
+    const ws = XLSX.utils.aoa_to_sheet(tmp);
+    wb.Sheets["Gebietszustand"] = ws;
+    this.saveWorkBook(wb, "Gebietszustand");
   }
 
   public exportVisitBans()
