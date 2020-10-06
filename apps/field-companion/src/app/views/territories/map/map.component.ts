@@ -1,4 +1,4 @@
-import {Component, ComponentRef, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ComponentRef, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MapService} from "../../../core/services/map/map.service";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../core/store/index.reducers";
@@ -13,7 +13,7 @@ import {HideablePanelComponent} from "@territory-offline-workspace/ui-components
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit
+export class MapComponent implements OnInit, AfterViewInit
 {
   @ViewChild("hideablePanelComponent", {static: false})
   public hideablePanelComponent: HideablePanelComponent;
@@ -29,8 +29,12 @@ export class MapComponent implements OnInit
 
   public ngOnInit(): void
   {
-    this.mapService.init();
     this.territoryCards$ = this.store.pipe(select(selectAllTerritoryCards));
+  }
+
+  public ngAfterViewInit()
+  {
+    this.mapService.initWithAllTerritories();
   }
 
   public focusOn(territoryCard: TerritoryCard)

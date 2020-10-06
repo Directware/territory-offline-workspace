@@ -1,3 +1,5 @@
+@import "libs/ui-components/src/lib/assets/styles/colors";
+
 :host {
 
   app-panel {
@@ -8,7 +10,7 @@
     }
 
     ::ng-deep .wrapper {
-      padding: 1rem 1rem 0 1rem;
+      padding: 1rem 0 0 1rem;
 
       app-list {
         padding: 1rem 0 0 0;
@@ -18,6 +20,17 @@
 
           .label {
             color: #fff;
+          }
+
+          .info {
+            padding-right: 0.5rem;
+          }
+
+          &.no-visit-bans {
+
+            .label {
+              color: $white-03;
+            }
           }
         }
       }

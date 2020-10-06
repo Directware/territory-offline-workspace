@@ -38,6 +38,49 @@
     }
   }
 
+  app-panel {
+    background: transparent;
+    margin: 1rem 0 0 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    width: 100%;
+
+    ::ng-deep .wrapper {
+      padding: 0;
+      border-bottom: 1px solid rgba(228, 230, 231, 0.1);
+
+      app-list {
+        padding: 0;
+
+        .blured {
+          background: rgba(235, 237, 239, 0.1);
+        }
+
+        app-list-item {
+          padding: 0 1rem 0 1rem;
+
+          &.geo-coding-result {
+
+            flex-direction: row-reverse;
+
+            .info {
+              width: 1.25rem;
+              height: 1.25rem;
+              font-size: 1.25rem;
+              margin-right: 0.75rem;
+              margin-left: 0.25rem;
+              color: #fff;
+            }
+
+            .label {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
   app-list-item {
 
     .input {
@@ -46,11 +89,29 @@
       outline: none;
       border: none;
       color: #fff;
-    }
 
-    .button{
-      margin: 2rem 0 0 0;
+      font-family: Heebo, sans-serif;
+      font-size: 1rem;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.25;
+      letter-spacing: 0.4px;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+      }
     }
+  }
+
+  .button {
+    margin: 2rem 1rem;
+    width: calc(100% - 2rem);
+    box-sizing: border-box;
+  }
+
+  .address-ok {
+    color: $seaweed;
   }
 
 }

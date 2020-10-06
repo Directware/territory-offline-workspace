@@ -19,12 +19,19 @@
     align-items: center;
     margin: 1rem 1rem 1rem 1rem;
     padding-left: 0;
+    padding-right: 0;
     z-index: 11;
     font-family: Heebo-Medium, sans-serif;
     font-size: 30px;
     font-weight: 500;
     line-height: 1.2;
     color: #ffffff;
+
+    > .add-territory {
+      width: 2rem;
+      height: 2rem;
+      font-size: 2rem;
+    }
   }
 
   app-panel {
@@ -99,11 +106,13 @@
             color: #0c1118;
           }
 
-          button{
-            padding: 0.25rem 0.5rem;
+          button {
+            font-family: Heebo-Medium, sans-serif;
+            padding: 0.45rem 0.75rem 0.5rem 0.75rem;
             box-sizing: border-box;
             border: none;
-            border-radius: 16px;
+            height: 2rem;
+            border-radius: 1rem;
             background-color: #3694e2;
             color: #fff;
             font-size: 1rem;
@@ -123,8 +132,8 @@
   .territories {
     padding: 0 0 1rem 1rem;
 
-    .add-territory {
-      padding: 0 1rem 0 0;
+    ::ng-deep .label {
+      color: #fff;
     }
   }
 }

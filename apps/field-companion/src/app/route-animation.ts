@@ -91,8 +91,14 @@ export const slideInAnimation =
     transition('Territories => Modal', modalSlideUpTransition),
     transition('Modal => Territories', modalSlideDownTransition),
 
+    transition('Territories => Territory', slideFromRightToLeft),
+    transition('Territory => Territories', slideFromLeftToRight),
+
     transition('Time => Modal', modalSlideUpTransition),
     transition('Modal => Time', modalSlideDownTransition),
+
+    transition('Territory => Modal', modalSlideUpTransition),
+    transition('Modal => Territory', modalSlideDownTransition),
 
     // transition('Territories => Settings', slideFromRightToLeft),
     // transition('Territories => Time', slideFromRightToLeft),

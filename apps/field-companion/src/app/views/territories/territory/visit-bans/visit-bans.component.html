@@ -7,6 +7,9 @@
         <p class="label">{{visitBan.street}} {{visitBan.streetSuffix}}</p>
         <p *ngIf="visitBan.name" class="info">{{visitBan.name}}</p>
       </app-list-item>
+      <app-list-item class="no-visit-bans" *ngIf="!territoryCard.visitBans || territoryCard.visitBans.length === 0">
+        <p class="label">{{"territories.noVisitBans" | translate}}</p>
+      </app-list-item>
       <app-list-item [routerLink]="'/territory/' + territoryCard.id + '/visit-ban'">
         <p class="label blue">{{"territories.addVisitBans" | translate}}</p>
       </app-list-item>

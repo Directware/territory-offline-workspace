@@ -1,13 +1,16 @@
 import {Injectable} from '@angular/core';
 import {Plugins} from '@capacitor/core';
 import * as MapBox from 'mapbox-gl';
-import {Drawing, ToMapBoxSources} from "@territory-offline-workspace/api";
+import {Drawing, GeocodingResult} from "@territory-offline-workspace/api";
 import * as Turf from '@turf/turf';
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/index.reducers";
-import {selectAllTerritoryCards} from "../../store/territory-card/territory-card.selectors";
+import {selectAllTerritoryCards, selectTerritoryCardById} from "../../store/territory-card/territory-card.selectors";
 import {first} from "rxjs/operators";
 import {mergeDrawings} from "../../utils/usefull.functions";
+import {Observable, of} from "rxjs";
+import {environment} from "../../../../../../territory-offline/src/environments/environment";
+import {HttpClient} from "@angular/common/http";
 
 const {Network} = Plugins;
 
@@ -21,46 +24,24 @@ export class MapService
   private userMarker;
   private readonly mapSourceName = "fc-map-source";
 
-  constructor(private store: Store<ApplicationState>)
+  constructor(private store: Store<ApplicationState>, private http: HttpClient)
   {
   }
 
-  public async init()
+  public async initWithAllTerritories()
   {
     const territoryCards = await this.store.pipe(select(selectAllTerritoryCards), first()).toPromise();
-
     const mergedDrawings = mergeDrawings(territoryCards.map(tc => tc.drawing));
     const center = Turf.center(mergedDrawings.featureCollection).geometry.coordinates;
+    this.init(center, mergedDrawings);
+  }
 
-    Network.getStatus()
-      .then((status) =>
-      {
-        if (status.connected)
-        {
-          this._map = new MapBox.Map({
-            container: "fc-map",
-            style: 'https://api.maptiler.com/maps/8a0d25a8-3989-4508-9a15-eb9b6366b3fb/style.json?key=JAC0nmE7iwuArAWW6eTi',
-            center: center,
-            zoom: 13,
-            pitchWithRotate: false
-          });
-
-          this._map.on('load', () =>
-          {
-            this._map.addSource(this.mapSourceName, {'type': 'geojson', 'data': mergedDrawings.featureCollection});
-            this.initLayers();
-            this._map.fitBounds(Turf.bbox(mergedDrawings.featureCollection), {padding: 30});
-          });
-
-          this._map.on('click', 'to-map-boundary', (e) =>
-          {
-            if (e.features && e.features[0])
-            {
-              this._map.fitBounds(Turf.bbox(e.features[0]), {padding: 30});
-            }
-          });
-        }
-      });
+  public async initWithOneTerritory(territoryId: string)
+  {
+    const territoryCard = await this.store.pipe(select(selectTerritoryCardById, territoryId), first()).toPromise();
+    const mergedDrawings = mergeDrawings([territoryCard.drawing]);
+    const center = Turf.center(mergedDrawings.featureCollection).geometry.coordinates;
+    this.init(center, mergedDrawings);
   }
 
   public focusOn(drawing: Drawing)
@@ -112,6 +93,25 @@ export class MapService
     {
       this.userMarker.remove();
     }
+  }
+
+  public getCenterPoint()
+  {
+    return this._map.getCenter();
+  }
+
+  public geocode(search: string, territoryProximity: string): Observable<GeocodingResult>
+  {
+    if (!search)
+    {
+      return of(null);
+    }
+
+    const token = environment.mapboxAccessToken;
+    const proximity = territoryProximity;//  || `${this.cachedSettingsCenter.lng},${this.cachedSettingsCenter.lat}`;
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${search}.json?proximity=${proximity}&types=address&access_token=${token}`;
+
+    return this.http.get<GeocodingResult>(url);
   }
 
   private initLayers()
@@ -171,6 +171,40 @@ export class MapService
         }
       });
     }
+
+  }
+
+  private init(center, mergedDrawings)
+  {
+    Network.getStatus()
+      .then((status) =>
+      {
+        if (status.connected)
+        {
+          this._map = new MapBox.Map({
+            container: "fc-map",
+            style: 'https://api.maptiler.com/maps/8a0d25a8-3989-4508-9a15-eb9b6366b3fb/style.json?key=JAC0nmE7iwuArAWW6eTi',
+            center: center,
+            zoom: 13,
+            pitchWithRotate: false
+          });
+
+          this._map.on('load', () =>
+          {
+            this._map.addSource(this.mapSourceName, {'type': 'geojson', 'data': mergedDrawings.featureCollection});
+            this.initLayers();
+            this._map.fitBounds(Turf.bbox(mergedDrawings.featureCollection), {padding: 30});
+          });
+
+          this._map.on('click', 'to-map-boundary', (e) =>
+          {
+            if (e.features && e.features[0])
+            {
+              this._map.fitBounds(Turf.bbox(e.features[0]), {padding: 30});
+            }
+          });
+        }
+      });
 
   }
 }

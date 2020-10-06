@@ -31,7 +31,7 @@ const routes: Routes = [
   {path: 'about-app', component: AboutAppComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Modal'}},
   {path: 'map', component: MapComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Modal'}},
   {path: 'territories', component: TerritoriesComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Territories'}},
-  {path: 'territory/:id', component: TerritoryComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Modal'}},
+  {path: 'territory/:id', component: TerritoryComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Territory'}},
   {path: 'territory/:id/visit-ban', component: VisitBanComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Modal'}},
   {path: 'territory/:id/visit-ban/:visitBanId', component: VisitBanComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Modal'}},
   // {path: 'territories', component: TerritoryPreviewComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Territories'}},

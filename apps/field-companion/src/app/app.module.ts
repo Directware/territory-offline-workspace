@@ -52,6 +52,8 @@ import { MapControlsComponent } from './views/territories/map/map-controls/map-c
 import {registerLocaleData} from "@angular/common";
 import localeDe from '@angular/common/locales/de';
 import localePl from '@angular/common/locales/pl';
+import {HttpClientModule} from "@angular/common/http";
+import { VisitBanManualChooserComponent } from './views/territories/territory/visit-bans/visit-ban-manual-chooser/visit-ban-manual-chooser.component';
 const {Device} = Plugins;
 
 @NgModule({
@@ -81,7 +83,8 @@ const {Device} = Plugins;
     VisitBansComponent,
     VisitBanComponent,
     MapComponent,
-    MapControlsComponent
+    MapControlsComponent,
+    VisitBanManualChooserComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -89,6 +92,7 @@ const {Device} = Plugins;
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpClientModule,
     UiComponentsModule,
     FeatherIconsModule,
     StoreModule.forRoot(reducers),

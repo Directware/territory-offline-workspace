@@ -7,11 +7,13 @@ import {ApplicationState} from "../store/index.reducers";
 import {selectAllDailyReports} from "../store/reports/daily-reports.selectors";
 import {Plugins} from "@capacitor/core";
 import {selectSettings} from "../store/settings/settings.selectors";
+import {TerritoryCard} from "@territory-offline-workspace/api";
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable({providedIn: "root"})
 export class DataExportService
 {
-  constructor(private store: Store<ApplicationState>)
+  constructor(private store: Store<ApplicationState>, private translateService: TranslateService,)
   {
   }
 
@@ -20,6 +22,18 @@ export class DataExportService
     const today = new Date();
     const minutes = today.getMinutes().toString(10).padStart(2, "0");
     return `field-companion backup ${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${today.getHours()}-${minutes}.fieldcompanion`;
+  }
+
+  public async giveBackTerritory(territoryCard: TerritoryCard)
+  {
+    await Plugins.FileSharer.share({
+      filename: `${territoryCard.territory.key} ${territoryCard.territory.name}`,
+      base64Data: btoa(JSON.stringify(territoryCard)),
+      contentType: "text/plain;charset=utf-8",
+      android: {
+        chooserTitle: `${this.translateService.instant("territories.giveBack")}: ${territoryCard.territory.key} ${territoryCard.territory.name}`
+      }
+    }).catch(error => console.error("File sharing failed", error.message));
   }
 
   public async exportAllAndShare()

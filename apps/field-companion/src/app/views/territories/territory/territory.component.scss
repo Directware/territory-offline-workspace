@@ -14,31 +14,57 @@
 
   .header {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     z-index: 11;
     font-family: Heebo-Medium, sans-serif;
     font-weight: 500;
     line-height: 1.2;
     color: #ffffff;
 
-    .done {
-      font-size: 1rem;
+    .back {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      font-size: 1.125rem;
       font-weight: 500;
       line-height: 1.25;
       letter-spacing: 0.4px;
-      text-align: center;
-      color: #ffffff;
-      padding: 0.25rem 0.75rem;
-      border-radius: 1rem;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      background-color: rgba(173, 177, 184, 0.24);
+      text-align: left;
+      color: #3694e2;
+      padding: 0.25rem 0 0.75rem 0;
+      position: relative;
+      left: -0.5rem;
+
+      > i-feather {
+        position: relative;
+        top: -2px;
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
+      }
     }
   }
 
-  .danger{
-    color: #ff5f1b;
+  app-list {
+    padding: 0 0 1rem 0;
+
+    app-list-item {
+      padding: 0;
+
+      ::ng-deep .label {
+        color: #fff;
+      }
+    }
+  }
+
+  ::ng-deep app-panel {
+    margin: 0.5rem 0;
+  }
+
+  .danger {
+    color: #ff5f1b !important;
   }
 }

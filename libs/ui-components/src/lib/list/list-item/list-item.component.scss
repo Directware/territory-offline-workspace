@@ -35,6 +35,10 @@
     text-align: right;
     color: inherit;
     white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .comment {

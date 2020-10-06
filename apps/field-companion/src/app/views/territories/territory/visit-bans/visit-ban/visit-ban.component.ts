@@ -1,28 +1,44 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
-import {TerritoryCard} from "@territory-offline-workspace/api";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Observable, Subject} from "rxjs";
+import {GeocodingResult, TerritoryCard} from "@territory-offline-workspace/api";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../../../core/store/index.reducers";
 import {selectTerritoryCardById} from "../../../../../core/store/territory-card/territory-card.selectors";
 import {ActivatedRoute} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {tap} from "rxjs/operators";
+import {debounceTime, first, takeUntil, tap} from "rxjs/operators";
 import {uuid4} from "@capacitor/core/dist/esm/util";
+import {MapService} from "../../../../../core/services/map/map.service";
+import * as Turf from '@turf/turf';
+import {UpsertTerritoryCard} from "../../../../../core/store/territory-card/territory-card.actions";
+import {MatDialog} from "@angular/material/dialog";
+import {VisitBanManualChooserComponent} from "../visit-ban-manual-chooser/visit-ban-manual-chooser.component";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'fc-visit-ban',
   templateUrl: './visit-ban.component.html',
   styleUrls: ['./visit-ban.component.scss']
 })
-export class VisitBanComponent implements OnInit
+export class VisitBanComponent implements OnInit, OnDestroy
 {
   public territoryCard$: Observable<TerritoryCard>;
   public visitBanId: string;
-  public formGroup: FormGroup;
+  public geoCoderFormGroup: FormGroup;
+  public visitBan: FormGroup;
   public hideMainNavigation = true;
+  public isManuallyPositioning: boolean;
+  public geoCodingResults: any[];
+
+  public isCreation: boolean;
+
+  private destroyer = new Subject();
 
   public constructor(private store: Store<ApplicationState>,
                      private fb: FormBuilder,
+                     private matDialog: MatDialog,
+                     private mapsService: MapService,
+                     private translateService: TranslateService,
                      private activatedRoute: ActivatedRoute)
   {
   }
@@ -33,6 +49,12 @@ export class VisitBanComponent implements OnInit
     this.territoryCard$ = this.store.pipe(select(selectTerritoryCardById, this.activatedRoute.snapshot.params.id), tap((territoryCard) => this.initFormGroup(territoryCard)));
   }
 
+  public ngOnDestroy()
+  {
+    this.destroyer.next();
+    this.destroyer.complete();
+  }
+
   public done()
   {
     window.history.back();
@@ -40,45 +62,158 @@ export class VisitBanComponent implements OnInit
 
   public save(territoryCard: TerritoryCard)
   {
-    if (this.formGroup.valid)
+    if (this.geoCoderFormGroup.valid && this.visitBan.valid)
     {
-      const rawValue = this.formGroup.getRawValue();
-      const name = rawValue.name;
+      const rawValueGeoCoder = this.geoCoderFormGroup.getRawValue();
+      const rawValue = this.visitBan.getRawValue();
 
-      const addressSegments = rawValue.address.split(" ");
-      const streetSuffix = addressSegments[addressSegments.length];
-      const street = addressSegments.pop().join();
+      territoryCard.visitBans.push({
+        id: uuid4(),
+        name: rawValueGeoCoder.name,
+        street: rawValue.street,
+        streetSuffix: rawValue.streetSuffix,
+        creationTime: new Date(),
+        gpsPosition: rawValue.gpsPosition,
+        city: rawValue.city,
+        territoryId: rawValue.territoryId,
+        tags: []
+      });
 
-      if (this.visitBanId)
-      {
-        const visitBan = territoryCard.visitBans.find(vb => vb.id === this.visitBanId);
-        visitBan.name = name;
-        visitBan.streetSuffix = streetSuffix;
-        visitBan.street = street;
-      }
-      else
-      {
-        territoryCard.visitBans.push({
-          id: uuid4(),
-          name: name,
-          street: street,
-          streetSuffix: streetSuffix,
-          creationTime: new Date(),
-          gpsPosition: null,
-          city: null,
-          territoryId: territoryCard.territory.id,
-          tags: []
-        });
-      }
+      this.store.dispatch(UpsertTerritoryCard({territoryCard}));
+      this.done();
     }
+  }
+
+  public delete(territoryCard: TerritoryCard)
+  {
+    const confirmation = confirm(this.translateService.instant("territories.reallyDeleteVisitBan"));
+    if(confirmation)
+    {
+      const index = territoryCard.visitBans.findIndex((vb) => vb.id === this.visitBanId);
+      territoryCard.visitBans.splice(index, 1);
+      this.store.dispatch(UpsertTerritoryCard({territoryCard}));
+      this.done();
+    }
+  }
+
+  public chooseGeoCodingResult(feature)
+  {
+    if (feature.place_name)
+    {
+      const splittedPlaceName = feature.place_name.split(',');
+      const streetSegment = splittedPlaceName[0].trim().split(" ");
+      const streetSuffix = streetSegment.pop();
+      const street = streetSegment.join(" ");
+      const postalCode = splittedPlaceName[1].trim().split(" ")[1];
+      const city = splittedPlaceName[1].trim().split(" ")[1];
+
+      this.visitBan.patchValue({
+        street: street,
+        streetSuffix: streetSuffix,
+        city: city,
+        gpsPosition: {
+          lng: feature.center[0],
+          lat: feature.center[1]
+        }
+      }, {emitEvent: true});
+
+      this.visitBan.markAsDirty();
+      this.geoCodingResults = null;
+    }
+  }
+
+  public setVisitBanManually()
+  {
+    this.matDialog
+      .open(VisitBanManualChooserComponent, {disableClose: true, panelClass: "visit-ban-manual-chooser"})
+      .afterClosed()
+      .pipe(
+        first(),
+        tap((gps) =>
+        {
+          const rawValueGeoCoder = this.geoCoderFormGroup.getRawValue();
+          const segmentedAddress = rawValueGeoCoder.address.split(" ");
+          const streetSuffix = segmentedAddress.pop();
+          const street = segmentedAddress.join(" ");
+          this.visitBan.patchValue({
+            street: street,
+            streetSuffix: streetSuffix,
+            city: "",
+            gpsPosition: {
+              lng: gps.lng,
+              lat: gps.lat
+            }
+          }, {emitEvent: true});
+
+          this.visitBan.markAsDirty();
+          this.geoCodingResults = null;
+        })
+      ).subscribe();
   }
 
   private initFormGroup(territoryCard: TerritoryCard)
   {
     const visitBan = territoryCard.visitBans.find(vb => vb.id === this.visitBanId);
-    this.formGroup = this.fb.group({
+    this.isCreation = !visitBan;
+
+    this.geoCoderFormGroup = this.fb.group({
       name: [visitBan ? visitBan.name : ""],
       address: [visitBan ? visitBan.street + " " + visitBan.streetSuffix : "", Validators.required],
     });
+
+    this.visitBan = this.fb.group({
+      id: [visitBan ? visitBan.id : uuid4(), Validators.required],
+      street: [visitBan ? visitBan.street : null, Validators.required],
+      streetSuffix: [visitBan ? visitBan.streetSuffix : null, Validators.required],
+      city: [visitBan ? visitBan.city : null],
+      territoryId: [territoryCard.territory.id, Validators.required],
+      gpsPosition: {
+        lng: [visitBan && visitBan.gpsPosition ? visitBan.gpsPosition.lng : null, Validators.required],
+        lat: [visitBan && visitBan.gpsPosition ? visitBan.gpsPosition.lat : null, Validators.required]
+      }
+    });
+
+    if(this.isCreation)
+    {
+      this.initGeoCoder();
+    }
+  }
+
+  private async initGeoCoder()
+  {
+    const territoryCard = await this.store.pipe(select(selectTerritoryCardById, this.activatedRoute.snapshot.params.id), first()).toPromise();
+    const center = Turf.center(territoryCard.drawing.featureCollection);
+
+    this.geoCoderFormGroup
+      .valueChanges
+      .pipe(
+        takeUntil(this.destroyer),
+        debounceTime(500),
+        tap((e: { name: string, address: string }) =>
+        {
+          const hasNumberRegExp = /[0-9]/;
+
+          if (!!e.address && e.address.length > 3 && hasNumberRegExp.test(e.address))
+          {
+            this.mapsService
+              .geocode(`${e.address}`, `${center.geometry.coordinates[0]},${center.geometry.coordinates[1]}`)
+              .subscribe(async (result: GeocodingResult) =>
+                {
+                  if (result)
+                  {
+                    this.geoCodingResults = result.features;
+                  }
+                },
+                (error) =>
+                {
+                  this.geoCodingResults = [];
+                });
+          }
+          else
+          {
+            this.geoCodingResults = null;
+          }
+        })
+      ).subscribe();
   }
 }

@@ -1,6 +1,9 @@
 <h1 class="header">
   {{"territories.title" | translate}}
+  <i-feather (click)="territoryFileChooser.click()" class="blue add-territory" name="plus"></i-feather>
 </h1>
+
+<input #territoryFileChooser style="display: none;" type="file" (change)="openTerritoryFile($event)"/>
 
 <ng-container *ngIf="(territoryCards$ | async) as territoryCards">
   <app-panel>
@@ -25,10 +28,5 @@
       <p class="label">{{territoryCard.territory.key}} {{territoryCard.territory.name}}</p>
       <p class="info">{{territoryCard.assignment.startTime | durationLeftForTerritoryCard:territoryCard.estimationInMonths}}</p>
     </app-list-item>
-    <app-list-item (click)="territoryFileChooser.click()" class="add-territory">
-      <p class="label blue">{{"territories.addTerritory" | translate}}</p>
-    </app-list-item>
   </app-list>
-
-  <input #territoryFileChooser style="display: none;" type="file" (change)="openTerritoryFile($event)"/>
 </ng-container>

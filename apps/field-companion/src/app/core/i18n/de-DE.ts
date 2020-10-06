@@ -12,7 +12,8 @@ export const deDE = {
     leave: "Verlassen",
     soon: "Bald Verfügbar",
     newFeature: "Neues Feature!",
-    cool: "Cool!"
+    cool: "Cool!",
+    remove: "Löschen"
   },
   featureConfirmation: {
     reportUpToTheMinute: {
@@ -99,13 +100,19 @@ export const deDE = {
     assignTime: "Zugeteilt am",
     assignEndTime: "Verfügbar bis",
     giveBack: "Gebiet abgeben",
+    giveBackConfirmation: "Möchtest du dieses Gebiet wirklich abgeben?",
     visitBans: "Nicht Besuchen Adressen",
     addVisitBans: "Adresse hinzufügen",
     newVisitBan: "Neue Adresse",
-    editVisitBan: "Adresse bearbeiten",
+    editVisitBan: "Adresse",
     visitBanName: "Name (nur bei Mehrfamilienhaus)",
     visitBanAddress: "Adresse",
-    leaveMap: "Karte verlassen"
+    populationCount: "Wohnungseinheiten",
+    leaveMap: "Karte verlassen",
+    setManuallyPosition: "Punkt auswählen",
+    choosePointOnMap: "Punkt auf Karte auswählen",
+    noVisitBans: "Keine Adressen vorhanden",
+    reallyDeleteVisitBan: "Möchtest du diese Adresse wirklich löschen?"
   },
   settings: {
     title: "Einstellungen",

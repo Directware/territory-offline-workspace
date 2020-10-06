@@ -5,18 +5,31 @@
     <span (click)="done()" class="done">{{"common.cancel" | translate}}</span>
   </h1>
 
-  <form *ngIf="formGroup" novalidate [formGroup]="formGroup">
-    <app-list>
-      <app-list-item>
-        <input formControlName="address" [placeholder]="('territories.visitBanAddress' | translate) + '*'" class="input">
-      </app-list-item>
-      <app-list-item>
-        <input formControlName="name" [placeholder]="'territories.visitBanName' | translate" class="input">
-      </app-list-item>
-      <app-list-item>
-        <button (click)="save(territoryCard)" [disabled]="!formGroup.valid" *ngIf="visitBanId" class="button primary">{{"common.save" | translate}}</button>
-        <button (click)="save(territoryCard)" [disabled]="!formGroup.valid" *ngIf="!visitBanId" class="button primary">{{"common.add" | translate}}</button>
-      </app-list-item>
-    </app-list>
+  <form *ngIf="geoCoderFormGroup" novalidate [formGroup]="geoCoderFormGroup">
+    <app-panel>
+      <div class="wrapper actions">
+        <app-list>
+          <app-list-item class="blured">
+            <input formControlName="address" [placeholder]="('territories.visitBanAddress' | translate) + '*'" class="input">
+            <i-feather *ngIf="visitBan.valid" class="info address-ok" name="check"></i-feather>
+          </app-list-item>
+          <app-list-item class="geo-coding-result" *ngFor="let r of geoCodingResults" (click)="chooseGeoCodingResult(r)">
+            <i-feather class="info" name="map-pin"></i-feather>
+            <p class="label">{{r.place_name}}</p>
+          </app-list-item>
+          <app-list-item class="geo-coding-result" (click)="setVisitBanManually()" *ngIf="geoCodingResults">
+            <i-feather class="info blue" name="crosshair"></i-feather>
+            <p class="label blue">{{"territories.choosePointOnMap" | translate}}</p>
+          </app-list-item>
+          <app-list-item class="blured">
+            <input formControlName="name" [placeholder]="'territories.visitBanName' | translate" class="input">
+          </app-list-item>
+        </app-list>
+      </div>
+    </app-panel>
+
+    <button (click)="save(territoryCard)" [disabled]="!visitBan.valid || visitBan.pristine" *ngIf="isCreation" class="button primary">{{"common.add" | translate}}</button>
+    <button (click)="delete(territoryCard)" [disabled]="!visitBan.valid" *ngIf="!isCreation" class="button danger">{{"common.remove" | translate}}</button>
   </form>
+
 </ng-container>
