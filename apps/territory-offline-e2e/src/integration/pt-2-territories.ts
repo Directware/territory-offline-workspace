@@ -120,11 +120,11 @@ describe('GebietsKomponente', () =>
       cy.get('.mapbox-gl-draw_polygon')
         .click()
       cy.get('.mapboxgl-canvas')
-        .click(800, yTop)
-        .click(900, yTop)
-        .click(900, yBottom)
-        .click(800, yBottom)
-        .click(800, yTop)
+        .click(1000, yTop)
+        .click(1100, yTop)
+        .click(1100, yBottom)
+        .click(1000, yBottom)
+        .click(1000, yTop)
       cy.get('.save')
         .click()
       yTop = yTop + 60
@@ -180,7 +180,7 @@ describe('GebietsKomponente', () =>
   it('Gebiet auf Karte anklicken \n Felder prüfen', () =>
   {
     cy.get('.mapboxgl-canvas')
-      .click('center')
+      .click(1000,100)
     cy.get('.label.location')
       .should('contain', 'Ort')
     cy.get('.info.location')
