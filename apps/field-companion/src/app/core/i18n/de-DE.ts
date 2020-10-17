@@ -112,7 +112,12 @@ export const deDE = {
     setManuallyPosition: "Punkt auswählen",
     choosePointOnMap: "Punkt auf Karte auswählen",
     noVisitBans: "Keine Adressen vorhanden",
-    reallyDeleteVisitBan: "Möchtest du diese Adresse wirklich löschen?"
+    returnTerritory: "Abgabe",
+    reallyDeleteVisitBan: "Möchtest du diese Adresse wirklich löschen?",
+    deleteConfirmation: "Möchtest du wirklich das Gebiet entfernen?",
+    returnInfo: "Gebiet abgeben",
+    returnInfoText: "Bevor du dein Gebiet löschst, sende es bitte an deinen Gebietsdiener zurück.",
+    remove: "Gebiet löschen",
   },
   settings: {
     title: "Einstellungen",

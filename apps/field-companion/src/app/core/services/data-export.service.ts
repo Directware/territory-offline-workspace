@@ -9,11 +9,15 @@ import {Plugins} from "@capacitor/core";
 import {selectSettings} from "../store/settings/settings.selectors";
 import {TerritoryCard} from "@territory-offline-workspace/api";
 import {TranslateService} from "@ngx-translate/core";
+import {DeleteTerritoryCard} from "../store/territory-card/territory-card.actions";
+import {Router} from "@angular/router";
 
 @Injectable({providedIn: "root"})
 export class DataExportService
 {
-  constructor(private store: Store<ApplicationState>, private translateService: TranslateService,)
+  constructor(private store: Store<ApplicationState>,
+              private router: Router,
+              private translateService: TranslateService,)
   {
   }
 
@@ -34,6 +38,15 @@ export class DataExportService
         chooserTitle: `${this.translateService.instant("territories.giveBack")}: ${territoryCard.territory.key} ${territoryCard.territory.name}`
       }
     }).catch(error => console.error("File sharing failed", error.message));
+
+    /*
+    const confirmation = confirm(this.translateService.instant("territories.giveBackSucceeded"));
+    if(confirmation)
+    {
+      this.router.navigate(["/territories"]);
+      setTimeout(() => this.store.dispatch(DeleteTerritoryCard({territoryCard})), 0);
+    }
+    */
   }
 
   public async exportAllAndShare()
@@ -42,7 +55,7 @@ export class DataExportService
     const fileName = await this.getFileName();
 
     await Plugins.FileSharer.share({
-      filename: fileName,
+      filename: `${fileName}.territory`,
       base64Data: btoa(data),
       contentType: "text/plain;charset=utf-8",
       android: {

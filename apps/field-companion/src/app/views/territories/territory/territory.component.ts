@@ -4,10 +4,9 @@ import {ApplicationState} from "../../../core/store/index.reducers";
 import {Observable} from "rxjs";
 import {TerritoryCard} from "@territory-offline-workspace/api";
 import {selectTerritoryCardById} from "../../../core/store/territory-card/territory-card.selectors";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import * as moment from "moment";
 import {TranslateService} from "@ngx-translate/core";
-import {first} from "rxjs/operators";
 import {DataExportService} from "../../../core/services/data-export.service";
 
 @Component({
@@ -21,6 +20,7 @@ export class TerritoryComponent implements OnInit
   public hideMainNavigation = true;
 
   public constructor(private store: Store<ApplicationState>,
+                     private router: Router,
                      private translateService: TranslateService,
                      private dataExportService: DataExportService,
                      private activatedRoute: ActivatedRoute)
@@ -42,15 +42,8 @@ export class TerritoryComponent implements OnInit
     return moment(territoryCard.assignment.startTime).add(territoryCard.estimationInMonths, "M");
   }
 
-  public async giveBack()
+  public giveBack()
   {
-    const shouldGiveBack = confirm(this.translateService.instant("territories.giveBackConfirmation"));
-    if (shouldGiveBack)
-    {
-      const territoryCard = await this.territoryCard$.pipe(first()).toPromise();
-      await this.dataExportService.giveBackTerritory(territoryCard);
-
-      // TODO löschen / archivieren?
-    }
+    this.router.navigate(["return-territory"], {relativeTo: this.activatedRoute});
   }
 }

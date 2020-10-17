@@ -157,8 +157,8 @@ export class VisitBanComponent implements OnInit, OnDestroy
     this.isCreation = !visitBan;
 
     this.geoCoderFormGroup = this.fb.group({
-      name: [visitBan ? visitBan.name : ""],
-      address: [visitBan ? visitBan.street + " " + visitBan.streetSuffix : "", Validators.required],
+      name: [{value: visitBan ? visitBan.name : "", disabled: !this.isCreation}],
+      address: [{value: visitBan ? visitBan.street + " " + visitBan.streetSuffix : "", disabled: !this.isCreation}, Validators.required],
     });
 
     this.visitBan = this.fb.group({

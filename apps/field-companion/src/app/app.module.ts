@@ -54,6 +54,7 @@ import localeDe from '@angular/common/locales/de';
 import localePl from '@angular/common/locales/pl';
 import {HttpClientModule} from "@angular/common/http";
 import { VisitBanManualChooserComponent } from './views/territories/territory/visit-bans/visit-ban-manual-chooser/visit-ban-manual-chooser.component';
+import { ReturnTerritoryCardComponent } from './views/territories/territory/return-territory-card/return-territory-card.component';
 const {Device} = Plugins;
 
 @NgModule({
@@ -84,7 +85,8 @@ const {Device} = Plugins;
     VisitBanComponent,
     MapComponent,
     MapControlsComponent,
-    VisitBanManualChooserComponent
+    VisitBanManualChooserComponent,
+    ReturnTerritoryCardComponent
   ],
   imports: [
     BrowserAnimationsModule,

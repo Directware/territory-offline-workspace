@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, OnInit} from '@angular/core';
+import {Component, HostBinding, HostListener, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'ui-hideable-panel',
@@ -12,6 +12,16 @@ export class HideablePanelComponent implements OnInit
 
   @HostBinding("class.open")
   public isOpen: boolean;
+
+  public show()
+  {
+    this.isOpen = true;
+  }
+
+  public hide()
+  {
+    this.isOpen = false;
+  }
 
   public constructor()
   {

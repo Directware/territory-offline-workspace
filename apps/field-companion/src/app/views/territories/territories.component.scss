@@ -36,7 +36,6 @@
 
   app-panel {
     padding: 0;
-    border-radius: 0.625rem;
     margin: 0 1rem 1rem 1rem;
     overflow: hidden;
 
@@ -82,8 +81,10 @@
         position: relative;
         height: 15rem;
         background-image: url("../../../assets/images/landkarte.jpeg");
+        border-radius: 0.625rem;
         background-size: cover;
         background-repeat: no-repeat;
+        overflow: hidden;
 
         .footer {
           position: absolute;
@@ -93,6 +94,7 @@
           width: 100%;
           padding: 1rem;
           box-sizing: border-box;
+          border-radius: 0 0 0.625rem 0.625rem;
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
           background-color: rgba(173, 177, 184, 0.24);

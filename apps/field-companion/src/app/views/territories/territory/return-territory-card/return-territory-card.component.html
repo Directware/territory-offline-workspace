@@ -1,0 +1,16 @@
+<h1 class="header">
+  <span>{{"territories.returnTerritory" | translate}}</span>
+  <span (click)="done()" class="done">{{"common.done" | translate}}</span>
+</h1>
+
+<div class="scrollable-wrapper">
+  <div class="tip-wrapper">
+    <p class="title">{{"territories.returnInfo" | translate}}</p>
+    <p class="info">{{"territories.returnInfoText" | translate}}</p>
+  </div>
+  <br />
+  <button (click)="sendTerritoryCard()" class="button primary">{{"actions.send" | translate}}</button>
+  <br />
+  <br />
+  <button (click)="deleteTerritoryCard()" class="remove-territory button danger">{{"territories.remove" | translate}}</button>
+</div>

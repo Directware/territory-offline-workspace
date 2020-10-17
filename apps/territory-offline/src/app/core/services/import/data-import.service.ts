@@ -249,7 +249,7 @@ export class DataImportService
         /* Datensätze, die da sind und im Import nicht existieren, können gelöscht worden sein */
         const idsToBeImported = dataToBeImported[key].map(entity => entity.id) as string[];
 
-        Object.keys(alreadyExistingData[key])
+        Object.keys(alreadyExistingData[key] || {})
           .filter(entityId => !idsToBeImported.includes(entityId))
           .forEach(entityId =>
           {
@@ -269,6 +269,11 @@ export class DataImportService
         /* Es sollen nur Datensätze importiert werden, die nicht existieren oder aktualisiert sind */
         filteredData[key] = dataToBeImported[key].filter(entityToBeImported =>
         {
+          if(!alreadyExistingData[key])
+          {
+            return true;
+          }
+
           const existingEntity = alreadyExistingData[key][entityToBeImported.id];
 
           if(!existingEntity)

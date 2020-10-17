@@ -62,14 +62,14 @@
   <br/>
   <p class="body-primary">Folgende Daten wurden hinzugefügt / verändert</p>
 
-  <p *ngIf="!data.toBeImported.territories.length
-  && !data.toBeImported.publisher.length
-  && !data.toBeImported.tags.length
-  && !data.toBeImported.visitBans.length
-  && !data.toBeImported.assignments.length" class="body-grey">Keine Daten wurden verändert.</p>
+  <p *ngIf="!data.toBeImported?.territories?.length
+  && !data.toBeImported?.publisher?.length
+  && !data.toBeImported?.tags?.length
+  && !data.toBeImported?.visitBans?.length
+  && !data.toBeImported?.assignments?.length" class="body-grey">Keine Daten wurden verändert.</p>
 
-  <ng-container *ngIf="data.toBeImported.territories.length">
-    <h3><span class="count">{{data.toBeImported.territories.length}}</span> Gebiete</h3>
+  <ng-container *ngIf="data.toBeImported?.territories?.length">
+    <h3><span class="count">{{data.toBeImported?.territories?.length}}</span> Gebiete</h3>
     <p class="body-grey imported-entry" *ngFor="let territory of (showAllImportedTerritories ? data.toBeImported.territories : data.toBeImported.territories | slice:0:4)">
       {{territory.key}} {{territory.name}}
     </p>
@@ -79,7 +79,7 @@
                (click)="showAllImportedTerritories=false" name="chevrons-up" class="blue"></i-feather>
   </ng-container>
 
-  <ng-container *ngIf="data.toBeImported.publisher.length">
+  <ng-container *ngIf="data.toBeImported?.publisher?.length">
     <h3><span class="count">{{data.toBeImported.publisher.length}}</span> Verkündiger</h3>
     <p class="body-grey imported-entry" *ngFor="let publisher of (showAllImportedPublisher ? data.toBeImported.publisher : data.toBeImported.publisher |slice:0:4)">
       {{publisher.firstName}} {{publisher.name}}
@@ -90,7 +90,7 @@
                (click)="showAllImportedPublisher=false" name="chevrons-up" class="blue"></i-feather>
   </ng-container>
 
-  <ng-container *ngIf="data.toBeImported.visitBans.length">
+  <ng-container *ngIf="data.toBeImported?.visitBans?.length">
     <h3><span class="count">{{data.toBeImported.visitBans.length}}</span> Nicht Besuchen</h3>
     <p class="body-grey imported-entry" *ngFor="let visitBan of (showAllImportedVisitBans ? data.toBeImported.visitBans : data.toBeImported.visitBans | slice:0:4)">
       {{visitBan.street}} {{visitBan.streetSuffix}}
@@ -101,7 +101,7 @@
                (click)="showAllImportedVisitBans=false" name="chevrons-up" class="blue"></i-feather>
   </ng-container>
 
-  <ng-container *ngIf="data.toBeImported.tags.length">
+  <ng-container *ngIf="data.toBeImported?.tags?.length">
     <h3><span class="count">{{data.toBeImported.tags.length}}</span> Tags</h3>
     <p class="body-grey imported-entry" *ngFor="let tag of (showAllImportedTags ? data.toBeImported.tags : data.toBeImported.tags | slice:0:4)">
       {{tag.name}}
@@ -112,7 +112,7 @@
                (click)="showAllImportedTags=false" name="chevrons-up" class="blue"></i-feather>
   </ng-container>
 
-  <ng-container *ngIf="data.toBeImported.assignments.length">
+  <ng-container *ngIf="data.toBeImported?.assignments?.length">
     <h3><span class="count">{{data.toBeImported.assignments.length}}</span> Zuteilungen</h3>
     <p class="body-grey imported-entry" *ngFor="let assignment of (showAllImportedAssignments ? data.toBeImported.assignments : data.toBeImported.assignments | slice:0:4)">
       <span style="display: flex; flex-direction: column;">

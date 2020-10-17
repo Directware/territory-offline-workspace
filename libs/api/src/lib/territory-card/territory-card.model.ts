@@ -11,4 +11,5 @@ export interface TerritoryCard extends TimedEntity
   visitBans: VisitBan[];
   type: ExportableTypesEnum.DIGITAL_TERRITORY;
   estimationInMonths: number;
+  deactivated?: boolean
 }

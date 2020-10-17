@@ -39,9 +39,9 @@ export class SyncDataComponent implements OnInit
       const [file] = event.target.files;
 
       jsonReader.onload = () =>
-        this.jsonSyncFileOnload(jsonReader.result as any).catch(() =>
+        this.jsonSyncFileOnload(jsonReader.result as any).catch((e) =>
         {
-          console.log("Keine JSON Struktur.");
+          console.log("Keine JSON Struktur.", e);
           const binaryFileReader = new FileReader();
           binaryFileReader.onload = () => this.binarySyncFileOnload(binaryFileReader.result as any);
           binaryFileReader.readAsArrayBuffer(file);
