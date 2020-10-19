@@ -29,7 +29,9 @@ export class FieldServiceComponent implements OnInit
   public isYearDurationOverview: boolean;
   public isMenuOpened: boolean;
 
-  constructor(private store: Store<ApplicationState>, private router: Router, private featureConfirmationService: FeatureConfirmationService)
+  constructor(private store: Store<ApplicationState>,
+              private featureConfirmationService: FeatureConfirmationService,
+              private router: Router)
   {
   }
 
@@ -39,7 +41,9 @@ export class FieldServiceComponent implements OnInit
     this.chosenCalendarCell$ = this.store.pipe(select(selectChosenCalendarCell));
     this.mergedDailyReports$ = this.store.pipe(select(selectMergedCurrentDailyReports));
     this.durationProgress$ = this.store.pipe(select(durationProgress));
-    this.featureConfirmationService.check();
+
+    // Das muss hier sein, weil es sonst beim onboarding erscheint - die erste view ist eh immer field service
+    setTimeout(() => this.featureConfirmationService.check(), 0);
   }
 
   public chooseDay(calendarCell: CalendarCell)

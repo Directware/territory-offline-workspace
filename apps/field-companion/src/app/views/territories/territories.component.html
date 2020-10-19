@@ -22,11 +22,26 @@
       </div>
     </div>
   </app-panel>
-
-  <app-list class="territories">
-    <app-list-item *ngFor="let territoryCard of territoryCards" [routerLink]="'/territory/' + territoryCard.id">
-      <p class="label">{{territoryCard.territory.key}} {{territoryCard.territory.name}}</p>
-      <p class="info">{{territoryCard.assignment.startTime | durationLeftForTerritoryCard:territoryCard.estimationInMonths}}</p>
-    </app-list-item>
-  </app-list>
 </ng-container>
+
+<div class="scrollable-wrapper">
+  <ng-container *ngIf="(expiredTerritoryCards$ | async) as expiredTerritoryCards">
+    <h5 class="territory-section" *ngIf="expiredTerritoryCards.length > 0">{{"territories.expired" | translate}}</h5>
+    <app-list class="territories">
+      <app-list-item *ngFor="let territoryCard of expiredTerritoryCards" [routerLink]="'/territory/' + territoryCard.id + '/return-territory'">
+        <p class="label">{{territoryCard.territory.key}} {{territoryCard.territory.name}}</p>
+        <p class="info expired">{{territoryCard.assignment.startTime | durationLeftForTerritoryCard:territoryCard.estimationInMonths}}</p>
+      </app-list-item>
+    </app-list>
+  </ng-container>
+
+  <ng-container *ngIf="(territoryCards$ | async) as territoryCards">
+    <h5 class="territory-section" *ngIf="territoryCards.length > 0">{{"territories.inProgress" | translate}}</h5>
+    <app-list class="territories">
+      <app-list-item *ngFor="let territoryCard of territoryCards" [routerLink]="'/territory/' + territoryCard.id">
+        <p class="label">{{territoryCard.territory.key}} {{territoryCard.territory.name}}</p>
+        <p class="info">{{territoryCard.assignment.startTime | durationLeftForTerritoryCard:territoryCard.estimationInMonths}}</p>
+      </app-list-item>
+    </app-list>
+  </ng-container>
+</div>

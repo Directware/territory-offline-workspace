@@ -2,18 +2,27 @@ export const plPL = {
   title: "Field Companion",
   common: {
     done: "Gotowe",
-    info: "Info",
+    add: "Dodaj",
+    save: "Zapisz",
+    cancel: "Anuluj",
+    open: "Otwórz",
+    info: "Informacja",
     comment: "Komentarz",
     preview: "Podgląd",
     leave: "Wyjście",
     soon: "Wkrótce dostępne",
     newFeature: "Nowa funkcja!",
-    cool: "Cool!"
+    cool: "Cool!",
+    remove: "Usuń"
   },
   featureConfirmation: {
     reportUpToTheMinute: {
       title: "Sprawozdawczość minutowa",
       description: "Naciśnij i przytrzymaj przycisk nagrywania godzin, aby zgłosić swój czas do minuty. Teraz możesz również określić w ustawieniach kroki, które chcesz podjąć, aby nagrać swój czas."
+    },
+    territories: {
+      title: "Zawsze miej przy sobie swoje tereny",
+      description: "Jeśli twój sługa terenów korzysta z TerritoryOffline, możesz poprosić go, aby wysłał ci twoje tereny. Pozwala to na wyświetlenie ich na mapie i zarządzanie adresami których nie mamy odwiedzać."
     }
   },
   actions: {
@@ -82,12 +91,39 @@ export const plPL = {
   },
   territories: {
     title: "Tereny",
+    addTerritory: "Dodaj teren",
     noTerritories: "Brak terenow",
     noTerritoriesDesc: "Ta funkcja nie jest jeszcze włączona.",
     yourTerritories: "Twoje tereny",
     feature1: "Odbieraj tereny od swojego sługi terenow",
     feature2: "Zobacz swój teren na szczegółowych mapach",
     feature3: "Śledź swoją lokalizację i śledź, gdzie byłeś",
+    map: "Mapa",
+    still: "pozostało",
+    toLate: "spóźnienie o",
+    assignTime: "Przydzielony w",
+    assignEndTime: "Dostępny do",
+    giveBack: "Oddaj teren",
+    giveBackConfirmation: "Naprawdę chcesz oddać ten teren?",
+    visitBans: "Nie należy odwiedzać adresów",
+    addVisitBans: "Dodaj adres",
+    newVisitBan: "Nowy adres",
+    editVisitBan: "Adres",
+    visitBanName: "Nazwisko",
+    visitBanAddress: "Adres",
+    populationCount: "Jednostki mieszkalne",
+    leaveMap: "Opuść mapę",
+    setManuallyPosition: "Wybierz punkt",
+    choosePointOnMap: "Wybierz punkt na mapie",
+    noVisitBans: "Brak adresów",
+    returnTerritory: "Oddanie terenu",
+    reallyDeleteVisitBan: "Czy naprawdę chcesz usunąć ten adres?",
+    deleteConfirmation: "Naprawdę chcesz usunąć ten teren?",
+    returnInfo: "Oddanie terenu",
+    returnInfoText: "Zanim usuniesz swój teren, wyślij go z powrotem do swojego sługi terenów.",
+    remove: "Usuń teren",
+    inProgress: "Aktywne tereny",
+    expired: "Wygasłe tereny"
   },
   settings: {
     title: "Ustawienia",

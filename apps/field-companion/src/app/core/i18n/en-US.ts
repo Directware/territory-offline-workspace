@@ -2,18 +2,27 @@ export const enUS = {
   title: "Field Companion",
   common: {
     done: "Done",
+    add: "Add",
+    save: "Save",
+    cancel: "Cancel",
+    open: "Open",
     info: "Info",
     comment: "Comment",
     preview: "Preview",
     leave: "Leave",
     soon: "Available soon",
     newFeature: "New Feature!",
-    cool: "Cool!"
+    cool: "Cool!",
+    remove: "Remove"
   },
   featureConfirmation: {
     reportUpToTheMinute: {
       title: "Minute-based reporting",
       description: "Press and hold the hour recording button to report your time to the minute. You can now also specify in the settings the steps you want to take to record your time."
+    },
+    territories: {
+      title: "Always have territories with you",
+      description: "If your territory servant uses TerritoryOffline, you can ask him to send you your territories. This will allow you to view them on the map at any time and manage the non-visit addresses."
     }
   },
   actions: {
@@ -82,12 +91,39 @@ export const enUS = {
   },
   territories: {
     title: "Territories",
+    addTerritory: "Add territory",
     noTerritories: "No territories",
     noTerritoriesDesc: "This feature is not yet enabled.",
     yourTerritories: "Your Territories",
     feature1: "Receive areas via link from your territory servant",
     feature2: "View your territory on detailed maps",
     feature3: "Track your location and keep track of where you've been",
+    map: "Map",
+    still: "still",
+    toLate: "expired since",
+    assignTime: "Assigned on",
+    assignEndTime: "Available untill",
+    giveBack: "Submit area",
+    giveBackConfirmation: "Do you really want to submit this territory?",
+    visitBans: "Do not visit addresses",
+    addVisitBans: "Add address",
+    newVisitBan: "New address",
+    editVisitBan: "Address",
+    visitBanName: "Name (only for apartment house)",
+    visitBanAddress: "Address",
+    populationCount: "Apartment units",
+    leaveMap: "Leave map",
+    setManuallyPosition: "Select point",
+    choosePointOnMap: "Select point on map",
+    noVisitBans: "No addresses available",
+    returnTerritory: "Release",
+    reallyDeleteVisitBan: "Do you really want to delete this address?",
+    deleteConfirmation: "Do you really want to remove the territory?",
+    returnInfo: "Submit territory",
+    returnInfoText: "Before you delete your territory, please send it back to your territory servant.",
+    remove: "Delete territory",
+    inProgress: "Active territories",
+    expired: "Expired territories"
   },
   settings: {
     title: "Settings",

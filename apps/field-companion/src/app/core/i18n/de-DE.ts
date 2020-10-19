@@ -19,6 +19,10 @@ export const deDE = {
     reportUpToTheMinute: {
       title: "Minutengenau Berichten",
       description: "Halte die Schaltfläche zur Stundenerfassung gedrückt, um deine Zeit auf die Minute genau zu Berichten. Außerdem kannst du jetzt in den Einstellungen festlegen, in welchen Schritten du deine Zeit erfassen möchtest."
+    },
+    territories: {
+      title: "Gebiete immer dabei haben",
+      description: "Wenn dein Gebietsdiener TerritoryOffline nutzt, kannst du ihn bitten, dir deine Gebiete zu senden. Das ermöglicht dir sie jederzeit auf der Karte zu betrachten und die Nicht besuchen Adressen zu verwalten."
     }
   },
   actions: {
@@ -118,6 +122,8 @@ export const deDE = {
     returnInfo: "Gebiet abgeben",
     returnInfoText: "Bevor du dein Gebiet löschst, sende es bitte an deinen Gebietsdiener zurück.",
     remove: "Gebiet löschen",
+    inProgress: "Aktive Gebiete",
+    expired: "Abgelaufene Gebiete"
   },
   settings: {
     title: "Einstellungen",

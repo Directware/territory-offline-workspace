@@ -5,6 +5,7 @@ import {selectConfirmedFeatures} from "../store/settings/settings.selectors";
 import {ReportUpToTheMinuteComponent} from "../../views/feature-confirmation-modals/report-up-to-the-minute/report-up-to-the-minute.component";
 import {ApplicationState} from "../store/index.reducers";
 import {MatDialog} from "@angular/material/dialog";
+import {TerritoryFeatureComponent} from "../../views/feature-confirmation-modals/territory-feature/territory-feature.component";
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,14 @@ export class FeatureConfirmationService
         if (!confirmedFeatures || !confirmedFeatures["report.up.to.the.minute"])
         {
           this.matDialog.open(ReportUpToTheMinuteComponent, {
+            panelClass: "feature-confirmation",
+            disableClose: true
+          });
+        }
+
+        if (!confirmedFeatures || !confirmedFeatures["territories.feature"])
+        {
+          this.matDialog.open(TerritoryFeatureComponent, {
             panelClass: "feature-confirmation",
             disableClose: true
           });

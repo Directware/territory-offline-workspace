@@ -30,23 +30,15 @@ export class DataExportService
 
   public async giveBackTerritory(territoryCard: TerritoryCard)
   {
+    const today = new Date();
     await Plugins.FileSharer.share({
-      filename: `${territoryCard.territory.key} ${territoryCard.territory.name}`,
+      filename: `${territoryCard.territory.key}-${territoryCard.territory.name}-${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}.territory`,
       base64Data: btoa(JSON.stringify(territoryCard)),
       contentType: "text/plain;charset=utf-8",
       android: {
         chooserTitle: `${this.translateService.instant("territories.giveBack")}: ${territoryCard.territory.key} ${territoryCard.territory.name}`
       }
     }).catch(error => console.error("File sharing failed", error.message));
-
-    /*
-    const confirmation = confirm(this.translateService.instant("territories.giveBackSucceeded"));
-    if(confirmation)
-    {
-      this.router.navigate(["/territories"]);
-      setTimeout(() => this.store.dispatch(DeleteTerritoryCard({territoryCard})), 0);
-    }
-    */
   }
 
   public async exportAllAndShare()

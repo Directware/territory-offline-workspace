@@ -2,7 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import * as Pako from 'pako';
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../core/store/index.reducers";
-import {selectAllTerritoryCards} from "../../core/store/territory-card/territory-card.selectors";
+import {
+  selectAllExpiredTerritoryCards, selectAllNotExpiredTerritoryCards,
+  selectAllTerritoryCards
+} from "../../core/store/territory-card/territory-card.selectors";
 import {Observable} from "rxjs";
 import {TerritoryCard} from "@territory-offline-workspace/api";
 import {UpsertTerritoryCard} from "../../core/store/territory-card/territory-card.actions";
@@ -16,6 +19,7 @@ export class TerritoriesComponent implements OnInit
 {
   public isMenuOpened: boolean;
   public territoryCards$: Observable<TerritoryCard[]>
+  public expiredTerritoryCards$: Observable<TerritoryCard[]>
 
   constructor(private store: Store<ApplicationState>)
   {
@@ -23,7 +27,8 @@ export class TerritoriesComponent implements OnInit
 
   public ngOnInit(): void
   {
-    this.territoryCards$ = this.store.pipe(select(selectAllTerritoryCards));
+    this.territoryCards$ = this.store.pipe(select(selectAllNotExpiredTerritoryCards));
+    this.expiredTerritoryCards$ = this.store.pipe(select(selectAllExpiredTerritoryCards));
   }
 
   public openTerritoryFile(event)

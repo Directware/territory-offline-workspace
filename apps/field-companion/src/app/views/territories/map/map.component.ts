@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, ComponentRef, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MapService} from "../../../core/services/map/map.service";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../core/store/index.reducers";
 import {Observable} from "rxjs";
 import {TerritoryCard} from "@territory-offline-workspace/api";
-import {selectAllTerritoryCards} from "../../../core/store/territory-card/territory-card.selectors";
+import {selectAllNotExpiredTerritoryCards} from "../../../core/store/territory-card/territory-card.selectors";
 import {Router} from "@angular/router";
 import {HideablePanelComponent} from "@territory-offline-workspace/ui-components";
 
@@ -29,7 +29,7 @@ export class MapComponent implements OnInit, AfterViewInit
 
   public ngOnInit(): void
   {
-    this.territoryCards$ = this.store.pipe(select(selectAllTerritoryCards));
+    this.territoryCards$ = this.store.pipe(select(selectAllNotExpiredTerritoryCards));
   }
 
   public ngAfterViewInit()

@@ -61,6 +61,7 @@
     "capacitor-data-storage-sqlite": "^2.1.0",
     "file-saver": "^2.0.2",
     "hammerjs": "^2.0.8",
+    "lodash": "^4.17.20",
     "mapbox-gl": "^1.9.1",
     "moment": "^2.27.0",
     "ngx-color-picker": "^9.1.0",

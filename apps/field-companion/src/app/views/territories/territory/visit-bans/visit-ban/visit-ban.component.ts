@@ -185,18 +185,19 @@ export class VisitBanComponent implements OnInit, OnDestroy
     const center = Turf.center(territoryCard.drawing.featureCollection);
 
     this.geoCoderFormGroup
+      .get("address")
       .valueChanges
       .pipe(
         takeUntil(this.destroyer),
         debounceTime(500),
-        tap((e: { name: string, address: string }) =>
+        tap((address: string) =>
         {
           const hasNumberRegExp = /[0-9]/;
 
-          if (!!e.address && e.address.length > 3 && hasNumberRegExp.test(e.address))
+          if (!!address && address.length > 3 && hasNumberRegExp.test(address))
           {
             this.mapsService
-              .geocode(`${e.address}`, `${center.geometry.coordinates[0]},${center.geometry.coordinates[1]}`)
+              .geocode(`${address}`, `${center.geometry.coordinates[0]},${center.geometry.coordinates[1]}`)
               .subscribe(async (result: GeocodingResult) =>
                 {
                   if (result)

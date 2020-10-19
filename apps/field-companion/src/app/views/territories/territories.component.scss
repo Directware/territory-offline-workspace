@@ -36,7 +36,8 @@
 
   app-panel {
     padding: 0;
-    margin: 0 1rem 1rem 1rem;
+    margin: 0 1rem 0 1rem;
+    min-height: 15rem;
     overflow: hidden;
 
     ::ng-deep .wrapper {
@@ -131,11 +132,24 @@
     }
   }
 
+  .scrollable-wrapper {
+    margin: 1rem 0 0 0;
+    padding: 0.5rem 0;
+  }
+
+  .territory-section {
+    margin: 0;
+    padding: 0 1rem;
+  }
+
   .territories {
-    padding: 0 0 1rem 1rem;
+    padding: 0 0 0.75rem 1rem;
 
     ::ng-deep .label {
       color: #fff;
+    }
+    ::ng-deep .expired {
+      color: $reddish-orange;
     }
   }
 }

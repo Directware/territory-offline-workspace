@@ -40,21 +40,24 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {BackupImportProgressComponent} from "./views/shared/backup-import-progress/backup-import-progress.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {CircleProgressComponent} from './views/shared/circle-progress/circle-progress.component';
-import { InputDurationComponent } from './views/field-service/input-duration/input-duration.component';
+import {InputDurationComponent} from './views/field-service/input-duration/input-duration.component';
 import {UiComponentsModule} from "@territory-offline-workspace/ui-components";
-import { ReportUpToTheMinuteComponent } from './views/feature-confirmation-modals/report-up-to-the-minute/report-up-to-the-minute.component';
-import { DurationLeftForTerritoryCardPipe } from './views/territories/pipe/duration-left-for-territory-card.pipe';
-import { TerritoryComponent } from './views/territories/territory/territory.component';
-import { VisitBansComponent } from './views/territories/territory/visit-bans/visit-bans.component';
-import { VisitBanComponent } from './views/territories/territory/visit-bans/visit-ban/visit-ban.component';
-import { MapComponent } from './views/territories/map/map.component';
-import { MapControlsComponent } from './views/territories/map/map-controls/map-controls.component';
+import {ReportUpToTheMinuteComponent} from './views/feature-confirmation-modals/report-up-to-the-minute/report-up-to-the-minute.component';
+import {DurationLeftForTerritoryCardPipe} from './views/territories/pipe/duration-left-for-territory-card.pipe';
+import {TerritoryComponent} from './views/territories/territory/territory.component';
+import {VisitBansComponent} from './views/territories/territory/visit-bans/visit-bans.component';
+import {VisitBanComponent} from './views/territories/territory/visit-bans/visit-ban/visit-ban.component';
+import {MapComponent} from './views/territories/map/map.component';
+import {MapControlsComponent} from './views/territories/map/map-controls/map-controls.component';
 import {registerLocaleData} from "@angular/common";
 import localeDe from '@angular/common/locales/de';
 import localePl from '@angular/common/locales/pl';
 import {HttpClientModule} from "@angular/common/http";
-import { VisitBanManualChooserComponent } from './views/territories/territory/visit-bans/visit-ban-manual-chooser/visit-ban-manual-chooser.component';
-import { ReturnTerritoryCardComponent } from './views/territories/territory/return-territory-card/return-territory-card.component';
+import {VisitBanManualChooserComponent} from './views/territories/territory/visit-bans/visit-ban-manual-chooser/visit-ban-manual-chooser.component';
+import {ReturnTerritoryCardComponent} from './views/territories/territory/return-territory-card/return-territory-card.component';
+import * as _ from "lodash";
+import {TerritoryFeatureComponent} from './views/feature-confirmation-modals/territory-feature/territory-feature.component';
+
 const {Device} = Plugins;
 
 @NgModule({
@@ -86,7 +89,8 @@ const {Device} = Plugins;
     MapComponent,
     MapControlsComponent,
     VisitBanManualChooserComponent,
-    ReturnTerritoryCardComponent
+    ReturnTerritoryCardComponent,
+    TerritoryFeatureComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -133,6 +137,11 @@ export class AppModule
     registerLocaleData(localeDe, 'de');
     registerLocaleData(localePl, 'pl');
     this.initLanguage();
+
+    if (!environment.production)
+    {
+      checkTranslationFiles();
+    }
   }
 
   private async initLanguage()
@@ -164,4 +173,42 @@ export class AppModule
 export function startupServiceFactory(startupService: AppInitializerService): Function
 {
   return () => startupService.load();
+}
+
+export function checkTranslationFiles()
+{
+  const deKeysSet = new Set<string>();
+  const enKeysSet = new Set<string>();
+  const plKeysSet = new Set<string>();
+
+  deepKeys(deDE, deKeysSet, "");
+  deepKeys(enUS, enKeysSet, "");
+  deepKeys(plPL, plKeysSet, "");
+
+  console.group("Translation checks:")
+  const missingEnKeys = compareKeys(deKeysSet, enKeysSet);
+  console.log("Missing english translations: ", missingEnKeys);
+
+  const missingPlKeys = compareKeys(deKeysSet, plKeysSet);
+  console.log("Missing polish translations: ", missingPlKeys);
+  console.groupEnd();
+}
+
+export function deepKeys(object, keysSet: Set<string>, propPath: string)
+{
+  const keys = _.keys(object);
+  keys.forEach(key =>
+  {
+    const currentPropPath = `${propPath ? propPath + '.' : ''}${key}`;
+    keysSet.add(currentPropPath);
+    if (typeof object[key] === 'object')
+    {
+      deepKeys(object[key], keysSet, currentPropPath);
+    }
+  });
+}
+
+export function compareKeys(set1: Set<string>, set2: Set<string>)
+{
+  return Array.from(set1.values()).filter(e => !set2.has(e))
 }

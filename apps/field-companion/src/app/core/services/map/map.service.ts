@@ -5,7 +5,11 @@ import {Drawing, GeocodingResult} from "@territory-offline-workspace/api";
 import * as Turf from '@turf/turf';
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/index.reducers";
-import {selectAllTerritoryCards, selectTerritoryCardById} from "../../store/territory-card/territory-card.selectors";
+import {
+  selectAllNotExpiredTerritoryCards,
+  selectAllTerritoryCards,
+  selectTerritoryCardById
+} from "../../store/territory-card/territory-card.selectors";
 import {first} from "rxjs/operators";
 import {mergeDrawings} from "../../utils/usefull.functions";
 import {Observable, of} from "rxjs";
@@ -30,7 +34,7 @@ export class MapService
 
   public async initWithAllTerritories()
   {
-    const territoryCards = await this.store.pipe(select(selectAllTerritoryCards), first()).toPromise();
+    const territoryCards = await this.store.pipe(select(selectAllNotExpiredTerritoryCards), first()).toPromise();
     const mergedDrawings = mergeDrawings(territoryCards.map(tc => tc.drawing));
     const center = Turf.center(mergedDrawings.featureCollection).geometry.coordinates;
     this.init(center, mergedDrawings);
