@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {v4 as uuid} from 'uuid';
 import {FormControl} from '@angular/forms';
 import {IosSelector} from "../common/ios-date-selector.class";
@@ -12,6 +12,9 @@ import {takeUntil, tap} from "rxjs/operators";
 })
 export class DurationPickerComponent implements OnInit, AfterViewInit, OnDestroy
 {
+  @HostBinding("class.app-duration-picker")
+  public appDurationPickerClass = true;
+
   @Input()
   public durationFormControl: FormControl;
 

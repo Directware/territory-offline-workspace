@@ -6,8 +6,8 @@
     cursor: pointer;
     background: $reddish-orange-20;
 
-    app-list-item,
-    app-list-item .label {
+    .app-list-item,
+    .app-list-item .label {
 
       color: $reddish-orange;
     }
@@ -18,7 +18,7 @@
     .wrapper {
       padding: 1rem 1rem 0 0;
 
-      app-list {
+      .app-list {
         padding: 0.5rem 0 0 0;
       }
     }
@@ -28,7 +28,7 @@
     }
   }
 
-  app-language-search {
+  .app-language-search {
     align-items: flex-start;
     max-width: 17.5rem;
 

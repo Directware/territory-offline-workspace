@@ -6,8 +6,8 @@
     cursor: pointer;
     background: $reddish-orange-20;
 
-    app-list-item,
-    app-list-item .label {
+    .app-list-item,
+    .app-list-item .label {
 
       color: $reddish-orange;
     }
@@ -16,8 +16,8 @@
   .no-territory-hint {
     background: $yellowish-orange-20;
 
-    app-list-item,
-    app-list-item .label {
+    .app-list-item,
+    .app-list-item .label {
 
       color: $yellowish-orange;
     }

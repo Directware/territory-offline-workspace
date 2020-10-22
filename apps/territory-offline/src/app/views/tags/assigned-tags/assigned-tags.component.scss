@@ -2,12 +2,12 @@
 
 :host {
 
-  app-panel .wrapper{
+  .app-panel .wrapper{
     padding-left: 0;
     padding-bottom: 0;
   }
 
-  app-list-item {
+  .app-list-item {
 
     .action.trash {
       color: $light-grey-blue;

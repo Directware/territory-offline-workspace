@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../../core/store/index.reducers";
 import {Observable} from "rxjs";
@@ -13,6 +13,9 @@ import {Territory, TerritoryCardFormat, VisitBan} from "@territory-offline-works
 })
 export class PrintTerritoryBackComponent implements OnInit
 {
+  @HostBinding("class.app-print-territory-back")
+  public appPrintTerritoryBackClass = true;
+
   public territory: Territory;
   public showComment: boolean;
   public showBleedingEdges: boolean;

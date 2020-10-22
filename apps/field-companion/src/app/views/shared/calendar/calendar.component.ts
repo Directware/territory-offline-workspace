@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {CalendarCell} from "./model/calendar-cell.model";
 import {BehaviorSubject, Subject} from "rxjs";
 import {takeUntil, tap} from "rxjs/operators";
@@ -11,6 +11,9 @@ import {CalendarDatasource} from "./model/calendar-datasource.model";
 })
 export class CalendarComponent implements OnInit, OnDestroy
 {
+  @HostBinding("class.app-calendar")
+  public appCalendarClass = true;
+
   @Input("dataSource")
   public dataSource$: BehaviorSubject<CalendarDatasource>;
 

@@ -57,7 +57,7 @@
         justify-content: center;
         align-items: center;
 
-        i-feather {
+        .i-feather {
           margin: 0 auto 0.5rem auto;
           display: block;
           width: 18px;
@@ -66,7 +66,7 @@
         }
       }
 
-      app-panel {
+      .app-panel {
         padding: 0;
         width: 5rem;
 
@@ -76,7 +76,7 @@
           justify-content: center;
           align-items: center;
 
-          i-feather {
+          .i-feather {
             width: 24px;
             height: 24px;
             color: #adb1b8;

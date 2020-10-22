@@ -1,7 +1,7 @@
 <app-panel>
   <div class="wrapper sync-wrapper">
     <div class="refresh-icon">
-      <i-feather name="refresh-cw"></i-feather>
+      <i-feather class="i-feather" name="refresh-cw"></i-feather>
     </div>
     <h2 class="h2-white">Synchronisieren</h2>
     <p *ngIf="(congregationName$ | async) as congregationName" class="body-grey">{{congregationName}}</p>
@@ -15,7 +15,7 @@
     <app-list>
       <app-list-item (click)="importTerritoryFromFC.click()">
         <p class="label">Datei von Field Companion</p>
-        <i-feather class="action" name="chevron-right"></i-feather>
+        <i-feather class="i-feather action" name="chevron-right"></i-feather>
         <input #importTerritoryFromFC style="display: none;" type="file" (change)="importTerritoryFromFieldCompanion($event)" />
       </app-list-item>
     </app-list>
@@ -25,31 +25,31 @@
     <app-list>
       <app-list-item (click)="exportToBackupFile()">
         <p class="label">Backup-Datei</p>
-        <i-feather class="action" name="chevron-right"></i-feather>
+        <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
       <app-list-item (click)="exportS13()">
         <p class="label">PDF: S13 Formular</p>
-        <i-feather class="action" name="chevron-right"></i-feather>
+        <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
       <app-list-item (click)="exportWholeMap()">
         <p class="label">KML: Gesamtkarte</p>
-        <i-feather class="action" name="chevron-right"></i-feather>
+        <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
       <app-list-item (click)="exportVisitBans()">
         <p class="label">EXCEL: Nicht besuchen Adressen</p>
-        <i-feather class="action" name="chevron-right"></i-feather>
+        <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
       <app-list-item (click)="exportPublishers()">
         <p class="label">EXCEL: Verkündiger</p>
-        <i-feather class="action" name="chevron-right"></i-feather>
+        <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
       <app-list-item (click)="exportTerritoryNames()">
         <p class="label">EXCEL: Gebietsnamen</p>
-        <i-feather class="action" name="chevron-right"></i-feather>
+        <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
       <app-list-item (click)="exportTerritoryState()">
         <p class="label">EXCEL: Gebietszustand</p>
-        <i-feather class="action" name="chevron-right"></i-feather>
+        <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
     </app-list>
   </div>
@@ -59,7 +59,7 @@
     <app-list>
       <app-list-item (click)="showTerritoryHelperImportDialog()">
         <p class="label">Territory Helper</p>
-        <i-feather class="action" name="chevron-right"></i-feather>
+        <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
       <app-list-item class="disabled">
         <p class="label">Territory Web</p>
@@ -73,7 +73,7 @@
     <app-list>
       <app-list-item (click)="importFromExcel('visitbans')">
         <p class="label">Nicht besuchen Adressen</p>
-        <i-feather class="action" name="chevron-right"></i-feather>
+        <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
       <app-list-item (click)="importFromExcel('publisher')" class="disabled">
         <p class="label">Verkündiger</p>

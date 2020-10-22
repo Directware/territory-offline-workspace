@@ -8,9 +8,9 @@ export interface SettingsState
   currentCongregationId: string;
   territoryOrigin: { lat: number, lng: number };
   passwordHash: string;
-  encryptedSecretKey: string;
-  publicKey: Uint8Array;
-  secretKey: Uint8Array;
+  encryptedSecretKey: string | null;
+  publicKey: Uint8Array | null;
+  secretKey: Uint8Array | null;
   isAppLocked: boolean;
   processingPeriodInMonths: number; // Bearbeitung Fällig nach
   processingBreakInMonths: number; // Kann zugeteilt werden nach
@@ -43,7 +43,7 @@ const settingsReducer = createReducer(
     isAppLocked: true,
     secretKey: null
   })),
-  on(UnlockSecretKey, (state, action) => ({
+  on(UnlockSecretKey, (state: SettingsState, action) => ({
     ...state,
     secretKey: action.secretKey
   })),

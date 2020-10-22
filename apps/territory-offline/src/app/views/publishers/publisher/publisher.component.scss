@@ -10,7 +10,7 @@
     color: $reddish-orange;
   }
 
-  ::ng-deep app-list-item .label {
+  ::ng-deep .app-list-item .label {
     color: #ffffff;
   }
 
@@ -18,8 +18,8 @@
     cursor: pointer;
     background: $reddish-orange-20;
 
-    app-list-item,
-    app-list-item .label {
+    .app-list-item,
+    .app-list-item .label {
 
       color: $reddish-orange;
     }

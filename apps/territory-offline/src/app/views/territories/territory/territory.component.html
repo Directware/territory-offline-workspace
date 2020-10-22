@@ -38,11 +38,11 @@
   <app-panel>
     <app-list-item (click)="printTerritory(territory.get('id').value)">
       <p class="label blue">Gebietskarte drucken</p>
-      <i-feather name="printer" class="action blue"></i-feather>
+      <i-feather name="printer" class="i-feather action blue"></i-feather>
     </app-list-item>
     <app-list-item *ngIf="(assignment$ | async)" (click)="sendToPublisher()">
       <p class="label blue">Gebietskarte an Verkündiger senden</p>
-      <i-feather name="share" class="action blue"></i-feather>
+      <i-feather name="share" class="i-feather action blue"></i-feather>
     </app-list-item>
   </app-panel>
 
@@ -62,8 +62,8 @@
     <app-list-item>
       <p (click)="editAssignment(currentAssignment)" class="label blue">Zuteilung bearbeiten</p>
       <div class="info">
-        <i-feather (click)="giveBack(currentAssignment)" name="download" class="blue short-action"></i-feather>
-        <i-feather (click)="giveBackAndAssign(currentAssignment)" name="repeat" class="blue short-action"></i-feather>
+        <i-feather (click)="giveBack(currentAssignment)" name="download" class="i-feather blue short-action"></i-feather>
+        <i-feather (click)="giveBackAndAssign(currentAssignment)" name="repeat" class="i-feather blue short-action"></i-feather>
       </div>
     </app-list-item>
   </app-panel>
@@ -71,11 +71,11 @@
   <app-panel>
     <app-list-item (click)="openAssignments(territory.get('id').value)">
       <p class="label assignment">Zuteilungen</p>
-      <i-feather name="chevron-right" class="action"></i-feather>
+      <i-feather name="chevron-right" class="i-feather action"></i-feather>
     </app-list-item>
     <app-list-item (click)="openVisitBans(territory.get('id').value)">
       <p class="label do-not-visit">Nicht besuchen Adressen</p>
-      <i-feather name="chevron-right" class="action"></i-feather>
+      <i-feather name="chevron-right" class="i-feather action"></i-feather>
     </app-list-item>
   </app-panel>
 </ng-container>
@@ -106,11 +106,11 @@
       <h2 class="body-grey">Straßen:</h2>
       <app-list-item *ngFor="let boundary of territory.get('boundaryNames').value">
         <p class="label">{{boundary}}</p>
-        <i-feather (click)="removeBoundaryName(boundary)" name="trash" class="action red"></i-feather>
+        <i-feather (click)="removeBoundaryName(boundary)" name="trash" class="i-feather action red"></i-feather>
       </app-list-item>
       <app-list-item>
         <input #boundaryNameInput (keyup.enter)="addBoundaryName(boundaryNameInput.value)" placeholder="Straße hinzufügen" class="input blue" autocomplete="off">
-        <i-feather (click)="addBoundaryName(boundaryNameInput.value)" class="action blue" name="plus"></i-feather>
+        <i-feather (click)="addBoundaryName(boundaryNameInput.value)" class="i-feather action blue" name="plus"></i-feather>
       </app-list-item>
     </div>
   </app-panel>
@@ -120,14 +120,14 @@
   <app-panel *ngIf="!isCreation" class="delete-territory animate-color-and-transform" (click)="deleteTerritory()">
     <app-list-item>
       <p class="label">Gebiet löschen</p>
-      <i-feather class="action" name="trash"></i-feather>
+      <i-feather class="i-feather action" name="trash"></i-feather>
     </app-list-item>
   </app-panel>
 
   <app-panel *ngIf="!isCreation && (!allCurrentDrawings || allCurrentDrawings.features.length === 0)" class="dont-forget-to-draw-territory">
     <app-list-item>
       <p class="label">Keine Zeichnung vorhanden! Um zu speichern musst du Gebietsgrenzen in die Karte einzeichnen.</p>
-      <i-feather class="action" name="alert-circle"></i-feather>
+      <i-feather class="i-feather action" name="alert-circle"></i-feather>
     </app-list-item>
   </app-panel>
 </form>

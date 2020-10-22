@@ -12,14 +12,14 @@
         <p class="info">{{durationGoals.monthly}}</p>
       </app-list-item>
       <app-list-item *ngIf="monthly">
-        <ui-single-option type="normal" [vFormControl]="monthly" [optionSource]="monthlyOptions"></ui-single-option>
+        <ui-single-option class="ui-single-option"  type="normal" [vFormControl]="monthly" [optionSource]="monthlyOptions"></ui-single-option>
       </app-list-item>
       <app-list-item (click)="initYearly(durationGoals.yearly)">
         <p class="label">{{"service.yearly" | translate}}</p>
         <p class="info">{{durationGoals.yearly}}</p>
       </app-list-item>
       <app-list-item *ngIf="yearly">
-        <ui-single-option type="normal" [vFormControl]="yearly" [optionSource]="yearlyOptions"></ui-single-option>
+        <ui-single-option class="ui-single-option"  type="normal" [vFormControl]="yearly" [optionSource]="yearlyOptions"></ui-single-option>
       </app-list-item>
     </app-panel>
   </div>

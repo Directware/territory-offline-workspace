@@ -7,7 +7,7 @@
       <h2 class="h2-white">Format</h2>
       <app-list-item *ngFor="let format of territoryCardFormats" (click)="changeFormat(format)" [ngClass]="'card-format-'+format.id">
         <p class="label">{{format.label}}</p>
-        <i-feather *ngIf="tcf && format.id === tcf.id" class="icon checked" name="check-circle"></i-feather>
+        <i-feather *ngIf="tcf && format.id === tcf.id" class="i-feather icon checked" name="check-circle"></i-feather>
       </app-list-item>
     </div>
   </app-panel>
@@ -18,41 +18,41 @@
 
       <app-list-item (click)="toggleProp('showTerritoryName')">
         <p class="label">Gebietsname</p>
-        <i-feather *ngIf="printedMapConfiguration.showTerritoryName" class="icon checked"
+        <i-feather *ngIf="printedMapConfiguration.showTerritoryName" class="i-feather icon checked"
                    name="check-circle"></i-feather>
-        <i-feather *ngIf="!printedMapConfiguration.showTerritoryName" class="icon" name="x"></i-feather>
+        <i-feather *ngIf="!printedMapConfiguration.showTerritoryName" class="i-feather icon" name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('showTerritoryKey')">
         <p class="label">Gebietsnummer</p>
-        <i-feather *ngIf="printedMapConfiguration.showTerritoryKey" class="icon checked"
+        <i-feather *ngIf="printedMapConfiguration.showTerritoryKey" class="i-feather icon checked"
                    name="check-circle"></i-feather>
-        <i-feather *ngIf="!printedMapConfiguration.showTerritoryKey" class="icon" name="x"></i-feather>
+        <i-feather *ngIf="!printedMapConfiguration.showTerritoryKey" class="i-feather icon" name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('showPopulationCount')">
         <p class="label">Wohneinheiten</p>
-        <i-feather *ngIf="printedMapConfiguration.showPopulationCount" class="icon checked"
+        <i-feather *ngIf="printedMapConfiguration.showPopulationCount" class="i-feather icon checked"
                    name="check-circle"></i-feather>
-        <i-feather *ngIf="!printedMapConfiguration.showPopulationCount" class="icon" name="x"></i-feather>
+        <i-feather *ngIf="!printedMapConfiguration.showPopulationCount" class="i-feather icon" name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('showNorth')">
         <p class="label">Kompass</p>
-        <i-feather *ngIf="printedMapConfiguration.showNorth" class="icon checked" name="check-circle"></i-feather>
-        <i-feather *ngIf="!printedMapConfiguration.showNorth" class="icon" name="x"></i-feather>
+        <i-feather *ngIf="printedMapConfiguration.showNorth" class="i-feather icon checked" name="check-circle"></i-feather>
+        <i-feather *ngIf="!printedMapConfiguration.showNorth" class="i-feather icon" name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('showComment')">
         <p class="label">Kommentar</p>
-        <i-feather *ngIf="printedMapConfiguration.showComment" class="icon checked" name="check-circle"></i-feather>
-        <i-feather *ngIf="!printedMapConfiguration.showComment" class="icon" name="x"></i-feather>
+        <i-feather *ngIf="printedMapConfiguration.showComment" class="i-feather icon checked" name="check-circle"></i-feather>
+        <i-feather *ngIf="!printedMapConfiguration.showComment" class="i-feather icon" name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('bleedEdges')">
         <p class="label">Schnittmarken</p>
-        <i-feather *ngIf="printedMapConfiguration.bleedEdges" class="icon checked" name="check-circle"></i-feather>
-        <i-feather *ngIf="!printedMapConfiguration.bleedEdges" class="icon" name="x"></i-feather>
+        <i-feather *ngIf="printedMapConfiguration.bleedEdges" class="i-feather icon checked" name="check-circle"></i-feather>
+        <i-feather *ngIf="!printedMapConfiguration.bleedEdges" class="i-feather icon" name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('showBoundaryNames')">
         <p class="label">Straßen</p>
-        <i-feather *ngIf="printedMapConfiguration.showBoundaryNames" class="icon checked" name="check-circle"></i-feather>
-        <i-feather *ngIf="!printedMapConfiguration.showBoundaryNames" class="icon" name="x"></i-feather>
+        <i-feather *ngIf="printedMapConfiguration.showBoundaryNames" class="i-feather icon checked" name="check-circle"></i-feather>
+        <i-feather *ngIf="!printedMapConfiguration.showBoundaryNames" class="i-feather icon" name="x"></i-feather>
       </app-list-item>
     </div>
   </app-panel>
@@ -60,22 +60,22 @@
   <app-panel>
     <app-list-item (click)="resetNorth()">
       <p class="label blue">Kompass zurücksetzen</p>
-      <i-feather class="icon blue" name="check-circle"></i-feather>
+      <i-feather class="i-feather icon blue" name="check-circle"></i-feather>
     </app-list-item>
     <app-list-item (click)="autoZoom()">
       <p class="label blue">Gebiet automatisch Ausrichten</p>
-      <i-feather class="icon blue" name="maximize-2"></i-feather>
+      <i-feather class="i-feather icon blue" name="maximize-2"></i-feather>
     </app-list-item>
     <app-list-item (click)="saveDrawingPrintAlignment()">
       <p class="label blue">Ausrichtung für diese Karte merken</p>
-      <i-feather class="icon blue" name="move"></i-feather>
+      <i-feather class="i-feather icon blue" name="move"></i-feather>
     </app-list-item>
   </app-panel>
 
   <app-panel>
     <app-list-item (click)="flipCard()">
       <p class="label blue">Karte umdrehen</p>
-      <i-feather class="icon blue" name="rotate-cw"></i-feather>
+      <i-feather class="i-feather icon blue" name="rotate-cw"></i-feather>
     </app-list-item>
   </app-panel>
 </div>

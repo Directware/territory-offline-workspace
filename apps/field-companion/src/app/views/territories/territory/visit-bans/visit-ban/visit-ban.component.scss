@@ -38,7 +38,7 @@
     }
   }
 
-  app-panel {
+  .app-panel {
     background: transparent;
     margin: 1rem 0 0 0 !important;
     padding: 0 !important;
@@ -49,14 +49,14 @@
       padding: 0;
       border-bottom: 1px solid rgba(228, 230, 231, 0.2);
 
-      app-list {
+     .app-list {
         padding: 0;
 
         .blured {
           background: rgba(235, 237, 239, 0.1);
         }
 
-        app-list-item {
+       .app-list-item {
           padding: 0 1rem 0 1rem;
 
           &.geo-coding-result {
@@ -81,7 +81,7 @@
     }
   }
 
-  app-list-item {
+ .app-list-item {
 
     .input {
       width: 100%;

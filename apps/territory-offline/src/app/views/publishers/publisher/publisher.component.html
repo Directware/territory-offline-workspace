@@ -31,8 +31,8 @@
   <app-panel>
     <app-list-item>
       <p class="label">DSGVO</p>
-      <i-feather *ngIf="!!publisher.get('dsgvoSignature').value" class="action yes-dsgvo" name="check"></i-feather>
-      <i-feather *ngIf="!publisher.get('dsgvoSignature').value" class="action no-dsgvo" name="x"></i-feather>
+      <i-feather *ngIf="!!publisher.get('dsgvoSignature').value" class="i-feather action yes-dsgvo" name="check"></i-feather>
+      <i-feather *ngIf="!publisher.get('dsgvoSignature').value" class="i-feather action no-dsgvo" name="x"></i-feather>
     </app-list-item>
   </app-panel>
 
@@ -56,7 +56,7 @@
 
         <app-tags-preview class="tags-margin" [tagIds]="dto.t.tags"></app-tags-preview>
       </p>
-      <i-feather class="icon" name="chevron-right"></i-feather>
+      <i-feather class="i-feather icon" name="chevron-right"></i-feather>
     </app-list-item>
     <app-list-item *ngIf="publisherTerritories.length === 0">
       <p class="label grey">Keine zugeteilten Gebiete</p>
@@ -91,7 +91,7 @@
   <app-panel *ngIf="!isCreation" class="delete-publisher animate-color-and-transform" (click)="tryToDeletePublisher()">
     <app-list-item>
       <p class="label">Verkündiger löschen</p>
-      <i-feather class="action" name="trash"></i-feather>
+      <i-feather class="i-feather action" name="trash"></i-feather>
     </app-list-item>
   </app-panel>
 </form>

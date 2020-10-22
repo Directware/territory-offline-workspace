@@ -5,7 +5,7 @@
 
 <app-panel *ngIf="(initialUserLanguage$ | async) as initialUserLanguage">
   <div class="wrapper">
-    <app-language-search (onChoose)="formControl.patchValue($event)"
+    <app-language-search class="app-language-search" (onChoose)="formControl.patchValue($event)"
                          [label]="'settings.language' | translate"
                          [initLanguageCode]="initialUserLanguage"
                          (onValueReset)="formControl.reset()"></app-language-search>

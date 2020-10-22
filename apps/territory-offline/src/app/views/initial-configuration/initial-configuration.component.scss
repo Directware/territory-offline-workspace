@@ -89,7 +89,7 @@
         color: #d43f00;
       }
 
-      app-language-search {
+      .app-language-search {
         margin: 0 0 0.5rem 0;
 
         ::ng-deep input {
@@ -136,7 +136,7 @@
   }
 }
 
-::ng-deep app-choose-origin {
+::ng-deep .app-choose-origin {
   position: relative !important;
   margin: 1rem 0 !important;
   width: 100% !important;

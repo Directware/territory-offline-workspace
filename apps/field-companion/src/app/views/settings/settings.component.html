@@ -31,11 +31,11 @@
           <p class="info">{{settings.durationStep || 30}} min</p>
         </app-list-item>
         <app-list-item *ngIf="duration" class="no-padding">
-          <ui-single-option type="normal" [vFormControl]="duration" [optionSource]="durationOptions"></ui-single-option>
+          <ui-single-option class="ui-single-option"  type="normal" [vFormControl]="duration" [optionSource]="durationOptions"></ui-single-option>
         </app-list-item>
         <app-list-item>
           <p class="label">{{"settings.monthlyReminder" | translate}}</p>
-          <p class="info"><ui-switch [checked]="settings.monthlyReminder" (change)="requestLocalNotificationPermission($event)"></ui-switch></p>
+          <p class="info"><ui-switch class="ui-switch" [checked]="settings.monthlyReminder" (change)="requestLocalNotificationPermission($event)"></ui-switch></p>
         </app-list-item>
       </app-list>
     </div>

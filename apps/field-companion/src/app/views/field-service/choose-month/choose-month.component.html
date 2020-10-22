@@ -7,7 +7,7 @@
       <p class="info">{{yearFormControl.value}}</p>
     </app-list-item>
     <div class="wrapper" *ngIf="editYearPicker">
-      <ui-single-option [vFormControl]="yearFormControl" [optionSource]="yearOptionSource" [type]="'normal'"></ui-single-option>
+      <ui-single-option class="ui-single-option"  [vFormControl]="yearFormControl" [optionSource]="yearOptionSource" [type]="'normal'"></ui-single-option>
     </div>
   </app-panel>
 
@@ -17,7 +17,7 @@
       <p class="info">{{("month." + monthFormControl.value)  | translate}}</p>
     </app-list-item>
     <div class="wrapper" *ngIf="editMonthPicker">
-      <ui-single-option [vFormControl]="monthFormControl" [optionSource]="monthOptionSource" [type]="'normal'"></ui-single-option>
+      <ui-single-option class="ui-single-option"  [vFormControl]="monthFormControl" [optionSource]="monthOptionSource" [type]="'normal'"></ui-single-option>
     </div>
   </app-panel>
 </div>

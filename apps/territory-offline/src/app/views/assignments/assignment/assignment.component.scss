@@ -2,7 +2,7 @@
 
 :host {
 
-  app-panel .wrapper {
+  .app-panel .wrapper {
     padding: 0 1rem 0 0;
   }
 
@@ -10,8 +10,8 @@
     cursor: pointer;
     background: $reddish-orange-20;
 
-    app-list-item,
-    app-list-item .label {
+    .app-list-item,
+    .app-list-item .label {
 
       color: $reddish-orange;
     }

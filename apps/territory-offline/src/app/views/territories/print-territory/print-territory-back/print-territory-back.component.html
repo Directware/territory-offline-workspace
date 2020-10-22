@@ -4,7 +4,7 @@
        [class.has-bleeding-edges]="showBleedingEdges"
        [ngStyle]="{'min-height': cardHeight}">
     <span class="first-item">
-      <i-feather name="bell-off"></i-feather>
+      <i-feather class="i-feather" name="bell-off"></i-feather>
       Nicht besuchen
     </span>
     <div class="body">
@@ -28,11 +28,11 @@
     </div>
 
     <div class="comment" *ngIf="showComment">
-      <i-feather name="info"></i-feather>
+      <i-feather class="i-feather" name="info"></i-feather>
       {{territory.comment}}
     </div>
 
-    <i-feather *ngIf="cards.length > 1 || showBoundaryNames" class="more-backs" name="arrow-down-circle"></i-feather>
+    <i-feather *ngIf="cards.length > 1 || showBoundaryNames" class="i-feather more-backs" name="arrow-down-circle"></i-feather>
 
     <ng-container *ngIf="showBleedingEdges">
       <div class="bleed-edge-shadow top"></div>
@@ -55,7 +55,7 @@
 
   <div *ngIf="showBoundaryNames" class="territory-card-visit-bans" [ngStyle]="{'min-height': cardHeight}">
     <span class="first-item">
-      <i-feather name="map"></i-feather>
+      <i-feather class="i-feather" name="map"></i-feather>
       Liste der Straßen
     </span>
     <div class="body">

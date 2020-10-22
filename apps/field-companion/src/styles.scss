@@ -109,7 +109,7 @@ body {
   opacity: 0.4;
 }
 
-app-list-item:last-child {
+.app-list-item:last-child {
   border-bottom: none;
 }
 
@@ -149,7 +149,7 @@ app-list-item:last-child {
   }
 }
 
-ui-switch {
+.ui-switch {
   button.switch {
     outline: none !important;
   }

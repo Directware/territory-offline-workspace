@@ -2,7 +2,7 @@
 
 :host {
 
-  app-panel {
+  .app-panel {
     padding: 0;
     box-shadow: 0 8px 16px 0 rgba(24, 30, 37, 0.3);
 
@@ -109,7 +109,7 @@
       padding: 0 1.5rem 0 0;
     }
 
-    app-list {
+    .app-list {
       padding: 0;
 
       .active{
@@ -129,7 +129,7 @@
       }
     }
 
-    i-feather {
+    .i-feather {
       margin: 0.5rem 0;
     }
   }

@@ -9,7 +9,7 @@
 
   <form class="password-wrapper" [formGroup]="initialConfigFormGroup">
     <input autofocus type="text" placeholder="Versammlung" autocomplete="off" formControlName="congregation" required/>
-    <app-language-search (onChoose)="setLanguage($event)" (onValueReset)="setLanguage(null)"></app-language-search>
+    <app-language-search class="app-language-search" (onChoose)="setLanguage($event)" (onValueReset)="setLanguage(null)"></app-language-search>
     <ng-container *ngIf="isPasswordNeeded">
       <input id="new-password-text-field" type="password" placeholder="Passwort" autocomplete="off" formControlName="lockPassword" required/>
       <input id="confirm-password-text-field" type="password" placeholder="Passwort wiederholen" autocomplete="off" formControlName="lockPasswordRepetition" required/>

@@ -19,7 +19,7 @@
 
     &.active {
 
-      i-feather {
+      .i-feather {
         color: #ff5f1b;
 
         &:before {
@@ -28,7 +28,7 @@
       }
     }
 
-    i-feather {
+    .i-feather {
       position: relative;
       color: #000;
       transition: background 0.2s;

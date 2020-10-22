@@ -47,7 +47,7 @@
         top: -3px;
       }
 
-      app-list {
+     .app-list {
         position: absolute;
         top: calc(100% + .5rem);
         right: 0;
@@ -95,7 +95,7 @@
     align-items: stretch;
   }
 
-  app-panel.overview {
+  .app-panel.overview {
     width: auto;
     min-height: 7.5rem;
     height: 7.5rem;
@@ -137,7 +137,7 @@
           grid-template-columns: 7.375rem 7.375rem;
         }
 
-        app-panel {
+        .app-panel {
           margin: 0;
           padding: 0;
 
@@ -157,7 +157,7 @@
             text-align: right;
             color: #ffffff;
 
-            i-feather {
+            .i-feather {
               width: 20px;
               height: 20px;
               color: #adb1b8;
@@ -169,7 +169,7 @@
     }
   }
 
-  app-calendar {
+  .app-calendar {
     width: auto;
     margin: .5rem auto;
   }

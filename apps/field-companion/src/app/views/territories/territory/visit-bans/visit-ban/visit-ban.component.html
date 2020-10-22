@@ -14,11 +14,11 @@
             <i-feather *ngIf="visitBan.valid" class="info address-ok" name="check"></i-feather>
           </app-list-item>
           <app-list-item class="geo-coding-result" *ngFor="let r of geoCodingResults" (click)="chooseGeoCodingResult(r)">
-            <i-feather class="info" name="map-pin"></i-feather>
+            <i-feather class="i-feather info" name="map-pin"></i-feather>
             <p class="label">{{r.place_name}}</p>
           </app-list-item>
           <app-list-item class="geo-coding-result" (click)="setVisitBanManually()" *ngIf="geoCodingResults">
-            <i-feather class="info blue" name="crosshair"></i-feather>
+            <i-feather class="i-feather info blue" name="crosshair"></i-feather>
             <p class="label blue">{{"territories.choosePointOnMap" | translate}}</p>
           </app-list-item>
           <app-list-item class="blured">

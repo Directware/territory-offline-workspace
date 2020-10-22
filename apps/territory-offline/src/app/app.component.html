@@ -2,24 +2,24 @@
   <ng-container *ngIf="appIsNotLocked$ | async">
     <div class="menu" [class.full-map]="fullMap">
       <div class="top">
-        <i-feather name="inbox" class="icon congregation" routerLink="congregations" routerLinkActive="active-link"></i-feather>
-        <i-feather name="zap" class="icon" routerLink="dashboard" routerLinkActive="active-link"></i-feather>
-        <i-feather name="layers" class="icon" routerLink="territories" routerLinkActive="active-link"></i-feather>
-        <i-feather name="users" class="icon" routerLink="publishers" routerLinkActive="active-link"></i-feather>
-        <i-feather name="tag" class="icon" routerLink="tags" routerLinkActive="active-link"></i-feather>
-        <i-feather name="bell-off" class="icon" routerLink="all-visit-bans" routerLinkActive="active-link"></i-feather>
+        <i-feather name="inbox" class="i-feather icon congregation" routerLink="congregations" routerLinkActive="active-link"></i-feather>
+        <i-feather name="zap" class="i-feather icon" routerLink="dashboard" routerLinkActive="active-link"></i-feather>
+        <i-feather name="layers" class="i-feather icon" routerLink="territories" routerLinkActive="active-link"></i-feather>
+        <i-feather name="users" class="i-feather icon" routerLink="publishers" routerLinkActive="active-link"></i-feather>
+        <i-feather name="tag" class="i-feather icon" routerLink="tags" routerLinkActive="active-link"></i-feather>
+        <i-feather name="bell-off" class="i-feather icon" routerLink="all-visit-bans" routerLinkActive="active-link"></i-feather>
       </div>
       <div class="down">
-        <i-feather name="refresh-cw" class="icon" routerLink="transfer" routerLinkActive="active-link"></i-feather>
+        <i-feather name="refresh-cw" routerLink="transfer" routerLinkActive="active-link"></i-feather>
         <i-feather [class.new-release]="(newRelease$ | async)" name="settings"
-                   class="icon settings"
+                   class="i-feather icon settings"
                    routerLink="settings"
                    routerLinkActive="active-link"></i-feather>
-        <i-feather name="maximize-2" class="icon" (click)="toggleFullMap()"></i-feather>
+        <i-feather name="maximize-2" class="i-feather icon" (click)="toggleFullMap()"></i-feather>
       </div>
     </div>
 
-    <i-feather name="sidebar" class="icon exit-full-map" [class.full-map]="fullMap"
+    <i-feather name="sidebar" class="i-feather icon exit-full-map" [class.full-map]="fullMap"
                (click)="toggleFullMap()"></i-feather>
 
     <div class="main-thread" [class.full-map]="fullMap">

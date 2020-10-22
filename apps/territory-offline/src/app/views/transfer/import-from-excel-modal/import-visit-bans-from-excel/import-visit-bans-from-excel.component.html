@@ -4,21 +4,21 @@
   <p class="continue" *ngIf="currentStep === steps.length" (click)="import()">Importieren</p>
 </div>
 <div *ngIf="!importDone" class="body">
-  <p *ngIf="currentStep === 1" class="body-grey">Bitte wähle aus, in welcher der <b>Sheets</b> deine Daten sind</p>
-  <p *ngIf="currentStep === 2" class="body-grey">Bitte wähle aus, in welcher der Spalten die <b>Namen</b> sind.</p>
-  <p *ngIf="currentStep === 3" class="body-grey">Bitte wähle aus, in welcher der Spalten die <b>Straßen</b> sind.</p>
-  <p *ngIf="currentStep === 4" class="body-grey">Bitte wähle aus, in welcher der Spalten die <b>Hausnummern</b> sind.</p>
-  <p *ngIf="currentStep === 5" class="body-grey">Bitte wähle aus, in welcher der Spalten die <b>Städte</b> sind.</p>
-  <p *ngIf="currentStep === 6" class="body-grey">Bitte wähle aus, in welcher der Spalten die <b>Breitengrade</b> sind.</p>
-  <p *ngIf="currentStep === 7" class="body-grey">Bitte wähle aus, in welcher der Spalten die <b>Längengrade</b> sind.</p>
-  <p *ngIf="currentStep === 8" class="body-grey">Bitte wähle aus, in welcher der Spalten die <b>Kommentare</b> sind.</p>
-  <p *ngIf="currentStep === 9" class="body-grey">Bitte wähle aus, in welcher der Spalten die <b>letzte Besuche</b> sind.</p>
+  <p *ngIf="currentStep === 1" class="body-grey">Bitte wähle aus, in welcher der <strong>Sheets</strong> deine Daten sind</p>
+  <p *ngIf="currentStep === 2" class="body-grey">Bitte wähle aus, in welcher der Spalten die <strong>Namen</strong> sind.</p>
+  <p *ngIf="currentStep === 3" class="body-grey">Bitte wähle aus, in welcher der Spalten die <strong>Straßen</strong> sind.</p>
+  <p *ngIf="currentStep === 4" class="body-grey">Bitte wähle aus, in welcher der Spalten die <strong>Hausnummern</strong> sind.</p>
+  <p *ngIf="currentStep === 5" class="body-grey">Bitte wähle aus, in welcher der Spalten die <strong>Städte</strong> sind.</p>
+  <p *ngIf="currentStep === 6" class="body-grey">Bitte wähle aus, in welcher der Spalten die <strong>Breitengrade</strong> sind.</p>
+  <p *ngIf="currentStep === 7" class="body-grey">Bitte wähle aus, in welcher der Spalten die <strong>Längengrade</strong> sind.</p>
+  <p *ngIf="currentStep === 8" class="body-grey">Bitte wähle aus, in welcher der Spalten die <strong>Kommentare</strong> sind.</p>
+  <p *ngIf="currentStep === 9" class="body-grey">Bitte wähle aus, in welcher der Spalten die <strong>letzte Besuche</strong> sind.</p>
   <p *ngIf="currentStep === steps.length" class="body-grey">
     Bitte überprüfe ob die Spalten richtig zugeordnet sind.
     <br />
     <br />
-    <b class="danger">Sollen bereits existierende Daten aktualisiert werden?</b></p>
-  <ui-switch *ngIf="currentStep === steps.length" [(ngModel)]="overrideExistingData"></ui-switch>
+    <strong class="danger">Sollen bereits existierende Daten aktualisiert werden?</strong></p>
+  <ui-switch class="ui-switch" *ngIf="currentStep === steps.length" [(ngModel)]="overrideExistingData"></ui-switch>
 
   <app-panel *ngIf="currentStep === 1">
     <div class="wrapper">
@@ -58,7 +58,7 @@
   </app-panel>
 </div>
 <div *ngIf="importDone" class="body import-done">
-  <img src="assets/images/import-done.svg">
+  <img alt="image" src="assets/images/import-done.svg">
   <h3 class="h3-white">Erfolgreich Importiert</h3>
   <p class="body-grey">Die nicht besuchen Adressen deiner Versammlung wurden importiert und stehen dir jetzt zur Bearbeitung bereit.</p>
   <button (click)="close()" class="button primary">OK</button>

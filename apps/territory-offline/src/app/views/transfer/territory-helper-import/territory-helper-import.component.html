@@ -8,13 +8,13 @@
 
 <div class="import-buttons">
   <button matRipple [class.data-available]="parsedPreacher.length > 0" (click)="preacherInput.click()">
-    <i-feather *ngIf="parsedPreacher.length === 0" name="user" class="icon"></i-feather>
-    <i-feather *ngIf="parsedPreacher.length > 0" name="check-circle" class="icon"></i-feather>
+    <i-feather *ngIf="parsedPreacher.length === 0" name="user" class="i-feather icon"></i-feather>
+    <i-feather *ngIf="parsedPreacher.length > 0" name="check-circle" class="i-feather icon"></i-feather>
     Verkündiger
   </button>
   <button matRipple [class.data-available]="parsedTerritories.length > 0" (click)="territoryInput.click()">
-    <i-feather *ngIf="parsedTerritories.length === 0" name="layers" class="icon"></i-feather>
-    <i-feather *ngIf="parsedTerritories.length > 0" name="check-circle" class="icon"></i-feather>
+    <i-feather *ngIf="parsedTerritories.length === 0" name="layers" class="i-feather icon"></i-feather>
+    <i-feather *ngIf="parsedTerritories.length > 0" name="check-circle" class="i-feather icon"></i-feather>
     Gebiete
   </button>
   <button matRipple [class.data-available]="parsedAssignments.length > 0" (click)="assignmentInput.click()">

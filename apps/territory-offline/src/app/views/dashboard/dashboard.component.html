@@ -36,9 +36,9 @@
         </app-list-item>
       </app-list>
       <i-feather *ngIf="overdueAssignments.length > 4 && !showAllOverdueAssignments"
-                 (click)="showAllOverdueAssignments=true" name="chevrons-down" class="blue"></i-feather>
+                 (click)="showAllOverdueAssignments=true" name="chevrons-down" class="i-feather blue"></i-feather>
       <i-feather *ngIf="overdueAssignments.length > 4 && showAllOverdueAssignments"
-                 (click)="showAllOverdueAssignments=false" name="chevrons-up" class="blue"></i-feather>
+                 (click)="showAllOverdueAssignments=false" name="chevrons-up" class="i-feather blue"></i-feather>
 
       <br/>
       <p class="body-grey" style="font-size: 14px;" *ngIf="dtos.length === 0">Großartig! Es gibt keine fälligen Bearbeitungen.</p>
@@ -58,9 +58,9 @@
         </app-list-item>
       </app-list>
       <i-feather *ngIf="overdueTerritories.length > 4 && !showAllOverdueTerritories"
-                 (click)="showAllOverdueTerritories=true" name="chevrons-down" class="blue"></i-feather>
+                 (click)="showAllOverdueTerritories=true" name="chevrons-down" class="i-feather blue"></i-feather>
       <i-feather *ngIf="overdueTerritories.length > 4 && showAllOverdueTerritories"
-                 (click)="showAllOverdueTerritories=false" name="chevrons-up" class="blue"></i-feather>
+                 (click)="showAllOverdueTerritories=false" name="chevrons-up" class="i-feather blue"></i-feather>
 
       <br/>
       <p class="body-grey" style="font-size: 14px;" *ngIf="dtos.length === 0">Großartig! Es gibt keine fälligen Zuteilungen.</p>

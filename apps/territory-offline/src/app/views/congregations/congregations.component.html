@@ -1,6 +1,6 @@
 <app-main-search (onSearch)="searchValue=$event">
   <div class="action-link" (click)="createCongregation()">
-    <i-feather name="plus"></i-feather>
+    <i-feather class="i-feather" name="plus"></i-feather>
     Neue Versammlung
   </div>
 </app-main-search>
@@ -10,34 +10,34 @@
       <div class="wrapper">
         <h2 class="h2-white">
           {{congregation.name}}
-          <i-feather *ngIf="congregation.id === currentCongregationId" name="check" class="active-congregation"></i-feather>
+          <i-feather *ngIf="congregation.id === currentCongregationId" name="check" class="i-feather active-congregation"></i-feather>
         </h2>
 
         <app-list *ngIf="congregation.id === currentCongregationId">
           <app-list-item *ngIf="(allTerritoriesCount$ | async) as allTerritoriesCount">
             <p class="label">
-              <i-feather name="layers" class="icon"></i-feather>
+              <i-feather name="layers" class="i-feather icon"></i-feather>
               Gebiete
             </p>
             <p class="info">{{allTerritoriesCount}}</p>
           </app-list-item>
           <app-list-item *ngIf="(wholePopulationCount$ | async) as wholePopulationCount">
             <p class="label">
-              <i-feather name="home" class="icon"></i-feather>
+              <i-feather name="home" class="i-feather icon"></i-feather>
               Wohnungseinheiten
             </p>
             <p class="info">{{wholePopulationCount}}</p>
           </app-list-item>
           <app-list-item *ngIf="(allPublishersCount$ | async) as allPublishersCount">
             <p class="label">
-              <i-feather name="users" class="icon"></i-feather>
+              <i-feather name="users" class="i-feather icon"></i-feather>
               Verkündiger
             </p>
             <p class="info">{{allPublishersCount}}</p>
           </app-list-item>
           <app-list-item *ngIf="(allVisitBansCount$ | async) as allVisitBansCount">
             <p class="label">
-              <i-feather name="bell-off" class="icon"></i-feather>
+              <i-feather name="bell-off" class="i-feather icon"></i-feather>
               Nicht Besuchen
             </p>
             <p class="info">{{allVisitBansCount}}</p>

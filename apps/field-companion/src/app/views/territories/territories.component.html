@@ -8,7 +8,7 @@
 <ng-container *ngIf="(territoryCards$ | async) as territoryCards">
   <app-panel>
     <div *ngIf="territoryCards.length === 0" class="wrapper">
-      <img src="/assets/images/territories-icon.svg">
+      <img alt="image" src="/assets/images/territories-icon.svg">
 
       <div class="empty">
         <p class="title">{{"territories.noTerritories" | translate}}</p>

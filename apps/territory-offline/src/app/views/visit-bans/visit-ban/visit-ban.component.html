@@ -19,23 +19,23 @@
     </app-list-item>
     <app-list-item *ngFor="let r of geoCodingResults" (click)="chooseGeoCodingResult(r)">
       <p class="label blue">{{r.place_name}}</p>
-      <i-feather class="info blue" name="map-pin"></i-feather>
+      <i-feather class="i-feather info blue" name="map-pin"></i-feather>
     </app-list-item>
     <app-list-item *ngIf="geoCodingResults && geoCodingResults.length === 0 && !isManuallyPositioning">
       <p class="label warn">Keine Adresse gefunden</p>
-      <i-feather class="info warn" name="alert-circle"></i-feather>
+      <i-feather class="i-feather info warn" name="alert-circle"></i-feather>
     </app-list-item>
     <app-list-item *ngIf="isManuallyPositioning">
       <p class="label">Markierung im Gebiet setzen</p>
-      <i-feather class="info" name="arrow-right"></i-feather>
+      <i-feather class="i-feather info" name="arrow-right"></i-feather>
     </app-list-item>
     <app-list-item (click)="reset()" *ngIf="visitBan.get('territoryId').value && visitBan.get('street').value">
       <p class="label blue">Zurücksetzen</p>
-      <i-feather class="info blue" name="refresh-cw"></i-feather>
+      <i-feather class="i-feather info blue" name="refresh-cw"></i-feather>
     </app-list-item>
     <app-list-item (click)="setVisitBanManually()" *ngIf="geoCodingResults && geoCodingResults.length === 0 && !isManuallyPositioning">
       <p class="label blue">Adresse manuell platzieren</p>
-      <i-feather class="info blue" name="map-pin"></i-feather>
+      <i-feather class="i-feather info blue" name="map-pin"></i-feather>
     </app-list-item>
   </app-panel>
 
@@ -59,19 +59,19 @@
              (click)="deleteVisitBan()">
     <app-list-item>
       <p class="label">Adresse löschen</p>
-      <i-feather class="action" name="trash"></i-feather>
+      <i-feather class="i-feather action" name="trash"></i-feather>
     </app-list-item>
   </app-panel>
 
   <app-panel *ngIf="visitBan.get('street').value && visitBan.get('streetSuffix').value && !visitBan.get('territoryId').value" class="no-territory-hint">
     <app-list-item>
       <p class="label">Diese Adresse referenziert auf kein Gebiet. Du musst sie noch einmal geocodieren..</p>
-      <i-feather class="action" name="alert-circle"></i-feather>
+      <i-feather class="i-feather action" name="alert-circle"></i-feather>
     </app-list-item>
 
     <app-list-item (click)="geoCodeAgainCurrentPlaceName()">
       <p class="label blue">Nochmal versuchen!</p>
-      <i-feather class="action blue" name="refresh-cw"></i-feather>
+      <i-feather class="i-feather action blue" name="refresh-cw"></i-feather>
     </app-list-item>
   </app-panel>
 </form>

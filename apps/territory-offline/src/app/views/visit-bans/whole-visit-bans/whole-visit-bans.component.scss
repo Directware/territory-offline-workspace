@@ -2,13 +2,13 @@
 
 :host {
 
-  app-panel.sort-wrapper {
+  .app-panel.sort-wrapper {
     padding: 0;
 
     ::ng-deep .wrapper {
       padding: 1.5rem 1.5rem 0 1.5rem;
 
-      app-list-item {
+      .app-list-item {
         padding: 0;
 
         .checked {

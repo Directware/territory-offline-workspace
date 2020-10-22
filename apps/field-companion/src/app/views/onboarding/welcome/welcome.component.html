@@ -5,25 +5,25 @@
   <div class="app-features">
     <div class="app-feature">
       <div class="icon-wrapper">
-        <i-feather class="icon" name="clock"></i-feather>
+        <i-feather class="i-feather icon" name="clock"></i-feather>
       </div>
       <h3 class="h3-grey">{{"welcome.feature1" | translate}}</h3>
     </div>
     <div class="app-feature">
       <div class="icon-wrapper">
-        <i-feather class="icon" name="award"></i-feather>
+        <i-feather class="i-feather icon" name="award"></i-feather>
       </div>
       <h3 class="h3-grey">{{"welcome.feature2" | translate}}</h3>
     </div>
     <div class="app-feature">
       <div class="icon-wrapper">
-        <i-feather class="icon" name="mail"></i-feather>
+        <i-feather class="i-feather icon" name="mail"></i-feather>
       </div>
       <h3 class="h3-grey">{{"welcome.feature3" | translate}}</h3>
     </div>
     <div class="app-feature" style="position: relative;">
       <div class="icon-wrapper">
-        <i-feather class="icon" name="map"></i-feather>
+        <i-feather class="i-feather icon" name="map"></i-feather>
       </div>
       <span class="gold-tag" style="position: absolute;top: -1.2rem;left: 4.5rem;">{{"common.soon" | translate}}</span>
       <h3 class="h3-grey">{{"welcome.feature4" | translate}}</h3>
@@ -39,7 +39,7 @@
     <input [placeholder]="'settings.yourName' | translate" formControlName="userName" name="username"
            autocomplete="off">
 
-    <app-language-search (onChoose)="formGroup.patchValue({userLanguage: $event})"
+    <app-language-search class="app-language-search" (onChoose)="formGroup.patchValue({userLanguage: $event})"
                          (onValueReset)="formGroup.get('userLanguage').reset()"></app-language-search>
   </form>
   <button [disabled]="!formGroup.valid" (click)="setUp()" class="button primary">{{"actions.continue" | translate}}</button>

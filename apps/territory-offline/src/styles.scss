@@ -45,18 +45,6 @@ body {
   }
 }
 
-@media (min-width: 768px) {
-
-}
-
-@media (max-width: 992px) {
-
-}
-
-@media (min-width: 1200px) {
-
-}
-
 @media print {
 
   #perspective-3d {
@@ -73,7 +61,7 @@ body {
         border-radius: 0 !important;
       }
 
-      app-print-territory-back {
+      .app-print-territory-back {
         position: relative !important;
         transform: none !important;
         border-radius: 0 !important;
@@ -125,7 +113,7 @@ body {
   cursor: pointer;
   color: $dark-sky-blue;
 
-  i-feather {
+  .i-feather {
     margin: 0 0.5rem;
     width: 16px;
     height: 16px;
@@ -186,7 +174,7 @@ body {
   }
 }
 
-app-list-item {
+.app-list-item {
   position: relative;
   cursor: pointer;
   // transition: background-color .15s;
@@ -301,7 +289,7 @@ app-list-item {
 
 body.with-error {
 
-  app-root {
+  .app-root {
     filter: blur(3px);
   }
 
@@ -349,13 +337,13 @@ body.with-error {
   padding: 0;
 }
 
-ui-switch {
+.ui-switch {
   button.switch {
     outline: none !important;
   }
 }
 
-app-panel.tags-panel {
+.app-panel.tags-panel {
   padding: 0;
 
   .h3-white {

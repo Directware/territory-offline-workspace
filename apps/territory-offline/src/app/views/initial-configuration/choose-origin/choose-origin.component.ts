@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostBinding, Input, OnInit, Output} from '@angular/core';
 import {TerritoryMapsService} from "../../../core/services/territory/territory-maps.service";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../core/store/index.reducers";
@@ -16,6 +16,9 @@ import {Router} from "@angular/router";
 })
 export class ChooseOriginComponent implements OnInit
 {
+  @HostBinding("class.app-choose-origin")
+  public appChooseOriginClass = true;
+
   @Input()
   public initialConfiguration: boolean;
 

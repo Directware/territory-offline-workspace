@@ -22,19 +22,19 @@
       <app-list-item [class.disabled]="currentCongregationId===congregation.get('id').value"
                      (click)="useCongregation()">
         <p class="label blue">Diese Versammlung verwalten</p>
-        <i-feather name="check" class="action blue"></i-feather>
+        <i-feather name="check" class="i-feather action blue"></i-feather>
       </app-list-item>
       <app-list-item [class.disabled]="currentCongregationId!==congregation.get('id').value"
                      (click)="duplicateCongregation()">
         <p class="label blue">Diese Versammlung duplizieren</p>
-        <i-feather name="copy" class="action blue"></i-feather>
+        <i-feather name="copy" class="i-feather action blue"></i-feather>
       </app-list-item>
     </app-panel>
 
     <app-panel *ngIf="!isCreation" class="delete-congregation animate-color-and-transform">
       <app-list-item [class.disabled]="currentCongregationId===congregation.get('id').value" (click)="deleteCongregation()">
         <p class="label">Versammlung löschen</p>
-        <i-feather class="action" name="trash"></i-feather>
+        <i-feather class="i-feather action" name="trash"></i-feather>
       </app-list-item>
     </app-panel>
 
@@ -60,7 +60,7 @@
       <input placeholder="Name*" class="input" formControlName="name" name="name">
     </app-list-item>
     <app-list-item>
-      <app-language-search class="label"
+      <app-language-search class="app-language-search label"
                            [initLanguageCode]="congregation.get('languageCode').value"
                            (onChoose)="setLanguage($event)" (onValueReset)="setLanguage(null)"></app-language-search>
     </app-list-item>

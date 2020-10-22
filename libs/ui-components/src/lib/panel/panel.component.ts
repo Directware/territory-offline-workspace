@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-panel',
@@ -7,13 +7,14 @@ import {Component, OnInit} from '@angular/core';
 })
 export class PanelComponent implements OnInit
 {
+  @HostBinding("class.app-panel")
+  public appPanelClass = true;
 
-  constructor()
+  public constructor()
   {
   }
 
   public ngOnInit(): void
   {
   }
-
 }

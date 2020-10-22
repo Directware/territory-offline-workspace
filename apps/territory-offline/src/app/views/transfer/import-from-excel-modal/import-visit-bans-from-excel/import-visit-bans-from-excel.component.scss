@@ -56,7 +56,7 @@
       }
     }
 
-    ui-switch {
+    .ui-switch {
       text-align: center;
       margin: 1.5rem 0 0 0;
 
@@ -73,7 +73,7 @@
       }
     }
 
-    app-panel {
+    .app-panel {
       margin: 1.5rem 0 0 0;
 
       .wrapper {
@@ -83,10 +83,10 @@
           margin: 0;
         }
 
-        app-list {
+        .app-list {
           padding: 0 0 0 0.25rem;
 
-          app-list-item {
+          .app-list-item {
 
             &.disabled {
               display: none;

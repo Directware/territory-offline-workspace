@@ -12,7 +12,7 @@ export const congregationsAdapter = createEntityAdapter<Congregation>();
 
 export interface CongregationsState extends EntityState<Congregation>
 {
-  currentCongregation: Congregation;
+  currentCongregation: Congregation | null;
 }
 
 const initialState: CongregationsState = congregationsAdapter.getInitialState({
@@ -25,7 +25,15 @@ const congregationsReducer = createReducer(
   on(UpsertCongregationSuccess, (state, action) => congregationsAdapter.upsertOne(action.congregation, state)),
   on(BulkImportCongregationsSuccess, (state, action) => congregationsAdapter.upsertMany(action.congregations, state)),
   on(DeleteCongregationSuccess, (state, action) => congregationsAdapter.removeOne(action.congregationId, state)),
-  on(UseCongregation, (state, action) => ({...state, currentCongregation: state.entities[action.congregationId]})),
+  on(UseCongregation, (state, action) =>
+  {
+    const congregation = state.entities[action.congregationId];
+    if (congregation)
+    {
+      return {...state, currentCongregation: congregation};
+    }
+    return state;
+  }),
 );
 
 export function congregationsReducerFunction(state: CongregationsState | undefined, action: Action)

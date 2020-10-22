@@ -2,7 +2,7 @@
 
 :host {
 
-  app-panel {
+  .app-panel {
     padding: 0;
 
     .refresh-icon {
@@ -15,7 +15,7 @@
       border-radius: 50%;
       background: $white-30;
 
-      i-feather {
+      .i-feather {
         width: 20px;
         height: 20px;
       }
@@ -54,7 +54,7 @@
       margin: 0 0 .5rem 0;
     }
 
-    app-list {
+    .app-list {
       padding: 0;
     }
   }

@@ -13,8 +13,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: url("./../../../assets/images/background-lock-screen.png");
-  background-size: cover;
+
+  &.app-lock-screen {
+
+    background: url("./../../../assets/images/background-lock-screen.png");
+    background-size: cover;
+  }
 }
 
 .lock-icon {

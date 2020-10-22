@@ -1,6 +1,6 @@
 <app-main-search (onSearch)="search={value:$event}" (onBlur)="considerClearingSearchValue($event)">
   <div class="action-link" (click)="createTerritory()">
-    <i-feather name="plus"></i-feather>
+    <i-feather name="i-feather plus"></i-feather>
     Neues Gebiet
   </div>
 </app-main-search>
@@ -11,17 +11,17 @@
     <p class="h4-white">Filter</p>
     <div class="filter-grid">
       <div [class.active]="mapFilter.inProgress.show" (click)="toggleMapFilter('inProgress')" class="blue">
-        <i-feather name="bell" class="icon"></i-feather>
+        <i-feather name="bell" class="i-feather icon"></i-feather>
         <span class="text">In Bearbeitung</span></div>
       <div [class.active]="mapFilter.done.show" (click)="toggleMapFilter('done')" class="green">
-        <i-feather name="check" class="icon"></i-feather>
+        <i-feather name="check" class="i-feather icon"></i-feather>
         <span class="text">Bearbeitet</span></div>
       <div [class.active]="mapFilter.assignable.show" (click)="toggleMapFilter('assignable')" class="yellow">
-        <i-feather name="plus" class="icon"></i-feather>
+        <i-feather name="plus" class="i-feather icon"></i-feather>
         <span class="text">Neu zuteilen</span></div>
       <div [class.active]="mapFilter.overdueAssignation.show" (click)="toggleMapFilter('overdueAssignation')"
            class="red">
-        <i-feather name="alert-circle" class="icon"></i-feather>
+        <i-feather name="alert-circle" class="i-feather icon"></i-feather>
         <span class="text">Zuteilung fällig</span></div>
     </div>
   </div>

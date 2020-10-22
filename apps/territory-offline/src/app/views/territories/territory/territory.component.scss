@@ -2,11 +2,11 @@
 
 :host {
 
-  ::ng-deep app-list-item .label {
+  ::ng-deep .app-list-item .label {
     color: #ffffff;
   }
 
-  app-panel .wrapper.boundary-names{
+  .app-panel .wrapper.boundary-names{
     padding-left: 0;
     padding-bottom: 0;
   }
@@ -15,8 +15,8 @@
     cursor: pointer;
     background: $reddish-orange-20;
 
-    app-list-item,
-    app-list-item .label {
+    .app-list-item,
+    .app-list-item .label {
 
       color: $reddish-orange;
     }
@@ -29,8 +29,8 @@
   .dont-forget-to-draw-territory {
     background: $yellowish-orange-20;
 
-    app-list-item,
-    app-list-item .label {
+    .app-list-item,
+    .app-list-item .label {
 
       color: $yellowish-orange;
     }

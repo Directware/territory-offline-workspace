@@ -38,7 +38,7 @@
       position: relative;
       left: -0.5rem;
 
-      > i-feather {
+      > .i-feather {
         position: relative;
         top: -2px;
         font-size: 2rem;
@@ -48,10 +48,10 @@
     }
   }
 
-  app-list {
+ .app-list {
     padding: 0 0 1rem 0;
 
-    app-list-item {
+   .app-list-item {
       padding: 0;
 
       ::ng-deep .label {
@@ -60,7 +60,7 @@
     }
   }
 
-  ::ng-deep app-panel {
+  ::ng-deep .app-panel {
     margin: 0.5rem 0;
   }
 

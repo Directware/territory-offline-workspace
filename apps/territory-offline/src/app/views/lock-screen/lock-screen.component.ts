@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostBinding, HostListener, OnInit} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../core/store/index.reducers';
@@ -31,6 +31,9 @@ import {DataImportService} from "../../core/services/import/data-import.service"
 })
 export class LockScreenComponent implements OnInit
 {
+  @HostBinding("class.app-lock-screen")
+  public appLockScreenClass = true;
+
   public passwordNeeded: boolean;
   public coolDown: boolean;
   public appPassword: string;

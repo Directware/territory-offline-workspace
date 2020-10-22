@@ -11,7 +11,7 @@
           <p class="info">{{currentStudies.value}}</p>
         </app-list-item>
         <app-list-item *ngIf="studies">
-          <ui-single-option type="normal" [vFormControl]="studies" [optionSource]="studiesOptions"></ui-single-option>
+          <ui-single-option class="ui-single-option"  type="normal" [vFormControl]="studies" [optionSource]="studiesOptions"></ui-single-option>
         </app-list-item>
     </app-panel>
   </div>

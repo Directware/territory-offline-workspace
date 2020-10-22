@@ -3,17 +3,17 @@
     <h2 class="body-grey">Tags:</h2>
     <app-list-item *ngFor="let tagId of assignedTags.value">
       <p *ngIf="allTagsEntities[tagId] as tag" class="label">{{tag.name}}</p>
-      <i-feather *ngIf="!readonly" class="action trash"
+      <i-feather *ngIf="!readonly" class="i-feather action trash"
                  [class.ready-to-delete]="!!tagToBeDeleted && tagToBeDeleted === tagId"
                  (click)="removeTag(tagId)" name="trash"></i-feather>
     </app-list-item>
     <app-list-item *ngIf="!readonly">
       <input class="input" placeholder="Tag hinzufügen" [formControl]="newTagName">
-      <i-feather class="action" (click)="addTag(searchResults[0])" name="plus"></i-feather>
+      <i-feather class="i-feather action" (click)="addTag(searchResults[0])" name="plus"></i-feather>
     </app-list-item>
     <app-list-item *ngFor="let result of searchResults" (click)="addTag(result)" class="search-result">
       <p class="label">{{result.name}}</p>
-      <i-feather class="action" (click)="addTag(result)" name="plus"></i-feather>
+      <i-feather class="i-feather action" (click)="addTag(result)" name="plus"></i-feather>
     </app-list-item>
   </div>
 </app-panel>
