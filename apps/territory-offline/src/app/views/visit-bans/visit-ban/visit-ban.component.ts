@@ -20,7 +20,7 @@ import {selectAllDrawings} from "../../../core/store/drawings/drawings.selectors
 import {selectAllTerritories} from "../../../core/store/territories/territories.selectors";
 import * as Turf from '@turf/turf';
 import {isInLocationPath} from "../../../core/utils/usefull.functions";
-import {GeocodingResult, LastDoingActionsEnum, VisitBan} from "@territory-offline-workspace/api";
+import {GeocodingResult, LastDoingActionsEnum, Territory, VisitBan} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-visit-ban',
@@ -171,13 +171,21 @@ export class VisitBanComponent implements OnInit, OnDestroy
 
   private async setVisitBan(lng: number, lat: number, street: string, streetSuffix: string, cityName: string)
   {
-    const territory = await this.chooseTerritoryConsideringFeature(lng, lat);
+    const territories = await this.chooseTerritoryConsideringFeature(lng, lat);
 
-    if(!territory)
+    if(!territories.length)
     {
       alert("Die Markierung kann keinem Gebiet zugeordnet werden. Setze bitte eine Markierung auf ein Gebiet.");
       return;
     }
+
+    if(territories.length > 1)
+    {
+      const tNames = territories.map(t => t.key + " " + t.name).join(", ");
+      alert(`Fehler - Mehrdeutigkeit! Die Markierung liegt auf ${territories.length} Gebieten (${tNames}). Achte bitte darauf, dass sich die Gebietszeichnungen nicht überlappen.`);
+      return;
+    }
+    const territory = territories[0];
 
     this.visitBan.patchValue({
       street: street,
@@ -248,16 +256,16 @@ export class VisitBanComponent implements OnInit, OnDestroy
     }
   }
 
-  private async chooseTerritoryConsideringFeature(lng: number, lat: number): Promise<any>
+  private async chooseTerritoryConsideringFeature(lng: number, lat: number): Promise<Territory[]>
   {
-    const territory = await combineLatest([
+    const applicableTerritories = await combineLatest([
       this.store.pipe(select(selectAllDrawings)),
       this.store.pipe(select(selectAllTerritories))
     ]).pipe(
       take(1),
       map(([drawings, territories]) =>
       {
-        const drawing = drawings.filter((d) =>
+        const applicableDrawings = drawings.filter((d) =>
           d.featureCollection
             .features
             .filter(f => f.geometry.type === "Polygon")
@@ -267,18 +275,17 @@ export class VisitBanComponent implements OnInit, OnDestroy
               const polygon = Turf.polygon(f.geometry.coordinates);
               return Turf.booleanPointInPolygon(Turf.point([lng, lat]), polygon);
             }).length > 0
-        )[0];
+        );
 
-        if (drawing)
+        if (applicableDrawings.length)
         {
-          return territories.filter(t => t.territoryDrawingId === drawing.id)[0];
+          return territories.filter(t => applicableDrawings.map(d => d.id).includes(t.territoryDrawingId));
         }
         console.log("keine zeichnung");
-
         return null;
       })).toPromise()
 
-    return territory;
+    return applicableTerritories;
   }
 
   private geocode(input: string)

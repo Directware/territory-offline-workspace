@@ -221,7 +221,7 @@ export class TerritoryMapsService
         take(1),
         tap((territory: Territory) =>
         {
-          if (!this.shouldBlockMapSynchronizer && territory && !this.currentlyFocusedOnDrawingIds.includes(territory.territoryDrawingId))
+          if (!this.shouldBlockMapSynchronizer && territory && !this.currentlyFocusedOnDrawingIds?.includes(territory.territoryDrawingId))
           {
             this.router.navigate([{outlets: {'second-thread': ['territory', territory.id]}}]);
           }
