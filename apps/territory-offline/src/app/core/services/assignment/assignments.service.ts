@@ -26,6 +26,7 @@ import {
   Territory,
   TerritoryCard
 } from "@territory-offline-workspace/api";
+import {UpsertVisitBan} from "../../store/visit-bans/visit-bans.actions";
 
 @Injectable({
   providedIn: 'root',
@@ -89,6 +90,18 @@ export class AssignmentsService
     {
       this.createLastDoingAndUpdateStatus(assignment, LastDoingActionsEnum.ASSIGN_RETURN);
       this.giveBack(assignment);
+    }
+  }
+
+  public giveBackFromFieldCompanion(territoryCard: TerritoryCard)
+  {
+    const resp = confirm(`Möchtest du das Gebiet ${territoryCard.territory.key} ${territoryCard.territory.name} zurückgeben?`);
+
+    if (resp)
+    {
+      this.createLastDoingAndUpdateStatus(territoryCard.assignment, LastDoingActionsEnum.ASSIGN_RETURN);
+      this.giveBack(territoryCard.assignment);
+      territoryCard.visitBans.forEach(visitBan => this.store.dispatch(UpsertVisitBan({visitBan})));
     }
   }
 

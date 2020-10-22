@@ -15,6 +15,9 @@ import * as tokml from "tokml";
 import {PlatformAgnosticActionsService} from "../../core/services/common/platform-agnostic-actions.service";
 import {ImportFromExcelModalComponent} from "./import-from-excel-modal/import-from-excel-modal.component";
 import {ExcelDataExportService} from "../../core/services/export/excel-data-export.service";
+import * as Pako from 'pako';
+import {AssignmentsService} from "../../core/services/assignment/assignments.service";
+import {TerritoryCard} from "@territory-offline-workspace/api";
 
 @Component({
   selector: 'app-transfer',
@@ -28,6 +31,7 @@ export class TransferComponent implements OnInit
   constructor(private router: Router,
               private excelDataExportService: ExcelDataExportService,
               private store: Store<ApplicationState>,
+              private assignmentsService: AssignmentsService,
               private dataExportService: DataExportService,
               private platformAgnosticActionsService: PlatformAgnosticActionsService,
               private pdfDataExportService: PdfDataExportService,
@@ -69,13 +73,14 @@ export class TransferComponent implements OnInit
       take(1),
       tap(data =>
       {
-        if(!data || !data.mergedDrawings)
+        if (!data || !data.mergedDrawings)
         {
           alert("Es gibt keine Gebiete zum exportieren!");
           return;
         }
 
-        data.mergedDrawings.featureCollection.features.forEach(f => {
+        data.mergedDrawings.featureCollection.features.forEach(f =>
+        {
           f.properties["color"] = "#4f9cdc";
           f.properties["color_blue"] = "#4f9cdc";
           f.properties["color_green"] = "#15c880";
@@ -128,5 +133,23 @@ export class TransferComponent implements OnInit
         importType: type
       }
     });
+  }
+
+  public importTerritoryFromFieldCompanion(event)
+  {
+    if (event.target.files && event.target.files.length)
+    {
+      const [file] = event.target.files;
+      const binaryFileReader = new FileReader();
+      binaryFileReader.onload = () => this.readBinaryFile(binaryFileReader.result as any);
+      binaryFileReader.readAsArrayBuffer(file);
+    }
+  }
+
+  private async readBinaryFile(data: any)
+  {
+    const unGzippedData = Pako.ungzip(data, {to: "string"});
+    const json: TerritoryCard = JSON.parse(unGzippedData);
+    this.assignmentsService.giveBackFromFieldCompanion(json);
   }
 }

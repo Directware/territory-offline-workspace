@@ -6,7 +6,7 @@ android {
         applicationId "com.territoryoffline.fieldcompanion"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 3
+        versionCode 4
         versionName "3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

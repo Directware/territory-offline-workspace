@@ -33,7 +33,7 @@ export class DataExportService
     const today = new Date();
     await Plugins.FileSharer.share({
       filename: `${territoryCard.territory.key}-${territoryCard.territory.name}-${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}.territory`,
-      base64Data: btoa(JSON.stringify(territoryCard)),
+      base64Data: btoa(Pako.gzip(JSON.stringify(territoryCard), {to: "string"})),
       contentType: "text/plain;charset=utf-8",
       android: {
         chooserTitle: `${this.translateService.instant("territories.giveBack")}: ${territoryCard.territory.key} ${territoryCard.territory.name}`

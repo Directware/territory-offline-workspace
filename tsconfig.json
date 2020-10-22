@@ -16,6 +16,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "strictNullChecks": true,
     "paths": {
       "@territory-offline-workspace/ui-components": [
         "libs/ui-components/src/index.ts"

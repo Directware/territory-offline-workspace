@@ -93,7 +93,7 @@ export const enUS = {
     title: "Territories",
     addTerritory: "Add territory",
     noTerritories: "No territories",
-    noTerritoriesDesc: "This feature is not yet enabled.",
+    noTerritoriesDesc: "Ask your area servant for a territory",
     yourTerritories: "Your Territories",
     feature1: "Receive areas via link from your territory servant",
     feature2: "View your territory on detailed maps",

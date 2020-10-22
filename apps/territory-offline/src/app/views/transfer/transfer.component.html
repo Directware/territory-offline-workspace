@@ -11,6 +11,16 @@
 
 <div class="scrollable-wrapper">
   <div class="list-wrapper">
+    <h2 class="h2-white">Gebiet zurückgeben</h2>
+    <app-list>
+      <app-list-item (click)="importTerritoryFromFC.click()">
+        <p class="label">Datei von Field Companion</p>
+        <i-feather class="action" name="chevron-right"></i-feather>
+        <input #importTerritoryFromFC style="display: none;" type="file" (change)="importTerritoryFromFieldCompanion($event)" />
+      </app-list-item>
+    </app-list>
+  </div>
+  <div class="list-wrapper">
     <h2 class="h2-white">Exportieren</h2>
     <app-list>
       <app-list-item (click)="exportToBackupFile()">
