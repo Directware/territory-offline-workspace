@@ -1,6 +1,8 @@
+import { take } from 'rxjs/operators';
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
 import * as XLSX from 'xlsx';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-import-from-excel-modal',
@@ -13,7 +15,7 @@ export class ImportFromExcelModalComponent implements OnInit
   public fileName: string;
   public workbook: XLSX.WorkBook;
 
-  constructor(private dialogRef: MatDialogRef<ImportFromExcelModalComponent>)
+  constructor(private dialogRef: MatDialogRef<ImportFromExcelModalComponent>, private translate: TranslateService)
   {
   }
 
@@ -43,7 +45,8 @@ export class ImportFromExcelModalComponent implements OnInit
       }
       else
       {
-        alert(`${file.name} scheint nicht eine Excel-Datei zu sein!`);
+        this.translate.get('transfer.import.noExcelFile', {file: file.name}).pipe(take(1)).subscribe((translation: string) => 
+          alert(translation));
       }
     }
   }

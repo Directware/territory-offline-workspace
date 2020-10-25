@@ -1,7 +1,7 @@
 <app-main-search (onSearch)="search= {value: $event}">
   <div class="action-link" (click)="createPublisher()">
     <i-feather class="i-feather" name="plus"></i-feather>
-    Neuer Verkündiger
+    {{ 'publisher.add' | translate }}
   </div>
 </app-main-search>
 <div class="scrollable-wrapper">
@@ -19,8 +19,8 @@
   </ng-container>
 
   <ng-template #infoBlock>
-    <app-info-block [title]="'Du hast noch keine Verkündiger!'"
+    <app-info-block [title]="'publisher.none' | translate"
                     [image]="'assets/images/publishers.svg'"
-                    [description]="'Erstelle oder importiere Verkündiger, um diesen Gebiete zuteilen zu können.'"></app-info-block>
+                    [description]="'publisher.noneMessage' | translate"></app-info-block>
   </ng-template>
 </div>

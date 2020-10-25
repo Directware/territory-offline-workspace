@@ -4,50 +4,50 @@
 
   <app-panel>
     <div class="wrapper">
-      <h3 class="h3-white">Neu zuteilen nach</h3>
+      <h3 class="h3-white">{{ 'settings.reassignAfter' | translate }}</h3>
       <app-list>
         <app-list-item (click)="setNewValue(2)">
-          <p class="label">2 Monaten</p>
+          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 2 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 2"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(3)">
-          <p class="label">3 Monaten</p>
+          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 3 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 3"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(4)">
-          <p class="label">4 Monaten</p>
+          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 4 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 4"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(5)">
-          <p class="label">5 Monaten</p>
+          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 5 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 5"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(6)">
-          <p class="label">6 Monaten</p>
+          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 6 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 6"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(7)">
-          <p class="label">7 Monaten</p>
+          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 7 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 7"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(8)">
-          <p class="label">8 Monaten</p>
+          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 8 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 8"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(9)">
-          <p class="label">9 Monaten</p>
+          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 9 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 9"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(10)">
-          <p class="label">10 Monaten</p>
+          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 10 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 10"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(11)">
-          <p class="label">11 Monaten</p>
+          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 11 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 11"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(12)">
-          <p class="label">12 Monaten</p>
+          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 12 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 12"></i-feather>
         </app-list-item>
       </app-list>
@@ -55,11 +55,11 @@
   </app-panel>
 
   <div class="hint-wrapper">
-    <h4 class="h4-white">Hinweis</h4>
+    <h4 class="h4-white">{{ 'settings.hint' | translate }}</h4>
     <p class="hint-text">
-      Dieser Zeitraum legt fest, wie lange ein Gebiet brach legen sollte.
+      {{ 'settings.reassignAfterHintLine1' | translate }}
       <br/>
       <br/>
-      Wird dieser Zeitraum überschritten, wird das Gebiet auf der Karte Gelb/Orange gefärbt.</p>
+      {{ 'settings.reassignAfterHintLine2' | translate }}</p>
   </div>
 </div>

@@ -1,3 +1,5 @@
+import { take } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Store} from "@ngrx/store";
@@ -44,7 +46,8 @@ export class BackupImportChangesComponent implements OnInit
 
   constructor(public dialogRef: MatDialogRef<BackupImportChangesComponent>,
               private store: Store<ApplicationState>,
-              @Inject(MAT_DIALOG_DATA) public data: { toBeImported: ToBackup, potentiallyDeleted: ToBackup })
+              @Inject(MAT_DIALOG_DATA) public data: { toBeImported: ToBackup, potentiallyDeleted: ToBackup },
+              private translate: TranslateService)
   {
   }
 
@@ -54,48 +57,50 @@ export class BackupImportChangesComponent implements OnInit
 
   public deleteItem(entity: DatabaseEntity, entityType: string)
   {
-    const shouldDelete = confirm("Möchtest du es wirklich löschen?");
+    this.translate.get('modal.import.reallyDelete').pipe(take(1)).subscribe((translation: string) => {
+      const shouldDelete = confirm(translation);
 
-    if (shouldDelete)
-    {
-      this.deletedItems[entity.id] = true;
-
-      switch (entityType)
+      if (shouldDelete)
       {
-        case this.entityTypes.territory:
-        {
-          const territory = entity as Territory;
-          this.store.dispatch(DeleteTerritory({territory: territory}));
+        this.deletedItems[entity.id] = true;
 
-          this.data.potentiallyDeleted.drawings
-            .filter(d => d.id === territory.territoryDrawingId)
-            .forEach(d => this.store.dispatch(DeleteDrawing({drawing: d})));
-          break;
-        }
-        case this.entityTypes.publisher:
+        switch (entityType)
         {
-          this.store.dispatch(DeletePublisher({publisher: entity as Publisher}));
-          break;
-        }
-        case this.entityTypes.visitBan:
-        {
-          this.store.dispatch(DeleteVisitBan({visitBan: entity as VisitBan}));
-          break;
-        }
-        case this.entityTypes.assignment:
-        {
-          this.store.dispatch(DeleteAssignment({
-            assignment: entity as Assignment
-          }));
-          break;
-        }
-        case this.entityTypes.tag:
-        {
-          this.store.dispatch(DeleteTag({tag: entity as Tag}));
-          break;
+          case this.entityTypes.territory:
+          {
+            const territory = entity as Territory;
+            this.store.dispatch(DeleteTerritory({territory: territory}));
+
+            this.data.potentiallyDeleted.drawings
+              .filter(d => d.id === territory.territoryDrawingId)
+              .forEach(d => this.store.dispatch(DeleteDrawing({drawing: d})));
+            break;
+          }
+          case this.entityTypes.publisher:
+          {
+            this.store.dispatch(DeletePublisher({publisher: entity as Publisher}));
+            break;
+          }
+          case this.entityTypes.visitBan:
+          {
+            this.store.dispatch(DeleteVisitBan({visitBan: entity as VisitBan}));
+            break;
+          }
+          case this.entityTypes.assignment:
+          {
+            this.store.dispatch(DeleteAssignment({
+              assignment: entity as Assignment
+            }));
+            break;
+          }
+          case this.entityTypes.tag:
+          {
+            this.store.dispatch(DeleteTag({tag: entity as Tag}));
+            break;
+          }
         }
       }
-    }
+    });
   }
 
   public keepItem(entity: DatabaseEntity)

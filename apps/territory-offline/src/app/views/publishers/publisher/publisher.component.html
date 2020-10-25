@@ -8,29 +8,29 @@
 <div class="scrollable-wrapper" *ngIf="readOnly">
   <app-panel>
     <app-list-item>
-      <p class="label">Name</p>
+      <p class="label">{{ 'publisher.name' | translate }}</p>
       <p class="info">{{publisher.get('name').value}}</p>
     </app-list-item>
     <app-list-item>
-      <p class="label">Vorname</p>
+      <p class="label">{{ 'publisher.firstName' | translate }}</p>
       <p class="info">{{publisher.get('firstName').value}}</p>
     </app-list-item>
   </app-panel>
 
   <app-panel>
     <app-list-item>
-      <p class="label">Mail</p>
+      <p class="label">{{ 'publisher.mail' | translate }}</p>
       <p class="info">{{publisher.get('email').value}}</p>
     </app-list-item>
     <app-list-item>
-      <p class="label">Telefon</p>
+      <p class="label">{{ 'publisher.phone' | translate }}</p>
       <p class="info">{{publisher.get('phone').value}}</p>
     </app-list-item>
   </app-panel>
 
   <app-panel>
     <app-list-item>
-      <p class="label">DSGVO</p>
+      <p class="label">{{ 'publisher.dsgvo' | translate }}</p>
       <i-feather *ngIf="!!publisher.get('dsgvoSignature').value" class="i-feather action yes-dsgvo" name="check"></i-feather>
       <i-feather *ngIf="!publisher.get('dsgvoSignature').value" class="i-feather action no-dsgvo" name="x"></i-feather>
     </app-list-item>
@@ -38,14 +38,14 @@
 
   <app-panel class="tags-panel">
     <div class="wrapper">
-      <h3 class="h3-white">Tags:</h3>
+      <h3 class="h3-white">{{ 'publisher.tags' | translate }}:</h3>
       <app-tags-preview [tagIds]="publisher.get('tags').value"></app-tags-preview>
     </div>
   </app-panel>
 
   <app-panel *ngIf="(publisherTerritories$ | async) as publisherTerritories">
     <app-list-item>
-      <p class="label bold">Zugeteilte Gebiete</p>
+      <p class="label bold">{{ 'publisher.assignments' | translate }}</p>
     </app-list-item>
     <app-list-item *ngFor="let dto of publisherTerritories" (click)="navigateToTerritory(dto.t)">
       <p class="label grey">
@@ -59,7 +59,7 @@
       <i-feather class="i-feather icon" name="chevron-right"></i-feather>
     </app-list-item>
     <app-list-item *ngIf="publisherTerritories.length === 0">
-      <p class="label grey">Keine zugeteilten Gebiete</p>
+      <p class="label grey">{{ 'publisher.noAssignments' | translate }}</p>
     </app-list-item>
   </app-panel>
 </div>
@@ -68,19 +68,19 @@
 <form *ngIf="!readOnly" [formGroup]="publisher">
   <app-panel>
     <app-list-item>
-      <input placeholder="Vorname*" class="input" formControlName="firstName" name="firstName">
+      <input [placeholder]="('publisher.firstName' | translate) + '*'" class="input" formControlName="firstName" name="firstName">
     </app-list-item>
     <app-list-item>
-      <input placeholder="Name*" class="input" formControlName="name" name="name">
+      <input [placeholder]="('publisher.name' | translate) + '*'" class="input" formControlName="name" name="name">
     </app-list-item>
   </app-panel>
 
   <app-panel>
     <app-list-item>
-      <input placeholder="Mail" class="input" formControlName="email" name="email">
+      <input [placeholder]="('publisher.mail' | translate) + '*'" class="input" formControlName="email" name="email">
     </app-list-item>
     <app-list-item>
-      <input placeholder="Telefon" class="input" formControlName="phone" name="phone">
+      <input [placeholder]="('publisher.phone' | translate) + '*'" class="input" formControlName="phone" name="phone">
     </app-list-item>
   </app-panel>
 
@@ -90,7 +90,7 @@
 
   <app-panel *ngIf="!isCreation" class="delete-publisher animate-color-and-transform" (click)="tryToDeletePublisher()">
     <app-list-item>
-      <p class="label">Verkündiger löschen</p>
+      <p class="label">{{ 'publisher.delete' | translate }}</p>
       <i-feather class="i-feather action" name="trash"></i-feather>
     </app-list-item>
   </app-panel>

@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable, Subject} from 'rxjs';
@@ -43,7 +44,8 @@ export class CongregationComponent implements OnInit
               private activatedRoute: ActivatedRoute,
               private actions$: Actions,
               private dataExportService: DataExportService,
-              private store: Store<ApplicationState>)
+              private store: Store<ApplicationState>,
+              private translate: TranslateService)
   {
   }
 
@@ -82,60 +84,64 @@ export class CongregationComponent implements OnInit
 
   public duplicateCongregation()
   {
-    const confirmation = confirm("Möchtest du diese Versammlung wirklich kopieren?");
+    this.translate.get('congregation.reallyDuplicate').pipe(take(1)).subscribe((translation: string) => {
+      const confirmation = confirm(translation);
 
-    if (!confirmation)
-    {
-      return;
-    }
-
-    const newUuid = uuid4();
-    this.actions$
-      .pipe(
-        ofType(UpsertCongregationSuccess),
-        take(1),
-        tap(() => this.store.dispatch(UseCongregation({congregationId: newUuid})))
-      ).subscribe();
-
-    this.dataExportService
-      .exportAll()
-      .then(dataPackage =>
+      if (!confirmation)
       {
-        localStorage.setItem(DataImportService.CONGREGATION_COPY_KEY, dataPackage);
+        return;
+      }
 
-        this.store
-          .pipe(
-            select(selectCongregationById, this.activatedRoute.snapshot.params.id),
-            take(1),
-            tap(congregation =>
-            {
-              this.store.dispatch(UpsertCongregation({
-                congregation: {
-                  ...congregation,
-                  name: congregation.name + " copy",
-                  hashedName: btoa(congregation.name),
-                  id: newUuid,
-                }
-              }));
-            })
-          ).subscribe();
-      });
+      const newUuid = uuid4();
+      this.actions$
+        .pipe(
+          ofType(UpsertCongregationSuccess),
+          take(1),
+          tap(() => this.store.dispatch(UseCongregation({congregationId: newUuid})))
+        ).subscribe();
+
+      this.dataExportService
+        .exportAll()
+        .then(dataPackage =>
+        {
+          localStorage.setItem(DataImportService.CONGREGATION_COPY_KEY, dataPackage);
+
+          this.store
+            .pipe(
+              select(selectCongregationById, this.activatedRoute.snapshot.params.id),
+              take(1),
+              tap(congregation =>
+              {
+                this.store.dispatch(UpsertCongregation({
+                  congregation: {
+                    ...congregation,
+                    name: congregation.name + " copy",
+                    hashedName: btoa(congregation.name),
+                    id: newUuid,
+                  }
+                }));
+              })
+            ).subscribe();
+        });
+    });
   }
 
   public deleteCongregation()
   {
-    const canDelete = confirm("Möchtest du diese Versammlung wirklich löschen?");
+    this.translate.get('congregation.reallyDelete').pipe(take(1)).subscribe((translation: string) => {
+      const canDelete = confirm(translation);
 
-    if (canDelete)
-    {
-      this.actions$.pipe(
-        ofType(DeleteCongregationSuccess),
-        take(1),
-        tap(() => this.back())
-      ).subscribe();
+      if (canDelete)
+      {
+        this.actions$.pipe(
+          ofType(DeleteCongregationSuccess),
+          take(1),
+          tap(() => this.back())
+        ).subscribe();
 
-      this.store.dispatch(DeleteCongregation({congregation: this.congregation.getRawValue()}));
-    }
+        this.store.dispatch(DeleteCongregation({congregation: this.congregation.getRawValue()}));
+      }
+    });
   }
 
   public setLanguage(language: ToLanguage)

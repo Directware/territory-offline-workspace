@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import {BrowserModule, HAMMER_GESTURE_CONFIG, HammerModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, ErrorHandler, NgModule} from '@angular/core';
 
@@ -56,8 +57,7 @@ import {ReassignAfterComponent} from './views/settings/reassign-after/reassign-a
 import {ReassignDueAfterComponent} from './views/settings/reassign-due-after/reassign-due-after.component';
 import {GlobalErrorHandlerService} from "./core/services/common/global-error-handler.service";
 import {TerritoryHelperImportComponent} from './views/transfer/territory-helper-import/territory-helper-import.component';
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {deDE} from "./core/i18n/de-DE";
+import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DatePipe} from "@angular/common";
 import {WaitingModalComponent} from './views/shared/modals/waiting-modal/waiting-modal.component';
 import {SyncDataComponent} from './views/transfer/sync-data/sync-data.component';
@@ -72,6 +72,11 @@ import {SearchVisitBanPipe} from "./core/pipes/visit-bans/search-visit-ban.pipe"
 import {VisitBanLastVisitTimePipe} from "./core/pipes/visit-bans/visit-ban-last-visit-time.pipe";
 import {BackupImportChangesComponent} from './views/shared/modals/backup-import-changes/backup-import-changes.component';
 import {UiComponentsModule} from "@territory-offline-workspace/ui-components";
+import { CustomTranslateLoader } from './core/models/costume-translate-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new CustomTranslateLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -145,7 +150,13 @@ import {UiComponentsModule} from "@territory-offline-workspace/ui-components";
     UiComponentsModule,
     HammerModule,
     ColorPickerModule,
-    TranslateModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
     StoreDevtoolsModule.instrument({logOnly: true, maxAge: 25}),
@@ -162,10 +173,11 @@ export class AppModule
 {
   constructor(private translateService: TranslateService)
   {
-    //FIXME get system preferences
-    this.translateService.currentLang = "de";
-    this.translateService.setTranslation("de", deDE);
-    // this.translateService.setTranslation("en", enUS);
+    this.translateService.addLangs(['de']);
+    this.translateService.setDefaultLang('de');
+    
+    const browserLang = this.translateService.getBrowserLang();
+    this.translateService.use(this.translateService.getLangs().includes(browserLang) ? browserLang : this.translateService.defaultLang);
   }
 }
 

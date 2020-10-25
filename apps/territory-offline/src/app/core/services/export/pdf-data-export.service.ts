@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {Injectable} from '@angular/core';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfMakeFonts from "pdfmake/build/vfs_fonts.js";
@@ -13,7 +14,7 @@ import {Assignment, Publisher, VisitBan} from "@territory-offline-workspace/api"
 })
 export class PdfDataExportService
 {
-  constructor(private store: Store<ApplicationState>)
+  constructor(private store: Store<ApplicationState>, private translate: TranslateService)
   {
     /* Die Fonts werden in der vfs_fonts.js nicht an die richtige Stelle gebunden(durch webpack)
        daher dieser Workaround
@@ -23,57 +24,61 @@ export class PdfDataExportService
 
   public exportPublisher(publisher: Publisher[])
   {
-    const body = [];
-    publisher.forEach((p, index) =>
-      body[index] = [p.firstName, p.name, p.email || "-", p.phone || "-"]);
+    this.translate.get(["transfer.export.firstName", "transfer.export.lastName", "transfer.export.mail", "transfer.export.phone"]).pipe(take(1)).subscribe((translations: {[key: string]: string}) => {
+      const body = [];
+      publisher.forEach((p, index) =>
+        body[index] = [p.firstName, p.name, p.email || "-", p.phone || "-"]);
 
-    const table = {
-      layout: 'lightHorizontalLines',
-      table: {
-        headerRows: 1,
-        widths: ['auto', 'auto', 'auto', '*'],
-        body: [
-          ["Vorname", "Nachname", "E-Mail", "Telefon"],
-          ...body
-        ]
-      }
-    };
+      const table = {
+        layout: 'lightHorizontalLines',
+        table: {
+          headerRows: 1,
+          widths: ['auto', 'auto', 'auto', '*'],
+          body: [
+            [translations["transfer.export.firstName"], translations["transfer.export.lastName"], translations["transfer.export.mail"], translations["transfer.export.phone"]],
+            ...body
+          ]
+        }
+      };
 
-    const docDefinition = {
-      footer: this.pdfFooter,
-      pageMargins: [25, 20, 30, 30],
-      content: table
-    };
+      const docDefinition = {
+        footer: this.pdfFooter,
+        pageMargins: [25, 20, 30, 30],
+        content: table
+      };
 
-    pdfMake.createPdf(docDefinition).download("to-publisher");
+      pdfMake.createPdf(docDefinition).download("to-publisher");
+    });
   }
 
   public exportVisitBans(visitBans: VisitBan[])
   {
-    const body = [];
-    visitBans.forEach((a, index) =>
-      body[index] = [a.name, a.floor, a.street, a.streetSuffix, a.city, !!a.lastVisit ? new Date(a.lastVisit).toLocaleDateString() : ""]);
+    this.translate.get(["transfer.export.bellPosition", "transfer.export.level", "transfer.export.street", "transfer.export.numberShort", "transfer.export.city", "transfer.export.lastVisit"]).pipe(take(1)).subscribe((translations: {[key: string]: string}) => {
+      const body = [];
+      visitBans.forEach((a, index) =>
+        body[index] = [a.name, a.floor, a.street, a.streetSuffix, a.city, !!a.lastVisit ? new Date(a.lastVisit).toLocaleDateString() : ""]);
 
-    const table = {
-      layout: 'lightHorizontalLines',
-      table: {
-        headerRows: 1,
-        widths: ['auto', 'auto', '*', 'auto', 'auto', 'auto'],
-        body: [
-          ["Klingelposition", "Stock", "Straße", "Nr.", "Stadt", "Letzter Besuch"],
-          ...body
-        ]
-      }
-    };
+      const table = {
+        layout: 'lightHorizontalLines',
+        table: {
+          headerRows: 1,
+          widths: ['auto', 'auto', '*', 'auto', 'auto', 'auto'],
+          body: [
+            [translations["transfer.export.bellPosition"], translations["transfer.export.level"], translations["transfer.export.street"], translations["transfer.export.numberShort"], translations["transfer.export.city"], translations["transfer.export.lastVisit"]],
+            ...body
+          ]
+        }
+      };
 
-    const docDefinition = {
-      footer: this.pdfFooter,
-      pageOrientation: 'landscape',
-      pageMargins: [25, 20, 30, 20],
-      content: table
-    };
+      const docDefinition = {
+        footer: this.pdfFooter,
+        pageOrientation: 'landscape',
+        pageMargins: [25, 20, 30, 20],
+        content: table
+      };
 
-    pdfMake.createPdf(docDefinition).download("to-visit-bans");
+      pdfMake.createPdf(docDefinition).download("to-visit-bans");
+    });
   }
 
   public async exportS13()

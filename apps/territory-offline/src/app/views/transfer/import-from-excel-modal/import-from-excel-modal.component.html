@@ -1,13 +1,13 @@
 <div *ngIf="currentStep === 0" class="header">
-  <p (click)="cancel()">Abbrechen</p>
-  <p class="continue" [class.disabled]="!fileName" (click)="currentStep=currentStep+1">Fortfahren</p>
+  <p (click)="cancel()">{{ 'transfer.importExcel.cancel' | translate }}</p>
+  <p class="continue" [class.disabled]="!fileName" (click)="currentStep=currentStep+1">{{ 'transfer.importExcel.continue' | translate }}</p>
 </div>
 <div *ngIf="currentStep === 0" class="step step1">
   <div class="drop-zone" (click)="fileChooser.click()">
     <div class="label">
-      <h2 class="h2-white">Datentyp</h2>
+      <h2 class="h2-white">{{ 'transfer.importExcel.fileType' | translate }}</h2>
       <p *ngIf="fileName" class="body-grey">{{fileName}}</p>
-      <p *ngIf="!fileName" class="body-grey">Datei auswählen</p>
+      <p *ngIf="!fileName" class="body-grey">{{ 'transfer.importExcel.chooseFile' | translate }}</p>
     </div>
 
     <div *ngIf="fileName" class="icon check"><i-feather name="check"></i-feather></div>
@@ -17,9 +17,9 @@
   </div>
   <div class="info-block">
     <i-feather name="info"></i-feather>
-    <h2 class="h2-white">Daten zuordnen</h2>
+    <h2 class="h2-white">{{ 'transfer.importExcel.mapData' | translate }}</h2>
     <p class="body-grey">
-      Leider wissen wir nicht, wie du deine Tabelle strukturiert hast. Daher werden dir als nächstes die Titel aller Spalten angezeigt, die in deiner Datei gefunden wurde. Bitte ordne die jeweilige Spalte dem Datentyp zu, den wir suchen.
+      {{ 'transfer.importExcel.mapDataInfo' | translate }}
     </p>
   </div>
 </div>

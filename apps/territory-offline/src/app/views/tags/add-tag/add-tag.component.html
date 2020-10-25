@@ -1,2 +1,2 @@
-<input placeholder="Tag hinzufügen" [(ngModel)]="newTagName" (keypress)="keyPressHandler($event)">
+<input [placeholder]="'tag.add' | translate" [(ngModel)]="newTagName" (keypress)="keyPressHandler($event)">
 <i-feather class="i-feather" (click)="addNewTag()" name="plus"></i-feather>

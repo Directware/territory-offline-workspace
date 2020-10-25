@@ -4,7 +4,7 @@
 <div class="scrollable-wrapper">
   <app-panel class="preferences">
     <div class="wrapper">
-      <h2 class="h2-white">Format</h2>
+      <h2 class="h2-white">{{ 'territory.print.format' | translate }}</h2>
       <app-list-item *ngFor="let format of territoryCardFormats" (click)="changeFormat(format)" [ngClass]="'card-format-'+format.id">
         <p class="label">{{format.label}}</p>
         <i-feather *ngIf="tcf && format.id === tcf.id" class="i-feather icon checked" name="check-circle"></i-feather>
@@ -14,43 +14,43 @@
 
   <app-panel *ngIf="printedMapConfiguration" class="preferences">
     <div class="wrapper sticker">
-      <h2 class="h2-white">Aussehen bearbeiten</h2>
+      <h2 class="h2-white">{{ 'territory.print.editLook' | translate }}</h2>
 
       <app-list-item (click)="toggleProp('showTerritoryName')">
-        <p class="label">Gebietsname</p>
+        <p class="label">{{ 'territory.print.name' | translate }}</p>
         <i-feather *ngIf="printedMapConfiguration.showTerritoryName" class="i-feather icon checked"
                    name="check-circle"></i-feather>
         <i-feather *ngIf="!printedMapConfiguration.showTerritoryName" class="i-feather icon" name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('showTerritoryKey')">
-        <p class="label">Gebietsnummer</p>
+        <p class="label">{{ 'territory.print.number' | translate }}</p>
         <i-feather *ngIf="printedMapConfiguration.showTerritoryKey" class="i-feather icon checked"
                    name="check-circle"></i-feather>
         <i-feather *ngIf="!printedMapConfiguration.showTerritoryKey" class="i-feather icon" name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('showPopulationCount')">
-        <p class="label">Wohneinheiten</p>
+        <p class="label">{{ 'territory.print.units' | translate }}</p>
         <i-feather *ngIf="printedMapConfiguration.showPopulationCount" class="i-feather icon checked"
                    name="check-circle"></i-feather>
         <i-feather *ngIf="!printedMapConfiguration.showPopulationCount" class="i-feather icon" name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('showNorth')">
-        <p class="label">Kompass</p>
+        <p class="label">{{ 'territory.print.compass' | translate }}</p>
         <i-feather *ngIf="printedMapConfiguration.showNorth" class="i-feather icon checked" name="check-circle"></i-feather>
         <i-feather *ngIf="!printedMapConfiguration.showNorth" class="i-feather icon" name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('showComment')">
-        <p class="label">Kommentar</p>
+        <p class="label">{{ 'territory.print.comment' | translate }}</p>
         <i-feather *ngIf="printedMapConfiguration.showComment" class="i-feather icon checked" name="check-circle"></i-feather>
         <i-feather *ngIf="!printedMapConfiguration.showComment" class="i-feather icon" name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('bleedEdges')">
-        <p class="label">Schnittmarken</p>
+        <p class="label">{{ 'territory.print.cuttingMarks' | translate }}</p>
         <i-feather *ngIf="printedMapConfiguration.bleedEdges" class="i-feather icon checked" name="check-circle"></i-feather>
         <i-feather *ngIf="!printedMapConfiguration.bleedEdges" class="i-feather icon" name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('showBoundaryNames')">
-        <p class="label">Straßen</p>
+        <p class="label">{{ 'territory.print.streets' | translate }}</p>
         <i-feather *ngIf="printedMapConfiguration.showBoundaryNames" class="i-feather icon checked" name="check-circle"></i-feather>
         <i-feather *ngIf="!printedMapConfiguration.showBoundaryNames" class="i-feather icon" name="x"></i-feather>
       </app-list-item>
@@ -59,22 +59,22 @@
 
   <app-panel>
     <app-list-item (click)="resetNorth()">
-      <p class="label blue">Kompass zurücksetzen</p>
+      <p class="label blue">{{ 'territory.print.resetCompass' | translate }}</p>
       <i-feather class="i-feather icon blue" name="check-circle"></i-feather>
     </app-list-item>
     <app-list-item (click)="autoZoom()">
-      <p class="label blue">Gebiet automatisch Ausrichten</p>
+      <p class="label blue">{{ 'territory.print.autoAlign' | translate }}</p>
       <i-feather class="i-feather icon blue" name="maximize-2"></i-feather>
     </app-list-item>
     <app-list-item (click)="saveDrawingPrintAlignment()">
-      <p class="label blue">Ausrichtung für diese Karte merken</p>
+      <p class="label blue">{{ 'territory.print.saveAlignment' | translate }}</p>
       <i-feather class="i-feather icon blue" name="move"></i-feather>
     </app-list-item>
   </app-panel>
 
   <app-panel>
     <app-list-item (click)="flipCard()">
-      <p class="label blue">Karte umdrehen</p>
+      <p class="label blue">{{ 'territory.print.flipCard' | translate }}</p>
       <i-feather class="i-feather icon blue" name="rotate-cw"></i-feather>
     </app-list-item>
   </app-panel>

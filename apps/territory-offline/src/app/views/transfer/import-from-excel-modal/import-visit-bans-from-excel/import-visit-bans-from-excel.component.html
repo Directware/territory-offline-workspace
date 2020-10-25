@@ -1,28 +1,28 @@
 <div *ngIf="!importDone" class="header">
-  <p (click)="close()">Abbrechen</p>
-  <p class="continue" *ngIf="currentStep < steps.length" [class.disabled]="!chosenProps['sheetName']" (click)="currentStep=currentStep+1">Weiter</p>
-  <p class="continue" *ngIf="currentStep === steps.length" (click)="import()">Importieren</p>
+  <p (click)="close()">{{ 'transfer.importExcel.cancel' | translate }}</p>
+  <p class="continue" *ngIf="currentStep < steps.length" [class.disabled]="!chosenProps['sheetName']" (click)="currentStep=currentStep+1">{{ 'transfer.importExcel.next' | translate }}</p>
+  <p class="continue" *ngIf="currentStep === steps.length" (click)="import()">{{ 'transfer.importExcel.import' | translate }}</p>
 </div>
 <div *ngIf="!importDone" class="body">
-  <p *ngIf="currentStep === 1" class="body-grey">Bitte wähle aus, in welcher der <strong>Sheets</strong> deine Daten sind</p>
-  <p *ngIf="currentStep === 2" class="body-grey">Bitte wähle aus, in welcher der Spalten die <strong>Namen</strong> sind.</p>
-  <p *ngIf="currentStep === 3" class="body-grey">Bitte wähle aus, in welcher der Spalten die <strong>Straßen</strong> sind.</p>
-  <p *ngIf="currentStep === 4" class="body-grey">Bitte wähle aus, in welcher der Spalten die <strong>Hausnummern</strong> sind.</p>
-  <p *ngIf="currentStep === 5" class="body-grey">Bitte wähle aus, in welcher der Spalten die <strong>Städte</strong> sind.</p>
-  <p *ngIf="currentStep === 6" class="body-grey">Bitte wähle aus, in welcher der Spalten die <strong>Breitengrade</strong> sind.</p>
-  <p *ngIf="currentStep === 7" class="body-grey">Bitte wähle aus, in welcher der Spalten die <strong>Längengrade</strong> sind.</p>
-  <p *ngIf="currentStep === 8" class="body-grey">Bitte wähle aus, in welcher der Spalten die <strong>Kommentare</strong> sind.</p>
-  <p *ngIf="currentStep === 9" class="body-grey">Bitte wähle aus, in welcher der Spalten die <strong>letzte Besuche</strong> sind.</p>
+  <p *ngIf="currentStep === 1" class="body-grey" [innerHtml]="'transfer.importExcel.chooseSheets' | translate"></p>
+  <p *ngIf="currentStep === 2" class="body-grey" [innerHtml]="'transfer.importExcel.chooseNameColumns' | translate"></p>
+  <p *ngIf="currentStep === 3" class="body-grey" [innerHtml]="'transfer.importExcel.chooseStreetColumn' | translate"></p>
+  <p *ngIf="currentStep === 4" class="body-grey" [innerHtml]="'transfer.importExcel.chooseHouseNumberColumn' | translate"></p>
+  <p *ngIf="currentStep === 5" class="body-grey" [innerHtml]="'transfer.importExcel.chooseCitiesColumn' | translate"></p>
+  <p *ngIf="currentStep === 6" class="body-grey" [innerHtml]="'transfer.importExcel.chooseLatitudeColumn' | translate"></p>
+  <p *ngIf="currentStep === 7" class="body-grey" [innerHtml]="'transfer.importExcel.chooseLongitudeColumn' | translate"></p>
+  <p *ngIf="currentStep === 8" class="body-grey" [innerHtml]="'transfer.importExcel.chooseCommentColumn' | translate"></p>
+  <p *ngIf="currentStep === 9" class="body-grey" [innerHtml]="'transfer.importExcel.chooseLastVisitColumn' | translate"></p>
   <p *ngIf="currentStep === steps.length" class="body-grey">
-    Bitte überprüfe ob die Spalten richtig zugeordnet sind.
+    {{ 'transfer.importExcel.verify' | translate }}
     <br />
     <br />
-    <strong class="danger">Sollen bereits existierende Daten aktualisiert werden?</strong></p>
+    <strong class="danger">{{ 'transfer.importExcel.override' | translate }}</strong></p>
   <ui-switch class="ui-switch" *ngIf="currentStep === steps.length" [(ngModel)]="overrideExistingData"></ui-switch>
 
   <app-panel *ngIf="currentStep === 1">
     <div class="wrapper">
-      <h2 class="h2-white">Gefundene sheets</h2>
+      <h2 class="h2-white">{{ 'transfer.importExcel.foundSheets' | translate }}</h2>
       <app-list>
         <app-list-item *ngFor="let sheetName of workbook.SheetNames" (click)="setSheet(sheetName)">
           <p class="label">{{sheetName}}</p>
@@ -34,7 +34,7 @@
 
   <app-panel *ngIf="currentStep > 1 && currentStep < steps.length">
     <div class="wrapper">
-      <h2 class="h2-white">Gefundene Spalten</h2>
+      <h2 class="h2-white">{{ 'transfer.importExcel.foundColumns' | translate }}</h2>
       <app-list>
         <app-list-item *ngFor="let column of foundColumns" [class.disabled]="shouldHide(column)"
                        (click)="setChosenProp(column)">
@@ -47,7 +47,7 @@
 
   <app-panel *ngIf="currentStep === steps.length">
     <div class="wrapper">
-      <h2 class="h2-white">Zugewiesene Spalten</h2>
+      <h2 class="h2-white">{{ 'transfer.importExcel.mappedColumns' | translate }}</h2>
       <app-list>
         <app-list-item *ngFor="let column of foundColumns">
           <p class="label">{{column.label}}</p>
@@ -59,13 +59,13 @@
 </div>
 <div *ngIf="importDone" class="body import-done">
   <img alt="image" src="assets/images/import-done.svg">
-  <h3 class="h3-white">Erfolgreich Importiert</h3>
-  <p class="body-grey">Die nicht besuchen Adressen deiner Versammlung wurden importiert und stehen dir jetzt zur Bearbeitung bereit.</p>
+  <h3 class="h3-white">{{ 'transfer.importExcel.success' | translate }}</h3>
+  <p class="body-grey">{{ 'transfer.importExcel.successMessage' | translate }}</p>
   <button (click)="close()" class="button primary">OK</button>
 
   <app-panel *ngIf="visitBansWithoutTerritory">
     <div class="wrapper">
-      <p class="body-grey not-imported">Folgende Einträge konnten nicht importiert werden</p>
+      <p class="body-grey not-imported">{{ 'transfer.importExcel.failures' | translate }}</p>
       <app-list>
         <app-list-item *ngFor="let vb of visitBansWithoutTerritory; let i = index">
           <p class="label">{{i+1}}. {{vb.street}} {{vb.streetSuffix}}</p>

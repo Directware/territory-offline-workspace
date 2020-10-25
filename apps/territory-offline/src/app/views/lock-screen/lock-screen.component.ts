@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {Component, HostBinding, HostListener, OnInit} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {select, Store} from '@ngrx/store';
@@ -46,7 +47,8 @@ export class LockScreenComponent implements OnInit
               private dataImportService: DataImportService,
               private actions$: Actions,
               private dataSecurityService: DataSecurityService,
-              private cryptoService: CryptoService)
+              private cryptoService: CryptoService,
+              private translate: TranslateService)
   {
   }
 
@@ -60,7 +62,8 @@ export class LockScreenComponent implements OnInit
 
     if (this.dataSecurityService.canAvoidPassword())
     {
-      this.dataSecurityService.verify("App entsperren").then(() => this.unlockApp());
+      this.translate.get('lockScreen.unlock').pipe(take(1)).subscribe((translation: string) => 
+        this.dataSecurityService.verify(translation).then(() => this.unlockApp()));
     }
     else
     {
@@ -104,65 +107,67 @@ export class LockScreenComponent implements OnInit
 
   private unlockApp(password?: string)
   {
-    this.loadAllDataListeners();
+    this.translate.get(['lockScreen.decryptPublishers', 'lockScreen.decryptTerritories', 'lockScreen.decryptAssignments', 'lockScreen.decryptAddresses', 'lockScreen.decryptDrawings', 'lockScreen.decryptCongregations', 'lockScreen.decryptTags']).pipe(take(1)).subscribe((translations: {[key: string]: string}) => {
+      this.loadAllDataListeners(translations);
 
-    if (!!password)
-    {
-      this.actions$.pipe(
-        ofType(UnlockSecretKey),
-        take(1),
-        tap(() => this.encryptingNow = 'Tags werden entschlüsselt......'),
-        tap(() => this.store.dispatch(LoadTags()))
-      ).subscribe();
-
-      this.store
-        .pipe(
-          select(selectSettings),
+      if (!!password)
+      {
+        this.actions$.pipe(
+          ofType(UnlockSecretKey),
           take(1),
-          map(settings => this.cryptoService.decryptSecretKey(password, settings.encryptedSecretKey)),
-          tap(decryptedSecretKey => this.store.dispatch(UnlockSecretKey({secretKey: decryptedSecretKey}))),
-          tap(() =>
-          {
-            if (!environment.production)
-            {
-              localStorage.setItem(this.devPasswordKey, JSON.stringify(password));
-            }
-          })
+          tap(() => this.encryptingNow = translations['lockScreen.decryptTags']),
+          tap(() => this.store.dispatch(LoadTags()))
         ).subscribe();
-    }
-    else
-    {
-      this.store.dispatch(LoadTags());
-    }
+
+        this.store
+          .pipe(
+            select(selectSettings),
+            take(1),
+            map(settings => this.cryptoService.decryptSecretKey(password, settings.encryptedSecretKey)),
+            tap(decryptedSecretKey => this.store.dispatch(UnlockSecretKey({secretKey: decryptedSecretKey}))),
+            tap(() =>
+            {
+              if (!environment.production)
+              {
+                localStorage.setItem(this.devPasswordKey, JSON.stringify(password));
+              }
+            })
+          ).subscribe();
+      }
+      else
+      {
+        this.store.dispatch(LoadTags());
+      }
+    });
   }
 
-  private loadAllDataListeners(showEncryptionProgress?: boolean)
+  private loadAllDataListeners(translations: {[key: string]: string}, showEncryptionProgress?: boolean)
   {
     this.actions$.pipe(
       ofType(LoadTagsSuccess),
       take(1),
-      tap(() => this.encryptingNow = 'Verkündiger werden entschlüsselt......'),
+      tap(() => this.encryptingNow = translations['lockScreen.decryptPublishers']),
       tap(() => this.store.dispatch(LoadPublishers()))
     ).subscribe();
 
     this.actions$.pipe(
       ofType(LoadPublishersSuccess),
       take(1),
-      tap(() => this.encryptingNow = 'Gebiete werden entschlüsselt...'),
+      tap(() => this.encryptingNow = translations['lockScreen.decryptTerritories']),
       tap(() => this.store.dispatch(LoadTerritories()))
     ).subscribe();
 
     this.actions$.pipe(
       ofType(LoadTerritoriesSuccess),
       take(1),
-      tap(() => this.encryptingNow = 'Zuteilungen werden entschlüsselt...'),
+      tap(() => this.encryptingNow = translations['lockScreen.decryptAssignments']),
       tap(() => this.store.dispatch(LoadAssignments()))
     ).subscribe();
 
     this.actions$.pipe(
       ofType(LoadAssignmentsSuccess),
       take(1),
-      tap(() => this.encryptingNow = 'Adressen werden entschlüsselt...'),
+      tap(() => this.encryptingNow = translations['lockScreen.decryptAddresses']),
       tap(() => this.store.dispatch(LoadVisitBans()))
     ).subscribe();
 
@@ -175,14 +180,14 @@ export class LockScreenComponent implements OnInit
     this.actions$.pipe(
       ofType(LoadLastDoingsSuccess),
       take(1),
-      tap(() => this.encryptingNow = 'Zeichnungen werden entschlüsselt...'),
+      tap(() => this.encryptingNow = translations['lockScreen.decryptDrawings']),
       tap(() => this.store.dispatch(LoadDrawings()))
     ).subscribe();
 
     this.actions$.pipe(
       ofType(LoadDrawingsSuccess),
       take(1),
-      tap(() => this.encryptingNow = 'Versammlungen werden entschlüsselt...'),
+      tap(() => this.encryptingNow = translations['lockScreen.decryptCongregations']),
       tap(() => this.store.dispatch(LoadCongregations()))
     ).subscribe();
 

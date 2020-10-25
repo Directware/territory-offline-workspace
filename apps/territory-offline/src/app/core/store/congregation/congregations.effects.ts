@@ -1,3 +1,4 @@
+import { selectCongregationById, selectCurrentCongregation } from './congregations.selectors';
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {concatMap, map, switchMap, take, tap, withLatestFrom} from 'rxjs/operators';
@@ -21,6 +22,7 @@ import {LastDoingsService} from "../../services/common/last-doings.service";
 import {PlatformAgnosticActionsService} from "../../services/common/platform-agnostic-actions.service";
 import {MatDialog} from "@angular/material/dialog";
 import {WaitingModalComponent} from "../../../views/shared/modals/waiting-modal/waiting-modal.component";
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({providedIn: 'root'})
 export class CongregationsEffects
@@ -49,10 +51,14 @@ export class CongregationsEffects
     this.actions$.pipe(
       ofType(UseCongregation),
       concatMap(action => of(action).pipe(
-        withLatestFrom(this.store.pipe(select(selectSettings)))
+        withLatestFrom(this.store.pipe(select(selectSettings)), this.store.pipe(select(selectCurrentCongregation))),
       )),
-      tap(([action, settings]) =>
+      tap(([action, settings, congregation]) =>
       {
+        if(congregation && congregation.languageCode) {
+          this.translate.use(congregation.languageCode);
+        }
+
         if (action.congregationId !== settings.currentCongregationId)
         {
           this.actions$
@@ -86,7 +92,8 @@ export class CongregationsEffects
               private database: DatabaseService,
               private dialog: MatDialog,
               private platformAgnosticActionsService: PlatformAgnosticActionsService,
-              private lastDoingsService: LastDoingsService)
+              private lastDoingsService: LastDoingsService,
+              private translate: TranslateService)
   {
   }
 }

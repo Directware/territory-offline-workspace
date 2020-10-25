@@ -5,43 +5,43 @@
 
       <img alt="image" class="to-icon" src="assets/images/icon-to-transparent.png"/>
 
-      <h2 class="h2-white">Territory Offline</h2>
+      <h2 class="h2-white">{{ 'title' | translate }}</h2>
       <p class="body-grey check-updates-wrapper">
         <span>
-          Version: {{version}}
+          {{ 'settings.version' | translate }}: {{version}}
           <i-feather (click)="checkUpdates()" name="refresh-cw" class="check-updates"></i-feather>
         </span>
       </p>
 
       <div *ngIf="settings.releaseInfo && settings.releaseInfo.newReleaseExists" class="new-version body-white"
            (click)="downloadNewRelease(settings.releaseInfo)">
-        Version {{settings.releaseInfo.version}} verfügbar
+        {{ 'settings.versionAvailable' | translate:{ version: settings.releaseInfo.version } }}
         <i-feather name="download"></i-feather>
       </div>
     </div>
   </app-panel>
   <div class="scrollable-wrapper">
     <div class="settings-wrapper">
-      <h2 class="h2-white">Gebiete</h2>
+      <h2 class="h2-white">{{ 'settings.territories' | translate }}</h2>
       <app-list-item (click)="navigateInSecondThread('processing-due-after')">
-        <p class="label">Bearbeitung fällig nach</p>
-        <p class="info">{{settings.processingPeriodInMonths}} Monaten</p>
+        <p class="label">{{ 'settings.processingDueAfter' | translate }}</p>
+        <p class="info">{{ 'settings.dueMonth' | translate:{ count: settings.processingPeriodInMonths } }}</p>
       </app-list-item>
       <app-list-item (click)="navigateInSecondThread('reassign-after')">
-        <p class="label">Neu zuteilen nach</p>
-        <p class="info">{{settings.processingBreakInMonths}} Monaten</p>
+        <p class="label">{{ 'settings.reassignAfter' | translate }}</p>
+        <p class="info">{{ 'settings.dueMonth' | translate:{ count: settings.processingBreakInMonths } }}</p>
       </app-list-item>
       <app-list-item (click)="navigateInSecondThread('reassign-due-after')">
-        <p class="label">Zuteilung fällig nach</p>
-        <p class="info">{{settings.overdueBreakInMonths}} Monaten</p>
+        <p class="label">{{ 'settings.reassignDueAfter' | translate }}</p>
+        <p class="info">{{ 'settings.dueMonth' | translate:{ count: settings.overdueBreakInMonths } }}</p>
       </app-list-item>
       <app-list-item (click)="navigateInGlobalThread('choose-origin')" class="blue">
-        <p class="label">Ladkarte ausrichten</p>
+        <p class="label">{{ 'settings.alignMap' | translate }}</p>
       </app-list-item>
 
-      <h2 class="h2-white">Sicherheit</h2>
+      <h2 class="h2-white">{{ 'settings.security' | translate }}</h2>
       <app-list-item style="opacity: 0.4;">
-        <p class="label">Passwort ändern</p>
+        <p class="label">{{ 'settings.changePassword' | translate }}</p>
         <p class="info password-bullet-wrapper">
           <span class="password-bullet"></span>
           <span class="password-bullet"></span>
@@ -51,33 +51,33 @@
         </p>
       </app-list-item>
       <app-list-item style="opacity: 0.4;">
-        <p class="label">Automatisch sperren</p>
-        <p class="info">{{settings.autoAppLockingInMinutes > 0 ? settings.autoAppLockingInMinutes + ' Min' : 'Nie'}}</p>
+        <p class="label">{{ 'settings.autoLock' | translate }}</p>
+        <p class="info">{{settings.autoAppLockingInMinutes > 0 ? ('settings.lockMinutes' | translate:{ count: settings.autoAppLockingInMinutes}) : ('settings.lockNever' | translate) }}</p>
       </app-list-item>
       <app-list-item (click)="lockApp()">
-        <p class="label blue">App sperren</p>
-        <p class="info">shift + cmd + L</p>
+        <p class="label blue">{{ 'settings.lockApp' | translate }}</p>
+        <p class="info">{{ 'settings.lockAppCmd' | translate }}</p>
       </app-list-item>
       <app-list-item (click)="clearAllAppData()" class="danger">
-        <p class="label">Alle Daten löschen</p>
+        <p class="label">{{ 'settings.reset' | translate }}</p>
       </app-list-item>
     </div>
     <div class="footer">
       <app-panel>
         <app-list-item class="disabled">
-          <p class="label">Entwickler unterstützen</p>
+          <p class="label">{{ 'settings.support' | translate }}</p>
           <i-feather class="i-feather action" name="heart"></i-feather>
         </app-list-item>
       </app-panel>
       <app-panel>
         <app-list-item class="disabled">
-          <p class="label">Über die App</p>
+          <p class="label">{{ 'settings.about' | translate }}</p>
           <i-feather class="i-feather action" name="info"></i-feather>
         </app-list-item>
       </app-panel>
       <app-panel (click)="contact()">
         <app-list-item>
-          <p class="label">Kontakt</p>
+          <p class="label">{{ 'settings.contact' | translate }}</p>
           <i-feather class="i-feather action" name="mail"></i-feather>
         </app-list-item>
       </app-panel>

@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {Injectable} from '@angular/core';
 import {Plugins, registerWebPlugin} from "@capacitor/core";
 import {FileSharer} from "@byteowls/capacitor-filesharer";
@@ -7,7 +8,7 @@ import {FileSharer} from "@byteowls/capacitor-filesharer";
 })
 export class PlatformAgnosticActionsService
 {
-  constructor()
+  constructor(private translate: TranslateService)
   {
     registerWebPlugin(FileSharer);
   }
@@ -19,13 +20,14 @@ export class PlatformAgnosticActionsService
 
   public async share(file: any, fileName: string)
   {
+    const translations = await this.translate.get(['platformActions.sync, platformActions.sharingFailed']).toPromise();
     await Plugins.FileSharer.share({
       filename: fileName,
       base64Data: btoa(file),
       contentType: "text/plain;charset=utf-8",
       android: {
-        chooserTitle: "Territory Offline Sync"
+        chooserTitle: translations['platformActions.sync']
       }
-    }).catch(error => console.error("File sharing failed", error.message));
+    }).catch(error => console.error(translations['platformActions.sharingFailed'], error.message));
   }
 }

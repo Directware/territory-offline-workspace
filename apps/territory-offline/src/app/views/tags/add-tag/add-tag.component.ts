@@ -1,3 +1,5 @@
+import { TranslateService } from '@ngx-translate/core';
+import { take } from 'rxjs/operators';
 import {Component, Input, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {ApplicationState} from '../../../core/store/index.reducers';
@@ -18,7 +20,7 @@ export class AddTagComponent implements OnInit
 
   public newTagName: string;
 
-  constructor(private store: Store<ApplicationState>, private lastDoingsService: LastDoingsService)
+  constructor(private store: Store<ApplicationState>, private lastDoingsService: LastDoingsService, private translate: TranslateService)
   {
   }
 
@@ -58,7 +60,8 @@ export class AddTagComponent implements OnInit
       }
       else
       {
-        alert(`Tag mit dem Namen '${t}' existiert bereits!`);
+        this.translate.get('tag.alreadyExist', {name: t}).pipe(take(1)).subscribe((translation: string) =>
+          alert(translation));
       }
     }
   }

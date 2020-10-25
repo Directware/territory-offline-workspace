@@ -34,7 +34,9 @@
     "update": "ng update @nrwl/workspace",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "i18n:init": "ngx-translate-extract --input ./apps/territory-offline/src --output ./apps/territory-offline/src/assets/i18n/template.json --key-as-default-value --replace --format json",
+    "i18n:extract": "ngx-translate-extract --input ./apps/territory-offline/src --output ./apps/territory-offline/src/assets/i18n/{en,da,de,fi,nb,nl,sv}.json --clean --format json"
   },
   "private": true,
   "dependencies": {
@@ -68,7 +70,7 @@
     "ngx-color-picker": "^9.1.0",
     "ngx-ui-switch": "^9.0.2",
     "pako": "^1.0.11",
-    "paper": "^0.12.4",
+    "paper": "^0.12.8",
     "pdfmake": "^0.1.65",
     "rxjs": "~6.5.4",
     "showdown": "^1.9.1",
@@ -82,6 +84,7 @@
     "@angular/cli": "9.1.0",
     "@angular/compiler-cli": "^9.1.0",
     "@angular/language-service": "^9.1.0",
+    "@biesbjerg/ngx-translate-extract": "^7.0.3",
     "@byteowls/capacitor-filesharer": "^2.0.0",
     "@capacitor/cli": "^2.0.1",
     "@ngrx/store-devtools": "^8.3.0",

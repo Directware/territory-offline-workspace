@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../core/store/index.reducers';
@@ -21,7 +22,8 @@ export class VisitBansComponent implements OnInit, OnDestroy
   constructor(private store: Store<ApplicationState>,
               private router: Router,
               private mapsService: TerritoryMapsService,
-              private activatedRoute: ActivatedRoute)
+              private activatedRoute: ActivatedRoute,
+              private translate: TranslateService)
   {
   }
 
@@ -54,20 +56,21 @@ export class VisitBansComponent implements OnInit, OnDestroy
 
   private setMarkersOnMap()
   {
-    this.visitBans$
-      .pipe(
-        take(1),
-        tap((visitBans) =>
-          {
-            visitBans.forEach((vb) =>
+    this.translate.get('visitBan.noName').pipe(take(1)).subscribe((translation: string) =>
+      this.visitBans$
+        .pipe(
+          take(1),
+          tap((visitBans) =>
             {
-              if (!!vb.gpsPosition)
+              visitBans.forEach((vb) =>
               {
-                this.mapsService.setMarker([vb.gpsPosition.lng, vb.gpsPosition.lat], vb.name || 'kein Name');
-              }
-            })
-          }
-        )
-      ).subscribe();
+                if (!!vb.gpsPosition)
+                {
+                  this.mapsService.setMarker([vb.gpsPosition.lng, vb.gpsPosition.lat], vb.name || translation);
+                }
+              })
+            }
+          )
+        ).subscribe());
   }
 }

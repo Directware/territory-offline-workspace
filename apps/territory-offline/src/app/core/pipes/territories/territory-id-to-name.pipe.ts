@@ -1,3 +1,5 @@
+import { take } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 import {Pipe, PipeTransform} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../store/index.reducers';
@@ -11,8 +13,10 @@ import {Territory} from "@territory-offline-workspace/api";
 })
 export class TerritoryIdToNamePipe implements PipeTransform
 {
-  constructor(private store: Store<ApplicationState>)
+  private translationNone: string;
+  constructor(private store: Store<ApplicationState>, private translate: TranslateService)
   {
+    this.translate.get('territory.pipeNone').pipe(take(1)).subscribe((translation: string) => this.translationNone = translation);
   }
 
   public transform(territoryId: string, ...args: any): Observable<string>
@@ -24,7 +28,7 @@ export class TerritoryIdToNamePipe implements PipeTransform
 
     return this.store.pipe(
       select(selectTerritoryById, territoryId),
-      map((territory: Territory) => territory ? `${territory.key} ${territory.name}` : "Nicht vorhanden")
+      map((territory: Territory) => territory ? `${territory.key} ${territory.name}` : this.translationNone)
     );
   }
 }

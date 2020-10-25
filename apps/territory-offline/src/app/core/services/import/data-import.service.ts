@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {Injectable} from '@angular/core';
 import {Actions, ofType} from '@ngrx/effects';
 import {select, Store} from '@ngrx/store';
@@ -40,7 +41,8 @@ export class DataImportService
   constructor(private store: Store<ApplicationState>,
               private matDialog: MatDialog,
               private lastDoingsService: LastDoingsService,
-              private actions$: Actions)
+              private actions$: Actions,
+              private translate: TranslateService)
   {
   }
 
@@ -64,8 +66,9 @@ export class DataImportService
   {
     if (data && data.type === ExportableTypesEnum.ALL)
     {
+      const translations = await this.translate.get(["transfer.import.start", 'transfer.import.ok', 'transfer.import.tags', 'transfer.import.visitBans', 'transfer.import.assignments', 'transfer.import.publishers', 'transfer.import.territories', 'transfer.import.drawings']).toPromise();
       const dialogConfig = new MatDialogConfig();
-      const progressMsg = new BehaviorSubject({label: "Datenimport beginnt...", icon: null});
+      const progressMsg = new BehaviorSubject({label: translations["transfer.import.start"], icon: null});
 
       dialogConfig.disableClose = true;
       dialogConfig.width = "32rem";
@@ -76,36 +79,36 @@ export class DataImportService
 
       const filteredImportData: any = await this.filterAlreadyExistingEntriesWithSameValues(data);
 
-      progressMsg.next({label: `${filteredImportData.toBeImported.tags.length} Tags werden importiert...`, icon: null})
+      progressMsg.next({label: `${filteredImportData.toBeImported.tags.length} ${translations["transfer.import.tags"]}`, icon: null})
       await this.importTags(this.datesFromStringToObject(filteredImportData.toBeImported.tags)).toPromise();
-      progressMsg.next({label: "ok", icon: "check"});
+      progressMsg.next({label: translations["transfer.import.ok"], icon: "check"});
 
       const visitBans = filteredImportData.toBeImported.visitBans || this.repairTo1VisitBans(filteredImportData.toBeImported.addresses);
       await this.importVisitBans(this.datesFromStringToObject(visitBans)).toPromise();
-      progressMsg.next({label: `${visitBans.length} nicht besuchen Adressen wurden importiert...`, icon: null})
-      progressMsg.next({label: "ok", icon: "check"});
+      progressMsg.next({label: `${visitBans.length} ${translations['transfer.import.visitBans']}`, icon: null})
+      progressMsg.next({label: translations["transfer.import.ok"], icon: "check"});
 
       const assignments = this.repairTo1Assignments(filteredImportData.toBeImported.assignments);
-      progressMsg.next({label: `${assignments.length} Zuteilungen werden importiert...`, icon: null})
+      progressMsg.next({label: `${assignments.length} ${translations['transfer.import.assignments']}`, icon: null})
       await this.importAssignments(this.datesFromStringToObject(assignments)).toPromise();
-      progressMsg.next({label: "ok", icon: "check"});
+      progressMsg.next({label: translations["transfer.import.ok"], icon: "check"});
 
       const publishers = filteredImportData.toBeImported.publisher || filteredImportData.toBeImported.preacher;
-      progressMsg.next({label: `${publishers.length} Verkündiger werden importiert...`, icon: null})
+      progressMsg.next({label: `${publishers.length} ${translations['transfer.import.publishers']}`, icon: null})
       await this.importPublisher(this.datesFromStringToObject(publishers)).toPromise();
-      progressMsg.next({label: "ok", icon: "check"});
+      progressMsg.next({label: translations["transfer.import.ok"], icon: "check"});
 
       progressMsg.next({
-        label: `${filteredImportData.toBeImported.territories.length} Gebiete werden importiert...`,
+        label: `${filteredImportData.toBeImported.territories.length} ${translations['transfer.import.territories']}`,
         icon: null
       })
       await this.importTerritories(this.datesFromStringToObject(filteredImportData.toBeImported.territories)).toPromise();
-      progressMsg.next({label: "ok", icon: "check"});
+      progressMsg.next({label: translations["transfer.import.ok"], icon: "check"});
 
       const drawings = this.repairTo1Drawings(filteredImportData.toBeImported.drawings);
-      progressMsg.next({label: `${drawings.length} Zeichnungen werden importiert...`, icon: null})
+      progressMsg.next({label: `${drawings.length} ${translations['transfer.import.drawings']}`, icon: null})
       await this.importDrawings(this.datesFromStringToObject(drawings)).toPromise();
-      progressMsg.next({label: "ok", icon: "check"});
+      progressMsg.next({label: translations["transfer.import.ok"], icon: "check"});
 
       progressMsg.complete();
       this.lastDoingsService.createLastDoing(LastDoingActionsEnum.IMPORT, "Sync")
@@ -123,7 +126,7 @@ export class DataImportService
     else
     {
       console.log(data);
-      alert('Die Datei scheint nicht ein Backup zu sein.');
+      alert(await this.translate.get('transfer.import.noBackup').toPromise());
     }
   }
 

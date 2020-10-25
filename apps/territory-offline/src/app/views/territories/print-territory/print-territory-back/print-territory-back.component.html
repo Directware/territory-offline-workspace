@@ -5,13 +5,13 @@
        [ngStyle]="{'min-height': cardHeight}">
     <span class="first-item">
       <i-feather class="i-feather" name="bell-off"></i-feather>
-      Nicht besuchen
+      {{ 'territory.print.visitBans' | translate }}
     </span>
     <div class="body">
       <div class="address-line first">
-        <div class="street">Adresse</div>
-        <div class="visit-ban">Name / Klingel</div>
-        <div class="date">Datum</div>
+        <div class="street">{{ 'territory.print.address' | translate }}</div>
+        <div class="visit-ban">{{ 'territory.print.visitBanBell' | translate }}</div>
+        <div class="date">{{ 'territory.print.visitBanDate' | translate }}</div>
       </div>
       <div class="address-line" *ngFor="let address of card;let i = index">
         <div class="street-name">{{address?.street}} {{address?.streetSuffix}}</div>
@@ -56,11 +56,11 @@
   <div *ngIf="showBoundaryNames" class="territory-card-visit-bans" [ngStyle]="{'min-height': cardHeight}">
     <span class="first-item">
       <i-feather class="i-feather" name="map"></i-feather>
-      Liste der Straßen
+      {{ 'territory.print.streetList' | translate }}
     </span>
     <div class="body">
       <div class="address-line first">
-        <div class="street">Straßen</div>
+        <div class="street">{{ 'territory.print.streets' | translate }}</div>
       </div>
       <div class="address-line" *ngFor="let boundaryName of boundaryNamesWithPadding();let i = index">
         <div class="street-name">{{boundaryName}}</div>

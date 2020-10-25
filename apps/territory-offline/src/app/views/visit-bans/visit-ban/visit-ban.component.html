@@ -6,7 +6,7 @@
   <app-panel>
     <app-list-item>
       <p class="label">
-        <input placeholder="Name" class="input" formControlName="name" name="fullName">
+        <input [placeholder]="'visitBan.name' | translate" class="input" formControlName="name" name="fullName">
       </p>
     </app-list-item>
   </app-panel>
@@ -14,7 +14,7 @@
   <app-panel>
     <app-list-item>
       <p class="label">
-        <input placeholder="Adresse*" class="input" [formControl]="geoCodingForm" name="geocoding">
+        <input [placeholder]="('visitBan.address' | translate) + '*'" class="input" [formControl]="geoCodingForm" name="geocoding">
       </p>
     </app-list-item>
     <app-list-item *ngFor="let r of geoCodingResults" (click)="chooseGeoCodingResult(r)">
@@ -22,32 +22,32 @@
       <i-feather class="i-feather info blue" name="map-pin"></i-feather>
     </app-list-item>
     <app-list-item *ngIf="geoCodingResults && geoCodingResults.length === 0 && !isManuallyPositioning">
-      <p class="label warn">Keine Adresse gefunden</p>
+      <p class="label warn">{{ 'visitBan.noAdresses' | translate }}</p>
       <i-feather class="i-feather info warn" name="alert-circle"></i-feather>
     </app-list-item>
     <app-list-item *ngIf="isManuallyPositioning">
-      <p class="label">Markierung im Gebiet setzen</p>
+      <p class="label">{{ 'visitBan.setMark' | translate }}</p>
       <i-feather class="i-feather info" name="arrow-right"></i-feather>
     </app-list-item>
     <app-list-item (click)="reset()" *ngIf="visitBan.get('territoryId').value && visitBan.get('street').value">
-      <p class="label blue">Zurücksetzen</p>
+      <p class="label blue">{{ 'visitBan.reset' | translate }}</p>
       <i-feather class="i-feather info blue" name="refresh-cw"></i-feather>
     </app-list-item>
     <app-list-item (click)="setVisitBanManually()" *ngIf="geoCodingResults && geoCodingResults.length === 0 && !isManuallyPositioning">
-      <p class="label blue">Adresse manuell platzieren</p>
+      <p class="label blue">{{ 'visitBan.setManually' | translate }}</p>
       <i-feather class="i-feather info blue" name="map-pin"></i-feather>
     </app-list-item>
   </app-panel>
 
   <app-panel>
     <app-list-item>
-      <textarea placeholder="Kommentar" class="input" formControlName="comment" name="comment"></textarea>
+      <textarea [placeholder]="'visitBan.comment' | translate" class="input" formControlName="comment" name="comment"></textarea>
     </app-list-item>
   </app-panel>
 
   <app-panel>
     <app-list-item (click)="editLastVisit=true">
-      <p class="label">Letzer Besuch</p>
+      <p class="label">{{ 'visitBan.lastVisit' | translate }}</p>
       <p class="info">{{(visitBan.get('lastVisit').value | date:'dd.MM.yyyy') || '-'}}</p>
     </app-list-item>
     <div class="wrapper" *ngIf="editLastVisit">
@@ -58,19 +58,19 @@
   <app-panel *ngIf="!isCreation" class="delete-visit-ban animate-color-and-transform"
              (click)="deleteVisitBan()">
     <app-list-item>
-      <p class="label">Adresse löschen</p>
+      <p class="label">{{ 'visitBan.delete' | translate }}</p>
       <i-feather class="i-feather action" name="trash"></i-feather>
     </app-list-item>
   </app-panel>
 
   <app-panel *ngIf="visitBan.get('street').value && visitBan.get('streetSuffix').value && !visitBan.get('territoryId').value" class="no-territory-hint">
     <app-list-item>
-      <p class="label">Diese Adresse referenziert auf kein Gebiet. Du musst sie noch einmal geocodieren..</p>
+      <p class="label">{{ 'visitBan.notTerritoryReference' | translate }}</p>
       <i-feather class="i-feather action" name="alert-circle"></i-feather>
     </app-list-item>
 
     <app-list-item (click)="geoCodeAgainCurrentPlaceName()">
-      <p class="label blue">Nochmal versuchen!</p>
+      <p class="label blue">{{ 'visitBan.retry' | translate }}</p>
       <i-feather class="i-feather action blue" name="refresh-cw"></i-feather>
     </app-list-item>
   </app-panel>

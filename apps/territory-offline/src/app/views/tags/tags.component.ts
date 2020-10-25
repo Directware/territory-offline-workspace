@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {Component, OnInit} from '@angular/core';
 import {combineLatest, Observable} from 'rxjs';
 import {select, Store} from '@ngrx/store';
@@ -24,7 +25,8 @@ export class TagsComponent implements OnInit
   public tags$: Observable<Tag[]>;
 
   constructor(private router: Router,
-              private store: Store<ApplicationState>)
+              private store: Store<ApplicationState>,
+              private translate: TranslateService)
   {
   }
 
@@ -48,46 +50,48 @@ export class TagsComponent implements OnInit
 
   public deleteTag(tag: Tag)
   {
-    const canDelete = confirm("Möchtest du diesen Tag wirklich löschen?");
+    this.translate.get(['tag.reallyDelete', 'tag.removeAllReferences']).pipe(take(1)).subscribe((translations: {[key: string]: string}) => {
+      const canDelete = confirm(translations["tag.reallyDelete"]);
 
-    if (canDelete)
-    {
-      combineLatest([
-        this.store.pipe(select(selectAllTerritories)),
-        this.store.pipe(select(selectPublishers))
-      ]).pipe(
-        take(1),
-        tap(([territories, publisher]) =>
-        {
-          const usedOnTerritories = territories.filter(t => t.tags.includes(tag.id));
-          const usedOnPublisher = publisher.filter(p => p.tags.includes(tag.id));
-
-          let ok = true;
-          if (usedOnPublisher.length > 0 || usedOnTerritories.length > 0)
+      if (canDelete)
+      {
+        combineLatest([
+          this.store.pipe(select(selectAllTerritories)),
+          this.store.pipe(select(selectPublishers))
+        ]).pipe(
+          take(1),
+          tap(([territories, publisher]) =>
           {
-            ok = confirm("Dieser Tag wird verwendet. Wenn du es löscht, wird er von allen Datensätzen entfernt.");
-          }
+            const usedOnTerritories = territories.filter(t => t.tags.includes(tag.id));
+            const usedOnPublisher = publisher.filter(p => p.tags.includes(tag.id));
 
-          if (ok)
-          {
-            this.store.dispatch(BulkUpsertTerritory({
-              territories: usedOnTerritories.map(t => ({
-                ...t,
-                tags: t.tags.filter(tId => tId !== tag.id)
-              }))
-            }));
+            let ok = true;
+            if (usedOnPublisher.length > 0 || usedOnTerritories.length > 0)
+            {
+              ok = confirm(translations['tag.removeAllReferences']);
+            }
 
-            this.store.dispatch(BulkUpsertPublisher({
-              publisher: usedOnPublisher.map(p => ({
-                ...p,
-                tags: p.tags.filter(tId => tId !== tag.id)
-              }))
-            }));
+            if (ok)
+            {
+              this.store.dispatch(BulkUpsertTerritory({
+                territories: usedOnTerritories.map(t => ({
+                  ...t,
+                  tags: t.tags.filter(tId => tId !== tag.id)
+                }))
+              }));
 
-            this.store.dispatch(DeleteTag({tag: tag}));
-          }
-        })
-      ).subscribe();
-    }
+              this.store.dispatch(BulkUpsertPublisher({
+                publisher: usedOnPublisher.map(p => ({
+                  ...p,
+                  tags: p.tags.filter(tId => tId !== tag.id)
+                }))
+              }));
+
+              this.store.dispatch(DeleteTag({tag: tag}));
+            }
+          })
+        ).subscribe();
+      }
+    });
   }
 }

@@ -8,7 +8,7 @@
 
   <app-panel class="start-time">
     <app-list-item  (click)="editStartTime=true">
-      <p class="label">Ausgabedatum</p>
+      <p class="label">{{ 'assignments.startTime' | translate }}</p>
       <p class="info">{{assignment.get('startTime').value | date:'dd.MM.yyyy'}}</p>
     </app-list-item>
     <div class="wrapper" *ngIf="editStartTime">
@@ -18,7 +18,7 @@
 
   <app-panel class="end-time">
     <app-list-item  (click)="editEndTime=true">
-      <p class="label">Rückgabedatum</p>
+      <p class="label">{{ 'assignments.endTime' | translate }}</p>
       <p class="info">{{(assignment.get('endTime').value | date:'dd.MM.yyyy') || '-'}}</p>
     </app-list-item>
     <div class="wrapper" *ngIf="editEndTime">
@@ -29,7 +29,7 @@
 
   <app-panel *ngIf="isCreation">
     <app-list-item (click)="sendToPublisher=!sendToPublisher">
-      <p class="label">Gebietskarte an Verkündiger senden</p>
+      <p class="label">{{ 'assignments.sendToPublisher' | translate }}</p>
       <p class="info">
         <i-feather class="i-feather send-to-publisher" *ngIf="sendToPublisher" name="check"></i-feather>
         <i-feather class="i-feather send-not-to-publisher" *ngIf="!sendToPublisher" name="x"></i-feather>
@@ -41,7 +41,7 @@
              (click)="deleteAssignment()"
              [class.ready-to-delete-button]="readyToDelete">
     <app-list-item>
-      <p class="label">Zuteilung löschen</p>
+      <p class="label">{{ 'assignments.delete' | translate }}</p>
       <i-feather class="i-feather action" name="trash"></i-feather>
     </app-list-item>
   </app-panel>

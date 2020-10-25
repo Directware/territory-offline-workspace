@@ -1,28 +1,28 @@
 <app-main-search (onSearch)="search={value:$event}" (onBlur)="considerClearingSearchValue($event)">
   <div class="action-link" (click)="createTerritory()">
     <i-feather class="i-feather" name="plus"></i-feather>
-    Neues Gebiet
+    {{ 'territory.add' | translate }}
   </div>
 </app-main-search>
 <app-panel *ngIf="(territories$ | async) as territories;">
   <div class="wrapper">
     <p *ngIf="(congregationName$ | async) as congregationName" class="h2-white">{{congregationName}}</p>
     <br/>
-    <p class="h4-white">Filter</p>
+    <p class="h4-white">{{ 'territory.filter' | translate }}</p>
     <div class="filter-grid">
       <div [class.active]="mapFilter.inProgress.show" (click)="toggleMapFilter('inProgress')" class="blue">
         <i-feather name="bell" class="i-feather icon"></i-feather>
-        <span class="text">In Bearbeitung</span></div>
+        <span class="text">{{ 'territory.inProcessing' | translate }}</span></div>
       <div [class.active]="mapFilter.done.show" (click)="toggleMapFilter('done')" class="green">
         <i-feather name="check" class="i-feather icon"></i-feather>
-        <span class="text">Bearbeitet</span></div>
+        <span class="text">{{ 'territory.processed' | translate }}</span></div>
       <div [class.active]="mapFilter.assignable.show" (click)="toggleMapFilter('assignable')" class="yellow">
         <i-feather name="plus" class="i-feather icon"></i-feather>
-        <span class="text">Neu zuteilen</span></div>
+        <span class="text">{{ 'territory.assign' | translate }}</span></div>
       <div [class.active]="mapFilter.overdueAssignation.show" (click)="toggleMapFilter('overdueAssignation')"
            class="red">
         <i-feather name="alert-circle" class="i-feather icon"></i-feather>
-        <span class="text">Zuteilung fällig</span></div>
+        <span class="text">{{ 'territory.reasignDue' | translate }}</span></div>
     </div>
   </div>
 </app-panel>
@@ -36,8 +36,8 @@
   </app-list>
 
   <ng-template #infoBlock>
-    <app-info-block [title]="'Du hast noch keine Gebiete!'"
+    <app-info-block [title]="'territory.none' | translate"
                     [image]="'assets/images/territories.svg'"
-                    [description]="'Erstelle oder importiere Gebiete, um diese verwalten zu können.'"></app-info-block>
+                    [description]="'territory.noneMessage' | translate"></app-info-block>
   </ng-template>
 </div>

@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {Injectable} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {UpsertAssignment, UpsertAssignmentSuccess} from './../../../core/store/assignments/assignments.actions';
@@ -36,7 +37,8 @@ export class AssignmentsService
   constructor(private store: Store<ApplicationState>,
               private lastDoingsService: LastDoingsService,
               private territoryMapsService: TerritoryMapsService,
-              private actions$: Actions)
+              private actions$: Actions,
+              private translate: TranslateService)
   {
   }
 
@@ -47,6 +49,7 @@ export class AssignmentsService
     const drawing = await this.store.pipe(select(selectDrawingById, territory.territoryDrawingId), first()).toPromise();
     const visitBans = await this.store.pipe(select(selectVisitBansByTerritoryId, territory.id), first()).toPromise();
     const settings: SettingsState = await this.store.pipe(select(selectSettings), first()).toPromise();
+    const translations = await this.translate.get(['assignments.digitalTerritory', 'assignments.sharingFailed', 'assignments.new', 'assignments.body'], {firstName: publisher.firstName}).toPromise();
 
     const deviceInfo = await Device.getInfo();
 
@@ -69,14 +72,14 @@ export class AssignmentsService
       base64Data: btoa(gzippedData),
       contentType: "text/plain;charset=utf-8",
       android: {
-        chooserTitle: "Digital Territory"
+        chooserTitle: translations['assignments.digitalTerritory']
       }
-    }).catch(error => console.error("File sharing failed", error.message));
+    }).catch(error => console.error(translations['assignments.sharingFailed'], error.message));
 
     if (deviceInfo.platform !== "ios" && deviceInfo.platform !== "android")
     {
-      const subject = `Neue Zuteilung - ${territory.key} ${territory.name}`;
-      const body = `Hallo ${publisher.firstName},\n\n im Anhang findest du dein neues Gebiet!`;
+      const subject = `${translations['assignments.new']} - ${territory.key} ${territory.name}`;
+      const body = `{{ 'assignments.body' | translate }}`;
       const mailto = `mailto:${publisher.email}?subject=${subject}&body=${body}`;
       window.location.href = encodeURI(mailto);
     }
@@ -84,49 +87,55 @@ export class AssignmentsService
 
   public giveBackNow(assignment: Assignment)
   {
-    const resp = confirm("Möchtest du dieses Gebiet zurückgeben?");
+    this.translate.get('assignments.return').pipe(take(1)).subscribe((translation: string) => {
+      const resp = confirm(translation);
 
-    if (resp)
-    {
-      this.createLastDoingAndUpdateStatus(assignment, LastDoingActionsEnum.ASSIGN_RETURN);
-      this.giveBack(assignment);
-    }
+      if (resp)
+      {
+        this.createLastDoingAndUpdateStatus(assignment, LastDoingActionsEnum.ASSIGN_RETURN);
+        this.giveBack(assignment);
+      }
+    })
   }
 
   public giveBackFromFieldCompanion(territoryCard: TerritoryCard)
   {
-    const resp = confirm(`Möchtest du das Gebiet ${territoryCard.territory.key} ${territoryCard.territory.name} zurückgeben?`);
+    this.translate.get('assignments.returnFromFieldCompanion', {key: territoryCard.territory.key, name: territoryCard.territory.name}).pipe(take(1)).subscribe((translation: string) => {
+      const resp = confirm(translation);
 
-    if (resp)
-    {
-      this.createLastDoingAndUpdateStatus(territoryCard.assignment, LastDoingActionsEnum.ASSIGN_RETURN);
-      this.giveBack(territoryCard.assignment);
-      territoryCard.visitBans.forEach(visitBan => this.store.dispatch(UpsertVisitBan({visitBan})));
-    }
+      if (resp)
+      {
+        this.createLastDoingAndUpdateStatus(territoryCard.assignment, LastDoingActionsEnum.ASSIGN_RETURN);
+        this.giveBack(territoryCard.assignment);
+        territoryCard.visitBans.forEach(visitBan => this.store.dispatch(UpsertVisitBan({visitBan})));
+      }
+    });
   }
 
   public giveBackAndAssign(assignment: Assignment)
   {
-    const resp = confirm("Möchtest du dieses Gebiet als Bearbeitet melden?");
+    this.translate.get('assignments.proceed').pipe(take(1)).subscribe((translation: string) => {
+      const resp = confirm(translation);
 
-    if (resp)
-    {
-      this.actions$.pipe(
-        ofType(UpsertAssignmentSuccess),
-        take(1),
-        tap(() => this.createLastDoingAndUpdateStatus(assignment, LastDoingActionsEnum.REASSIGN)),
-        tap(() => this.store.dispatch(UpsertAssignment({
-          assignment: {
-            ...assignment,
-            id: uuid(),
-            startTime: new Date(),
-            endTime: null
-          }
-        })))
-      ).subscribe();
+      if (resp)
+      {
+        this.actions$.pipe(
+          ofType(UpsertAssignmentSuccess),
+          take(1),
+          tap(() => this.createLastDoingAndUpdateStatus(assignment, LastDoingActionsEnum.REASSIGN)),
+          tap(() => this.store.dispatch(UpsertAssignment({
+            assignment: {
+              ...assignment,
+              id: uuid(),
+              startTime: new Date(),
+              endTime: null
+            }
+          })))
+        ).subscribe();
 
-      this.giveBack(assignment);
-    }
+        this.giveBack(assignment);
+      }
+    });
   }
 
   private giveBack(assignment: Assignment)

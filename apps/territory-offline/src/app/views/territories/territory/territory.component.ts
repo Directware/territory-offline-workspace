@@ -1,3 +1,5 @@
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {v4 as uuid} from 'uuid';
@@ -52,7 +54,8 @@ export class TerritoryComponent implements OnInit, OnDestroy
               private lastDoingsService: LastDoingsService,
               private assignmentService: AssignmentsService,
               private territoryMapsService: TerritoryMapsService,
-              private store: Store<ApplicationState>)
+              private store: Store<ApplicationState>,
+              private translate: TranslateService)
   {
   }
 
@@ -152,18 +155,20 @@ export class TerritoryComponent implements OnInit, OnDestroy
 
   public removeBoundaryName(boundaryName: string)
   {
-    const confirmed = confirm(`Möchtest du '${boundaryName}' wirklich löschen?`);
+    this.translate.get('territory.reallyRemoveStreet', {street: boundaryName}).pipe(take(1)).subscribe((translation: string) => {
+      const confirmed = confirm(translation);
 
-    if (confirmed)
-    {
-      const boundaryNames: string[] = this.territory.get("boundaryNames").value;
+      if (confirmed)
+      {
+        const boundaryNames: string[] = this.territory.get("boundaryNames").value;
 
-      this.territory.patchValue({
-        boundaryNames: boundaryNames.filter(b => b !== boundaryName)
-      });
+        this.territory.patchValue({
+          boundaryNames: boundaryNames.filter(b => b !== boundaryName)
+        });
 
-      this.territory.markAsDirty();
-    }
+        this.territory.markAsDirty();
+      }
+    });
   }
 
   public addBoundaryName(boundaryName: string)
@@ -186,35 +191,38 @@ export class TerritoryComponent implements OnInit, OnDestroy
       }
       else
       {
-        alert(`Die Straße '${boundaryName}' ist bereits vorhanden!`);
+        this.translate.get('territory.streetAlreadyExist', {street: boundaryName}).pipe(take(1)).subscribe((translation: string) =>
+          alert(translation));
       }
     }
   }
 
   public deleteTerritory()
   {
-    const canDelete = confirm("Möchtest du dieses Gebiet wirklich löschen?");
+    this.translate.get('territory.reallyDelete').pipe(take(1)).subscribe((translation: string) => {
+      const canDelete = confirm(translation);
 
-    if (canDelete)
-    {
-      this.actions$.pipe(
-        ofType(DeleteTerritorySuccess),
-        take(1),
-        tap((action) =>
-          this.store.pipe(
-            select(selectDrawingById, action.territory.territoryDrawingId),
-            take(1),
-            tap(drawing => this.territoryMapsService.destroyDrawMode()),
-            tap(drawing => this.store.dispatch(DeleteDrawing({drawing: drawing}))),
-            tap(drawing => this.store.dispatch(DeleteAssignmentsByTerritory({territoryId: action.territory.id}))),
-            tap(drawing => this.territoryMapsService.deleteDrawingFromCache(drawing.id)),
-          ).subscribe()
-        ),
-        tap(() => this.back())
-      ).subscribe();
+      if (canDelete)
+      {
+        this.actions$.pipe(
+          ofType(DeleteTerritorySuccess),
+          take(1),
+          tap((action) =>
+            this.store.pipe(
+              select(selectDrawingById, action.territory.territoryDrawingId),
+              take(1),
+              tap(drawing => this.territoryMapsService.destroyDrawMode()),
+              tap(drawing => this.store.dispatch(DeleteDrawing({drawing: drawing}))),
+              tap(drawing => this.store.dispatch(DeleteAssignmentsByTerritory({territoryId: action.territory.id}))),
+              tap(drawing => this.territoryMapsService.deleteDrawingFromCache(drawing.id)),
+            ).subscribe()
+          ),
+          tap(() => this.back())
+        ).subscribe();
 
-      this.store.dispatch(DeleteTerritory({territory: this.territory.getRawValue()}));
-    }
+        this.store.dispatch(DeleteTerritory({territory: this.territory.getRawValue()}));
+      }
+    });
   }
 
   public editAssignment(a)

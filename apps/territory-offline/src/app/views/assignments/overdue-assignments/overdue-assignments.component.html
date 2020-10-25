@@ -6,15 +6,15 @@
       <p class="label h3-white">{{assignment.territoryId | territoryIdToName | async}}</p>
     </app-list-item>
     <app-list-item>
-      <p class="label body-white">Ausgabedatum</p>
+      <p class="label body-white">{{ 'overdueAssigments.startTime' | translate }}</p>
       <p class="info">{{assignment.startTime | date:'dd.MM.yyyy'}}</p>
     </app-list-item>
     <app-list-item>
-      <p class="label body-white">Rückgabedatum</p>
+      <p class="label body-white">{{ 'overdueAssigments.endTime' | translate }}</p>
       <p class="info">{{assignment.endTime | date:'dd.MM.yyyy'}}</p>
     </app-list-item>
     <app-list-item>
-      <p (click)="editAssignment(assignment)" class="label blue">Zuteilung bearbeiten</p>
+      <p (click)="editAssignment(assignment)" class="label blue">{{ 'overdueAssigments.edit' | translate }}</p>
       <div class="info" *ngIf="!assignment.endTime">
         <i-feather (click)="giveBack(assignment)" name="download" class="i-feather blue short-action"></i-feather>
         <i-feather (click)="giveBackAndAssign(assignment)" name="repeat" class="i-feather blue short-action"></i-feather>

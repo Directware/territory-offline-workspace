@@ -18,6 +18,7 @@ import {ExcelDataExportService} from "../../core/services/export/excel-data-expo
 import * as Pako from 'pako';
 import {AssignmentsService} from "../../core/services/assignment/assignments.service";
 import {TerritoryCard} from "@territory-offline-workspace/api";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-transfer',
@@ -35,7 +36,8 @@ export class TransferComponent implements OnInit
               private dataExportService: DataExportService,
               private platformAgnosticActionsService: PlatformAgnosticActionsService,
               private pdfDataExportService: PdfDataExportService,
-              private matDialog: MatDialog)
+              private matDialog: MatDialog,
+              private translate: TranslateService)
   {
   }
 
@@ -75,7 +77,8 @@ export class TransferComponent implements OnInit
       {
         if (!data || !data.mergedDrawings)
         {
-          alert("Es gibt keine Gebiete zum exportieren!");
+          this.translate.get('transfer.export.noTerritories').pipe(take(1)).subscribe((translation: string) => 
+            alert(translation));
           return;
         }
 

@@ -1,19 +1,19 @@
 <app-main-search (onSearch)="search= {value: $event}">
   <div class="action-link" (click)="createVisitBan()">
     <i-feather class="i-feather" name="plus"></i-feather>
-    Nicht Besuchen
+    {{ 'visitBan.title' | translate }}
   </div>
 </app-main-search>
 
 <app-panel class="sort-wrapper">
   <div class="wrapper">
-    <h2 class="h2-white">Sortierung</h2>
+    <h2 class="h2-white">{{ 'visitBan.sort' | translate }}</h2>
     <app-list-item (click)="changeSorting('alphabetic')">
-      <p class="label">Alphabetisch</p>
+      <p class="label">{{ 'visitBan.sortAlphabetical' | translate }}</p>
       <i-feather *ngIf="sort === 'alphabetic'" class="i-feather icon checked" name="check-circle"></i-feather>
     </app-list-item>
     <app-list-item (click)="changeSorting('lastVisit')">
-      <p class="label">Letzter Besuch</p>
+      <p class="label">{{ 'visitBan.lastVisit' | translate }}</p>
       <i-feather *ngIf="sort === 'lastVisit'" class="i-feather icon checked" name="check-circle"></i-feather>
     </app-list-item>
   </div>
@@ -35,8 +35,8 @@
   </app-list>
 
   <ng-template #infoBlock>
-    <app-info-block [title]="'Du hast noch keine Adressen!'"
+    <app-info-block [title]="'visitBan.noAdressesHint' | translate"
                     [image]="'assets/images/territories.svg'"
-                    [description]="'Erstelle oder importiere Adressen, um diese verwalten zu können.'"></app-info-block>
+                    [description]="'visitBan.noAdressesHintDescription' | translate"></app-info-block>
   </ng-template>
 </div>

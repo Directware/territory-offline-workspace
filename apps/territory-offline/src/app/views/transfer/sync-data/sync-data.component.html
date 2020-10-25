@@ -1,7 +1,7 @@
-<h1 class="h1-white">Synchronisieren</h1>
+<h1 class="h1-white">{{ 'transfer.sync.title' | translate }}</h1>
 
 <div class="what-to-do">
-  <button class="button primary" (click)="syncFileChooser.click()"><i-feather class="i-feather" name="download"></i-feather>Daten einspielen</button>
-  <button class="button success" (click)="exportData()"><i-feather class="i-feather" name="share"></i-feather>Daten weitergeben</button>
+  <button class="button primary" (click)="syncFileChooser.click()"><i-feather class="i-feather" name="download"></i-feather>{{ 'transfer.sync.import' | translate }}</button>
+  <button class="button success" (click)="exportData()"><i-feather class="i-feather" name="share"></i-feather>{{ 'transfer.sync.export' | translate }}</button>
   <input #syncFileChooser style="display: none;" type="file" (change)="importFile($event)" />
 </div>

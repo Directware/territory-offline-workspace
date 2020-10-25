@@ -1,6 +1,6 @@
 <div class="search-wrapper">
   <i-feather class="i-feather search-icon" name="search"></i-feather>
-  <input #inputElement class="input" placeholder="Suche" [formControl]="searchFormControl" (blur)="blur()">
+  <input #inputElement class="input" [placeholder]="'search.title' | translate" [formControl]="searchFormControl" (blur)="blur()">
   <i-feather *ngIf="inputElement && inputElement.value && inputElement.value.length > 0" (click)="clearSearch(inputElement)" class="clear-input" name="x"></i-feather>
 </div>
 <ng-content select=".action-link"></ng-content>

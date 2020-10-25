@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {
   ApplicationRef,
   Component,
@@ -60,7 +61,8 @@ export class PrintTerritoryComponent implements OnInit, OnDestroy
     private appRef: ApplicationRef,
     private ipcService: IpcService,
     private territoryMapsService: TerritoryMapsService,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private translate: TranslateService
   )
   {
   }
@@ -172,7 +174,8 @@ export class PrintTerritoryComponent implements OnInit, OnDestroy
 
       if (!silent)
       {
-        alert("Die Ausrichtung wurde gespeichert!");
+        this.translate.get('territory.print.alignmentSaved').pipe(take(1)).subscribe((translation: string) => 
+          alert(translation));
       }
     }
   }

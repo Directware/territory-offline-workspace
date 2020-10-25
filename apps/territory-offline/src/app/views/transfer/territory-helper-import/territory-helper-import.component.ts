@@ -1,3 +1,4 @@
+import { take } from 'rxjs/operators';
 import {Component, Input, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {ApplicationState} from "../../../core/store/index.reducers";
@@ -16,6 +17,7 @@ import {
   Territory,
   VisitBan
 } from "@territory-offline-workspace/api";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-territory-helper-import',
@@ -49,7 +51,8 @@ export class TerritoryHelperImportComponent implements OnInit
   constructor(private store: Store<ApplicationState>,
               private dialogRef: MatDialogRef<TerritoryHelperImportComponent>,
               private dataImportService: DataImportService,
-              private router: Router)
+              private router: Router,
+              private translate: TranslateService)
   {
   }
 
@@ -72,7 +75,8 @@ export class TerritoryHelperImportComponent implements OnInit
         }
         else
         {
-          alert("Falscher Dateityp! Gebe bitte eine Excel Datei ein.");
+          this.translate.get('transfer.import.wrongFileType').pipe(take(1)).subscribe((translation: string) => 
+            alert(translation));
         }
         break;
       case "assigment":
@@ -83,7 +87,8 @@ export class TerritoryHelperImportComponent implements OnInit
         }
         else
         {
-          alert("Falscher Dateityp! Gebe bitte eine Excel Datei ein.");
+          this.translate.get('transfer.import.wrongFileType').pipe(take(1)).subscribe((translation: string) => 
+            alert(translation));
         }
         break;
       case "address":
@@ -94,7 +99,8 @@ export class TerritoryHelperImportComponent implements OnInit
         }
         else
         {
-          alert("Falscher Dateityp! Gebe bitte eine Excel Datei ein.");
+          this.translate.get('transfer.import.wrongFileType').pipe(take(1)).subscribe((translation: string) => 
+            alert(translation));
         }
         break;
       default:
@@ -105,7 +111,8 @@ export class TerritoryHelperImportComponent implements OnInit
         }
         else
         {
-          alert("Falscher Dateityp! Gebe bitte eine JSON Datei ein.");
+          this.translate.get('transfer.import.noJsonFile').pipe(take(1)).subscribe((translation: string) => 
+            alert(translation));
         }
     }
   }

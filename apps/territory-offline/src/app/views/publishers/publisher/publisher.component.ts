@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {v4 as uuid} from 'uuid';
@@ -42,7 +43,8 @@ export class PublisherComponent implements OnInit, OnDestroy
               private activatedRoute: ActivatedRoute,
               private actions$: Actions,
               private territoryMapsService: TerritoryMapsService,
-              private store: Store<ApplicationState>)
+              private store: Store<ApplicationState>,
+              private translate: TranslateService)
   {
   }
 
@@ -96,23 +98,25 @@ export class PublisherComponent implements OnInit, OnDestroy
 
   public tryToDeletePublisher()
   {
-    const canDelete = confirm("Möchtest du diesen Verkündiger wirklich löschen?");
+    this.translate.get(['publisher.reallyDelete', 'publisher.canNotDelete'], {firstName: this.publisher.get("firstName").value, name: this.publisher.get("name").value}).pipe(take(1)).subscribe((translations: {[key: string]: string}) => {
+      const canDelete = confirm(translations['publisher.reallyDelete']);
 
-    if (canDelete)
-    {
-      this.canDeletePublisher()
-        .subscribe(canDelete =>
-        {
-          if (canDelete)
+      if (canDelete)
+      {
+        this.canDeletePublisher()
+          .subscribe(canDelete =>
           {
-            this.deletePublisher();
-          }
-          else
-          {
-            alert(`${this.publisher.get("firstName").value} ${this.publisher.get("name").value} hat noch zugeteilte Gebiete und kann deshalb nicht gelöscht werden.`);
-          }
-        });
-    }
+            if (canDelete)
+            {
+              this.deletePublisher();
+            }
+            else
+            {
+              alert(translations['publisher.canNotDelete']);
+            }
+          });
+      }
+    });
   }
 
   public navigateToTerritory(territory: Territory)

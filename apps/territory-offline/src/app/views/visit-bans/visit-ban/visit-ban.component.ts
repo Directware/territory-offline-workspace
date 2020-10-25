@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
@@ -46,7 +47,8 @@ export class VisitBanComponent implements OnInit, OnDestroy
               private router: Router,
               private lastDoingsService: LastDoingsService,
               private territoryMapsService: TerritoryMapsService,
-              private activatedRoute: ActivatedRoute)
+              private activatedRoute: ActivatedRoute,
+              private translate: TranslateService)
   {
   }
 
@@ -125,18 +127,20 @@ export class VisitBanComponent implements OnInit, OnDestroy
 
   public deleteVisitBan()
   {
-    const canDelete = confirm("Möchtest du diese Adresse wirklich löschen?");
+    this.translate.get('visitBan.reallyDelete').pipe(take(1)).subscribe((translation: string) => { 
+      const canDelete = confirm(translation);
 
-    if (canDelete)
-    {
-      this.actions$.pipe(
-        ofType(DeleteVisitBanSuccess),
-        take(1),
-        tap(() => this.cancel())
-      ).subscribe();
+      if (canDelete)
+      {
+        this.actions$.pipe(
+          ofType(DeleteVisitBanSuccess),
+          take(1),
+          tap(() => this.cancel())
+        ).subscribe();
 
-      this.store.dispatch(DeleteVisitBan({visitBan: this.visitBan.getRawValue()}));
-    }
+        this.store.dispatch(DeleteVisitBan({visitBan: this.visitBan.getRawValue()}));
+      }
+    });
   }
 
   public geoCodeAgainCurrentPlaceName()
@@ -175,14 +179,16 @@ export class VisitBanComponent implements OnInit, OnDestroy
 
     if(!territories.length)
     {
-      alert("Die Markierung kann keinem Gebiet zugeordnet werden. Setze bitte eine Markierung auf ein Gebiet.");
+      this.translate.get('visitBan.noTerritoryMapped').pipe(take(1)).subscribe((translation: string) => 
+        alert(translation));
       return;
     }
 
     if(territories.length > 1)
     {
       const tNames = territories.map(t => t.key + " " + t.name).join(", ");
-      alert(`Fehler - Mehrdeutigkeit! Die Markierung liegt auf ${territories.length} Gebieten (${tNames}). Achte bitte darauf, dass sich die Gebietszeichnungen nicht überlappen.`);
+      this.translate.get('visitBan.noTerritoryMapped', {count: territories.length, territories: tNames}).pipe(take(1)).subscribe((translation: string) =>
+        alert(translation));
       return;
     }
     const territory = territories[0];
@@ -247,7 +253,8 @@ export class VisitBanComponent implements OnInit, OnDestroy
 
     if (vb && vb.gpsPosition)
     {
-      this.mapsService.setMarker([vb.gpsPosition.lng, vb.gpsPosition.lat], `<p>${vb.name || 'kein Name'}</p>`);
+      this.translate.get('visitBan.noName').pipe(take(1)).subscribe((translation: string) =>
+        this.mapsService.setMarker([vb.gpsPosition.lng, vb.gpsPosition.lat], `<p>${vb.name || translation}</p>`));
     }
 
     if (vb && vb.street && vb.streetSuffix)

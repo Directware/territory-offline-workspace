@@ -1,5 +1,5 @@
 <app-second-thread-header [specific]="true" (onBack)="back()">
-  <div class="action edit" (click)="createVisitBan()">+ Neue Adresse</div>
+  <div class="action edit" (click)="createVisitBan()">+ {{ 'visitBan.add' | translate }}</div>
 </app-second-thread-header>
 
 <div class="scrollable-wrapper" *ngIf="(visitBans$ | async) as visitBans">
@@ -8,15 +8,15 @@
       <p class="label h3-white">{{visitBan.name}}</p>
     </app-list-item>
     <app-list-item>
-      <p class="label body-white">Straße</p>
+      <p class="label body-white">{{ 'visitBan.street' | translate }}</p>
       <p class="info">{{visitBan.street}} {{visitBan.streetSuffix}}</p>
     </app-list-item>
     <app-list-item>
-      <p class="label body-white">Letzer Besuch</p>
+      <p class="label body-white">{{ 'visitBan.lastVisit' | translate }}</p>
       <p class="info">{{visitBan.lastVisit ? (visitBan.lastVisit | date:'dd.MM.yyyy') : '-'}}</p>
     </app-list-item>
     <app-list-item>
-      <p (click)="editVisitBan(visitBan)" class="label blue">Adresse bearbeiten</p>
+      <p (click)="editVisitBan(visitBan)" class="label blue">{{ 'visitBan.editAdress' | translate }}</p>
     </app-list-item>
   </app-panel>
 </div>

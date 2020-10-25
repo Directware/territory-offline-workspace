@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
@@ -43,7 +44,8 @@ export class AssignmentComponent implements OnInit
               private lastDoingsService: LastDoingsService,
               private territoryMapsService: TerritoryMapsService,
               private assignmentService: AssignmentsService,
-              private activatedRoute: ActivatedRoute)
+              private activatedRoute: ActivatedRoute,
+              private translate: TranslateService)
   {
   }
 
@@ -149,9 +151,11 @@ export class AssignmentComponent implements OnInit
           }
           else
           {
-            const date = this.datePipe.transform(assignment.startTime, "dd.MM.yyyy");
-            const label = `Zuteilung (${date}) ${territory.key} ${territory.name}`;
-            this.lastDoingsService.createLastDoing(LastDoingActionsEnum.UPDATE, label);
+            this.translate.get('assignments.title').pipe(take(1)).subscribe((translation: string) => {
+              const date = this.datePipe.transform(assignment.startTime, "dd.MM.yyyy");
+              const label = `${translation} (${date}) ${territory.key} ${territory.name}`;
+              this.lastDoingsService.createLastDoing(LastDoingActionsEnum.UPDATE, label);
+            });
           }
         })
       ).subscribe();

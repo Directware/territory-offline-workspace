@@ -16,6 +16,7 @@ import {Actions, ofType} from "@ngrx/effects";
 import {WaitingModalComponent} from "../../../shared/modals/waiting-modal/waiting-modal.component";
 import {parseXlsxDate} from "../../../../core/utils/usefull.functions";
 import {Drawing, Territory, VisitBan} from "@territory-offline-workspace/api";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-import-visit-bans-from-excel',
@@ -40,7 +41,8 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewCheck
   constructor(private store: Store<ApplicationState>,
               private actions$: Actions,
               private matDialog: MatDialog,
-              private dialogRef: MatDialogRef<ImportFromExcelModalComponent>)
+              private dialogRef: MatDialogRef<ImportFromExcelModalComponent>,
+              private translate: TranslateService)
   {
   }
 
@@ -50,34 +52,36 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewCheck
 
   public ngAfterViewChecked()
   {
-    if (this.currentStep === 2 && this.foundColumns.length === 0)
-    {
-      const sheet = this.workbook.Sheets[this.chosenProps[this.steps[1]]];
-      const range = XLSX.utils.decode_range(sheet["!ref"]);
-
-      for (let colNum = range.s.c; colNum <= range.e.c; colNum++)
+    this.translate.get('transfer.import.column').pipe(take(1)).subscribe((translation: string) => {
+      if (this.currentStep === 2 && this.foundColumns.length === 0)
       {
-        const cell = sheet[XLSX.utils.encode_cell({r: 0, c: colNum})];
+        const sheet = this.workbook.Sheets[this.chosenProps[this.steps[1]]];
+        const range = XLSX.utils.decode_range(sheet["!ref"]);
 
-        if (cell && cell["t"] === "s")
+        for (let colNum = range.s.c; colNum <= range.e.c; colNum++)
         {
-          const value = cell["v"];
-          this.foundColumns.push({
-            label: `${colNum + 1}. Spalte - ${value}`,
-            index: colNum
-          });
-        }
+          const cell = sheet[XLSX.utils.encode_cell({r: 0, c: colNum})];
 
-        if (cell && cell["t"] === "n")
-        {
-          const value = XLSX.SSF.parse_date_code(cell["v"]);
-          this.foundColumns.push({
-            label: `${colNum + 1}. Spalte - ${value.d}.${value.m}.${value.y}`,
-            index: colNum
-          });
+          if (cell && cell["t"] === "s")
+          {
+            const value = cell["v"];
+            this.foundColumns.push({
+              label: `${colNum + 1}. ${translation} - ${value}`,
+              index: colNum
+            });
+          }
+
+          if (cell && cell["t"] === "n")
+          {
+            const value = XLSX.SSF.parse_date_code(cell["v"]);
+            this.foundColumns.push({
+              label: `${colNum + 1}. ${translation} - ${value.d}.${value.m}.${value.y}`,
+              index: colNum
+            });
+          }
         }
       }
-    }
+    });
   }
 
   public close()
@@ -104,7 +108,7 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewCheck
   {
     const key = Object.keys(this.chosenProps).filter(key => this.chosenProps[key] === column.index)[0];
     return {
-      label: key ? `importExcel.visitBans.${key}` : "importExcel.skipped",
+      label: key ? `transfer.importExcel.visitBans.${key}` : "transfer.importExcel.skipped",
       isGreen: !!key
     }
   }

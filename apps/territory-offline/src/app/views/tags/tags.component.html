@@ -1,6 +1,6 @@
 <app-main-search (onSearch)="searchValue=$event">
-  <div *ngIf="!isEditingMode" (click)="isEditingMode=true" class="action-link">Bearbeiten</div>
-  <div *ngIf="isEditingMode" (click)="isEditingMode=false" class="action-link">Fertig</div>
+  <div *ngIf="!isEditingMode" (click)="isEditingMode=true" class="action-link">{{ 'tag.edit' | translate }}</div>
+  <div *ngIf="isEditingMode" (click)="isEditingMode=false" class="action-link">{{ 'tag.ready' | translate }}</div>
 </app-main-search>
 
 <div class="scrollable-wrapper">
@@ -13,7 +13,7 @@
           <input class="color-picker" *ngIf="isEditingMode" (colorPickerClose)="changeColor(tag)" [(colorPicker)]="tag.color" [style.background]="tag.color"/>
 
           {{tag.name}}
-          <span *ngIf="isNewlyAdded(tag)" class="newly-added">NEW</span>
+          <span *ngIf="isNewlyAdded(tag)" class="newly-added">{{ 'tag.new' | translate }}</span>
         </p>
         <i-feather *ngIf="isEditingMode"
                    (click)="deleteTag(tag)"
@@ -23,9 +23,9 @@
     </app-list>
 
     <ng-container *ngIf="tags.length === 0 && !isEditingMode">
-      <app-info-block [title]="'Du hast noch keine Tags!'"
+      <app-info-block [title]="'tag.none' | translate"
                       [image]="'assets/images/tags.svg'"
-                      [description]="'Erstelle neue Tags, um Gebiete, Verkündiger oder Nicht-besuchen Adressen zu gruppieren.'"></app-info-block>
+                      [description]="'tag.noneMessage' | translate"></app-info-block>
     </ng-container>
   </ng-container>
 </div>

@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 // @ts-ignore
@@ -30,7 +31,8 @@ export class SettingsComponent implements OnInit
               private dialog: MatDialog,
               private ipcService: IpcService,
               private toUpdatesService: ToUpdatesService,
-              private store: Store<ApplicationState>)
+              private store: Store<ApplicationState>,
+              private translate: TranslateService)
   {
   }
 
@@ -61,13 +63,13 @@ export class SettingsComponent implements OnInit
 
     if (releaseInfo.hasError)
     {
-      alert("Es ist ein Fehler aufgetreten. Bitte versuche es später erneut oder gehe auf unsere Seite: https://territory-offline.com");
+      this.translate.get('settings.errorOccured').pipe(take(1)).subscribe((translation: string) => alert(translation))
       return;
     }
 
     if (!releaseInfo.newReleaseExists)
     {
-      alert("Du hast die neuste Version.");
+      this.translate.get("settings.alreadyLatestVersion").pipe(take(1)).subscribe((translation: string) => alert(translation))
     }
   }
 
@@ -96,20 +98,22 @@ export class SettingsComponent implements OnInit
 
   public clearAllAppData()
   {
-    const reallyDelete = confirm("Möchtest du wirklich alles löschen?");
+    this.translate.get(['settings.reallyReset', 'settings.restartApp']).pipe(take(1)).subscribe((translations: {[key: string]: string}) => {
+      const reallyDelete = confirm(translations['settings.reallyReset']);
 
-    if (reallyDelete)
-    {
-      this.database.clear().then((resp) =>
+      if (reallyDelete)
       {
-        if (resp.result)
+        this.database.clear().then((resp) =>
         {
-          alert("Starte die App bitte neu.");
-          this.ipcService.send("restartTerritoryOffline");
-          setTimeout(() => window.location.href = "/", 500);
-        }
-      });
-    }
+          if (resp.result)
+          {
+            alert(translations['settings.restartApp']);
+            this.ipcService.send("restartTerritoryOffline");
+            setTimeout(() => window.location.href = "/", 500);
+          }
+        });
+      }
+      })
   }
 
   public contact()

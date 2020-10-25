@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {debounceTime, takeUntil, tap} from "rxjs/operators";
@@ -31,30 +32,32 @@ export class LanguageSearchComponent implements OnInit, OnDestroy
 
   private destroyer = new Subject();
 
-  constructor(private territoryLanguageService: TerritoryLanguageService)
+  constructor(private territoryLanguageService: TerritoryLanguageService, private translate: TranslateService)
   {
   }
 
   public ngOnInit(): void
   {
-    if (!!this.initLanguageCode)
-    {
-      const lang = this.territoryLanguageService.getLanguageByCode(this.initLanguageCode);
-      this.inputValue.patchValue(lang.nativeName, {emitEvent: false})
-    }
+    this.translate.get('language').subscribe((translation: string) => {
+      if (!!this.initLanguageCode)
+      {
+        const lang = this.territoryLanguageService.getLanguageByCode(this.initLanguageCode);
+        this.inputValue.patchValue(lang.nativeName, {emitEvent: false})
+      }
 
-    if(!this.label)
-    {
-      this.label = "Sprache";
-    }
+      if(!this.label)
+      {
+        this.label = translation;
+      }
 
-    this.inputValue
-      .valueChanges
-      .pipe(
-        takeUntil(this.destroyer),
-        debounceTime(300),
-        tap((inputValue) => this.searchLanguage(inputValue))
-      ).subscribe();
+      this.inputValue
+        .valueChanges
+        .pipe(
+          takeUntil(this.destroyer),
+          debounceTime(300),
+          tap((inputValue) => this.searchLanguage(inputValue))
+        ).subscribe();
+    });
   }
 
   public ngOnDestroy()

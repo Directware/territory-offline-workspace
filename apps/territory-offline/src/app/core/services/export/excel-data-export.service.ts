@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {Injectable} from '@angular/core';
 import * as XLSX from 'xlsx';
 import {PlatformAgnosticActionsService} from "../common/platform-agnostic-actions.service";
@@ -20,46 +21,48 @@ import * as moment from "moment";
 })
 export class ExcelDataExportService
 {
-  constructor(private store: Store<ApplicationState>, private platformAgnosticActionsService: PlatformAgnosticActionsService)
+  constructor(private store: Store<ApplicationState>, private platformAgnosticActionsService: PlatformAgnosticActionsService, private translate: TranslateService)
   {
   }
 
   public exportPublishers()
   {
-    this.store.pipe(
-      select(selectPublishers),
-      take(1),
-      tap(publishers =>
-      {
-        const wb = this.craeteWorkBook("Publisher");
-        wb.SheetNames.push("Verkündiger");
+    this.translate.get(['transfer.export.publisher', "transfer.export.firstName", "transfer.export.lastName", "transfer.export.mail", "transfer.export.phone"]).pipe(take(1)).subscribe((translations: {[key: string]: string}) =>
+      this.store.pipe(
+        select(selectPublishers),
+        take(1),
+        tap(publishers =>
+        {
+          const wb = this.craeteWorkBook(translations['transfer.export.publisher']);
+          wb.SheetNames.push(translations['transfer.export.publisher']);
 
-        const tmp = [["Vorname", "Nachname", "E-Mail", "Telefon"]];
-        publishers.forEach((p, index) => tmp[index + 1] = [p.firstName, p.name, p.email || "-", p.phone || "-"]);
-        const ws = XLSX.utils.aoa_to_sheet(tmp);
-        wb.Sheets["Verkündiger"] = ws;
-        this.saveWorkBook(wb, "Verkündiger");
-      })
-    ).subscribe();
+          const tmp = [[translations["transfer.export.firstName"], translations["transfer.export.lastName"], translations["transfer.export.mail"], translations["transfer.export.phone"]]];
+          publishers.forEach((p, index) => tmp[index + 1] = [p.firstName, p.name, p.email || "-", p.phone || "-"]);
+          const ws = XLSX.utils.aoa_to_sheet(tmp);
+          wb.Sheets[translations['transfer.export.publisher']] = ws;
+          this.saveWorkBook(wb, translations['transfer.export.publisher']);
+        })
+      ).subscribe());
   }
 
   public exportTerritoryNames()
   {
-    this.store.pipe(
-      select(selectAllTerritories),
-      take(1),
-      tap(territories =>
-      {
-        const wb = this.craeteWorkBook("Territory");
-        wb.SheetNames.push("Gebiete");
+    this.translate.get(['transfer.export.territories', "transfer.export.number", "transfer.export.name", "transfer.export.mail", "transfer.export.phone"]).pipe(take(1)).subscribe((translations: {[key: string]: string}) =>
+      this.store.pipe(
+        select(selectAllTerritories),
+        take(1),
+        tap(territories =>
+        {
+          const wb = this.craeteWorkBook(translations['transfer.export.territories']);
+          wb.SheetNames.push(translations['transfer.export.territories']);
 
-        const tmp = [["Nummer", "Bezeichnung"]];
-        territories.forEach((t, index) => tmp[index + 1] = [t.key, t.name]);
-        const ws = XLSX.utils.aoa_to_sheet(tmp);
-        wb.Sheets["Gebiete"] = ws;
-        this.saveWorkBook(wb, "Gebiete");
-      })
-    ).subscribe();
+          const tmp = [[translations["transfer.export.number"], translations["transfer.export.name"]]];
+          territories.forEach((t, index) => tmp[index + 1] = [t.key, t.name]);
+          const ws = XLSX.utils.aoa_to_sheet(tmp);
+          wb.Sheets[translations['transfer.export.territories']] = ws;
+          this.saveWorkBook(wb, translations['transfer.export.territories']);
+        })
+      ).subscribe());
   }
 
   /*
@@ -72,6 +75,7 @@ export class ExcelDataExportService
 * */
   public async exportTerritoryState()
   {
+    const translations = await this.translate.get(['transfer.export.territoryState', 'transfer.export.monthNotProceed', 'transfer.export.yearsNotProceed']).toPromise();
     const assignments = await this.store.pipe(select(selectLastEndedAssignmentOfEachTerritory), first()).toPromise();
     const settings = await this.store.pipe(select(selectSettings), first()).toPromise();
     const today = moment(new Date());
@@ -100,46 +104,47 @@ export class ExcelDataExportService
       .filter((endTime) => today.diff(endTime, "months") >= 120)
       .length;
 
-    const wb = this.craeteWorkBook("Territory state");
-    wb.SheetNames.push("Gebietszustand");
+    const wb = this.craeteWorkBook(translations["transfer.export.territoryState"]);
+    wb.SheetNames.push(translations["transfer.export.territoryState"]);
 
     const tmp = [
-      [`${settings.processingPeriodInMonths} Monate nicht bearbeitet`, "1 Jahr nicht bearbeitet", "1.5 Jahre nicht bearbeitet", "3 Jahre nicht bearbeitet", "5 Jahre nicht bearbeitet", "10 Jahre nicht bearbeitet"],
+      [`${settings.processingPeriodInMonths} ${translations['transfer.export.monthNotProceed']}`, "1 " + translations['transfer.export.yearsNotProceed'], "1.5 " + translations['transfer.export.yearsNotProceed'], "3 " + translations['transfer.export.yearsNotProceed'], "5 " + translations['transfer.export.yearsNotProceed'], "10 " + translations['transfer.export.yearsNotProceed']],
       [countOfAllNotProcessed, oneYear, oneAndHalfYear, threeYears, fiveYears, tenYears]
     ];
 
     const ws = XLSX.utils.aoa_to_sheet(tmp);
-    wb.Sheets["Gebietszustand"] = ws;
-    this.saveWorkBook(wb, "Gebietszustand");
+    wb.Sheets[translations["transfer.export.territoryState"]] = ws;
+    this.saveWorkBook(wb, translations["transfer.export.territoryState"]);
   }
 
   public exportVisitBans()
   {
-    this.store.pipe(
-      select(selectAllVisitBans),
-      take(1),
-      tap((visitBans: VisitBan[]) =>
-      {
-        const wb = this.craeteWorkBook("Nicht besuchen");
-        wb.SheetNames.push("Nicht besuchen");
+    this.translate.get(['transfer.export.visitBans', "transfer.export.name", "transfer.export.level", "transfer.export.street", "transfer.export.numberShort", 'transfer.export.city', 'transfer.export.lastVisit', 'transfer.export.comment', 'transfer.export.latitude', 'transfer.export.longitude']).pipe(take(1)).subscribe((translations: {[key: string]: string}) =>
+      this.store.pipe(
+        select(selectAllVisitBans),
+        take(1),
+        tap((visitBans: VisitBan[]) =>
+        {
+          const wb = this.craeteWorkBook(translations["transfer.export.visitBans"]);
+          wb.SheetNames.push(translations["transfer.export.visitBans"]);
 
-        const tmp = [["Name", "Stock", "Straße", "Nr.", "Stadt", "Letzter Besuch", "Kommentar", "Breitengrad", "Längengrad"]];
-        visitBans.forEach((a, index) => tmp[index + 1] = [
-          a.name,
-          a.floor + "",
-          a.street,
-          a.streetSuffix,
-          a.city,
-          !!a.lastVisit ? new Date(a.lastVisit).toLocaleDateString() : "",
-          a.comment,
-          a.gpsPosition ? a.gpsPosition.lat + "" : "",
-          a.gpsPosition ? a.gpsPosition.lng + "" : "",
-        ]);
-        const ws = XLSX.utils.aoa_to_sheet(tmp);
-        wb.Sheets["Nicht besuchen"] = ws;
-        this.saveWorkBook(wb, "Nicht besuchen Adressen");
-      })
-    ).subscribe();
+          const tmp = [[translations["transfer.export.name"], translations["transfer.export.level"], translations["transfer.export.street"], translations["transfer.export.numberShort"], translations["transfer.export.city"], translations["transfer.export.lastVisit"], translations["transfer.export.comment"], translations["transfer.export.latitude"], translations["transfer.export.longitude"]]];
+          visitBans.forEach((a, index) => tmp[index + 1] = [
+            a.name,
+            a.floor + "",
+            a.street,
+            a.streetSuffix,
+            a.city,
+            !!a.lastVisit ? new Date(a.lastVisit).toLocaleDateString() : "",
+            a.comment,
+            a.gpsPosition ? a.gpsPosition.lat + "" : "",
+            a.gpsPosition ? a.gpsPosition.lng + "" : "",
+          ]);
+          const ws = XLSX.utils.aoa_to_sheet(tmp);
+          wb.Sheets[translations["transfer.export.visitBans"]] = ws;
+          this.saveWorkBook(wb, translations["transfer.export.visitBans"]);
+        })
+      ).subscribe());
   }
 
   private craeteWorkBook(subject: string)
