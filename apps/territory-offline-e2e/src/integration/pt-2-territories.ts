@@ -1,5 +1,7 @@
 // import { congregation } from '../support/index';
 
+import { utc } from "moment";
+
 function territorySelection()
 {
   cy.get('.mapbox-gl-draw_polygon')
@@ -245,6 +247,13 @@ describe('GebietsKomponente', () =>
     cy.get('.cancel')
       .click()
   })
+
+  it('für den Fall dass Karte nicht angecklickt werden kann', () =>
+  {
+    cy.get('.input')
+      .type('Pfersee')
+  })
+
   it('Zuteilungen', () =>
   {
     cy.get('.label.assignment')
@@ -285,10 +294,10 @@ describe('GebietsKomponente', () =>
     cy.get('.end-time .info')
       .should('contain', currDate)
 
-    cy.get('i-feather[name="x"]')
+    cy.get('.send-not-to-publisher > .feather')
     cy.contains('Gebietskarte an Verkündiger senden')
       .click()
-    cy.get('i-feather[name="check"]')
+    cy.get('.send-to-publisher > .feather')
     cy.contains('Gebietskarte an Verkündiger senden')
       .click()
 
@@ -322,9 +331,62 @@ describe('GebietsKomponente', () =>
     cy.get('[name="repeat"] > .feather')
       .click()
     cy.get('.scrollable-wrapper > :nth-child(2)')
+      .should('contain', 'Bertholt Bertholt')
+    cy.get('[name="download"] > .feather')
+      .click()
+      .wait(1000)
+    cy.get('p.info').eq(1).invoke('text').then((text) =>
+    {
+      expect(text).equal(currDate)
+    });
+    cy.get('.back')
+      .click()
+  })
+  it('Nicht besuchen Adressen testen', () =>
+  {
 
+    //Hin und Zurück
+    cy.contains('Nicht besuchen')
+      .click()
+    cy.get('.back')
+      .click()
+    cy.contains('Nicht besuchen')
+      .click()
 
-    // cy.get('.back')
-    //   .click()
+    cy.contains('+ Neue Adresse')
+      .click()
+    cy.get('.cancel')
+      .click()
+    cy.contains('+ Neue Adresse')
+      .click()
+
+    //ohne Pflichtfeld speichern
+
+    //Pflichtfeld  & Speichern
+    cy.get('input[placeholder="Name"]')
+      .click()
+      .type('Uwe NichtBesuchen')
+    cy.get('input[placeholder="Adresse*"]')
+      .click()
+      .type('Leitershofer Straße 120')
+
+    /*Fehler
+    cy.contains('Leitershofer')
+      .click()
+    */
+
+    cy.get('textarea[placeholder="Kommentar"]')
+      .click()
+      .type('Uwe ist nicht dabei!')
+    cy.contains('Letzter Besuch')
+      .click()
+    cy.get('.date-selector .highlight').first()
+      .wait(1500)
+      .click()
+    cy.get('.app-panel')
+      .eq(4)
+      .find('.info')
+      .should('contain', currDate)
+
   })
 })

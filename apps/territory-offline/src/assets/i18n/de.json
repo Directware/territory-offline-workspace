@@ -296,7 +296,7 @@
         "latitude": "Breitengrad",
         "longitude": "Längengrad",
         "comment": "Kommentar",
-        "lastVisit": "Letzer Besuch",
+        "lastVisit": "Letzter Besuch",
         "creationTime": "Erstellungsdatum"
       },
       "skipped": "Übersprungen"
