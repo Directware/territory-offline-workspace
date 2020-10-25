@@ -183,7 +183,7 @@
     "reset": "Zurücksetzen",
     "setManually": "Adresse manuell platzieren",
     "comment": "Kommentar",
-    "lastVisit": "Letzer Besuch",
+    "lastVisit": "Letzter Besuch",
     "delete": "Adresse löschen",
     "notTerritoryReference": "Diese Adresse referenziert auf kein Gebiet. Du musst sie noch einmal geocodieren..",
     "retry": "Nochmal versuchen!",
