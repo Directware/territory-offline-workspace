@@ -72,11 +72,8 @@ import {SearchVisitBanPipe} from "./core/pipes/visit-bans/search-visit-ban.pipe"
 import {VisitBanLastVisitTimePipe} from "./core/pipes/visit-bans/visit-ban-last-visit-time.pipe";
 import {BackupImportChangesComponent} from './views/shared/modals/backup-import-changes/backup-import-changes.component';
 import {UiComponentsModule} from "@territory-offline-workspace/ui-components";
-import { CustomTranslateLoader } from './core/models/costume-translate-loader';
-
-export function HttpLoaderFactory(http: HttpClient) {
-  return new CustomTranslateLoader(http);
-}
+import {de} from "./core/i18n/de.i18n";
+import {en} from "./core/i18n/en.i18n";
 
 @NgModule({
   declarations: [
@@ -150,13 +147,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UiComponentsModule,
     HammerModule,
     ColorPickerModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
+    TranslateModule.forRoot(),
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
     StoreDevtoolsModule.instrument({logOnly: true, maxAge: 25}),
@@ -173,9 +164,11 @@ export class AppModule
 {
   constructor(private translateService: TranslateService)
   {
+    this.translateService.setTranslation("de", de);
+    this.translateService.setTranslation("en", en);
     this.translateService.addLangs(['de']);
     this.translateService.setDefaultLang('de');
-    
+
     const browserLang = this.translateService.getBrowserLang();
     this.translateService.use(this.translateService.getLangs().includes(browserLang) ? browserLang : this.translateService.defaultLang);
   }

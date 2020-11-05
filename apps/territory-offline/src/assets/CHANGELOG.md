@@ -1,6 +1,10 @@
 # Changelog
 
-#### v. 2.10.17
+#### v. 2.1.18
+###### 05.11.2020
+- bugfixes
+
+#### v. 2.1.17
 ###### 01.10.2020
 - Added new export function (territory state)
 
