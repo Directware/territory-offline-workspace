@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import * as MapboxDraw from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw';
-import * as MapBox from 'mapbox-gl';
+import * as MapBox from 'mapbox-gl/dist/mapbox-gl';
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js';
 import {FeatureCollection} from '@turf/turf';
 import {Plugins} from '@capacitor/core';

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Territory Offline</string>
+    <string name="title_activity_main">Territory Offline</string>
+    <string name="package_name">com.territoryoffline.to</string>
+    <string name="fileprovider_authority">com.territoryoffline.to.fileprovider</string>
+    <string name="custom_url_scheme">com.territoryoffline.to</string>
+</resources>

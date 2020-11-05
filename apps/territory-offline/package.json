@@ -15,7 +15,8 @@
     "capacitor:update": "npx cap update",
     "capacitor:copy": "npx cap copy",
     "capacitor:electron:start": "npx cap open electron",
-    "capacitor:ios:start": "npx cap open ios",
+    "capacitor:ios:start": "npx cap sync && npx cap open ios",
+    "capacitor:android:start": "npx cap sync && npx cap open android",
     "cypress:open": "npx cypress open"
   },
   "private": true,
@@ -23,5 +24,12 @@
     "skip": {
       "tag": false
     }
+  },
+  "dependencies": {
+    "@byteowls/capacitor-filesharer": "^2.0.0",
+    "@capacitor/android": "^2.3.0",
+    "capacitor-data-storage-sqlite": "^2.1.0",
+    "capacitor-biometric-auth": "^0.1.0",
+    "capacitor-face-id": "^2.0.1"
   }
 }
