@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {TerritoryHelperImportComponent} from "./territory-helper-import/territory-helper-import.component";
 import {SyncDataComponent} from "./sync-data/sync-data.component";
 import {PdfDataExportService} from "../../core/services/export/pdf-data-export.service";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../core/store/index.reducers";
 import {selectCurrentCongregation} from "../../core/store/congregation/congregations.selectors";
@@ -17,8 +17,13 @@ import {ImportFromExcelModalComponent} from "./import-from-excel-modal/import-fr
 import {ExcelDataExportService} from "../../core/services/export/excel-data-export.service";
 import * as Pako from 'pako';
 import {AssignmentsService} from "../../core/services/assignment/assignments.service";
-import {TerritoryCard} from "@territory-offline-workspace/api";
-import { TranslateService } from '@ngx-translate/core';
+import {Drawing, Territory, TerritoryCard} from "@territory-offline-workspace/api";
+import {TranslateService} from '@ngx-translate/core';
+import {TerritoryWebTerritories} from "../../../../../../libs/api/src/lib/territory-web/territory-web.territories";
+import {DataImportService} from "../../core/services/import/data-import.service";
+import {uuid4} from "@capacitor/core/dist/esm/util";
+import * as Turf from '@turf/turf';
+import {BackupImportProgressComponent} from "../shared/modals/backup-import-progress/backup-import-progress.component";
 
 @Component({
   selector: 'app-transfer',
@@ -34,6 +39,7 @@ export class TransferComponent implements OnInit
               private store: Store<ApplicationState>,
               private assignmentsService: AssignmentsService,
               private dataExportService: DataExportService,
+              private dataImportService: DataImportService,
               private platformAgnosticActionsService: PlatformAgnosticActionsService,
               private pdfDataExportService: PdfDataExportService,
               private matDialog: MatDialog,
@@ -77,7 +83,7 @@ export class TransferComponent implements OnInit
       {
         if (!data || !data.mergedDrawings)
         {
-          this.translate.get('transfer.export.noTerritories').pipe(take(1)).subscribe((translation: string) => 
+          this.translate.get('transfer.export.noTerritories').pipe(take(1)).subscribe((translation: string) =>
             alert(translation));
           return;
         }
@@ -149,10 +155,74 @@ export class TransferComponent implements OnInit
     }
   }
 
+  public importTerritoryWebTerritories(event)
+  {
+    if (event.target.files && event.target.files.length)
+    {
+      const [file] = event.target.files;
+      const jsonFileReader = new FileReader();
+      jsonFileReader.onload = () =>
+      {
+        const json = JSON.parse(jsonFileReader.result + "") as TerritoryWebTerritories;
+
+        const drawings: Drawing[] = [];
+        const territories: Territory[] = [];
+
+        json.features.forEach((feature) =>
+        {
+          const drawingId = uuid4();
+          territories.push({
+            id: uuid4(),
+            key: feature.properties.TerritoryNumber,
+            name: feature.properties.name,
+            populationCount: 0,
+            tags: [],
+            territoryDrawingId: drawingId,
+            boundaryNames: [],
+            comment: "",
+            creationTime: new Date()
+          });
+
+          drawings.push({
+            id: drawingId,
+            creationTime: new Date(),
+            featureCollection: Turf.featureCollection([Turf.feature(feature.geometry)])
+          });
+        });
+
+        this.importTWTerritories(territories, drawings);
+      };
+
+      jsonFileReader.readAsText(file);
+    }
+  }
+
   private async readBinaryFile(data: any)
   {
     const unGzippedData = Pako.ungzip(data, {to: "string"});
     const json: TerritoryCard = JSON.parse(unGzippedData);
     this.assignmentsService.giveBackFromFieldCompanion(json);
+  }
+
+  private async importTWTerritories(territories: Territory[], drawings: Drawing[])
+  {
+    const translations = await this.translate.get(["transfer.import.title", 'transfer.import.ok', 'transfer.import.territories', 'transfer.import.drawings']).toPromise();
+    const dialogConfig = new MatDialogConfig();
+    const progressMsg = new BehaviorSubject({label: translations["transfer.import.title"], icon: null});
+
+    dialogConfig.disableClose = true;
+    dialogConfig.width = "32rem";
+    dialogConfig.data = {progressMsg: progressMsg};
+    const importProgressDialogRef = this.matDialog.open(BackupImportProgressComponent, dialogConfig);
+
+    progressMsg.next({label: `${territories.length} ${translations['transfer.import.territories']}`, icon: null});
+    await this.dataImportService.importTerritories(territories).toPromise();
+    progressMsg.next({label: translations["transfer.import.ok"], icon: "check"});
+    progressMsg.next({label: `${drawings.length} ${translations['transfer.import.drawings']}`, icon: null})
+    await this.dataImportService.importDrawings(drawings).toPromise();
+    progressMsg.next({label: translations["transfer.import.ok"], icon: "check"});
+    progressMsg.complete();
+
+    importProgressDialogRef.close();
   }
 }

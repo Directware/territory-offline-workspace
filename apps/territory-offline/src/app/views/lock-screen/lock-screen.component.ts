@@ -4,7 +4,7 @@ import {environment} from '../../../environments/environment';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../core/store/index.reducers';
 import {selectSettings} from '../../core/store/settings/settings.selectors';
-import {concatMap, map, take, tap, withLatestFrom} from 'rxjs/operators';
+import {catchError, concatMap, map, take, tap, withLatestFrom} from 'rxjs/operators';
 import {UnlockApp, UnlockSecretKey} from '../../core/store/settings/settings.actions';
 import {Router} from '@angular/router';
 import {CryptoService} from '../../core/services/encryption/crypto.service';
@@ -62,7 +62,7 @@ export class LockScreenComponent implements OnInit
 
     if (this.dataSecurityService.canAvoidPassword())
     {
-      this.translate.get('lockScreen.unlock').pipe(take(1)).subscribe((translation: string) => 
+      this.translate.get('lockScreen.unlock').pipe(take(1)).subscribe((translation: string) =>
         this.dataSecurityService.verify(translation).then(() => this.unlockApp()));
     }
     else
@@ -147,48 +147,55 @@ export class LockScreenComponent implements OnInit
       ofType(LoadTagsSuccess),
       take(1),
       tap(() => this.encryptingNow = translations['lockScreen.decryptPublishers']),
-      tap(() => this.store.dispatch(LoadPublishers()))
+      tap(() => this.store.dispatch(LoadPublishers())),
+      catchError((e) => this.catchLoadDataError(e))
     ).subscribe();
 
     this.actions$.pipe(
       ofType(LoadPublishersSuccess),
       take(1),
       tap(() => this.encryptingNow = translations['lockScreen.decryptTerritories']),
-      tap(() => this.store.dispatch(LoadTerritories()))
+      tap(() => this.store.dispatch(LoadTerritories())),
+      catchError((e) => this.catchLoadDataError(e))
     ).subscribe();
 
     this.actions$.pipe(
       ofType(LoadTerritoriesSuccess),
       take(1),
       tap(() => this.encryptingNow = translations['lockScreen.decryptAssignments']),
-      tap(() => this.store.dispatch(LoadAssignments()))
+      tap(() => this.store.dispatch(LoadAssignments())),
+      catchError((e) => this.catchLoadDataError(e))
     ).subscribe();
 
     this.actions$.pipe(
       ofType(LoadAssignmentsSuccess),
       take(1),
       tap(() => this.encryptingNow = translations['lockScreen.decryptAddresses']),
-      tap(() => this.store.dispatch(LoadVisitBans()))
+      tap(() => this.store.dispatch(LoadVisitBans())),
+      catchError((e) => this.catchLoadDataError(e))
     ).subscribe();
 
     this.actions$.pipe(
       ofType(LoadVisitBansSuccess),
       take(1),
-      tap(() => this.store.dispatch(LoadLastDoings()))
+      tap(() => this.store.dispatch(LoadLastDoings())),
+      catchError((e) => this.catchLoadDataError(e))
     ).subscribe();
 
     this.actions$.pipe(
       ofType(LoadLastDoingsSuccess),
       take(1),
       tap(() => this.encryptingNow = translations['lockScreen.decryptDrawings']),
-      tap(() => this.store.dispatch(LoadDrawings()))
+      tap(() => this.store.dispatch(LoadDrawings())),
+      catchError((e) => this.catchLoadDataError(e))
     ).subscribe();
 
     this.actions$.pipe(
       ofType(LoadDrawingsSuccess),
       take(1),
       tap(() => this.encryptingNow = translations['lockScreen.decryptCongregations']),
-      tap(() => this.store.dispatch(LoadCongregations()))
+      tap(() => this.store.dispatch(LoadCongregations())),
+      catchError((e) => this.catchLoadDataError(e))
     ).subscribe();
 
     this.actions$.pipe(
@@ -200,6 +207,13 @@ export class LockScreenComponent implements OnInit
       tap(([action, settings]) => this.store.dispatch(UseCongregation({congregationId: settings.currentCongregationId}))),
       tap(() => this.store.dispatch(UnlockApp())),
       tap(() => this.dataImportService.checkCongregationCopy()),
+      catchError((e) => this.catchLoadDataError(e))
     ).subscribe();
+  }
+
+  private catchLoadDataError(error)
+  {
+    console.log("[LockScreen] load data error:", error)
+    return of([]);
   }
 }

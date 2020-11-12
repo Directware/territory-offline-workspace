@@ -65,6 +65,11 @@
         <p class="label">{{ 'transfer.importFromTerritoryWeb' | translate }}</p>
         <i-feather *ngIf="false" class="action" name="chevron-right"></i-feather>
       </app-list-item>
+      <app-list-item (click)="importTWTerritories.click()">
+        <p class="label">{{ 'transfer.import.importTWTerritories' | translate }}</p>
+        <i-feather class="i-feather action" name="chevron-right"></i-feather>
+        <input #importTWTerritories style="display: none;" type="file" (change)="importTerritoryWebTerritories($event)" />
+      </app-list-item>
     </app-list>
   </div>
 

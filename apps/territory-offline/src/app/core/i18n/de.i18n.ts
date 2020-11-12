@@ -10,7 +10,7 @@ export const de = {
     "digitalTerritory": "Digital Territory",
     "sharingFailed": "File sharing failed",
     "new": "Neue Zuteilung",
-    "body": "Hallo {{firstName}},\\n\\n im Anhang findest du dein neues Gebiet!",
+    "body": "Hallo {{firstName}},\n\n im Anhang findest du dein neues Gebiet!",
     "return": "Möchtest du dieses Gebiet zurückgeben?",
     "returnFromFieldCompanion": "Möchtest du das Gebiet {{key}} {{name}} zurückgeben?",
     "proceed": "Möchtest du dieses Gebiet als Bearbeitet melden?",
@@ -52,6 +52,7 @@ export const de = {
     "comment": "Kommentar",
     "tags": "Tags",
     "print": {
+      "title": "Gebiet drucken",
       "format": "Format",
       "editLook": "Aussehen bearbeiten",
       "name": "Gebietsname",
@@ -302,6 +303,7 @@ export const de = {
       "skipped": "Übersprungen"
     },
     "import": {
+      "title": "Import",
       "start": "Datenimport beginnt...",
       "tags": "Tags werden importiert...",
       "visitBans": "nicht besuchen Adressen wurden importiert...",
@@ -314,7 +316,8 @@ export const de = {
       "column": "Spalte",
       "noExcelFile": "{{file}} scheint nicht eine Excel-Datei zu sein!",
       "wrongFileType": "Falscher Dateityp! Gebe bitte eine Excel Datei ein.",
-      "noJsonFile": "Falscher Dateityp! Gebe bitte eine JSON Datei ein."
+      "noJsonFile": "Falscher Dateityp! Gebe bitte eine JSON Datei ein.",
+      "importTWTerritories": "Territory Web - Gebiete"
     }
   },
   "tag": {

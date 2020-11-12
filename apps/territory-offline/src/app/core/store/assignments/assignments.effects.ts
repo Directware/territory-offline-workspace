@@ -18,16 +18,15 @@ import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../index.reducers";
 import {selectAssignmentsByTerritoryId} from "./assignments.selectors";
 import {Assignment, TimedEntity} from "@territory-offline-workspace/api";
+import {HASHED_ASSIGNMENT_TABLE_NAME} from "../../services/db/mobile-db-schemas/schemas.db";
 
 @Injectable({providedIn: 'root'})
 export class AssignmentsEffects
 {
-  private readonly assignmentsCollectionName = btoa('assignments');
-
   private loadAssignments$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LoadAssignments),
-      map((action) => this.database.load(this.assignmentsCollectionName)),
+      map((action) => this.database.load(HASHED_ASSIGNMENT_TABLE_NAME)),
       switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
       map((assignments: Assignment[]) => LoadAssignmentsSuccess({assignments: assignments}))
     )
@@ -36,7 +35,7 @@ export class AssignmentsEffects
   private upsertAssignment$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UpsertAssignment),
-      map((action) => this.database.upsert(this.assignmentsCollectionName, action.assignment)),
+      map((action) => this.database.upsert(HASHED_ASSIGNMENT_TABLE_NAME, action.assignment)),
       switchMap((promise: Promise<TimedEntity>) => from(promise)),
       map((assignment: Assignment) => UpsertAssignmentSuccess({assignment: assignment}))
     )
@@ -45,7 +44,7 @@ export class AssignmentsEffects
   private bulkUpsertAssignment$ = createEffect(() =>
     this.actions$.pipe(
       ofType(BulkUpsertAssignments),
-      map((action) => this.database.bulkUpsert(this.assignmentsCollectionName, action.assignments)),
+      map((action) => this.database.bulkUpsert(HASHED_ASSIGNMENT_TABLE_NAME, action.assignments)),
       switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
       map((assignments: Assignment[]) => BulkUpsertAssignmentsSuccess({assignments: assignments}))
     )
@@ -54,7 +53,7 @@ export class AssignmentsEffects
   private bulkImportAssignments$ = createEffect(() =>
     this.actions$.pipe(
       ofType(BulkImportAssignments),
-      map((action) => this.database.bulkUpsert(this.assignmentsCollectionName, action.assignments)),
+      map((action) => this.database.bulkUpsert(HASHED_ASSIGNMENT_TABLE_NAME, action.assignments)),
       switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
       map((assignments: Assignment[]) => BulkImportAssignmentsSuccess({assignments: assignments}))
     )
@@ -63,7 +62,7 @@ export class AssignmentsEffects
   private deleteAssignment$ = createEffect(() =>
     this.actions$.pipe(
       ofType(DeleteAssignment),
-      map((action) => this.database.delete(this.assignmentsCollectionName, action.assignment)),
+      map((action) => this.database.delete(HASHED_ASSIGNMENT_TABLE_NAME, action.assignment)),
       switchMap((promise: Promise<TimedEntity>) => from(promise)),
       map((assignment: Assignment) => DeleteAssignmentSuccess({assignment: assignment}))
     )
@@ -75,7 +74,7 @@ export class AssignmentsEffects
       concatMap(action => of(action).pipe(
         withLatestFrom(this.store.pipe(select(selectAssignmentsByTerritoryId, action.territoryId)))
       )),
-      map(([action, assignments]: [any, any]) => this.database.bulkDelete(this.assignmentsCollectionName, assignments)),
+      map(([action, assignments]: [any, any]) => this.database.bulkDelete(HASHED_ASSIGNMENT_TABLE_NAME, assignments)),
       switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
       map((assignments: Assignment[]) => DeleteAssignmentsByTerritorySuccess({assignments: assignments}))
     )

@@ -13,16 +13,15 @@ import {
 } from './last-doings.actions';
 import {LastDoingsService} from "../../services/common/last-doings.service";
 import {LastDoing, TimedEntity} from "@territory-offline-workspace/api";
+import {HASHED_LAST_DOING_TABLE_NAME} from "../../services/db/mobile-db-schemas/schemas.db";
 
 @Injectable({providedIn: 'root'})
 export class LastDoingsEffects
 {
-  private readonly lastDoingCollectionName = btoa('lastDoings');
-
   private loadLastDoings$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LoadLastDoings),
-      map((action) => this.database.load(this.lastDoingCollectionName)),
+      map((action) => this.database.load(HASHED_LAST_DOING_TABLE_NAME)),
       switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
       map((lastDoings: LastDoing[]) => LoadLastDoingsSuccess({lastDoings: lastDoings}))
     )
@@ -31,7 +30,7 @@ export class LastDoingsEffects
   private upsertLastDoing$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UpsertLastDoing),
-      map((action) => this.database.upsert(this.lastDoingCollectionName, action.lastDoing)),
+      map((action) => this.database.upsert(HASHED_LAST_DOING_TABLE_NAME, action.lastDoing)),
       switchMap((promise: Promise<TimedEntity>) => from(promise)),
       tap(() => setTimeout(() => this.lastDoingsService.tidyUpLastDoings(), 0)),
       map((lastDoing: LastDoing) => UpsertLastDoingSuccess({lastDoing: lastDoing}))
@@ -41,7 +40,7 @@ export class LastDoingsEffects
   private deleteLastDoing$ = createEffect(() =>
     this.actions$.pipe(
       ofType(DeleteLastDoing),
-      map((action) => this.database.delete(this.lastDoingCollectionName, action.lastDoing)),
+      map((action) => this.database.delete(HASHED_LAST_DOING_TABLE_NAME, action.lastDoing)),
       switchMap((promise: Promise<TimedEntity>) => from(promise)),
       map((lastDoing: LastDoing) => DeleteLastDoingSuccess({lastDoing: lastDoing}))
     )

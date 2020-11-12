@@ -10,7 +10,7 @@ android {
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
     implementation project(':byteowls-capacitor-filesharer')
-    implementation project(':capacitor-data-storage-sqlite')
+    implementation project(':capacitor-community-sqlite')
     implementation project(':capacitor-biometric-auth')
 
 }

@@ -1,7 +1,6 @@
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 import {Injectable} from '@angular/core';
-import {Plugins, registerWebPlugin} from "@capacitor/core";
-import {FileSharer} from "@byteowls/capacitor-filesharer";
+import {Plugins} from "@capacitor/core";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,6 @@ export class PlatformAgnosticActionsService
 {
   constructor(private translate: TranslateService)
   {
-    registerWebPlugin(FileSharer);
   }
 
   public restartApp()

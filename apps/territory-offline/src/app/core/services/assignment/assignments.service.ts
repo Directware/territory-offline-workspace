@@ -79,7 +79,7 @@ export class AssignmentsService
     if (deviceInfo.platform !== "ios" && deviceInfo.platform !== "android")
     {
       const subject = `${translations['assignments.new']} - ${territory.key} ${territory.name}`;
-      const body = `{{ 'assignments.body' | translate }}`;
+      const body = `${translations['assignments.body']}`;
       const mailto = `mailto:${publisher.email}?subject=${subject}&body=${body}`;
       window.location.href = encodeURI(mailto);
     }

@@ -19,16 +19,15 @@ import {ApplicationState} from '../index.reducers';
 import {selectDrawingById} from './drawings.selectors';
 import {LastDoingsService} from "../../services/common/last-doings.service";
 import {Drawing, TimedEntity} from "@territory-offline-workspace/api";
+import {HASHED_DRAWING_TABLE_NAME} from "../../services/db/mobile-db-schemas/schemas.db";
 
 @Injectable({providedIn: 'root'})
 export class DrawingsEffects
 {
-  private readonly drawingsCollectionName = btoa('drawings');
-
   private loadDrawings$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LoadDrawings),
-      map((action) => this.database.load(this.drawingsCollectionName)),
+      map((action) => this.database.load(HASHED_DRAWING_TABLE_NAME)),
       switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
       map((drawings: Drawing[]) => LoadDrawingsSuccess({drawings: drawings}))
     )
@@ -37,7 +36,7 @@ export class DrawingsEffects
   private upsertDrawing$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UpsertDrawing),
-      map((action) => this.database.upsert(this.drawingsCollectionName, action.drawing)),
+      map((action) => this.database.upsert(HASHED_DRAWING_TABLE_NAME, action.drawing)),
       switchMap((promise: Promise<TimedEntity>) => from(promise)),
       map((drawing: Drawing) => UpsertDrawingSuccess({drawing: drawing}))
     )
@@ -46,7 +45,7 @@ export class DrawingsEffects
   private bulkImportDrawings$ = createEffect(() =>
     this.actions$.pipe(
       ofType(BulkImportDrawings),
-      map((action) => this.database.bulkUpsert(this.drawingsCollectionName, action.drawings)),
+      map((action) => this.database.bulkUpsert(HASHED_DRAWING_TABLE_NAME, action.drawings)),
       switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
       map((drawings: Drawing[]) => BulkImportDrawingsSuccess({drawings: drawings}))
     )
@@ -65,7 +64,7 @@ export class DrawingsEffects
   private deleteDrawing$ = createEffect(() =>
     this.actions$.pipe(
       ofType(DeleteDrawing),
-      map((action) => this.database.delete(this.drawingsCollectionName, action.drawing)),
+      map((action) => this.database.delete(HASHED_DRAWING_TABLE_NAME, action.drawing)),
       switchMap((promise: Promise<TimedEntity>) => from(promise)),
       map((drawing: Drawing) => DeleteDrawingSuccess({drawing: drawing}))
     )

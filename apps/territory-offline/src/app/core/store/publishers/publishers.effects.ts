@@ -17,16 +17,15 @@ import {
 } from './publishers.actions';
 import {LastDoingsService} from "../../services/common/last-doings.service";
 import {LastDoingActionsEnum, Publisher, TimedEntity} from "@territory-offline-workspace/api";
+import {HASHED_PUBLISHER_TABLE_NAME} from "../../services/db/mobile-db-schemas/schemas.db";
 
 @Injectable({providedIn: 'root'})
 export class PublishersEffects
 {
-  private readonly publisherCollectionName = btoa('publishers');
-
   private loadPublishers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LoadPublishers),
-      map((action) => this.database.load(this.publisherCollectionName)),
+      map((action) => this.database.load(HASHED_PUBLISHER_TABLE_NAME)),
       switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
       map((publishers: Publisher[]) => LoadPublishersSuccess({publishers: publishers}))
     )
@@ -35,7 +34,7 @@ export class PublishersEffects
   private upsertPublisher$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UpsertPublisher),
-      map((action) => this.database.upsert(this.publisherCollectionName, action.publisher)),
+      map((action) => this.database.upsert(HASHED_PUBLISHER_TABLE_NAME, action.publisher)),
       switchMap((promise: Promise<TimedEntity>) => from(promise)),
       map((publisher: Publisher) => UpsertPublisherSuccess({publisher: publisher}))
     )
@@ -44,7 +43,7 @@ export class PublishersEffects
   private bulkUpsertPublisher$ = createEffect(() =>
     this.actions$.pipe(
       ofType(BulkUpsertPublisher),
-      map((action) => this.database.bulkUpsert(this.publisherCollectionName, action.publisher)),
+      map((action) => this.database.bulkUpsert(HASHED_PUBLISHER_TABLE_NAME, action.publisher)),
       switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
       map((publisher: Publisher[]) => BulkUpsertPublisherSuccess({publisher: publisher}))
     )
@@ -53,7 +52,7 @@ export class PublishersEffects
   private bulkImportPublishers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(BulkImportPublishers),
-      map((action) => this.database.bulkUpsert(this.publisherCollectionName, action.publishers)),
+      map((action) => this.database.bulkUpsert(HASHED_PUBLISHER_TABLE_NAME, action.publishers)),
       switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
       map((publishers: Publisher[]) => BulkImportPublishersSuccess({publishers: publishers}))
     )
@@ -62,7 +61,7 @@ export class PublishersEffects
   private deletePublisher$ = createEffect(() =>
     this.actions$.pipe(
       ofType(DeletePublisher),
-      map((action) => this.database.delete(this.publisherCollectionName, action.publisher)),
+      map((action) => this.database.delete(HASHED_PUBLISHER_TABLE_NAME, action.publisher)),
       switchMap((promise: Promise<TimedEntity>) => from(promise)),
       tap((publisher: Publisher) => this.lastDoingsService.createLastDoing(LastDoingActionsEnum.DELETE, publisher.firstName + " " + publisher.name)),
       map((publisher: Publisher) => DeletePublisherSuccess({publisher: publisher}))

@@ -37,7 +37,7 @@
 
   <app-panel>
     <app-list-item (click)="printTerritory(territory.get('id').value)">
-      <p class="label blue">{{ 'territory.print' | translate }}</p>
+      <p class="label blue">{{ 'territory.print.title' | translate }}</p>
       <i-feather name="printer" class="i-feather action blue"></i-feather>
     </app-list-item>
     <app-list-item *ngIf="(assignment$ | async)" (click)="sendToPublisher()">

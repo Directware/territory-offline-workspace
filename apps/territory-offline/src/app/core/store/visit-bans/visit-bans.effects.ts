@@ -15,16 +15,15 @@ import {
 } from './visit-bans.actions';
 import {LastDoingsService} from "../../services/common/last-doings.service";
 import {LastDoingActionsEnum, TimedEntity, VisitBan} from "@territory-offline-workspace/api";
+import {HASHED_VISIT_BAN_TABLE_NAME} from "../../services/db/mobile-db-schemas/schemas.db";
 
 @Injectable({providedIn: 'root'})
 export class VisitBansEffects
 {
-  private readonly visitBansCollectionName = btoa('visitBans');
-
   private loadVisitBans$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LoadVisitBans),
-      map((action) => this.database.load(this.visitBansCollectionName)),
+      map((action) => this.database.load(HASHED_VISIT_BAN_TABLE_NAME)),
       switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
       map((visitBans: VisitBan[]) => LoadVisitBansSuccess({visitBans: visitBans}))
     )
@@ -33,7 +32,7 @@ export class VisitBansEffects
   private upsertVisitBan$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UpsertVisitBan),
-      map((action) => this.database.upsert(this.visitBansCollectionName, action.visitBan)),
+      map((action) => this.database.upsert(HASHED_VISIT_BAN_TABLE_NAME, action.visitBan)),
       switchMap((promise: Promise<TimedEntity>) => from(promise)),
       map((visitBan: VisitBan) => UpsertVisitBanSuccess({visitBan: visitBan}))
     )
@@ -42,7 +41,7 @@ export class VisitBansEffects
   private bulkImportVisitBans$ = createEffect(() =>
     this.actions$.pipe(
       ofType(BulkImportVisitBans),
-      map((action) => this.database.bulkUpsert(this.visitBansCollectionName, action.visitBans)),
+      map((action) => this.database.bulkUpsert(HASHED_VISIT_BAN_TABLE_NAME, action.visitBans)),
       switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
       map((visitBans: VisitBan[]) => BulkImportVisitBansSuccess({visitBans: visitBans}))
     )
@@ -51,7 +50,7 @@ export class VisitBansEffects
   private deleteVisitBan$ = createEffect(() =>
     this.actions$.pipe(
       ofType(DeleteVisitBan),
-      map((action) => this.database.delete(this.visitBansCollectionName, action.visitBan)),
+      map((action) => this.database.delete(HASHED_VISIT_BAN_TABLE_NAME, action.visitBan)),
       switchMap((promise: Promise<TimedEntity>) => from(promise)),
       tap((visitBan: VisitBan) => this.lastDoingsService.createLastDoing(LastDoingActionsEnum.DELETE, visitBan.street + " " + visitBan.streetSuffix)),
       map((visitBan: VisitBan) => DeleteVisitBanSuccess({visitBan: visitBan}))

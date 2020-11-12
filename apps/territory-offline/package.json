@@ -1,6 +1,6 @@
 {
   "name": "territory-offline",
-  "version": "2.1.18",
+  "version": "2.1.19",
   "description": "Gebietsverwaltung",
   "author": {
     "name": "Mateusz Klimentowicz",
@@ -14,7 +14,7 @@
     "capacitor:sync": "npx cap sync",
     "capacitor:update": "npx cap update",
     "capacitor:copy": "npx cap copy",
-    "capacitor:electron:start": "npx cap open electron",
+    "capacitor:electron:start": "npx cap sync && npx cap open electron",
     "capacitor:ios:start": "npx cap sync && npx cap open ios",
     "capacitor:android:start": "npx cap sync && npx cap open android",
     "cypress:open": "npx cypress open"
@@ -28,7 +28,7 @@
   "dependencies": {
     "@byteowls/capacitor-filesharer": "^2.0.0",
     "@capacitor/android": "^2.3.0",
-    "capacitor-data-storage-sqlite": "^2.1.0",
+    "@capacitor-community/sqlite": "^2.4.2-8",
     "capacitor-biometric-auth": "^0.1.0",
     "capacitor-face-id": "^2.0.1"
   }

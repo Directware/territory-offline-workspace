@@ -83,7 +83,6 @@ export const selectDashboardData = createSelector(
   {
     const currentlyDone = lastAssignments.filter(a => a && !!a.startTime && !!a.endTime && a.endTime > pastDateByMonths(12));
     const currentlyInProgress = lastAssignments.filter(a => a && !!a.startTime && !a.endTime);
-
     const totalPopulationCount = territories && territories.length > 0 ? territories.map(t => t.populationCount).reduce((total, current) => total + current, 0) : 0;
 
     const currentlyDonePopulationCount = territories && territories.length > 0 ? territories.filter(t => currentlyDone.map(a => a.territoryId).includes(t.id))

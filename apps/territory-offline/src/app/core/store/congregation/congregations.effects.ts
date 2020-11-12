@@ -23,16 +23,15 @@ import {PlatformAgnosticActionsService} from "../../services/common/platform-agn
 import {MatDialog} from "@angular/material/dialog";
 import {WaitingModalComponent} from "../../../views/shared/modals/waiting-modal/waiting-modal.component";
 import { TranslateService } from '@ngx-translate/core';
+import {HASHED_CONGREGATION_TABLE_NAME} from "../../services/db/mobile-db-schemas/schemas.db";
 
 @Injectable({providedIn: 'root'})
 export class CongregationsEffects
 {
-  private readonly congregationsCollectionName = btoa('congregations');
-
   private loadCongregations$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LoadCongregations),
-      map((action) => this.database.load(this.congregationsCollectionName, true)),
+      map((action) => this.database.load(HASHED_CONGREGATION_TABLE_NAME, true)),
       switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
       map((congregations: Congregation[]) => LoadCongregationsSuccess({congregations: congregations}))
     )
@@ -41,7 +40,7 @@ export class CongregationsEffects
   private upsertCongregation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UpsertCongregation),
-      map((action) => this.database.upsert(this.congregationsCollectionName, action.congregation, true)),
+      map((action) => this.database.upsert(HASHED_CONGREGATION_TABLE_NAME, action.congregation, true)),
       switchMap((promise: Promise<TimedEntity>) => from(promise)),
       map((congregation: Congregation) => UpsertCongregationSuccess({congregation: congregation}))
     )
@@ -77,7 +76,7 @@ export class CongregationsEffects
     this.actions$.pipe(
       ofType(DeleteCongregation),
       tap(() => this.dialog.open(WaitingModalComponent, {disableClose: true})),
-      map((action) => this.database.delete(this.congregationsCollectionName, action.congregation, true)),
+      map((action) => this.database.delete(HASHED_CONGREGATION_TABLE_NAME, action.congregation, true)),
       switchMap((promise: Promise<TimedEntity>) => from(promise)),
       tap((congregation: Congregation) => this.lastDoingsService.createLastDoing(LastDoingActionsEnum.DELETE, congregation.name)),
       map((congregation: Congregation) => this.database.clearAllWithPrefix(congregation.id)),

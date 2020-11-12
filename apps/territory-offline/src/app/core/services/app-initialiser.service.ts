@@ -33,9 +33,9 @@ export class AppInitializerService
     await this.dataSecurityService.init();
     await this.settingsDatabaseService.initAppropriateSQLite();
     await this.databaseService
-      .initAppropriateSQLite()
+      .init()
       .then(() => logger(`Database successfully opened.`))
-      .catch((e) => logger('Fehler beim öffnen der Datenbank', e));
+      .catch((e) => console.log('Fehler beim öffnen der Datenbank', e));
 
     await this.loadAppConfiguration();
     return "ready";
