@@ -11,6 +11,7 @@ import {CryptoService} from "../encryption/crypto.service";
 import {DataSecurityService} from "../common/data-security.service";
 import {selectCurrentCongregationId} from "../../store/settings/settings.selectors";
 import {take} from "rxjs/operators";
+import {SettingsDatabaseService} from "./settings-database.service";
 
 const {Device} = Plugins;
 
@@ -24,6 +25,7 @@ export class ElectronDatabaseService implements AbstractDatabase
   private DB_CACHE: Dictionary<TimedEntity> = {};
 
   constructor(private store: Store<ApplicationState>,
+              private settingsDatabase: SettingsDatabaseService,
               private cryptoService: CryptoService,
               private dataSecurityService: DataSecurityService,)
   {
@@ -158,6 +160,7 @@ export class ElectronDatabaseService implements AbstractDatabase
 
   public async clear()
   {
+    await this.settingsDatabase.clear();
     return await this.database.clear();
   }
 

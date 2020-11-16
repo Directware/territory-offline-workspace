@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {BrowserModule, HAMMER_GESTURE_CONFIG, HammerModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, ErrorHandler, NgModule} from '@angular/core';
 
@@ -31,7 +31,6 @@ import {SecondThreadHeaderComponent} from './views/shared/second-thread-header/s
 import {SearchPublisherPipe} from './core/pipes/publishers/search-publisher.pipe';
 import {AssignedTagsComponent} from './views/tags/assigned-tags/assigned-tags.component';
 import {PublisherSignatureComponent} from './views/publishers/publisher-signature/publisher-signature.component';
-import {HttpClientModule} from '@angular/common/http';
 import {TerritoryComponent} from './views/territories/territory/territory.component';
 import {AssignmentsComponent} from './views/assignments/assignments.component';
 import {AssignmentComponent} from './views/assignments/assignment/assignment.component';
@@ -57,7 +56,7 @@ import {ReassignAfterComponent} from './views/settings/reassign-after/reassign-a
 import {ReassignDueAfterComponent} from './views/settings/reassign-due-after/reassign-due-after.component';
 import {GlobalErrorHandlerService} from "./core/services/common/global-error-handler.service";
 import {TerritoryHelperImportComponent} from './views/transfer/territory-helper-import/territory-helper-import.component';
-import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {DatePipe} from "@angular/common";
 import {WaitingModalComponent} from './views/shared/modals/waiting-modal/waiting-modal.component';
 import {SyncDataComponent} from './views/transfer/sync-data/sync-data.component';
@@ -72,8 +71,7 @@ import {SearchVisitBanPipe} from "./core/pipes/visit-bans/search-visit-ban.pipe"
 import {VisitBanLastVisitTimePipe} from "./core/pipes/visit-bans/visit-ban-last-visit-time.pipe";
 import {BackupImportChangesComponent} from './views/shared/modals/backup-import-changes/backup-import-changes.component';
 import {UiComponentsModule} from "@territory-offline-workspace/ui-components";
-import {de} from "./core/i18n/de.i18n";
-import {en} from "./core/i18n/en.i18n";
+import {AVAILABLE_LANGUAGES} from "./core/i18n/all.i18n";
 
 @NgModule({
   declarations: [
@@ -164,9 +162,8 @@ export class AppModule
 {
   constructor(private translateService: TranslateService)
   {
-    this.translateService.setTranslation("de", de);
-    this.translateService.setTranslation("en", en);
-    this.translateService.addLangs(['de']);
+    AVAILABLE_LANGUAGES.forEach(lang => this.translateService.setTranslation(lang.key, lang.translations));
+    this.translateService.addLangs(AVAILABLE_LANGUAGES.map(lang => lang.key));
     this.translateService.setDefaultLang('de');
 
     const browserLang = this.translateService.getBrowserLang();

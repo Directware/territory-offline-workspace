@@ -55,6 +55,11 @@ export class SettingsDatabaseService
     return this.writeToDatabase(entity);
   }
 
+  public async clear()
+  {
+    await this._storage.clear();
+  }
+
   private async writeToDatabase(entity: SettingsState): Promise<SettingsState>
   {
     await this._storage.set({

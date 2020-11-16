@@ -9,6 +9,7 @@ import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/index.reducers";
 import {selectCurrentCongregationId} from "../../store/settings/settings.selectors";
 import {take} from "rxjs/operators";
+import {SettingsDatabaseService} from "./settings-database.service";
 
 const {Device} = Plugins;
 
@@ -20,7 +21,7 @@ export class WebDatabaseService implements AbstractDatabase
   public platform;
   private DB_CACHE: Dictionary<TimedEntity> = {};
 
-  constructor(private store: Store<ApplicationState>)
+  constructor(private store: Store<ApplicationState>, private settingsDatabase: SettingsDatabaseService)
   {
     this.database = CDSSPlugin.CapacitorDataStorageSqlite;
     this.config = {databaseName: "territory-offline"};
@@ -144,6 +145,7 @@ export class WebDatabaseService implements AbstractDatabase
 
   public async clear()
   {
+    await this.settingsDatabase.clear();
     return await this.database.clear();
   }
 

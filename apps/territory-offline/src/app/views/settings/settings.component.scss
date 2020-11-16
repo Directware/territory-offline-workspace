@@ -101,6 +101,17 @@
         background: $light-grey-blue;
       }
     }
+
+    ::ng-deep .app-language-search {
+
+      > input {
+        text-align: right;
+      }
+
+      .list-wrapper {
+        min-width: 10.5rem;
+      }
+    }
   }
 
   .footer {

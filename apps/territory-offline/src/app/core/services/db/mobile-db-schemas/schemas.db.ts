@@ -17,6 +17,7 @@ export const SQL_CREATE_ASSIGNMENTS = `
   BEGIN TRANSACTION;
   CREATE TABLE IF NOT EXISTS ${ASSIGNMENT_TABLE_NAME} (
     id TEXT PRIMARY KEY NOT NULL,
+    congregationId TEXT,
     prefix TEXT,
     creationTime TEXT NOT NULL,
     lastUpdated TEXT,
@@ -32,8 +33,9 @@ export const SQL_CREATE_ASSIGNMENTS = `
 `;
 
 export const SQL_INSERT_ASSIGNMENT = `
-  INSERT INTO ${ASSIGNMENT_TABLE_NAME} (
+  INSERT OR REPLACE INTO ${ASSIGNMENT_TABLE_NAME} (
     id,
+    congregationId,
     prefix,
     creationTime,
     lastUpdated,
@@ -43,8 +45,10 @@ export const SQL_INSERT_ASSIGNMENT = `
     endTime,
     statusColor,
     removedPublisherLabel
-  ) VALUES ({id},{prefix},{creationTime},{lastUpdated},{publisherId},{territoryId},{startTime},{endTime},{statusColor},{removedPublisherLabel});
+  ) VALUES ({id},{congregationId},{prefix},{creationTime},{lastUpdated},{publisherId},{territoryId},{startTime},{endTime},{statusColor},{removedPublisherLabel});
 `;
+
+export const SQL_DELETE_ASSIGNMENT = `DELETE FROM ${ASSIGNMENT_TABLE_NAME} WHERE id='{id}';`;
 
 /*
     Create schema for congregation
@@ -55,6 +59,7 @@ export const SQL_CREATE_CONGREGATION = `
   BEGIN TRANSACTION;
   CREATE TABLE IF NOT EXISTS ${CONGREGATION_TABLE_NAME} (
     id TEXT PRIMARY KEY NOT NULL,
+    congregationId TEXT,
     prefix TEXT,
     creationTime TEXT NOT NULL,
     lastUpdated TEXT,
@@ -67,8 +72,9 @@ export const SQL_CREATE_CONGREGATION = `
   COMMIT TRANSACTION;
 `;
 export const SQL_INSERT_CONGREGATION = `
-  INSERT INTO ${CONGREGATION_TABLE_NAME} (
+  INSERT OR REPLACE INTO ${CONGREGATION_TABLE_NAME} (
     id,
+    congregationId,
     prefix,
     creationTime,
     lastUpdated,
@@ -76,8 +82,10 @@ export const SQL_INSERT_CONGREGATION = `
     languageCode,
     language,
     hashedName
-  ) VALUES ({id},{prefix},{creationTime},{lastUpdated},{name},{languageCode},{language},{hashedName});
+  ) VALUES ({id},{congregationId},{prefix},{creationTime},{lastUpdated},{name},{languageCode},{language},{hashedName});
 `;
+export const SQL_DELETE_CONGREGATION = `DELETE FROM ${CONGREGATION_TABLE_NAME} WHERE id='{id}';`;
+
 /*
     Create schema for drawings
  */
@@ -87,6 +95,7 @@ export const SQL_CREATE_DRAWING = `
   BEGIN TRANSACTION;
   CREATE TABLE IF NOT EXISTS ${DRAWING_TABLE_NAME} (
     id TEXT PRIMARY KEY NOT NULL,
+    congregationId TEXT,
     prefix TEXT,
     creationTime TEXT NOT NULL,
     lastUpdated TEXT,
@@ -97,15 +106,18 @@ export const SQL_CREATE_DRAWING = `
   COMMIT TRANSACTION;
 `;
 export const SQL_INSERT_DRAWING = `
-  INSERT INTO ${DRAWING_TABLE_NAME} (
+  INSERT OR REPLACE INTO ${DRAWING_TABLE_NAME} (
     id,
+    congregationId,
     prefix,
     creationTime,
     lastUpdated,
     featureCollection,
     printConfiguration
-  ) VALUES ({id},{prefix},{creationTime},{lastUpdated},{featureCollection},{printConfiguration});
+  ) VALUES ({id},{congregationId},{prefix},{creationTime},{lastUpdated},{featureCollection},{printConfiguration});
 `;
+export const SQL_DELETE_DRAWING = `DELETE FROM ${DRAWING_TABLE_NAME} WHERE id='{id}';`;
+
 /*
     Create schema for last doings
  */
@@ -115,6 +127,7 @@ export const SQL_CREATE_LAST_DOING = `
   BEGIN TRANSACTION;
   CREATE TABLE IF NOT EXISTS ${LAST_DOING_TABLE_NAME} (
     id TEXT PRIMARY KEY NOT NULL,
+    congregationId TEXT,
     prefix TEXT,
     creationTime TEXT NOT NULL,
     lastUpdated TEXT,
@@ -126,17 +139,18 @@ export const SQL_CREATE_LAST_DOING = `
 `;
 
 export const SQL_INSERT_LAST_DOING = `
-  INSERT INTO ${LAST_DOING_TABLE_NAME} (
+  INSERT OR REPLACE INTO ${LAST_DOING_TABLE_NAME} (
     id,
+    congregationId,
     prefix,
     creationTime,
     lastUpdated,
     action,
     label
-  ) VALUES ({id},{prefix},{creationTime},{lastUpdated},{action},{label});
+  ) VALUES ({id},{congregationId},{prefix},{creationTime},{lastUpdated},{action},{label});
 `;
+export const SQL_DELETE_LAST_DOING = `DELETE FROM ${LAST_DOING_TABLE_NAME} WHERE id='{id}';`;
 
-export const SQL_DELETE_LAST_DOING_BY_ID = `DELETE FROM ${LAST_DOING_TABLE_NAME} WHERE id = {id}`;
 /*
     Create schema for publishers
  */
@@ -146,6 +160,7 @@ export const SQL_CREATE_PUBLISHER = `
   BEGIN TRANSACTION;
   CREATE TABLE IF NOT EXISTS ${PUBLISHER_TABLE_NAME} (
     id TEXT PRIMARY KEY NOT NULL,
+    congregationId TEXT,
     prefix TEXT,
     creationTime TEXT NOT NULL,
     lastUpdated TEXT,
@@ -162,8 +177,9 @@ export const SQL_CREATE_PUBLISHER = `
 `;
 
 export const SQL_INSERT_PUBLISHER = `
-  INSERT INTO ${PUBLISHER_TABLE_NAME} (
+  INSERT OR REPLACE INTO ${PUBLISHER_TABLE_NAME} (
     id,
+    congregationId,
     prefix,
     creationTime,
     lastUpdated,
@@ -174,10 +190,10 @@ export const SQL_INSERT_PUBLISHER = `
     tags,
     dsgvoSignature,
     isDeactivated
-  ) VALUES ({id},{prefix},{creationTime},{lastUpdated},{name},{firstName},{email},{phone},{tags},{dsgvoSignature},{isDeactivated});
+  ) VALUES ({id},{congregationId},{prefix},{creationTime},{lastUpdated},{name},{firstName},{email},{phone},{tags},{dsgvoSignature},{isDeactivated});
 `;
+export const SQL_DELETE_PUBLISHER = `DELETE FROM ${PUBLISHER_TABLE_NAME} WHERE id='{id}';`;
 
-export const SQL_DELETE_PUBLISHER_BY_ID = `DELETE FROM ${PUBLISHER_TABLE_NAME} WHERE id = {id}`;
 /*
     Create schema for tags
  */
@@ -187,6 +203,7 @@ export const SQL_CREATE_TAG = `
   BEGIN TRANSACTION;
   CREATE TABLE IF NOT EXISTS ${TAG_TABLE_NAME} (
     id TEXT PRIMARY KEY NOT NULL,
+    congregationId TEXT,
     prefix TEXT,
     creationTime TEXT NOT NULL,
     lastUpdated TEXT,
@@ -200,8 +217,9 @@ export const SQL_CREATE_TAG = `
 `;
 
 export const SQL_INSERT_TAG = `
-  INSERT INTO ${TAG_TABLE_NAME} (
+  INSERT OR REPLACE INTO ${TAG_TABLE_NAME} (
     id,
+    congregationId,
     prefix,
     creationTime,
     lastUpdated,
@@ -209,8 +227,9 @@ export const SQL_INSERT_TAG = `
     color,
     symbol,
     metaInfos
-  ) VALUES ({id},{prefix},{creationTime},{lastUpdated},{name},{color},{symbol},{metaInfos});
+  ) VALUES ({id},{congregationId},{prefix},{creationTime},{lastUpdated},{name},{color},{symbol},{metaInfos});
 `;
+export const SQL_DELETE_TAG = `DELETE FROM ${TAG_TABLE_NAME} WHERE id='{id}';`;
 
 /*
     Create schema for territories
@@ -221,6 +240,7 @@ export const SQL_CREATE_TERRITORY = `
   BEGIN TRANSACTION;
   CREATE TABLE IF NOT EXISTS ${TERRITORY_TABLE_NAME} (
     id TEXT PRIMARY KEY NOT NULL,
+    congregationId TEXT,
     prefix TEXT,
     creationTime TEXT NOT NULL,
     lastUpdated TEXT,
@@ -238,8 +258,9 @@ export const SQL_CREATE_TERRITORY = `
   COMMIT TRANSACTION;
 `;
 export const SQL_INSERT_TERRITORY = `
-  INSERT INTO ${TERRITORY_TABLE_NAME} (
+  INSERT OR REPLACE INTO ${TERRITORY_TABLE_NAME} (
     id,
+    congregationId,
     prefix,
     creationTime,
     lastUpdated,
@@ -252,8 +273,9 @@ export const SQL_INSERT_TERRITORY = `
     deactivated,
     isCreation,
     comment
-  ) VALUES ({id},{prefix},{creationTime},{lastUpdated},{name},{key},{populationCount},{tags},{territoryDrawingId},{boundaryNames},{deactivated},{isCreation},{comment});
+  ) VALUES ({id},{congregationId},{prefix},{creationTime},{lastUpdated},{name},{key},{populationCount},{tags},{territoryDrawingId},{boundaryNames},{deactivated},{isCreation},{comment});
 `;
+export const SQL_DELETE_TERRITORY = `DELETE FROM ${TERRITORY_TABLE_NAME} WHERE id='{id}';`;
 
 /*
     Create schema for visit bans
@@ -264,6 +286,7 @@ export const SQL_CREATE_VISIT_BAN = `
   BEGIN TRANSACTION;
   CREATE TABLE IF NOT EXISTS ${VISIT_BAN_TABLE_NAME} (
     id TEXT PRIMARY KEY NOT NULL,
+    congregationId TEXT,
     prefix TEXT,
     creationTime TEXT NOT NULL,
     lastUpdated TEXT,
@@ -282,8 +305,9 @@ export const SQL_CREATE_VISIT_BAN = `
   COMMIT TRANSACTION;
 `;
 export const SQL_INSERT_VISIT_BAN = `
-  INSERT INTO ${VISIT_BAN_TABLE_NAME} (
+  INSERT OR REPLACE INTO ${VISIT_BAN_TABLE_NAME} (
     id,
+    congregationId,
     prefix,
     creationTime,
     lastUpdated,
@@ -297,9 +321,9 @@ export const SQL_INSERT_VISIT_BAN = `
     lastVisit,
     comment,
     gpsPosition
-  ) VALUES ({id},{prefix},{creationTime},{lastUpdated},{name},{street},{streetSuffix},{territoryId},{tags},{city},{floor},{lastVisit},{comment},{gpsPosition});
+  ) VALUES ({id},{congregationId},{prefix},{creationTime},{lastUpdated},{name},{street},{streetSuffix},{territoryId},{tags},{city},{floor},{lastVisit},{comment},{gpsPosition});
 `;
-
+export const SQL_DELETE_VISIT_BAN = `DELETE FROM ${VISIT_BAN_TABLE_NAME} WHERE id='{id}';`;
 /*
   Table names mappings
  */
@@ -307,12 +331,13 @@ export const SQL_INSERT_VISIT_BAN = `
 export const TABLE_NAME_MAPPINGS = {
   [HASHED_ASSIGNMENT_TABLE_NAME]: {
     tableName: ASSIGNMENT_TABLE_NAME,
-    deleteByIdQuery: "",
+    deleteByIdQuery: (entityId: string): string => SQL_DELETE_ASSIGNMENT.replace("{id}", entityId),
     insertQuery: (entity: TimedEntity): string =>
     {
       const assignment = entity as Assignment;
       return SQL_INSERT_ASSIGNMENT
-        .replace("{id}", '"' + assignment.id + '"')
+        .replace("{id}", '"' + entity.id + '"')
+        .replace("{congregationId}", '"' + entity.congregationId + '"')
         .replace("{prefix}", '"' + assignment.prefix + '"')
         .replace("{creationTime}", '"' + assignment.creationTime?.toISOString() + '"')
         .replace("{lastUpdated}", '"' + assignment.lastUpdated?.toISOString() + '"')
@@ -328,6 +353,7 @@ export const TABLE_NAME_MAPPINGS = {
       const assignment = entity as any;
       return {
         ...assignment,
+        congregationId: undefined,
         creationTime: parseDateIfPossible(assignment.creationTime),
         lastUpdated: parseDateIfPossible(assignment.lastUpdated),
         startTime: parseDateIfPossible(assignment.startTime),
@@ -337,12 +363,13 @@ export const TABLE_NAME_MAPPINGS = {
   },
   [HASHED_CONGREGATION_TABLE_NAME]: {
     tableName: CONGREGATION_TABLE_NAME,
-    deleteByIdQuery: "",
+    deleteByIdQuery: (entityId: string): string => SQL_DELETE_CONGREGATION.replace("{id}", entityId),
     insertQuery: (entity: TimedEntity): string =>
     {
       const congregation = entity as Congregation;
       return SQL_INSERT_CONGREGATION
-        .replace("{id}", '"' + congregation.id + '"')
+        .replace("{id}", '"' + entity.id + '"')
+        .replace("{congregationId}", '"' + entity.congregationId + '"')
         .replace("{prefix}", '"' + congregation.prefix + '"')
         .replace("{creationTime}", '"' + congregation.creationTime?.toISOString() + '"')
         .replace("{lastUpdated}", '"' + congregation.lastUpdated?.toISOString() + '"')
@@ -356,6 +383,7 @@ export const TABLE_NAME_MAPPINGS = {
       const congregation = entity as any;
       return {
         ...congregation,
+        congregationId: undefined,
         creationTime: parseDateIfPossible(congregation.creationTime),
         lastUpdated: parseDateIfPossible(congregation.lastUpdated)
       };
@@ -363,12 +391,13 @@ export const TABLE_NAME_MAPPINGS = {
   },
   [HASHED_DRAWING_TABLE_NAME]: {
     tableName: DRAWING_TABLE_NAME,
-    deleteByIdQuery: "",
+    deleteByIdQuery: (entityId: string): string => SQL_DELETE_DRAWING.replace("{id}", entityId),
     insertQuery: (entity: TimedEntity): string =>
     {
       const drawing = entity as Drawing;
       return SQL_INSERT_DRAWING
-        .replace("{id}", '"' + drawing.id + '"')
+        .replace("{id}", '"' + entity.id + '"')
+        .replace("{congregationId}", '"' + entity.congregationId + '"')
         .replace("{prefix}", '"' + drawing.prefix + '"')
         .replace("{creationTime}", '"' + drawing.creationTime?.toISOString() + '"')
         .replace("{lastUpdated}", '"' + drawing.lastUpdated?.toISOString() + '"')
@@ -380,6 +409,7 @@ export const TABLE_NAME_MAPPINGS = {
       const drawing = entity as any;
       return {
         ...drawing,
+        congregationId: undefined,
         creationTime: parseDateIfPossible(drawing.creationTime),
         lastUpdated: parseDateIfPossible(drawing.lastUpdated),
         featureCollection: parseJsonIfPossible(drawing.featureCollection),
@@ -389,12 +419,13 @@ export const TABLE_NAME_MAPPINGS = {
   },
   [HASHED_LAST_DOING_TABLE_NAME]: {
     tableName: LAST_DOING_TABLE_NAME,
-    deleteByIdQuery: SQL_DELETE_LAST_DOING_BY_ID,
+    deleteByIdQuery: (entityId: string): string => SQL_DELETE_LAST_DOING.replace("{id}", entityId),
     insertQuery: (entity: TimedEntity): string =>
     {
       const lastDoing = entity as LastDoing;
       return SQL_INSERT_LAST_DOING
-        .replace("{id}", '"' + lastDoing.id + '"')
+        .replace("{id}", '"' + entity.id + '"')
+        .replace("{congregationId}", '"' + entity.congregationId + '"')
         .replace("{prefix}", '"' + lastDoing.prefix + '"')
         .replace("{creationTime}", '"' + lastDoing.creationTime?.toISOString() + '"')
         .replace("{lastUpdated}", '"' + lastDoing.lastUpdated?.toISOString() + '"')
@@ -406,6 +437,7 @@ export const TABLE_NAME_MAPPINGS = {
       const lastDoing = entity as any;
       return {
         ...lastDoing,
+        congregationId: undefined,
         creationTime: parseDateIfPossible(lastDoing.creationTime),
         lastUpdated: parseDateIfPossible(lastDoing.lastUpdated)
       };
@@ -413,12 +445,13 @@ export const TABLE_NAME_MAPPINGS = {
   },
   [HASHED_PUBLISHER_TABLE_NAME]: {
     tableName: PUBLISHER_TABLE_NAME,
-    deleteByIdQuery: SQL_DELETE_PUBLISHER_BY_ID,
+    deleteByIdQuery: (entityId: string): string => SQL_DELETE_PUBLISHER.replace("{id}", entityId),
     insertQuery: (entity: TimedEntity): string =>
     {
       const publisher = entity as Publisher;
       return SQL_INSERT_PUBLISHER
-        .replace("{id}", '"' + publisher.id + '"')
+        .replace("{id}", '"' + entity.id + '"')
+        .replace("{congregationId}", '"' + entity.congregationId + '"')
         .replace("{prefix}", '"' + publisher.prefix + '"')
         .replace("{creationTime}", '"' + publisher.creationTime?.toISOString() + '"')
         .replace("{lastUpdated}", '"' + publisher.lastUpdated?.toISOString() + '"')
@@ -435,6 +468,7 @@ export const TABLE_NAME_MAPPINGS = {
       const publisher = entity as any;
       return {
         ...publisher,
+        congregationId: undefined,
         creationTime: parseDateIfPossible(publisher.creationTime),
         lastUpdated: parseDateIfPossible(publisher.lastUpdated),
         tags: parseJsonIfPossible(publisher.tags),
@@ -444,12 +478,13 @@ export const TABLE_NAME_MAPPINGS = {
   },
   [HASHED_TAG_TABLE_NAME]: {
     tableName: TAG_TABLE_NAME,
-    deleteByIdQuery: "",
+    deleteByIdQuery: (entityId: string): string => SQL_DELETE_TAG.replace("{id}", entityId),
     insertQuery: (entity: TimedEntity): string =>
     {
       const tag = entity as Tag;
       return SQL_INSERT_TAG
-        .replace("{id}", '"' + tag.id + '"')
+        .replace("{id}", '"' + entity.id + '"')
+        .replace("{congregationId}", '"' + entity.congregationId + '"')
         .replace("{prefix}", '"' + tag.prefix + '"')
         .replace("{creationTime}", '"' + tag.creationTime?.toISOString() + '"')
         .replace("{lastUpdated}", '"' + tag.lastUpdated?.toISOString() + '"')
@@ -463,6 +498,7 @@ export const TABLE_NAME_MAPPINGS = {
       const tag = entity as any;
       return {
         ...tag,
+        congregationId: undefined,
         creationTime: parseDateIfPossible(tag.creationTime),
         lastUpdated: parseDateIfPossible(tag.lastUpdated),
         metaInfos: parseJsonIfPossible(tag.metaInfos)
@@ -471,12 +507,13 @@ export const TABLE_NAME_MAPPINGS = {
   },
   [HASHED_TERRITORY_TABLE_NAME]: {
     tableName: TERRITORY_TABLE_NAME,
-    deleteByIdQuery: "",
+    deleteByIdQuery: (entityId: string): string => SQL_DELETE_TERRITORY.replace("{id}", entityId),
     insertQuery: (entity: TimedEntity): string =>
     {
       const territory = entity as Territory;
       return SQL_INSERT_TERRITORY
-        .replace("{id}", '"' + territory.id + '"')
+        .replace("{id}", '"' + entity.id + '"')
+        .replace("{congregationId}", '"' + entity.congregationId + '"')
         .replace("{prefix}", '"' + territory.prefix + '"')
         .replace("{creationTime}", '"' + territory.creationTime?.toISOString() + '"')
         .replace("{lastUpdated}", '"' + territory.lastUpdated?.toISOString() + '"')
@@ -495,6 +532,7 @@ export const TABLE_NAME_MAPPINGS = {
       const territory = entity as any;
       return {
         ...territory,
+        congregationId: undefined,
         deactivated: parseJsonIfPossible(territory.deactivated),
         populationCount: parseInt(territory.populationCount, 10),
         creationTime: parseDateIfPossible(territory.creationTime),
@@ -506,12 +544,13 @@ export const TABLE_NAME_MAPPINGS = {
   },
   [HASHED_VISIT_BAN_TABLE_NAME]: {
     tableName: VISIT_BAN_TABLE_NAME,
-    deleteByIdQuery: "",
+    deleteByIdQuery: (entityId: string): string => SQL_DELETE_VISIT_BAN.replace("{id}", entityId),
     insertQuery: (entity: TimedEntity): string =>
     {
       const visitBan = entity as VisitBan;
       return SQL_INSERT_VISIT_BAN
-        .replace("{id}", '"' + visitBan.id + '"')
+        .replace("{id}", '"' + entity.id + '"')
+        .replace("{congregationId}", '"' + entity.congregationId + '"')
         .replace("{prefix}", '"' + visitBan.prefix + '"')
         .replace("{creationTime}", '"' + visitBan.creationTime?.toISOString() + '"')
         .replace("{lastUpdated}", '"' + visitBan.lastUpdated?.toISOString() + '"')
@@ -531,6 +570,7 @@ export const TABLE_NAME_MAPPINGS = {
       const territory = entity as any;
       return {
         ...territory,
+        congregationId: undefined,
         floor: parseInt(territory.floor, 10) || null,
         creationTime: parseDateIfPossible(territory.creationTime),
         lastUpdated: parseDateIfPossible(territory.lastUpdated),
