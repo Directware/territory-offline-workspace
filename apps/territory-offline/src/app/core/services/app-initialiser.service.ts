@@ -48,7 +48,6 @@ export class AppInitializerService
         .pipe(
           ofType(LoadSettingsSuccess),
           take(1),
-          tap((action) => this.considerToGetReleaseInfos(action.settings)),
           tap(() => resolve())
         ).subscribe()
     );
@@ -58,6 +57,8 @@ export class AppInitializerService
 
   private considerToGetReleaseInfos(settings: SettingsState)
   {
+    // FIXME wenn man es hier aufruft ist unter umständen die App gelockt obwohl sie gerade unlocked wurde
+
     if (settings && settings.initialConfigurationDone)
     {
       this.toUpdatesService.considerToGetReleaseInfos();

@@ -10,6 +10,7 @@ import {LanguageSearchComponent} from "./form-controls/language-search/language-
 import {ReactiveFormsModule} from "@angular/forms";
 import {DurationPickerComponent} from "./form-controls/duration-picker/duration-picker.component";
 import { HideablePanelComponent } from './hideable-panel/hideable-panel.component';
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HideablePanelComponent } from './hideable-panel/hideable-panel.componen
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule.forChild()
   ],
   exports: [
     DatePickerComponent,

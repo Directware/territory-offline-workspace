@@ -186,6 +186,7 @@ export class ToUpdatesService
 
   private updateStore(releaseInfo)
   {
+    console.log("ja?");
     this.store.pipe(
       select(selectSettings),
       take(1),

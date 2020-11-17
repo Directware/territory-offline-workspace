@@ -1,4 +1,4 @@
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 // @ts-ignore
@@ -9,12 +9,14 @@ import {Observable} from 'rxjs';
 import {SettingsState} from '../../core/store/settings/settings.reducer';
 import {selectSettings} from '../../core/store/settings/settings.selectors';
 import {LockApp, UpsertSettings} from '../../core/store/settings/settings.actions';
-import {take, tap} from 'rxjs/operators';
+import {first, take, tap} from 'rxjs/operators';
 import {DatabaseService} from "../../core/services/db/database.service";
 import {IpcService} from "../../core/services/common/ipc.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ChangelogModalComponent} from "./changelog-modal/changelog-modal.component";
 import {ToUpdatesService} from "../../core/services/common/to-updates.service";
+import {TerritoryLanguageService, ToLanguage} from "@territory-offline-workspace/ui-components";
+import {AVAILABLE_LANGUAGES} from "../../core/i18n/all.i18n";
 
 @Component({
   selector: 'app-settings',
@@ -25,10 +27,12 @@ export class SettingsComponent implements OnInit
 {
   public settings$: Observable<SettingsState>;
   public version: string = version;
+  public initialLangList: string[];
 
   constructor(private router: Router,
               private database: DatabaseService,
               private dialog: MatDialog,
+              private translateService: TranslateService,
               private ipcService: IpcService,
               private toUpdatesService: ToUpdatesService,
               private store: Store<ApplicationState>,
@@ -39,6 +43,7 @@ export class SettingsComponent implements OnInit
   public ngOnInit(): void
   {
     this.settings$ = this.store.pipe(select(selectSettings));
+    this.initialLangList = AVAILABLE_LANGUAGES.map(lang => lang.key);
     this.router.navigate([{outlets: {'second-thread': null}}]);
   }
 
@@ -73,6 +78,22 @@ export class SettingsComponent implements OnInit
     }
   }
 
+  public async chooseLanguage(event: ToLanguage)
+  {
+    if (this.translateService.getLangs().includes(event.languageCode))
+    {
+      const settings = await this.settings$.pipe(first()).toPromise();
+
+      this.store.dispatch(UpsertSettings({
+        settings: {
+          ...settings,
+          appLanguage: event
+        }
+      }));
+      this.translateService.use(event.languageCode);
+    }
+  }
+
   public downloadNewRelease(release)
   {
     this.ipcService.send('downloadNewAppVersion', {...release});
@@ -98,7 +119,8 @@ export class SettingsComponent implements OnInit
 
   public clearAllAppData()
   {
-    this.translate.get(['settings.reallyReset', 'settings.restartApp']).pipe(take(1)).subscribe((translations: {[key: string]: string}) => {
+    this.translate.get(['settings.reallyReset', 'settings.restartApp']).pipe(take(1)).subscribe((translations: { [key: string]: string }) =>
+    {
       const reallyDelete = confirm(translations['settings.reallyReset']);
 
       if (reallyDelete)
@@ -113,7 +135,7 @@ export class SettingsComponent implements OnInit
           }
         });
       }
-      })
+    })
   }
 
   public contact()

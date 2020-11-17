@@ -36,19 +36,32 @@
     position: relative;
     width: 100%;
 
-   .app-list {
+    .app-list {
       width: 100%;
       top: -6px;
       z-index: 10;
       position: absolute;
       padding: 0 0 0 0.5rem;
       max-height: 12rem;
-      overflow: auto;
+      overfloW: auto;
       box-sizing: border-box;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 0 0 6px 6px;
+
+      ::ng-deep .app-list-item {
+        padding: 0.2rem 0.5rem;
+        min-height: 2.5rem;
+
+        &:last-child {
+          border: none;
+        }
+
+        ::ng-deep .label {
+          font-size: 12px;
+        }
+      }
     }
   }
 }

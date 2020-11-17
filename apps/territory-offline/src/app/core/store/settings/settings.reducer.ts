@@ -1,5 +1,6 @@
 import {Action, createReducer, on} from '@ngrx/store';
 import {LoadSettingsSuccess, LockApp, UnlockApp, UnlockSecretKey, UpsertSettingsSuccess} from './settings.actions';
+import {ToLanguage} from "@territory-offline-workspace/ui-components";
 
 export interface SettingsState
 {
@@ -17,6 +18,7 @@ export interface SettingsState
   overdueBreakInMonths: number; // Zuteilung überfällig nach
   autoAppLockingInMinutes: number;
   releaseInfo: any;
+  appLanguage: ToLanguage;
 }
 
 const initialState = {
@@ -33,7 +35,8 @@ const initialState = {
   processingBreakInMonths: 4,
   overdueBreakInMonths: 4,
   autoAppLockingInMinutes: 0,
-  releaseInfo: null
+  releaseInfo: null,
+  appLanguage: null
 };
 
 const settingsReducer = createReducer(

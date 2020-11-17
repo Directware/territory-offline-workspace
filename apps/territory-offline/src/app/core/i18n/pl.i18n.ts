@@ -1,4 +1,5 @@
 export const pl = {
+  "language": "Sprache",
   "assignments": {
     "startTime": "Ausgabedatum",
     "endTime": "Rückgabedatum",
@@ -146,6 +147,7 @@ export const pl = {
     "canNotDelete": "{{firstName}} {{name}} hat noch zugeteilte Gebiete und kann deshalb nicht gelöscht werden."
   },
   "settings": {
+    "general": "Allgemein",
     "processingDueAfter": "Bearbeitung fällig nach",
     "dueMonth": "{{count}} Monaten",
     "processingDueHintLine1": "Dieser Zeitraum legt fest, wie lange die Bearbeitung eines Gebietes dauern sollte.",
@@ -367,7 +369,6 @@ export const pl = {
   "search": {
     "title": "Suche"
   },
-  "language": "Sprache",
   "platformActions": {
     "sync": "Territory Offline Sync",
     "sharingFailed": "File sharing failed"

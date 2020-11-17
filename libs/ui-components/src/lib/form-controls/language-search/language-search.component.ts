@@ -1,4 +1,4 @@
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {debounceTime, takeUntil, tap} from "rxjs/operators";
@@ -19,7 +19,7 @@ export class LanguageSearchComponent implements OnInit, OnDestroy
   public required: boolean;
 
   @Input()
-  public label: string;
+  public allowedLangList: string[];
 
   @Output()
   public onChoose = new EventEmitter();
@@ -29,35 +29,37 @@ export class LanguageSearchComponent implements OnInit, OnDestroy
 
   public inputValue = new FormControl();
   public languageList: ToLanguage[];
+  public focused: boolean;
 
   private destroyer = new Subject();
 
-  constructor(private territoryLanguageService: TerritoryLanguageService, private translate: TranslateService)
+  constructor(private territoryLanguageService: TerritoryLanguageService,
+              private translate: TranslateService)
   {
   }
 
   public ngOnInit(): void
   {
-    this.translate.get('language').subscribe((translation: string) => {
-      if (!!this.initLanguageCode)
-      {
-        const lang = this.territoryLanguageService.getLanguageByCode(this.initLanguageCode);
-        this.inputValue.patchValue(lang.nativeName, {emitEvent: false})
-      }
+    if (!!this.initLanguageCode)
+    {
+      const lang = this.territoryLanguageService.getLanguageByCode(this.initLanguageCode);
+      this.inputValue.patchValue(lang.nativeName, {emitEvent: false})
+    }
 
-      if(!this.label)
-      {
-        this.label = translation;
-      }
+    this.inputValue
+      .valueChanges
+      .pipe(
+        takeUntil(this.destroyer),
+        debounceTime(300),
+        tap((inputValue) => this.searchLanguage(inputValue))
+      ).subscribe();
 
-      this.inputValue
-        .valueChanges
-        .pipe(
-          takeUntil(this.destroyer),
-          debounceTime(300),
-          tap((inputValue) => this.searchLanguage(inputValue))
-        ).subscribe();
-    });
+    if (this.allowedLangList)
+    {
+      // TODO wenn die Liste gesetzt wird, sollte es nicht möglich sein andere Sprachen zu suchen
+      this.languageList = [];
+      this.allowedLangList.forEach(langKey => this.languageList.push(this.territoryLanguageService.getLanguageByCode(langKey)));
+    }
   }
 
   public ngOnDestroy()
@@ -66,10 +68,25 @@ export class LanguageSearchComponent implements OnInit, OnDestroy
     this.destroyer.complete();
   }
 
+  public toggleList()
+  {
+    if (this.focused)
+    {
+      setTimeout(() => this.focused = false, 200);
+    }
+    else
+    {
+      this.focused = true;
+    }
+  }
+
   public chooseLanguage(language: ToLanguage)
   {
     this.inputValue.patchValue(language.nativeName, {emitEvent: false})
-    this.languageList = null;
+    if (!this.allowedLangList)
+    {
+      this.languageList = null;
+    }
     this.onChoose.emit(language);
   }
 

@@ -13,10 +13,10 @@ import {CongregationsComponent} from './views/congregations/congregations.compon
 import {TransferComponent} from './views/transfer/transfer.component';
 import {SettingsComponent} from './views/settings/settings.component';
 import {LockScreenComponent} from './views/lock-screen/lock-screen.component';
-import {StoreModule} from '@ngrx/store';
-import {EffectsModule} from '@ngrx/effects';
+import {Store, StoreModule} from '@ngrx/store';
+import {Actions, EffectsModule, ofType} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {reducers} from './core/store/index.reducers';
+import {ApplicationState, reducers} from './core/store/index.reducers';
 import {effects} from './core/store/index.effects';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -70,8 +70,13 @@ import {WholeVisitBansComponent} from './views/visit-bans/whole-visit-bans/whole
 import {SearchVisitBanPipe} from "./core/pipes/visit-bans/search-visit-ban.pipe";
 import {VisitBanLastVisitTimePipe} from "./core/pipes/visit-bans/visit-ban-last-visit-time.pipe";
 import {BackupImportChangesComponent} from './views/shared/modals/backup-import-changes/backup-import-changes.component';
-import {UiComponentsModule} from "@territory-offline-workspace/ui-components";
+import {TerritoryLanguageService, UiComponentsModule} from "@territory-offline-workspace/ui-components";
 import {AVAILABLE_LANGUAGES} from "./core/i18n/all.i18n";
+import {first, tap} from "rxjs/operators";
+import {LoadSettingsSuccess} from "./core/store/settings/settings.actions";
+import {Plugins} from '@capacitor/core';
+
+const {Device} = Plugins;
 
 @NgModule({
   declarations: [
@@ -160,14 +165,42 @@ import {AVAILABLE_LANGUAGES} from "./core/i18n/all.i18n";
 })
 export class AppModule
 {
-  constructor(private translateService: TranslateService)
+  constructor(private store: Store<ApplicationState>,
+              private actions$: Actions,
+              private languageService: TerritoryLanguageService,
+              private translateService: TranslateService)
   {
     AVAILABLE_LANGUAGES.forEach(lang => this.translateService.setTranslation(lang.key, lang.translations));
     this.translateService.addLangs(AVAILABLE_LANGUAGES.map(lang => lang.key));
-    this.translateService.setDefaultLang('de');
 
-    const browserLang = this.translateService.getBrowserLang();
-    this.translateService.use(this.translateService.getLangs().includes(browserLang) ? browserLang : this.translateService.defaultLang);
+    this.actions$
+      .pipe(
+        ofType(LoadSettingsSuccess),
+        first(),
+        tap(async ({settings}) =>
+        {
+          let language = "en";
+          if (settings && settings.initialConfigurationDone)
+          {
+            const translationsExists = settings?.appLanguage && this.translateService.getLangs().includes(settings.appLanguage.languageCode)
+            if (translationsExists)
+            {
+              language = settings.appLanguage.languageCode;
+            }
+          }
+          else
+          {
+            const langCode = await Device.getLanguageCode();
+            let systemLang = this.languageService.getLanguageByCode(langCode.value);
+
+            if (this.translateService.getLangs().includes(systemLang.languageCode))
+            {
+              language = systemLang.languageCode;
+            }
+          }
+          setTimeout(() => this.translateService.use(language), 300);
+        })
+      ).subscribe();
   }
 }
 

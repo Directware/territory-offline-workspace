@@ -22,6 +22,17 @@
   </app-panel>
   <div class="scrollable-wrapper">
     <div class="settings-wrapper">
+      <h2 class="h2-white">{{ 'settings.general' | translate }}</h2>
+      <app-list-item>
+        <p class="label">{{"language" | translate}}</p>
+        <p class="info">
+          <app-language-search class="app-language-search"
+                               [allowedLangList]="initialLangList"
+                               [initLanguageCode]="settings.appLanguage?.languageCode"
+                               (onChoose)="chooseLanguage($event)"></app-language-search>
+        </p>
+      </app-list-item>
+
       <h2 class="h2-white">{{ 'settings.territories' | translate }}</h2>
       <app-list-item (click)="navigateInSecondThread('processing-due-after')">
         <p class="label">{{ 'settings.processingDueAfter' | translate }}</p>
@@ -34,12 +45,6 @@
       <app-list-item (click)="navigateInSecondThread('reassign-due-after')">
         <p class="label">{{ 'settings.reassignDueAfter' | translate }}</p>
         <p class="info">{{ 'settings.dueMonth' | translate:{ count: settings.overdueBreakInMonths } }}</p>
-      </app-list-item>
-      <app-list-item>
-        <p class="label">{{"language" | translate}}</p>
-        <p class="info">
-          <app-language-search class="app-language-search"></app-language-search>
-        </p>
       </app-list-item>
       <app-list-item (click)="navigateInGlobalThread('choose-origin')" class="blue">
         <p class="label">{{ 'settings.alignMap' | translate }}</p>

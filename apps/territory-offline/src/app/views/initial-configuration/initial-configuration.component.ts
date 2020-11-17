@@ -16,8 +16,12 @@ import {
 import {LoadDrawings} from "../../core/store/drawings/drawings.actions";
 import {DataSecurityService} from "../../core/services/common/data-security.service";
 import {environment} from "../../../environments/environment";
-import {ToLanguage} from "@territory-offline-workspace/ui-components";
+import {TerritoryLanguageService, ToLanguage} from "@territory-offline-workspace/ui-components";
 import {Congregation} from "@territory-offline-workspace/api";
+import {Plugins} from '@capacitor/core';
+import {TranslateService} from "@ngx-translate/core";
+
+const {Device} = Plugins;
 
 @Component({
   selector: 'app-initial-configuration',
@@ -33,6 +37,8 @@ export class InitialConfigurationComponent implements OnInit
   constructor(private actions$: Actions,
               private cryptoService: CryptoService,
               private fb: FormBuilder,
+              private languageService: TerritoryLanguageService,
+              private translateService: TranslateService,
               private dataSecurityService: DataSecurityService,
               private store: Store<ApplicationState>)
   {
@@ -58,7 +64,7 @@ export class InitialConfigurationComponent implements OnInit
       isAppLocked: [false]
     }, {validator: this.isPasswordNeeded ? this.checkPasswords : null});
 
-    if(!environment.production)
+    if (!environment.production)
     {
       this.initialConfigFormGroup.patchValue({congregation: "Augsburg West"});
     }
@@ -72,11 +78,20 @@ export class InitialConfigurationComponent implements OnInit
     });
   }
 
-  public createInitialConfiguration(center)
+  public async createInitialConfiguration(center)
   {
     const tmp = this.initialConfigFormGroup.getRawValue();
 
     const currentCongregationId = uuid();
+
+    const langCode = await Device.getLanguageCode();
+    let systemLang = this.languageService.getLanguageByCode(langCode.value);
+
+    if (!this.translateService.getLangs().includes(systemLang.languageCode))
+    {
+      systemLang = this.languageService.getLanguageByCode("en");
+    }
+
     const createdSettings: SettingsState = {
       id: tmp.id,
       currentCongregationId: currentCongregationId,
@@ -91,7 +106,8 @@ export class InitialConfigurationComponent implements OnInit
       processingBreakInMonths: 4,
       overdueBreakInMonths: 8,
       autoAppLockingInMinutes: 0,
-      releaseInfo: null
+      releaseInfo: null,
+      appLanguage: systemLang
     };
 
     const congregation: Congregation = {
