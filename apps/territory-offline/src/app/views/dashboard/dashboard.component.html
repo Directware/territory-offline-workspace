@@ -1,6 +1,6 @@
 <app-panel *ngIf="(dashboardData$ | async) as dashboardData">
   <div class="wrapper">
-    <h2 class="h2-white">{{ 'dashboard.serviceYear' | translate }} 2019/2020</h2>
+    <h2 class="h2-white">{{ 'dashboard.serviceYear' | translate }} {{dashboardData.serviceYear}}</h2>
 
     <div class="progress-wrapper first-element">
       <progress [value]="dashboardData.currentlyDoneCount" [max]="dashboardData.assignmentsTotal"></progress>

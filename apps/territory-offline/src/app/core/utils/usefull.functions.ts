@@ -31,7 +31,7 @@ export function createDurationPhrase(startDate: Date)
 
 export function evaluateTerritoryStatus(assignment: Assignment, settings: SettingsState)
 {
-  if(!assignment)
+  if (!assignment)
   {
     return {
       color: TerritoryStatus.NEVER_ASSIGNED,
@@ -110,4 +110,16 @@ export function isInLocationPath(pathName: string): boolean
 {
   /* startsWith is an der Stelle eine schlechte Wahl, weil in Electron der Dateipfad davor kommt */
   return window.location.pathname.includes(pathName);
+}
+
+export function currentServiceYear(): string
+{
+  const september = 8;
+  const today = new Date();
+  if (today.getMonth() >= september)
+  {
+    return `${today.getFullYear()}/${today.getFullYear() + 1}`;
+  }
+
+  return `${today.getFullYear() - 1}/${today.getFullYear()}`;
 }
