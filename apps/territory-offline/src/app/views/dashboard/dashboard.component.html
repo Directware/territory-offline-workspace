@@ -24,7 +24,7 @@
 <div class="scrollable-wrapper">
 
   <div *ngIf="(overdueAssignments$ | async) as overdueAssignments" class="list-wrapper">
-    <h2 class="h2-white">{{ 'dashboard.overdueAssignments' | translate }} <span>{{overdueAssignments.length}}</span></h2>
+    <h2 class="h2-white">{{ 'dashboard.overdueAssignments' | translate }} <span>{{overdueAssignmentsCount(overdueAssignments)}}</span></h2>
 
     <ng-container *ngIf="(showAllOverdueAssignments ? overdueAssignments : overdueAssignments | slice:0:4) as dtos">
       <app-list>

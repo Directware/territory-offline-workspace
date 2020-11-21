@@ -38,8 +38,16 @@ export class DashboardComponent implements OnInit, OnDestroy
   public ngOnInit(): void
   {
     this.dashboardData$ = this.store.pipe(select(selectDashboardData));
-    this.overdueAssignments$ = this.store.pipe(select(selectOverdueAssignments));
-    this.overdueTerritories$ = this.store.pipe(select(selectOverdueTerritories));
+    this.overdueAssignments$ = this.store.pipe(
+      select(selectOverdueAssignments),
+      map((dtos: any[]) =>
+        {
+          dtos.forEach(dto => dto.assignments.sort((dto1, dto2) => dto1.startTime > dto2.startTime ? 1 : -1));
+          return dtos.sort((dto1, dto2) => dto1.assignments[0].startTime > dto2.assignments[0].startTime ? 1 : -1);
+        }
+      )
+    );
+    this.overdueTerritories$ = this.store.pipe(select(selectOverdueTerritories), map(dtos => dtos.sort((dto1, dto2) => dto1.lastAssignmentEndTime > dto2.lastAssignmentEndTime ? 1 : -1)));
     this.router.navigate([{outlets: {'second-thread': null}}]);
 
     this.router
@@ -68,6 +76,13 @@ export class DashboardComponent implements OnInit, OnDestroy
     {
       this.router.navigate([{outlets: {'second-thread': ['overdue-assignments', dto.publisher.id]}}]);
     }
+  }
+
+  public overdueAssignmentsCount(dtos: any[]): number
+  {
+    let count = 0;
+    dtos.forEach(dto => count += dto.assignments.length);
+    return count;
   }
 
   public showOverdueTerritory(dto: { territory: Territory })

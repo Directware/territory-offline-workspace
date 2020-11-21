@@ -20,6 +20,7 @@ export const pt = {
   "overdueAssigments": {
     "startTime": "Data de emissão",
     "endTime": "Data de regresso",
+    "hasSince": "Propriedade desde",
     "edit": "Editar Alocação"
   },
   "congregation": {

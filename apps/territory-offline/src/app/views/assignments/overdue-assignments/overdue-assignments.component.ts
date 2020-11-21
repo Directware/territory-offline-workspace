@@ -4,7 +4,7 @@ import {Observable, Subject} from 'rxjs';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../../core/store/index.reducers';
 import {selectOverdueAssignmentsByPreacher} from '../../../core/store/assignments/assignments.selectors';
-import {take, takeUntil, tap} from 'rxjs/operators';
+import {map, take, takeUntil, tap} from 'rxjs/operators';
 import {AssignmentsService} from '../../../core/services/assignment/assignments.service';
 import {TerritoryMapsService} from "../../../core/services/territory/territory-maps.service";
 import {selectAllTerritories} from "../../../core/store/territories/territories.selectors";
@@ -35,6 +35,7 @@ export class OverdueAssignmentsComponent implements OnInit, OnDestroy
         takeUntil(this.destroyer),
         tap((params) => this.assignments$ = this.store.pipe(
           select(selectOverdueAssignmentsByPreacher, params.publisherId),
+          map(assignments => assignments.sort((dto1, dto2) => dto1.startTime > dto2.startTime ? 1 : -1)),
           tap((assignments: Assignment[]) =>
           {
             this.store

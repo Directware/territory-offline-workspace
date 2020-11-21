@@ -20,6 +20,7 @@ export const de = {
   "overdueAssigments": {
     "startTime": "Ausgabedatum",
     "endTime": "Rückgabedatum",
+    "hasSince": "Im Besitz seit",
     "edit": "Zuteilung bearbeiten"
   },
   "congregation": {

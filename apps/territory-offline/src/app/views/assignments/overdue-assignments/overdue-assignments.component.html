@@ -6,12 +6,8 @@
       <p class="label h3-white">{{assignment.territoryId | territoryIdToName | async}}</p>
     </app-list-item>
     <app-list-item>
-      <p class="label body-white">{{ 'overdueAssigments.startTime' | translate }}</p>
-      <p class="info">{{assignment.startTime | date:'dd.MM.yyyy'}}</p>
-    </app-list-item>
-    <app-list-item>
-      <p class="label body-white">{{ 'overdueAssigments.endTime' | translate }}</p>
-      <p class="info">{{assignment.endTime | date:'dd.MM.yyyy'}}</p>
+      <p class="label body-white">{{ 'overdueAssigments.hasSince' | translate }}</p>
+      <p class="info">{{assignment.startTime | durationPhrase}}</p>
     </app-list-item>
     <app-list-item>
       <p (click)="editAssignment(assignment)" class="label blue">{{ 'overdueAssigments.edit' | translate }}</p>

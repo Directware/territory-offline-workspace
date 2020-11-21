@@ -160,6 +160,7 @@ export const selectOverdueTerritories = createSelector(
       {
         overdue.push({
           territory: t,
+          lastAssignmentEndTime: lastAssignment.endTime,
           durationPhrase: createDurationPhrase(lastAssignment ? lastAssignment.endTime : null)
         });
       }

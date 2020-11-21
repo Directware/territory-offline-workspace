@@ -20,6 +20,7 @@ export const pl = {
   "overdueAssigments": {
     "startTime": "Data wydania",
     "endTime": "Data zwrotu",
+    "hasSince": "W posiadaniu od",
     "edit": "Edytuj przydział"
   },
   "congregation": {

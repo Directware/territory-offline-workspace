@@ -19,6 +19,7 @@ export const en = {
   "overdueAssigments": {
     "startTime": "Issue date",
     "endTime": "Return date",
+    "hasSince": "Owned since",
     "edit": "Edit assignment"
   },
   "congregation": {
