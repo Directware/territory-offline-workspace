@@ -14,34 +14,98 @@
 
   .header {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     z-index: 11;
     font-family: Heebo-Medium, sans-serif;
     font-weight: 500;
     line-height: 1.2;
     color: #ffffff;
+    margin: 0.5rem 0 0rem 0;
 
-    .done {
-      font-size: 1rem;
+    .back {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      font-size: 1.125rem;
       font-weight: 500;
       line-height: 1.25;
       letter-spacing: 0.4px;
-      text-align: center;
+      text-align: left;
+      color: #3694e2;
+      padding: 0.25rem 0 0.75rem 0;
+      position: relative;
+      left: -0.5rem;
+
+      > .i-feather {
+        position: relative;
+        top: -2px;
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
+
+  .title {
+    margin: 0;
+    padding: 0 1rem;
+    font-size: 30px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    color: #ffffff;
+  }
+
+  .tip-wrapper {
+    background: transparent;
+    padding: 0;
+    margin: 1rem 0;
+
+    .info {
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: 0.4px;
       color: #ffffff;
-      padding: 0.25rem 0.75rem;
-      border-radius: 1rem;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      background-color: rgba(173, 177, 184, 0.24);
+    }
+  }
+
+  .send {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 180px;
+    height: 130px;
+    padding: 25px;
+    border-radius: 8px;
+    border: solid 2px #4f9cdc;
+    margin: 3rem auto;
+    line-height: 1.25;
+    letter-spacing: 0.4px;
+    color: #3694e2;
+    text-align: center;
+
+    > span {
+      width: 130px;
+      margin: 1rem 0 0 0;
     }
   }
 
   .remove-territory {
     position: fixed;
-    bottom: calc(1rem + env(safe-area-inset-bottom));
     left: 1rem;
-    width: calc(100vw - 2rem);
+    bottom: calc(env(safe-area-inset-bottom) + 3rem);
+    width: calc(100% - 2rem);
+    border-radius: 6px;
+    background-color: rgba(173, 177, 184, 0.2);
+    color: #fff;
   }
 }

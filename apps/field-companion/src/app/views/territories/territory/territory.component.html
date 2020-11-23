@@ -1,7 +1,7 @@
 <ng-container *ngIf="(territoryCard$ | async) as territoryCard">
   <h1 class="header">
     <div class="back" (click)="done()">
-      <i-feather name="chevron-left"></i-feather>
+      <i-feather class="i-feather" name="chevron-left"></i-feather>
       <span>{{"territories.title" | translate}}</span>
     </div>
     {{territoryCard.territory.name}} {{territoryCard.territory.key}}
@@ -26,6 +26,11 @@
         <i-feather name="log-out" class="icon"></i-feather>
       </app-list-item>
     </app-list>
+
+    <p *ngIf="territoryCard.territory.comment" class="comment">
+      <i-feather class="info-icon" name="info"></i-feather>
+      {{territoryCard.territory.comment}}
+    </p>
 
     <fc-visit-bans [territoryCard]="territoryCard"></fc-visit-bans>
   </div>

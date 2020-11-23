@@ -13,7 +13,8 @@ export const deDE = {
     soon: "Bald Verfügbar",
     newFeature: "Neues Feature!",
     cool: "Cool!",
-    remove: "Löschen"
+    remove: "Löschen",
+    complete: "Abschließen"
   },
   featureConfirmation: {
     reportUpToTheMinute: {
@@ -93,7 +94,7 @@ export const deDE = {
     title: "Gebiete",
     addTerritory: "Gebiet hinzufügen",
     noTerritories: "Keine Gebiete",
-    noTerritoriesDesc: "Bitte deinen Gebietsdiener um ein Gebiet",
+    noTerritoriesDesc: "Wenn dein Gebietsdiener TerritoryOffline verwendet, kannst du hier deine Gebiete hinzufügen",
     yourTerritories: "Deine Gebiete",
     feature1: "Empfange Gebiete per Link von deinem Gebietsdiener",
     feature2: "Betrachte dein Gebiet auf detailierten Karten",
@@ -116,14 +117,16 @@ export const deDE = {
     setManuallyPosition: "Punkt auswählen",
     choosePointOnMap: "Punkt auf Karte auswählen",
     noVisitBans: "Keine Adressen vorhanden",
-    returnTerritory: "Abgabe",
+    returnTerritory: "Gebiet abgeben",
     reallyDeleteVisitBan: "Möchtest du diese Adresse wirklich löschen?",
     deleteConfirmation: "Möchtest du wirklich das Gebiet entfernen?",
     returnInfo: "Gebiet abgeben",
-    returnInfoText: "Bevor du dein Gebiet löschst, sende es bitte an deinen Gebietsdiener zurück.",
+    returnInfoText: "Um dein Gebiet abzugeben, sende es bitte an deinen Gebietsdiener zurück. Sobald du 'Abschließen' tippst, wird es automatisch aus der Liste deiner Gebieten entfernt.",
     remove: "Gebiet löschen",
     inProgress: "Aktive Gebiete",
-    expired: "Abgelaufene Gebiete"
+    expired: "Abgelaufene Gebiete",
+    wrongFileType: "Falscher Dateityp! Bitte importiere eine Datei mit der Endung '.territory'",
+    sendToServant: "An Gebietsdiener versenden"
   },
   settings: {
     title: "Einstellungen",

@@ -12,6 +12,7 @@ import {take, tap} from "rxjs/operators";
 import {DailyReport} from "../../../../core/store/reports/model/daily-report.model";
 import {UpsertDailyReport} from "../../../../core/store/reports/daily-reports.actions";
 import {ReportService} from "../../../../core/services/report.service";
+import {DurationService} from "../../../../core/services/duration.service";
 
 @Component({
   selector: 'app-edit-report-before-send',
@@ -23,7 +24,9 @@ export class EditReportBeforeSendComponent implements OnInit
   public monthlyReport$: Observable<MergedDailyReport>;
   public hideMainNavigation = true;
 
-  constructor(private store: Store<ApplicationState>, private reportService: ReportService)
+  constructor(private store: Store<ApplicationState>,
+              private durationService: DurationService,
+              private reportService: ReportService)
   {
   }
 
@@ -74,6 +77,11 @@ export class EditReportBeforeSendComponent implements OnInit
         }
       })
     ).subscribe();
+  }
+
+  public padDuration(value: number): string
+  {
+    return this.durationService.padDuration(value);
   }
 }
 

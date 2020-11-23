@@ -12,6 +12,7 @@ def capacitor_pods
   pod 'CapacitorCordova', :path => '../../../../node_modules/@capacitor/ios'
   pod 'ByteowlsCapacitorFilesharer', :path => '../../../../node_modules/@byteowls/capacitor-filesharer'
   pod 'CapacitorDataStorageSqlite', :path => '../../../../node_modules/capacitor-data-storage-sqlite'
+  pod 'CapacitorFileSelector', :path => '../../../../node_modules/capacitor-file-selector'
   # Do not delete
 end
 

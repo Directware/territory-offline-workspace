@@ -1,6 +1,8 @@
 @import "libs/ui-components/src/lib/assets/styles/colors";
 
 :host {
+  padding-right: 1rem;
+  display: block;
 
   .app-panel {
     padding: 0;

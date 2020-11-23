@@ -39,6 +39,7 @@
     margin: 0 1rem 0 1rem;
     min-height: 15rem;
     overflow: hidden;
+    border-radius: 0.625rem;
 
     ::ng-deep .wrapper {
       padding: 2rem;
@@ -134,7 +135,7 @@
 
   .scrollable-wrapper {
     margin: 1rem 0 0 0;
-    padding: 0.5rem 0;
+    padding: 0;
   }
 
   .territory-section {

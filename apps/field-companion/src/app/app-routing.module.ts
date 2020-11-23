@@ -33,7 +33,7 @@ const routes: Routes = [
   {path: 'map', component: MapComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Modal'}},
   {path: 'territories', component: TerritoriesComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Territories'}},
   {path: 'territory/:id', component: TerritoryComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Territory'}},
-  {path: 'territory/:id/return-territory', component: ReturnTerritoryCardComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Modal'}},
+  {path: 'territory/:id/return-territory', component: ReturnTerritoryCardComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'ReturnTerritory'}},
   {path: 'territory/:id/visit-ban', component: VisitBanComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Modal'}},
   {path: 'territory/:id/visit-ban/:visitBanId', component: VisitBanComponent, canActivate: [InitialConfigurationGuard], data: {animation: 'Modal'}},
   {path: '**', redirectTo: 'field-service'}

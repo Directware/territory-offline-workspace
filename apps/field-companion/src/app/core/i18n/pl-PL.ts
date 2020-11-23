@@ -13,7 +13,8 @@ export const plPL = {
     soon: "Wkrótce dostępne",
     newFeature: "Nowa funkcja!",
     cool: "Cool!",
-    remove: "Usuń"
+    remove: "Usuń",
+    complete: "Zakończ"
   },
   featureConfirmation: {
     reportUpToTheMinute: {
@@ -93,7 +94,7 @@ export const plPL = {
     title: "Tereny",
     addTerritory: "Dodaj teren",
     noTerritories: "Brak terenow",
-    noTerritoriesDesc: "Zapytaj swojego sługe terenów o teren",
+    noTerritoriesDesc: "Jeśli twój sługa terenów korzysta z TerritoryOffline, możesz dodać swoje tereny tutaj",
     yourTerritories: "Twoje tereny",
     feature1: "Odbieraj tereny od swojego sługi terenów",
     feature2: "Zobacz swój teren na szczegółowych mapach",
@@ -120,10 +121,12 @@ export const plPL = {
     reallyDeleteVisitBan: "Czy naprawdę chcesz usunąć ten adres?",
     deleteConfirmation: "Naprawdę chcesz usunąć ten teren?",
     returnInfo: "Oddanie terenu",
-    returnInfoText: "Zanim usuniesz swój teren, wyślij go z powrotem do swojego sługi terenów.",
+    returnInfoText: "Aby oddać teren, proszę wysłać go do sługi terenów. Po naciśnięciu przycisku 'Zakończ', zostanie on automatycznie usunięty z listy terenów.",
     remove: "Usuń teren",
     inProgress: "Aktywne tereny",
-    expired: "Wygasłe tereny"
+    expired: "Wygasłe tereny",
+    wrongFileType: "Zły typ pliku! Proszę zaimportować plik z rozszerzeniem '.territory'",
+    sendToServant: "Wyślij do sługi terenów"
   },
   settings: {
     title: "Ustawienia",

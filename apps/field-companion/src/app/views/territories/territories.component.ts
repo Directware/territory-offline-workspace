@@ -1,14 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-import * as Pako from 'pako';
+
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../core/store/index.reducers";
 import {
-  selectAllExpiredTerritoryCards, selectAllNotExpiredTerritoryCards,
-  selectAllTerritoryCards
+  selectAllExpiredTerritoryCards,
+  selectAllNotExpiredTerritoryCards
 } from "../../core/store/territory-card/territory-card.selectors";
 import {Observable} from "rxjs";
 import {TerritoryCard} from "@territory-offline-workspace/api";
-import {UpsertTerritoryCard} from "../../core/store/territory-card/territory-card.actions";
+import {TranslateService} from "@ngx-translate/core";
+import {Plugins} from '@capacitor/core';
+import {TerritoryCardService} from "../../core/services/territory-card.service";
+
+const {FileSelector, Device} = Plugins;
 
 @Component({
   selector: 'fc-territories',
@@ -21,7 +25,9 @@ export class TerritoriesComponent implements OnInit
   public territoryCards$: Observable<TerritoryCard[]>
   public expiredTerritoryCards$: Observable<TerritoryCard[]>
 
-  constructor(private store: Store<ApplicationState>)
+  constructor(private store: Store<ApplicationState>,
+              private territoryCardService: TerritoryCardService,
+              private translateService: TranslateService)
   {
   }
 
@@ -31,25 +37,35 @@ export class TerritoriesComponent implements OnInit
     this.expiredTerritoryCards$ = this.store.pipe(select(selectAllExpiredTerritoryCards));
   }
 
-  public openTerritoryFile(event)
+  public async select()
   {
-    let reader = new FileReader();
+    const selectedFile = await FileSelector.fileSelector({
+      multiple_selection: false,
+      ext: ["*"]
+    });
 
-    if (event.target.files && event.target.files.length)
+    const deviceInfo = await Device.getInfo();
+    let paths;
+
+    if (deviceInfo.platform === "ios")
     {
-      const [file] = event.target.files;
-      reader.onload = () => this.importTerritory(reader.result as any);
+      paths = selectedFile.paths;
+    }
+    else if (deviceInfo.platform === "android")
+    {
+      paths = JSON.parse(selectedFile.paths)
+    }
+
+    if (selectedFile.extensions.includes("territory"))
+    {
+      const file = await fetch(paths[0]).then((r) => r.blob());
+      const reader = new FileReader();
+      reader.onload = () => this.territoryCardService.importTerritory(reader.result as any);
       reader.readAsArrayBuffer(file);
     }
-  }
-
-  private importTerritory(data)
-  {
-    const unzippedData = Pako.inflate(new Uint8Array(data), {to: 'string'});
-    if (unzippedData)
+    else
     {
-      const parsedData = JSON.parse(unzippedData);
-      this.store.dispatch(UpsertTerritoryCard({territoryCard: parsedData}));
+      alert(this.translateService.instant("territories.wrongFileType"));
     }
   }
 }

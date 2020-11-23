@@ -47,31 +47,24 @@
       <app-list>
         <app-list-item (click)="exportToExcel()"><p class="label">{{"settings.actions.exportReports" | translate}}</p>
           <p class="info">
-            <i-feather name="share"></i-feather>
+            <i-feather class="i-feather" name="share"></i-feather>
           </p>
         </app-list-item>
         <app-list-item (click)="exportBackup()"><p class="label">{{"settings.actions.exportBackup" | translate}}</p>
           <p class="info">
-            <i-feather name="share"></i-feather>
+            <i-feather class="i-feather" name="share"></i-feather>
           </p>
         </app-list-item>
         <app-list-item (click)="backupFileChooser.click()"><p class="label">{{"settings.actions.importBackup" | translate}}</p>
           <p class="info">
             <input #backupFileChooser style="display: none;" type="file" (change)="importBackup($event)"/>
-            <i-feather name="download"></i-feather>
-          </p>
-        </app-list-item>
-        <app-list-item (click)="grapesFileChooser.click()">
-          <p class="label">{{"settings.actions.grapesImport" | translate}}</p>
-          <p class="info">
-            <input #grapesFileChooser style="display: none;" type="file" (change)="importDataFromGrapes($event)"/>
-            <i-feather name="download"></i-feather>
+            <i-feather class="i-feather" name="download"></i-feather>
           </p>
         </app-list-item>
         <app-list-item class="danger" (click)="factoryReset()">
           <p class="label">{{"settings.actions.resetApp" | translate}}</p>
           <p class="info">
-            <i-feather name="trash"></i-feather>
+            <i-feather class="i-feather" name="trash"></i-feather>
           </p>
         </app-list-item>
       </app-list>
@@ -84,22 +77,22 @@
       <app-list>
         <app-list-item class="disabled"><p class="label">{{"settings.actions.donate" | translate}}</p>
           <p class="info">
-            <i-feather name="heart"></i-feather>
+            <i-feather class="i-feather" name="heart"></i-feather>
           </p>
         </app-list-item>
         <app-list-item (click)="bugReport()"><p class="label">{{"settings.actions.bugReport" | translate}}</p>
           <p class="info">
-            <i-feather name="message-square"></i-feather>
+            <i-feather class="i-feather" name="message-square"></i-feather>
           </p>
         </app-list-item>
         <app-list-item (click)="openTerritoryOfflineWebsite()"><p class="label">{{"settings.actions.territoryOffline" | translate}}</p>
           <p class="info">
-            <i-feather name="external-link"></i-feather>
+            <i-feather class="i-feather" name="external-link"></i-feather>
           </p>
         </app-list-item>
         <app-list-item routerLink="/about-app"><p class="label">{{"settings.actions.about" | translate}}</p>
           <p class="info">
-            <i-feather name="info"></i-feather>
+            <i-feather class="i-feather" name="info"></i-feather>
           </p>
         </app-list-item>
       </app-list>

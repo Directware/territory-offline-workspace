@@ -24,6 +24,8 @@ export class CalendarComponent implements OnInit, OnDestroy
   public onDateChoose = new EventEmitter<CalendarCell>();
 
   public weekDays: string[] = [];
+  private weekDayPaddingSundayLast = [6, 0, 1, 2, 3, 4, 5];
+  private weekDayPaddingSundayFirst = [0, 1, 2, 3, 4, 5, 6];
 
   public grid: CalendarCell[];
   public chosenDay: CalendarCell;
@@ -42,7 +44,7 @@ export class CalendarComponent implements OnInit, OnDestroy
     {
       this.dataSource$
         .pipe(
-          tap(data => this.populate(data)),
+          tap(data => this.sundayLast ? this.populateWithMondayFirst(data) : this.populateWithSundayFirst(data)),
           takeUntil(this.destroyer)
         ).subscribe();
     }
@@ -75,34 +77,56 @@ export class CalendarComponent implements OnInit, OnDestroy
     }
   }
 
+  private populateWithMondayFirst(data: CalendarDatasource)
+  {
+    this.grid = [];
+    const firstDayOfMonth = new Date(data.year, data.month, 1).getDay();
+
+    for (let i = 0; i < this.weekDayPaddingSundayLast[firstDayOfMonth]; i++)
+    {
+      this.grid.push({
+        text: "",
+        dayIndex: -1,
+        date: null
+      });
+    }
+
+    this.populate(data);
+  }
+
+  private populateWithSundayFirst(data: CalendarDatasource)
+  {
+    this.grid = [];
+    const firstDayOfMonth = new Date(data.year, data.month, 1).getDay();
+
+    for (let i = 0; i < this.weekDayPaddingSundayFirst[firstDayOfMonth]; i++)
+    {
+      this.grid.push({
+        text: "",
+        dayIndex: -1,
+        date: null
+      });
+    }
+
+    this.populate(data);
+  }
+
   private populate(data: CalendarDatasource)
   {
     let dayIndex = 1;
-    this.grid = [];
+    const totalDaysInMonth = this.daysInMonth(data.month, data.year);
     const todayHelper = new Date();
     const today = new Date(todayHelper.getFullYear(), todayHelper.getMonth(), todayHelper.getDate());
-    const firstDayOfWeek = (new Date(data.year, data.month)).getDay();
 
     for (let i = 0; i < 6; i++)
     {
       for (let j = 0; j < 7; j++)
       {
-        if (i === 0 && j < (this.sundayLast ? firstDayOfWeek - 1 : firstDayOfWeek))
-        {
-          this.grid.push({
-            text: "",
-            dayIndex: -1,
-            date: null
-          });
-        }
-        else if (dayIndex > this.daysInMonth(data.month, data.year))
-        {
-          break;
-        }
-        else
+        if (dayIndex <= totalDaysInMonth)
         {
           const cellDate = new Date(data.year, data.month, dayIndex);
           const isToday = cellDate.getTime() === today.getTime();
+
           this.grid.push({
             text: dayIndex + "",
             dayIndex: dayIndex,
@@ -110,8 +134,8 @@ export class CalendarComponent implements OnInit, OnDestroy
             hasDot: isToday,
             hasData: data.dataExistOnDates.map(d => d.getTime()).includes(cellDate.getTime())
           });
-          dayIndex++;
         }
+        dayIndex++;
       }
     }
   }

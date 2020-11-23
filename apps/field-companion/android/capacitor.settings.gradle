@@ -7,3 +7,6 @@ project(':byteowls-capacitor-filesharer').projectDir = new File('../../../node_m
 
 include ':capacitor-data-storage-sqlite'
 project(':capacitor-data-storage-sqlite').projectDir = new File('../../../node_modules/capacitor-data-storage-sqlite/android')
+
+include ':capacitor-file-selector'
+project(':capacitor-file-selector').projectDir = new File('../../../node_modules/capacitor-file-selector/android')

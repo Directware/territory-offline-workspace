@@ -1,5 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {GrapesImporterService} from "../../core/services/grapes-importer.service";
 import {TranslateService} from "@ngx-translate/core";
 import {AppDatabaseService} from "../../core/services/database/app-database.service";
 import {select, Store} from "@ngrx/store";
@@ -37,8 +36,7 @@ export class SettingsComponent implements OnInit, OnDestroy
 
   private destroyer = new Subject();
 
-  constructor(private grapesImporterService: GrapesImporterService,
-              private databaseService: AppDatabaseService,
+  constructor(private databaseService: AppDatabaseService,
               private store: Store<ApplicationState>,
               private actions$: Actions,
               private router: Router,
@@ -59,18 +57,6 @@ export class SettingsComponent implements OnInit, OnDestroy
   {
     this.destroyer.next();
     this.destroyer.complete();
-  }
-
-  public importDataFromGrapes(event)
-  {
-    let reader = new FileReader();
-
-    if (event.target.files && event.target.files.length)
-    {
-      const [file] = event.target.files;
-      reader.onload = () => this.grapesImporterService.importData(reader.result as any);
-      reader.readAsArrayBuffer(file);
-    }
   }
 
   public importBackup(event)

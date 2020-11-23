@@ -13,7 +13,8 @@ export const enUS = {
     soon: "Available soon",
     newFeature: "New Feature!",
     cool: "Cool!",
-    remove: "Remove"
+    remove: "Remove",
+    complete: "Complete"
   },
   featureConfirmation: {
     reportUpToTheMinute: {
@@ -93,7 +94,7 @@ export const enUS = {
     title: "Territories",
     addTerritory: "Add territory",
     noTerritories: "No territories",
-    noTerritoriesDesc: "Ask your area servant for a territory",
+    noTerritoriesDesc: "If your territory servant uses TerritoryOffline, you can add your territories here",
     yourTerritories: "Your Territories",
     feature1: "Receive areas via link from your territory servant",
     feature2: "View your territory on detailed maps",
@@ -116,14 +117,16 @@ export const enUS = {
     setManuallyPosition: "Select point",
     choosePointOnMap: "Select point on map",
     noVisitBans: "No addresses available",
-    returnTerritory: "Release",
+    returnTerritory: "Submit territory",
     reallyDeleteVisitBan: "Do you really want to delete this address?",
     deleteConfirmation: "Do you really want to remove the territory?",
     returnInfo: "Submit territory",
-    returnInfoText: "Before you delete your territory, please send it back to your territory servant.",
+    returnInfoText: "To hand in your territory, please return it to your territory servant. As soon as you tap 'Complete', it will automatically be removed from the list of your territories.",
     remove: "Delete territory",
     inProgress: "Active territories",
-    expired: "Expired territories"
+    expired: "Expired territories",
+    wrongFileType: "Wrong file type! Please import a file with the extension '.territory'.",
+    sendToServant: "Send to territory servant"
   },
   settings: {
     title: "Settings",

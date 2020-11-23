@@ -34,7 +34,7 @@ export class TerritoryComponent implements OnInit
 
   public done()
   {
-    window.history.back();
+    this.router.navigate(["/territories"]);
   }
 
   public assignEndTime(territoryCard: TerritoryCard)

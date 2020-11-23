@@ -1,16 +1,24 @@
-<h1 class="header">
-  <span>{{"territories.returnTerritory" | translate}}</span>
-  <span (click)="done()" class="done">{{"common.done" | translate}}</span>
-</h1>
+<ng-container *ngIf="(territoryCard$ | async) as territoryCard">
+  <h1 class="header">
+    <div class="back" (click)="done()">
+      <i-feather class="i-feather" name="chevron-left"></i-feather>
+      {{territoryCard.territory.name}} {{territoryCard.territory.key}}
+    </div>
+  </h1>
 
-<div class="scrollable-wrapper">
-  <div class="tip-wrapper">
-    <p class="title">{{"territories.returnInfo" | translate}}</p>
-    <p class="info">{{"territories.returnInfoText" | translate}}</p>
+  <h1 class="title">{{"territories.returnTerritory" | translate}}</h1>
+
+  <div class="scrollable-wrapper">
+    <div class="tip-wrapper">
+      <p class="info">{{"territories.returnInfoText" | translate}}</p>
+    </div>
+    <br/>
+    <div (click)="sendTerritoryCard()" class="send">
+      <i-feather class="i-feather" name="share"></i-feather>
+      <span>{{"territories.sendToServant" | translate}}</span>
+    </div>
+    <br/>
+    <br/>
+    <button (click)="deleteTerritoryCard()" class="remove-territory button">{{"common.complete" | translate}}</button>
   </div>
-  <br />
-  <button (click)="sendTerritoryCard()" class="button primary">{{"actions.send" | translate}}</button>
-  <br />
-  <br />
-  <button (click)="deleteTerritoryCard()" class="remove-territory button danger">{{"territories.remove" | translate}}</button>
-</div>
+</ng-container>

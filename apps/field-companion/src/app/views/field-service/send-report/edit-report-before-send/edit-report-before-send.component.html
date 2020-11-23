@@ -7,14 +7,14 @@
   <div class="input-wrapper" *ngIf="(monthlyReport$ | async) as monthlyReport">
     <div class="input-wrapper-item">
       <div class="header-item">
-        <i-feather name="book-open"></i-feather>
+        <i-feather class="i-feather" name="book-open"></i-feather>
         {{"service.deliveries" | translate}}</div>
 
       <app-panel>
         <div class="wrapper">
-          <i-feather (click)="increase('deliveries', 1)" name="plus"></i-feather>
+          <i-feather class="i-feather" (click)="increase('deliveries', 1)" name="plus"></i-feather>
           <span class="value">{{monthlyReport.deliveries}}</span>
-          <i-feather (click)="decrease('deliveries', 1)" name="minus"></i-feather>
+          <i-feather class="i-feather" (click)="decrease('deliveries', 1)" name="minus"></i-feather>
         </div>
       </app-panel>
     </div>
@@ -25,9 +25,9 @@
 
       <app-panel>
         <div class="wrapper">
-          <i-feather (click)="increase('videos', 1)" name="plus"></i-feather>
+          <i-feather class="i-feather" (click)="increase('videos', 1)" name="plus"></i-feather>
           <span class="value">{{monthlyReport.videos}}</span>
-          <i-feather (click)="decrease('videos', 1)" name="minus"></i-feather>
+          <i-feather class="i-feather" (click)="decrease('videos', 1)" name="minus"></i-feather>
         </div>
       </app-panel>
     </div>
@@ -38,9 +38,9 @@
 
       <app-panel>
         <div class="wrapper">
-          <i-feather (click)="increase('returnVisits', 1)" name="plus"></i-feather>
+          <i-feather class="i-feather" (click)="increase('returnVisits', 1)" name="plus"></i-feather>
           <span class="value">{{monthlyReport.returnVisits}}</span>
-          <i-feather (click)="decrease('returnVisits', 1)" name="minus"></i-feather>
+          <i-feather class="i-feather" (click)="decrease('returnVisits', 1)" name="minus"></i-feather>
         </div>
       </app-panel>
     </div>
@@ -51,22 +51,22 @@
         {{"service.duration" | translate}}</div>
       <app-panel>
         <div class="wrapper">
-          <i-feather (click)="increase('duration', 30)" name="plus"></i-feather>
-          <span class="value">{{monthlyReport.duration / 60}}</span>
-          <i-feather (click)="decrease('duration', 30)" name="minus"></i-feather>
+          <i-feather class="i-feather" (click)="increase('duration', 30)" name="plus"></i-feather>
+          <span class="value">{{padDuration(monthlyReport.duration)}}</span>
+          <i-feather class="i-feather" (click)="decrease('duration', 30)" name="minus"></i-feather>
         </div>
       </app-panel>
     </div>
 
     <div class="input-wrapper-item">
       <div class="header-item">
-        <i-feather name="user"></i-feather>
+        <i-feather class="i-feather" name="user"></i-feather>
         {{"service.studies" | translate}}</div>
       <app-panel>
         <div class="wrapper">
-          <i-feather (click)="increase('studies', 1)" name="plus"></i-feather>
+          <i-feather class="i-feather" (click)="increase('studies', 1)" name="plus"></i-feather>
           <span class="value">{{monthlyReport.studies}}</span>
-          <i-feather (click)="decrease('studies', 1)" name="minus"></i-feather>
+          <i-feather class="i-feather" (click)="decrease('studies', 1)" name="minus"></i-feather>
         </div>
       </app-panel>
     </div>

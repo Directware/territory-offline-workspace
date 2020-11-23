@@ -4,7 +4,7 @@
 
 <ui-hideable-panel #hideablePanelComponent *ngIf="(territoryCards$ | async) as territoryCards" [header]="'Deine Gebiete'">
   <div class="territory-card" *ngFor="let territoryCard of territoryCards" (click)="focusOn(territoryCard)">
-    <div class="icon-wrapper"><i-feather name="map"></i-feather></div>
+    <div class="icon-wrapper"><i-feather class="i-feather" name="map"></i-feather></div>
     <p class="label">{{territoryCard.territory.name}} {{territoryCard.territory.key}}</p>
   </div>
 

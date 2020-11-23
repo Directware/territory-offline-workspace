@@ -57,8 +57,9 @@ import {VisitBanManualChooserComponent} from './views/territories/territory/visi
 import {ReturnTerritoryCardComponent} from './views/territories/territory/return-territory-card/return-territory-card.component';
 import * as _ from "lodash";
 import {TerritoryFeatureComponent} from './views/feature-confirmation-modals/territory-feature/territory-feature.component';
+import {TerritoryCardService} from "./core/services/territory-card.service";
 
-const {Device} = Plugins;
+const {Device, App, Filesystem} = Plugins;
 
 @NgModule({
   declarations: [
@@ -132,8 +133,17 @@ const {Device} = Plugins;
 export class AppModule
 {
   constructor(private translateService: TranslateService,
+              private territoryCardService: TerritoryCardService,
               private store: Store<ApplicationState>)
   {
+    App.addListener("appUrlOpen", async (appUrlOpen) =>
+    {
+      let contents = await Filesystem.readFile({path: appUrlOpen.url});
+      const reader = new FileReader();
+      reader.onload = () => this.territoryCardService.importTerritoryFromFileSystem(reader.result as any);
+      reader.readAsText(new Blob([atob(contents.data)]));
+    });
+
     registerLocaleData(localeDe, 'de');
     registerLocaleData(localePl, 'pl');
     this.initLanguage();

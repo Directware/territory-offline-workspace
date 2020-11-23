@@ -75,7 +75,7 @@ import {AVAILABLE_LANGUAGES} from "./core/i18n/all.i18n";
 import {first, tap} from "rxjs/operators";
 import {LoadSettingsSuccess} from "./core/store/settings/settings.actions";
 import {Plugins} from '@capacitor/core';
-import { DurationPhrasePipe } from './core/pipes/duration-phrase.pipe';
+import {DurationPhrasePipe} from './core/pipes/duration-phrase.pipe';
 
 const {Device} = Plugins;
 
@@ -185,7 +185,7 @@ export class AppModule
           if (settings && settings.initialConfigurationDone)
           {
             const translationsExists = settings?.appLanguage && this.translateService.getLangs().includes(settings.appLanguage.languageCode)
-            if (translationsExists)
+            if (translationsExists && settings.appLanguage && settings.appLanguage.languageCode)
             {
               language = settings.appLanguage.languageCode;
             }
@@ -195,7 +195,7 @@ export class AppModule
             const langCode = await Device.getLanguageCode();
             let systemLang = this.languageService.getLanguageByCode(langCode.value);
 
-            if (this.translateService.getLangs().includes(systemLang.languageCode))
+            if (systemLang && this.translateService.getLangs().includes(systemLang.languageCode))
             {
               language = systemLang.languageCode;
             }

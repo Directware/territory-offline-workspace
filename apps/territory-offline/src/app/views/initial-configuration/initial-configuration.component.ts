@@ -87,7 +87,7 @@ export class InitialConfigurationComponent implements OnInit
     const langCode = await Device.getLanguageCode();
     let systemLang = this.languageService.getLanguageByCode(langCode.value);
 
-    if (!this.translateService.getLangs().includes(systemLang.languageCode))
+    if (!this.translateService.getLangs().includes(systemLang?.languageCode))
     {
       systemLang = this.languageService.getLanguageByCode("en");
     }
