@@ -1,0 +1,31 @@
+image:
+  node:10.2.1
+
+cache:
+  untracked: true
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - dist/
+
+stages:
+  - setup
+  - build
+  - deploy
+
+setup:
+  stage: setup
+  script:
+    - npm install
+
+build:
+  stage: build
+  script:
+    - build:website:prod
+
+deploy:
+  stage: deploy
+  image: mcr.microsoft.com/azure-cli:2.0.80
+  script:
+    - az storage blob delete-batch --source "\$web" --connection-string $AZURE_STORAGE_CONNECTION_STRING
+    - az storage blob upload-batch --destination "\$web" --source dist --connection-string $AZURE_STORAGE_CONNECTION_STRING
