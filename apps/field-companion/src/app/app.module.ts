@@ -139,6 +139,7 @@ export class AppModule
     App.addListener("appUrlOpen", async (appUrlOpen) =>
     {
       let contents = await Filesystem.readFile({path: appUrlOpen.url});
+
       const reader = new FileReader();
       reader.onload = () => this.territoryCardService.importTerritoryFromFileSystem(reader.result as any);
       reader.readAsText(new Blob([atob(contents.data)]));
