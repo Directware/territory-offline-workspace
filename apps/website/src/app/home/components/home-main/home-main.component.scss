@@ -1,0 +1,134 @@
+@import '../../../../styles.scss';
+
+:host {
+  padding: 0 32px;
+  display: block;
+  max-width: 400px;
+  margin: 32px auto 0;
+
+  > .title {
+    margin-bottom: 28px;
+    font-family: Heebo;
+    font-size: 50px;
+    font-weight: 800;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.04;
+    letter-spacing: 0.4px;
+    color: $dark-sky-blue;
+    max-width: 200px;
+  }
+
+  .subtitle1 {
+    font-family: $font-family;
+    font-size: 26px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: $dark-grey;
+    margin-bottom: 8px;
+  }
+
+  .subtitle2 {
+    font-family: $font-family;
+    font-size: 22px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #b0b3b5;
+  }
+
+  .features {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 40px auto 0;
+  }
+}
+
+.image {
+  width: 80px;
+  height: 80px;
+  margin-right: 16px;
+  filter: drop-shadow(2px 4px 7px rgba(73, 146, 206, 0.8));
+
+  &.operating-system {
+    background: url('/assets/images/operating-system.svg') no-repeat;
+    background-size: contain;
+  }
+
+  &.secured {
+    background: url('/assets/images/secured.svg') no-repeat;
+    background-size: contain;
+  }
+
+  &.multi-language {
+    background: url('/assets/images/multi-language.svg') no-repeat;
+    background-size: contain;
+  }
+
+  &.encrypted {
+    background: url('/assets/images/encrypted.svg') no-repeat;
+    background-size: contain;
+  }
+
+  &.heart {
+    background: url('/assets/images/heart.svg') no-repeat;
+    background-size: contain;
+  }
+
+  &.import {
+    background: url('/assets/images/import.svg') no-repeat;
+    background-size: contain;
+  }
+}
+
+@media (min-width: 768px) {
+  :host {
+    max-width: 920px;
+    margin: 64px auto 0;
+    padding: 0 80px;
+
+    .features {
+      position: relative;
+      left: -24px;
+      width: calc(100% + 48px);
+    }
+  }
+
+  .image {
+    width: 160px;
+    height: 160px;
+    margin: auto;
+    filter: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  :host {
+    .features {
+      position: relative;
+      left: -60px;
+      width: calc(100% + 120px);
+    }
+  }
+}
+
+
+@media (min-width: 1440px) {
+  :host {
+    max-width: 1120px;
+    padding: 0 160px;
+
+    .features {
+      position: relative;
+      left: -80px;
+      width: calc(100% + 160px);
+    }
+  }
+}

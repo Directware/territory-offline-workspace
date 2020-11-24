@@ -1,0 +1,21 @@
+<div class="inner">
+  <div class="front" (click)="open()">
+    <div class="image-container">
+      <ng-content class="image"></ng-content>
+    </div>
+    <div class="content">
+      <div class="title">{{ feature + '.title' | translate }}</div>
+      <div class="more">
+        {{ 'home.main.more' | translate }}
+      </div>
+    </div>
+  </div>
+  <div class="back" (click)="close()">
+    <div class="text-container">
+      <div class="text">{{ feature + '.text' | translate }}</div>
+      <div class="less">
+        {{ 'home.main.less' | translate }}
+      </div>
+    </div>
+  </div>
+</div>

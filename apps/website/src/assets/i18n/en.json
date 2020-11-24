@@ -1,0 +1,156 @@
+{
+  "navigation": {
+    "home": "Home",
+    "home2": "Home",
+    "features": "Features",
+    "assignments": "Assignments",
+    "dashboard": "Dashboard",
+    "territories": "Territories",
+    "publisher": "Publishers",
+    "notVisit": "Do not contact",
+    "addresses": "Adresses",
+    "export": "Export",
+    "release": "Start Now",
+    "legalNotice": "Imprint"
+  },
+  "home": {
+    "main": {
+      "title": "Territory Offline",
+      "subtitle1": "More than territorial management",
+      "subtitle2": "Six things that make Territory Offline special.",
+      "feature1": {
+        "title": "All data remains offline and encrypted",
+        "text": "The protection of your data has priority at Territory Offline. Therefore we have decided against an internet based application. The entire database is stored on the hard drive of your computer and is asymmetrically encrypted there. Only you can access it with your password."
+      },
+      "feature2": {
+        "title": "Privacy compliant. Be on the safe side",
+        "text": "We know how important it is for our users to follow the legal guidelines. That's why Territory Offline is designed to help you store and share all information in accordance with the law."
+      },
+      "feature3.": {
+        "title": "Optimized for working with search territories",
+        "text": "Managing addresses is one of the core qualities of Territory Offline. When you create a new address, it is automatically assigned to the appropriate territory for you. If you look at your territories on the map, you can always see all addresses at a glance."
+      },
+      "feature4": {
+        "title": "Import and export data.",
+        "text": "Our app was designed with the goal of making the exchange of data as simple, but also as secure as possible. You can quickly select and share records and import received data effortlessly, regardless of whether others are using Territory Offline."
+      },
+      "feature5": {
+        "title": "No charge. Unlimited free use.",
+        "text": "Our motivation is to help you complete your tasks conscientiously and properly. A lot of time and effort was and is invested in the design and implementation of this app. You want to support us? Write us what you like and what we can improve."
+      },
+      "feature6": {
+        "title": "Available for Windows, Mac and Linux.",
+        "text": "Every platform is important to us. Therefore Territory Offline supports your work on Mac, Windows or Linux. Apps for Android and iOS will also be available soon, which will also meet our high security and privacy standards."
+      },
+      "more": "Read more",
+      "less": "Close"
+    },
+    "more": {
+      "title": "There is so much more",
+      "subtitle": "Learn how Territory Offline simplifies your work.",
+      "all": "All features"
+    },
+    "release": {
+      "available": "Available soon",
+      "title": "Final countdown. Stay tuned",
+      "email": "E-mail",
+      "success": "You have successfully registered",
+      "text": "Enter your e-mail address and be there from the beginning. Be automatically notified when the app is ready for download",
+      "success-text": "Thank you for your interest! You will be notified automatically as soon as the app is available or there are new features"
+    },
+    "download": {
+      "title": "Territory Offline Beta",
+      "subtitle": "Download the desktop application",
+      "text": "Download the beta version of \nTerritory Offline for your Mac, \nPC or Linux",
+      "button": "Download for",
+      "releasedOn": "Published",
+      "errorGettingReleaseInfo": "Data could not be loaded  Please try again later."
+    }
+  },
+  "features": {
+    "head": {
+      "title": "You've got it covered",
+      "subtitle1": "Your personal assistant",
+      "subtitle2": "Territory Offline is specifically designed for the tasks of territory servants"
+    },
+    "getStarted": {
+      "title": "Start easily",
+      "text": "Import your existing data from Territory Helper or Excel."
+    },
+    "main": {
+      "title": "All functions at a glance",
+      "dashboard": {
+        "title": "Dashboard",
+        "text1": "You want to know immediately if territories need to be done or assigned?",
+        "text2": "This overview helps you to keep an eye on your congregations territory and immediately take care of due territories. You can also filter the display by a time period."
+      },
+      "assignments": {
+        "title": "Assignments",
+        "text1": "See at a glance which territory is assigned to which publisher.",
+        "text2": "Based on the concept that you know from document S13, you can document here which publisher has been assigned a certain territory. Enter when it was assigned, done or returned. And all this with just a few clicks."
+      },
+      "territories": {
+        "title": "Territories",
+        "text1": "Drawing and printing territory maps has never been so easy.",
+        "text2": "All your territories are arranged in groups and clearly displayed. Create new territories or edit existing ones - all just a few clicks away. And thanks to detailed vector maps with buildings and Housenumbers the publishers have a clear view of everything"
+      },
+      "publisher": {
+        "title": "Publishers",
+        "text1": "Organize the publishers of your congregation.",
+        "text2": "A comprehensive list with all the information you need. Alphabetical and with search function. For legal compliance you will receive a printable document on which the publishers are informed about the use of their data and can agree by signature."
+      },
+      "notVisit": {
+        "title": "Do not Visit",
+        "text1": "The easiest way to store addresses that should not be visited.",
+        "text2": "Create anonymous addresses containing only territory, street, number and name. Organize your addresses by grouping them with tags."
+      },
+      "addresses": {
+        "title": "Addresses",
+        "text1": "The easiest way to manage addresses.",
+        "text2": "Create anonymous records, without personal data. Use tags to organize everything according to your needs. Geocoding ensures that addresses are automatically assigned to the correct area - this also has advantages for the foreign language search area. With the simple export/import function, the data records can be easily passed on"
+      },
+      "export": {
+        "title": "Export",
+        "text1": "Territory Offline supports your collaboration with others.",
+        "text2": "Export data to your hard drive in a preferred format and share it. If the recipient also uses Territory Offline, he can import all data immediately and add it to his database. For additional security, you can also export the data in encrypted format if required"
+      },
+      "print": {
+        "title": "Printing",
+        "text1": "Print detailed territory maps in a few steps.",
+        "text2": "We automatically search for the best positioning to make the map as clear as possible. Additionally, you have the freedom to adjust zoom levels, rotation and other details yourself. You prefer to use the S-12 template? No problem - it's only one click away."
+      },
+      "tags": {
+        "title": "Tags",
+        "text1": "With tags you can organize all data according to your needs.",
+        "text2": "You can add tags to territories, assignments and addresses. You can add one or more tags to each element. If you search later for specific records, you can filter by the corresponding tag and find all results immediately."
+      },
+      "preview": "Preview",
+      "next": "Next feature"
+    },
+    "startNow": {
+      "title": "Start Now",
+      "text": "Download the beta version of \nTerritory Offline for your Mac, \nPC or Linux",
+      "button": "Start Now"
+    }
+  },
+  "footer": {
+    "contact": "Contact",
+    "text": "Territory Offline is an independent project and is not affiliated with the Watchtower Bible and Tract Society of Pennsylvania",
+    "legalNotice": "Imprint"
+  },
+  "imprint": {
+    "authority": "Authority",
+    "contact": "Contact",
+    "phone": "Phone",
+    "mail": " E-Mail.",
+    "title1": "Liability for content",
+    "text1-1": "As a service provider, we are responsible for our own content on these pages according to § 7 para.1 TMG (German Telemedia Act) and general laws. According to §§ 8 to 10 TMG, we are not obliged to monitor transmitted or stored information from third parties or to investigate circumstances that indicate illegal activity",
+    "text1-2": "Obligations to remove or block the use of information according to the general laws remain unaffected. However, liability in this respect is only possible from the time of knowledge of a concrete infringement. We will remove these contents immediately on becoming aware of any such legal infringements",
+    "title2": "Liability for links",
+    "text2-1": "Our offer contains links to external websites of third parties, on whose contents we have no influence. Therefore we cannot assume any liability for these external contents. The respective provider or operator of the sites is always responsible for the contents of the linked sites. The linked pages were checked for possible legal violations at the time of linking. Illegal contents were not recognizable at the time of linking",
+    "text2-2": "A permanent control of the contents of the linked pages is not reasonable without concrete evidence of a violation of the law. If we become aware of any infringements, we will remove such links immediately",
+    "title3": "Copyright",
+    "text3-1": "The contents and works on these pages created by the site operators are subject to German copyright law. The reproduction, editing, distribution and any kind of use outside the limits of copyright law require the written consent of the respective author or creator. Downloads and copies of these pages are only permitted for private, non-commercial use",
+    "text3-2": "Insofar as the content on this site was not created by the operator, the copyrights of third parties are respected. In particular, third-party content is identified as such. Should you nevertheless become aware of a copyright infringement, please inform us accordingly. We will remove such contents immediately upon becoming aware of any infringements."
+  }
+}

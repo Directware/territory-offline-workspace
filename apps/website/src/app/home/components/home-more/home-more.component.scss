@@ -1,0 +1,94 @@
+@import '../../../../styles.scss';
+
+:host {
+  margin: 64px auto 64px;
+  display: block;
+
+  .icon {
+    width: 205.7px;
+    height: 88px;
+    margin: auto;
+    background: url('/assets/images/territory-offline.svg') no-repeat;
+    background-size: contain;
+    margin-bottom: 24px;
+  }
+
+  .title {
+    font-family: $font-family;
+    font-size: 22px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: $dark-grey;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    width: 311px;
+    font-family: $font-family;
+    font-size: 20px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #b1b3b4;
+    margin: auto;
+  }
+
+  .all {
+    display: block;
+    border: none;
+    border-radius: 24px;
+    box-shadow: 0 2px 7px 0 rgba(21, 200, 128, 0.5);
+    background-color: $seaweed;
+    margin: 16px auto 0;
+    padding: 8px 26px;
+    font-family: Heebo;
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.22;
+    letter-spacing: 0.4px;
+    text-align: center;
+    color: #ffffff;
+
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(0.95);
+    }
+    transition: all 0.15s;
+  }
+
+  .mockup {
+    display: none;
+    width: 315px;
+    height: 138.6px;
+    margin: 72px auto 0;
+    background: url('/assets/images/home-subscribe-mockup.png') no-repeat;
+    background-size: contain;
+    width: 80vw;
+    height: 35vw;
+    max-width: 480px;
+    max-height: 215px;
+  }
+}
+
+@media (min-width: 1440px) {
+  :host {
+    margin: 80px auto 64px;
+    max-width: 1279px;
+    background: url('/assets/images/icon-pattern.svg') no-repeat;
+    background-size: contain;
+
+    .mockup {
+        margin: 128px auto 0;
+    }
+  }
+}

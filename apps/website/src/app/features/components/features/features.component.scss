@@ -1,0 +1,16 @@
+@import '../../../../styles.scss';
+
+:host {
+  .separator {
+    height: 1px;
+    background-image: linear-gradient(to left, #1a1a1a, $dark-grey 23%, $dark-grey 78%, #1a1a1a);
+  }
+}
+
+@media (min-width: 1440px) {
+  :host {
+    .separator {
+      display: none;
+    }
+  }
+}

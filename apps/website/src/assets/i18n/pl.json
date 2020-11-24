@@ -1,0 +1,156 @@
+{
+  "navigation": {
+    "home": "Strona główna",
+    "home2": "Strona główna",
+    "features": "Funkcje",
+    "assignments": "Przydziały",
+    "dashboard": "Dashboard",
+    "territories": "Tereny",
+    "publisher": "Głosiciel",
+    "notVisit": "Nicht besuchen",
+    "addresses": "Adresy",
+    "export": "Export",
+    "release": "Pobierz",
+    "legalNotice": "Impressum"
+  },
+  "home": {
+    "main": {
+      "title": "Territory Offline",
+      "subtitle1": "Więcej niż tylko zarządzanie terenami.",
+      "subtitle2": "Sześć rzeczy, które sprawiają, że Territory Offline jest wyjątkowe:",
+      "feature1": {
+        "title": "Wszystkie dane pozostają w trybie offline i są szyfrowane",
+        "text": "Ochrona Twoich danych ma pierwszeństwo w Territory Offline. Dlatego zdecydowaliśmy się na odrzucenie aplikacji internetowej. Cała baza danych jest przechowywana na dysku twardym komputera i jest tam asymetrycznie szyfrowana. Tylko ty masz dostęp z hasłem."
+      },
+      "feature2": {
+        "title": "Zgodność z zasadami ochrony danych osobowych.",
+        "text": "Wiemy, jak ważne jest dla naszych użytkowników przestrzeganie wytycznych prawnych. Dlatego też Territory Offline jest zaprojektowane tak, aby pomóc Ci przechowywać i udostępniać wszystkie informacje zgodnie z prawem."
+      },
+      "feature3": {
+        "title": "Zoptymalizowany do pracy na terenie obcojęzycznym.",
+        "text": "Zarządzanie adresami jest jedną z podstawowych cech Territory Offline. Gdy tworzysz nowy adres, jest on automatycznie przypisywany do odpowiedniego terenu."
+      },
+      "feature4": {
+        "title": "Możliwość importu i eksportu.",
+        "text": "Nasza aplikacja została zaprojektowana z myślą o tym, aby wymiana danych była jak najprostsza, ale i jak najbezpieczniejsza. Można szybko wybierać i udostępniać zestawy danych oraz importować otrzymane dane bez wysiłku - niezależnie od tego, czy inni korzystają z Territory Offline."
+      },
+      "feature5": {
+        "title": "Bez opłat. Nieograniczone bezpłatne użytkowanie.",
+        "text": "Naszą motywacją jest pomoc w sumiennym i właściwym wypełnianiu zadań. Dużo czasu i wysiłku zostało i jest inwestowane w projektowanie i wdrażanie tej aplikacji. Chcesz nas wesprzeć? Po prostu napisz nam, co ci się podoba i co możemy poprawić."
+      },
+      "feature6": {
+        "title": "Dostępne dla systemów Windows, Mac i Linux.",
+        "text": "Każda platforma jest dla nas ważna. Dlatego Territory Offline wspiera Twoją pracę na komputerach Mac, Windows lub Linux. Aplikacje dla systemów Android i iOS będą również dostępne w późniejszym terminie, które również spełniają nasze wysokie wymagania w zakresie bezpieczeństwa i ochrony danych."
+      },
+      "more": "Dowiedz się więcej",
+      "less": "Pokaż mniej"
+    },
+    "more": {
+      "title": "Jest tak wiele więcej",
+      "subtitle": "Dowiedz się, jak Territory Offline ułatwia pracę.",
+      "all": "Wszystkie funkcje"
+    },
+    "release": {
+      "available": "Bald Verfügbar",
+      "title": "Final Countdown. Bleibe auf dem Laufenden",
+      "email": "E-Mail",
+      "success": "Sie haben sich erfolgreich eingetragen",
+      "text": "Gib deine E-Mail Adresse ein und sei von Anfang an dabei. Werde automatisch benachrichtigt, sobald die App zum Download bereit steht.",
+      "success-text": "Vielen Dank für dein Interesse! Du wirst automatisch benachrichtigt, sobald die App verfügbar ist oder es Neuerungen gibt."
+    },
+    "download": {
+      "title": "Territory Offline Beta",
+      "subtitle": "Pobierz aplikację desktopową",
+      "text": "Pobierz wersję beta Territory Offline na swójego Maca, PC lub Linuxa.",
+      "button": "Pobierz na",
+      "releasedOn": "Opublikowano w",
+      "errorGettingReleaseInfo": "Dane nie mogły zostać załadowane. Prosimy spróbować później."
+    }
+  },
+  "features": {
+    "head": {
+      "title": "Wszystko pod kontrolą",
+      "subtitle1": "Twój osobisty asystent",
+      "subtitle2": "Territory Offline jest specjalnie zaprojektowane do zadań sług terenu."
+    },
+    "getStarted": {
+      "title": "Łatwe wprowadzenie",
+      "text": "Wystarczy zaimportować istniejące dane z Territory Helper lub Excel."
+    },
+    "main": {
+      "title": "Wszystkie funkcje w skrócie",
+      "dashboard": {
+        "title": "Dashboard",
+        "text1": "Chcesz wiedzieć od razu, czy tereny należy opracować, czy przydzielić ponownie?",
+        "text2": "Diese zentrale Übersicht hilft dir dein Versammlungsgebiet im Blick zu behalten und fälligen Gebieten sofort nachgehen zu können. Du kannst die Anzeige nach einem Zeitraum filtern und deine bevorzugte Darstellung wählen: Liste oder Kacheln."
+      },
+      "assignments": {
+        "title": "Przydziały",
+        "text1": "Zobacz na pierwszy rzut oka, który teren jest przydzielony do jakiego głosiciela.",
+        "text2": "Na podstawie koncepcji, którą znasz z dokumentu S13, możesz tutaj udokumentować, do którego głosiciela dany teren jest przydzielony. Wpisz, kiedy został wydany, opracowany lub zwrócony. I to wszystko za pomocą kilku kliknięć."
+      },
+      "territories": {
+        "title": "Tereny",
+        "text1": "Rysowanie i drukowanie terenów nigdy nie było tak łatwe.",
+        "text2": "Wszystkie tereny są uporządkowane według grup i przejrzyście wyświetlane. Stwórz nowe tereny lub edytuj istniejące - wszystko to za pomocą kilku kliknięć. A dzięki szczegółowym mapom wektorowym z numerami budynków i domów, nawet głosiciele mają wszystko na widoku."
+      },
+      "publisher": {
+        "title": "Głosiciele",
+        "text1": "Organizuj głosicieli.",
+        "text2": "Lista z wszystkimi informacjami, których potrzebujesz. Alfabetycznie i z funkcją wyszukiwania."
+      },
+      "notVisit": {
+        "title": "Nie odwiedzać",
+        "text1": "Najprostszym sposobem na zapisanie adresów, które nie powinny być odwiedzane.",
+        "text2": "Tworzenie anonimowych adresów, które zawierają tylko teren, ulicę, numer domu i pozycję dzwonka. Zorganizuj swoje adresy, grupując je według tagów."
+      },
+      "addresses": {
+        "title": "Adressen",
+        "text1": "Die einfachste Möglichkeit, um Adressen zu verwalten.",
+        "text2": "Erstelle anonymisierte Datensätze, ohne personenbezogene Daten. Verwende Tags, um alles nach deinen Bedürfnissen zu organisieren. Die Geokodierung sorgt dafür, dass Die Adressen automatisch dem richtigen Gebiet zugewiesen werden - so ergeben sich auch Vorteile für das fremdsprachige Suchgebiet. Durch die einfache Export/Import Funktion, können die Datensätze einfach weitergegeben werden."
+      },
+      "export": {
+        "title": "Eksport",
+        "text1": "Territory Offline wspiera Twoją współpracę z innymi.",
+        "text2": "Eksportuj dane na dysk twardy w żądanym formacie i udostępniaj je. Jeśli odbiorca korzysta również z Territory Offline, może natychmiast zaimportować wszystkie dane i dodać je do swojej bazy danych. Dla dodatkowego bezpieczeństwa, w razie potrzeby można również eksportować dane w formacie zaszyfrowanym."
+      },
+      "print": {
+        "title": "Drukowanie",
+        "text1": "Wydruk szczegółowych map terenu w kilku krokach",
+        "text2": "Automatycznie wyszukujemy najlepsze położenie, aby mapa terenu była jak najbardziej przejrzysta. Dodatkowo, masz możliwość samodzielnego regulowania poziomu powiększenia, obrotu i innych szczegółów. Wolisz używać szablonu S-12? Nie ma problemu - to tylko jedno kliknięcie."
+      },
+      "tags": {
+        "title": "Tagi",
+        "text1": "Dzięki tagom możesz uporządkować wszystkie dane zgodnie z Twoimi życzeniami.",
+        "text2": "Można dodawać tagi do terenów, przydziałów i adresów. Do każdego elementu można dodać jeden lub więcej tagów. W przypadku późniejszego wyszukiwania określonych danych, można filtrować je za pomocą odpowiedniego taga i natychmiast znaleźć wszystkie wyniki."
+      },
+      "preview": "Podgląd",
+      "next": "Następna funkcja"
+    },
+    "startNow": {
+      "title": "Zacznij już teraz",
+      "text": "Pobierz wersję beta Territory Offline na swójego Maca, PC lub Linuxa.",
+      "button": "Pobierz"
+    }
+  },
+  "footer": {
+    "contact": "Kontakt",
+    "text": "Territory Offline jest niezależnym projektem i nie jest powiązane z Watchtower Bible and Tract Society of Pennsylvania.",
+    "legalNotice": "Impressum"
+  },
+  "imprint": {
+    "authority": "Odpowiedzialny",
+    "contact": "Kontakt",
+    "phone": "Telefon",
+    "mail": "E-Mail",
+    "title1": "Odpowiedzialność za zawartość",
+    "text1-1": "Jako dostawca usług jesteśmy odpowiedzialni za własne treści na tych stronach zgodnie z § 7 ust. 1 TMG (niemiecka ustawa o telemediach) i ogólnymi przepisami prawa. Zgodnie z §§ 8 do 10 TMG nie jesteśmy zobowiązani do monitorowania przekazywanych lub przechowywanych informacji zewnętrznych ani do badania okoliczności wskazujących na nielegalną działalność.",
+    "text1-2": "Zobowiązania do usuwania lub blokowania korzystania z informacji zgodnie z ogólnymi przepisami prawa pozostają nienaruszone. Odpowiedzialność w tym zakresie jest jednak możliwa dopiero od momentu powzięcia wiadomości o konkretnym naruszeniu. Jeśli dowiemy się o takich naruszeniach, natychmiast usuniemy te treści.",
+    "title2": "Odpowiedzialność za linki",
+    "text2-1": "Nasza oferta zawiera linki do zewnętrznych stron internetowych osób trzecich, na których treść nie mamy żadnego wpływu. Dlatego nie możemy przejąć żadnej odpowiedzialności za te zewnętrzne treści. Za treść stron, do których prowadzą odnośniki, odpowiada zawsze ich dostawca lub operator. W momencie linkowania strony zostały sprawdzone pod kątem ewentualnych naruszeń prawa. Nielegalne treści nie były rozpoznawalne w momencie linkowania.",
+    "text2-2": "Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.",
+    "title3": "Copyright",
+    "text3-1": "Treści i dzieła stworzone na tych stronach przez operatorów stron podlegają niemieckiemu prawu autorskiemu. Powielanie, edycja, rozpowszechnianie i każdy rodzaj wykorzystania poza granicami prawa autorskiego wymaga pisemnej zgody danego autora lub twórcy. Pobieranie i kopiowanie tych stron jest dozwolone tylko do prywatnego, niekomercyjnego użytku.",
+    "text3-2": "O ile treści na tej stronie nie zostały stworzone przez operatora, prawa autorskie osób trzecich są przestrzegane. W szczególności, treści osób trzecich są identyfikowane jako takie. Jeśli mimo to dowiedzą się Państwo o naruszeniu praw autorskich, prosimy o poinformowanie nas o tym fakcie. Jeśli dowiemy się o jakichkolwiek naruszeniach, natychmiast usuniemy takie treści."
+  }
+}

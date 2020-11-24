@@ -1,0 +1,144 @@
+<div class="icon" id="main"></div>
+<div class="title">{{ 'features.main.title' | translate }}</div>
+<div class="taps">
+  <div class="title">
+    <div class="icon-wrapper">
+      <i-feather name="zap" class="icon" [class.active]="active === 0" (click)="click(0, 'dashboard')"></i-feather>
+      <div class="name">{{ 'features.main.dashboard.title' | translate }}</div>
+    </div>
+    <div class="icon-wrapper">
+      <i-feather name="share-2" class="icon" [class.active]="active === 1" (click)="click(1, 'assignments')"></i-feather>
+      <div class="name">{{ 'features.main.assignments.title' | translate }}</div>
+    </div>
+    <div class="icon-wrapper">
+      <i-feather name="layers" class="icon" [class.active]="active === 2" (click)="click(2, 'territories')"></i-feather>
+      <div class="name">{{ 'features.main.territories.title' | translate }}</div>
+    </div>
+    <div class="icon-wrapper">
+      <i-feather name="users" class="icon" [class.active]="active === 3" (click)="click(3, 'publisher')"></i-feather>
+      <div class="name">{{ 'features.main.publisher.title' | translate }}</div>
+    </div>
+    <div class="icon-wrapper">
+      <i-feather name="bell-off" class="icon" [class.active]="active === 4" (click)="click(4, 'notVisit')"></i-feather>
+      <div class="name">{{ 'features.main.notVisit.title' | translate }}</div>
+    </div>
+    <div class="icon-wrapper">
+      <i-feather name="printer" class="icon" [class.active]="active === 5" (click)="click(5, 'print')"></i-feather>
+      <div class="name">{{ 'features.main.print.title' | translate }}</div>
+    </div>
+    <!--
+    <div class="icon-wrapper">
+      <i-mail class="icon" [class.active]="active === 5" (click)="click(5, 'export')"></i-mail>
+      <div class="name">{{ 'features.main.export.title' | translate }}</div>
+    </div>
+    -->
+    <div class="icon-wrapper">
+      <i-feather name="tag" class="icon" [class.active]="active === 6" (click)="click(6, 'tags')"></i-feather>
+      <div class="name">{{ 'features.main.tags.title' | translate }}</div>
+    </div>
+  </div>
+  <div class="content">
+    <app-features-main-item
+      id="dashboard"
+      [@fade]
+      feature="features.main.dashboard"
+      image="features/dashboard.jpg"
+      pattern="features-pattern-dashboard.svg"
+      [showNext]="true"
+      (next)="active = 1"
+      [class.active]="active === 0"
+      [first]="true">
+      <i-feather name="zap" class="head-icon"></i-feather>
+    </app-features-main-item>
+
+    <app-features-main-item
+      id="assignments"
+      [@fade]
+      feature="features.main.assignments"
+      image="features/assignments.jpg"
+      pattern="features-pattern-zuteilungen.svg"
+      [showNext]="true"
+      (next)="active = 2"
+      [class.active]="active === 1"
+      [odd]="true">
+      <i-feather name="share-2" class="head-icon"></i-feather>
+    </app-features-main-item>
+
+    <app-features-main-item
+      id="territories"
+      [@fade]
+      feature="features.main.territories"
+      image="features/territory-overview.jpeg"
+      pattern="features-pattern-gebiete.svg"
+      [showNext]="true"
+      (next)="active = 3"
+      [class.active]="active === 2"
+    >
+      <i-feather name="layers" class="head-icon"></i-feather>
+    </app-features-main-item>
+
+    <app-features-main-item
+      id="publisher"
+      [@fade]
+      feature="features.main.publisher"
+      image="features/publishers.jpg"
+      pattern="features-pattern-verkündiger.svg"
+      [showNext]="true"
+      (next)="active = 4"
+      [class.active]="active === 3"
+      [odd]="true">
+      <i-feather name="users" class="head-icon"></i-feather>
+    </app-features-main-item>
+
+    <app-features-main-item
+      id="notVisit"
+      [@fade]
+      feature="features.main.notVisit"
+      image="features/adresses.jpg"
+      pattern="feature-patterns/bell-pattern.svg"
+      [showNext]="true"
+      (next)="active = 5"
+      [class.active]="active === 4"
+      [last]="true">
+      <i-feather name="bell-off" class="head-icon"></i-feather>
+    </app-features-main-item>
+<!--
+    <app-features-main-item
+      id="export"
+      [@fade]
+      feature="features.main.export"
+      image="features/export.jpg"
+      pattern="features-pattern-export.svg"
+      [showNext]="true"
+      (next)="active = 6"
+      [class.active]="active === 5"
+      [odd]="true">
+      <i-mail class="head-icon"></i-mail>
+    </app-features-main-item>
+-->
+    <app-features-main-item
+      id="print"
+      [@fade]
+      feature="features.main.print"
+      image="features/print.jpg"
+      pattern="feature-patterns/print-pattern.svg"
+      [showNext]="true"
+      [class.active]="active === 5"
+      (next)="active = 6"
+      [odd]="true">
+      <i-feather name="printer" class="head-icon"></i-feather>
+    </app-features-main-item>
+
+    <app-features-main-item
+      id="tags"
+      [@fade]
+      feature="features.main.tags"
+      image="features/tags.jpg"
+      pattern="features-pattern-tags.svg"
+      [showNext]="false"
+      [class.active]="active === 6"
+      [last]="true">
+      <i-feather name="tag" class="head-icon"></i-feather>
+    </app-features-main-item>
+  </div>
+</div>

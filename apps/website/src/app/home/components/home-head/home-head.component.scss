@@ -1,0 +1,199 @@
+@import '../../../../styles.scss';
+
+:host {
+  display: block;
+
+  #top {
+    display: none;
+  }
+
+  .container {
+    position: relative;
+    padding: 0 32px;
+    height: 640px;
+    background: url('/assets/images/home-map-mobile.jpg'), no-repeat;
+    background-size: cover;
+    overflow: hidden;
+
+    .dashboard {
+      position: absolute;
+      left: 25%;
+      top: 80px;
+      width: 75%;
+      height: 320px;
+      background: url('/assets/images/home-dashboard.png'), no-repeat;
+      background-size: cover;
+      z-index: 49;
+      box-shadow: 0 0 34px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .territories {
+      position: absolute;
+      left: -100px;
+      top: 160px;
+      width: 375px;
+      height: 320px;
+      background: url('/assets/images/home-gebiete.png'), no-repeat;
+      background-size: cover;
+      z-index: 48;
+      box-shadow: 0 0 34px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .overlay {
+      position: absolute;
+      left: 0;
+      top: 400px;
+      right: 0;
+      bottom: 0;
+      z-index: 50;
+      background: #ffffff;
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: -160px;
+        right: 0;
+        height: 160px;
+
+        background-image: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0),
+          #ffffff
+        );
+      }
+    }
+
+    .content {
+      position: absolute;
+      left: 0;
+      top: 356px;
+      right: 0;
+      bottom: 0;
+      padding: 0 32px;
+      margin: auto;
+      max-width: 400px;
+      z-index: 51;
+
+      .title {
+        margin-bottom: 28px;
+        font-family: Heebo;
+        font-size: 50px;
+        font-weight: 800;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.04;
+        letter-spacing: 0.4px;
+        color: $dark-sky-blue;
+        max-width: 200px;
+      }
+
+      .subtitle1 {
+        font-family: $font-family;
+        font-size: 26px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 0.2px;
+        color: $dark-grey;
+        margin-bottom: 8px;
+        max-width: 250px;
+        line-height: 1.15;
+      }
+
+      .subtitle2 {
+        font-family: $font-family;
+        font-size: 22px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 0.2px;
+        color: #b0b3b5;
+        max-width: 300px;
+        line-height: 1.27;
+      }
+    }
+
+    .mockup {
+      position: absolute;
+      top: 80px;
+      right: 0px;
+      bottom: 12px;
+      background: url('/assets/images/home-imac-mockup.png') no-repeat;
+      background-size: cover;
+      background-position: 0 100%;
+      width: calc(100vw - 359px);
+      max-width: 468px;
+      height: 584px;
+      display: none;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  :host {
+    .container {
+      height: 680px;
+      background: url('/assets/images/home-map-tablet.jpg'), no-repeat;
+      background-size: cover;
+
+      .territories, .dashboard, .overlay {
+        display: none;
+      }
+
+      .content {
+        top: 400px;
+        padding: 0 80px;
+        max-width: 920px;
+      }
+
+      .mockup {
+        display: block;
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  :host {
+    .container {
+      height: 724px;
+
+      .content {
+        padding: 0 80px;
+        max-width: 920px;
+
+        .title {
+          font-size: 72px;
+        }
+      }
+
+      .mockup {
+        width: 511.3px;
+        height: 640px;
+        right: calc(50vw - 550px);
+        max-width: unset;
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  :host {
+    .container {
+      background: url('/assets/images/home-map-desktop.jpg'), no-repeat;
+      background-size: cover;
+
+      .content {
+        padding: 0 80px;
+        max-width: 1120px;
+      }
+
+      .mockup {
+        right: calc(50vw - 585px);
+      }
+    }
+  }
+}

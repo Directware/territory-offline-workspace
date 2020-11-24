@@ -1,0 +1,112 @@
+@import '../../../../styles.scss';
+
+:host {
+  display: block;
+  min-height: calc(100vh - 189px);
+
+  .wrapper {
+    .head {
+      padding: 184px 32px 0;
+      background: url('/assets/images/home-map-desktop.jpg') bottom center no-repeat;
+      background-size: cover;
+
+      .authority {
+        text-align: center;
+
+        .icon {
+          width: 24px;
+          height: 24px;
+          margin-bottom: 10px;
+        }
+
+        .title {
+          font-family: Heebo;
+          font-size: 16px;
+          font-weight: bold;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.13;
+          letter-spacing: 0.4px;
+          color: #000000;
+          margin-bottom: 18px;
+        }
+
+        .text {
+          font-family: Heebo;
+          font-size: 16px;
+          font-weight: normal;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.13;
+          letter-spacing: 0.4px;
+          text-align: center;
+          color: $slate-grey;
+        }
+      }
+
+      .contact {
+        margin-top: 32px;
+        text-align: center;
+
+        .icon {
+          width: 24px;
+          height: 24px;
+          margin-bottom: 10px;
+        }
+
+        .title {
+          font-family: Heebo;
+          font-size: 16px;
+          font-weight: bold;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.13;
+          letter-spacing: 0.4px;
+          color: #000000;
+          margin-bottom: 18px;
+        }
+
+        .text {
+          font-family: Heebo;
+          font-size: 16px;
+          font-weight: normal;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.13;
+          letter-spacing: 0.4px;
+          text-align: center;
+          color: $slate-grey;
+        }
+      }
+    }
+    .content {
+      text-align: left;
+      margin-top: 140px;
+      font-family: Heebo;
+      font-size: 16px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.13;
+      letter-spacing: 0.4px;
+      color: #000000;
+      max-width: 534px;
+      margin: 140px auto 0;
+      padding: 0 32px;
+
+      .title {
+        font-weight: 800px;
+        margin: 0;
+      }
+      margin-bottom: 160px;
+    }
+  }
+}
+
+@media (min-width: 480px) {
+  :host {
+    .container {
+      padding: 184px 64px 0;
+    }
+  }
+}

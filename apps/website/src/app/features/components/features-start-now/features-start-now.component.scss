@@ -1,0 +1,118 @@
+@import '../../../../styles.scss';
+
+:host {
+  background-color: #1a1a1a;
+  display: block;
+
+  .container {
+    display: block;
+    padding: 0 32px;
+    background-color: #141414;
+    background: url('/assets/images/features-map-mobil.jpg') center bottom;
+    background-size: cover;
+    height: 480px;
+    margin: auto;
+
+    .icon-wrapper {
+      padding-top: 48px;
+
+      .icon {
+        width: 80px;
+        height: 80px;
+        background: url('/assets/images/svg2/start.svg') center bottom no-repeat;
+        background-size: cover;
+        margin: 0 auto 16px;
+      }
+    }
+
+    .title {
+      font-family: Heebo;
+      font-size: 22px;
+      font-weight: 500;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.27;
+      letter-spacing: 0.2px;
+      text-align: center;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .text {
+      font-family: Heebo;
+      font-size: 18px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.22;
+      letter-spacing: 0.4px;
+      text-align: center;
+      color: #b1b3b4;
+      margin: 0 auto 32px;
+      max-width: 310px;
+    }
+
+    .release {
+      display: block;
+      border: none;
+      border-radius: 24px;
+      box-shadow: 0 2px 7px 0 rgba(21, 200, 128, 0.2);
+      background-color: $seaweed;
+      margin: auto;
+      padding: 8px 26px;
+      font-family: Heebo;
+      font-size: 18px;
+      font-weight: 500;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.22;
+      letter-spacing: 0.4px;
+      text-align: center;
+      color: #ffffff;
+
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(0.95);
+      }
+      transition: all 0.15s;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  :host {
+    .container {
+      background: url('/assets/images/features-map-tablet.jpg') center bottom;
+      background-size: cover;
+      height: 504px;
+
+      .icon-wrapper {
+        .icon {
+          width: 128px;
+          height: 128px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  :host {
+    padding-top: 80px;
+    padding-bottom: 160px;
+
+    .container {
+      background: url('/assets/images/features-map-tablet.jpg') center bottom;
+      background-size: cover;
+      height: 485px;
+      max-width: 1120px;
+      border-radius: 16px;
+      box-shadow: 0 42px 44px -20px rgba(0, 0, 0, 0.2);
+
+      .icon-wrapper {
+        padding-top: 64px;
+      }
+    }
+  }
+}

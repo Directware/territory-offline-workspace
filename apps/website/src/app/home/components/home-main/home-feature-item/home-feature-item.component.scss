@@ -1,0 +1,228 @@
+@import '../../../../../styles.scss';
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100px;
+  margin: 0 auto 24px;
+  background-color: transparent;
+  perspective: 1000px;
+  user-select: none;
+  cursor: pointer;
+  transition: height 0.4s linear;
+
+  .inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+
+    .front {
+      border-radius: 16px;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-perspective: 0;
+      -webkit-backface-visibility: hidden;
+      -webkit-transform: translate3d(0, 0, 0);
+      visibility: visible;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background: white;
+
+      .image-container {
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+      }
+
+      .content {
+        .title {
+          font-family: $font-family;
+          font-size: 20px;
+          font-weight: 300;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.2;
+          letter-spacing: 0.2px;
+          color: #000000;
+          margin-bottom: 8px;
+        }
+
+        .more {
+          cursor: pointer;
+          font-family: $font-family;
+          font-size: 14px;
+          font-weight: 500;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: normal;
+          letter-spacing: 0.4px;
+          color: #b1b3b4;
+        }
+      }
+
+      &:hover {
+        .content {
+          .more {
+            color: #479cbc;
+          }
+        }
+      }
+    }
+
+    .back {
+      border-radius: 16px;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-perspective: 0;
+      -webkit-backface-visibility: hidden;
+      -webkit-transform: translate3d(0, 0, 0);
+      visibility: visible;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      background: white;
+      transform: rotateY(180deg);
+      min-height: 200px;
+
+      .text {
+        font-family: $font-family;
+        font-size: 16px;
+        font-weight: 300;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 0.2px;
+        margin-top: 20px;
+        margin-bottom: 8px;
+      }
+
+      .less {
+        cursor: pointer;
+        font-family: $font-family;
+        font-size: 14px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 0.4px;
+        color: #b1b3b4;
+        margin-left: 98px;
+      }
+      &:hover {
+        .less {
+          color: #479cbc;
+        }
+      }
+    }
+  }
+
+  &.flip {
+    height: 210px;
+
+    .inner {
+      transform: rotateY(180deg);
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  :host {
+    height: 288px;
+    width: calc(50vw - 104px);
+    margin: 0 16px 32px;
+    max-width: 420px;
+
+    .inner {
+      .front {
+        height: 288px;
+        box-shadow: 0 38px 90px -40px rgba(49, 50, 51, 0.4);
+
+        &:hover {
+          box-shadow: 0 38px 90px -40px rgba(9, 79, 137, 0.4);
+        }
+
+        flex-direction: column;
+
+        .image-container {
+          height: 160px;
+          width: 100%;
+          background-image: linear-gradient(to bottom, rgba(79, 156, 220, 0.1), rgba(32, 121, 194, 0.2));
+        }
+
+        .content {
+          .title {
+            margin: 16px auto 12px;
+            text-align: center;
+            max-width: 250px;
+          }
+
+          .more {
+            text-align: center;
+          }
+        }
+      }
+
+      .back {
+        height: 288px;
+        box-shadow: 0 38px 90px -40px rgba(9, 79, 137, 0.4);
+
+        .text {
+          text-align: center;
+          padding: 0 16px;
+          margin: 0 auto;
+          font-weight: 400;
+        }
+
+        .less {
+          text-align: center;
+          margin: 16px auto 0;
+        }
+      }
+    }
+
+    &.flip {
+      height: 288px;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  :host {
+    width: calc(50vw - 120px);
+    margin: 0 30px 80px;
+
+    .inner {
+      .back {
+        .text {
+          text-align: center;
+          padding: 0 32px;
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  :host {
+    width: calc(33vw - 160px);
+    max-width: 320px;
+    margin: 0 40px 80px;
+
+    .inner {
+      .back {
+        .text {
+          text-align: center;
+          padding: 0 32px;
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+}

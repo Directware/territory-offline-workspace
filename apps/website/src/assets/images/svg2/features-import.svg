@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Graphics/features-import</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="24.4897959%" x2="50%" y2="75.5102041%" id="linearGradient-1">
+            <stop stop-color="#FF5F1B" stop-opacity="0.246694712" offset="0%"></stop>
+            <stop stop-color="#FF5F1B" stop-opacity="0.7" offset="100%"></stop>
+        </linearGradient>
+        <path d="M3,0 L16.7573593,-3.55271368e-15 C17.5530088,-3.69887212e-15 18.3160705,0.316070521 18.8786797,0.878679656 L31.1213203,13.1213203 C31.6839295,13.6839295 32,14.4469912 32,15.2426407 L32,45 C32,46.6568542 30.6568542,48 29,48 L3,48 C1.34314575,48 2.02906125e-16,46.6568542 0,45 L0,3 C-2.02906125e-16,1.34314575 1.34314575,3.04359188e-16 3,0 Z" id="path-2"></path>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#FF5F1B" stop-opacity="0.4" offset="0%"></stop>
+            <stop stop-color="#FF5F1B" stop-opacity="0.632566829" offset="74.7756546%"></stop>
+            <stop stop-color="#FF5F1B" stop-opacity="0.67" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-5">
+            <stop stop-color="#FF5F1B" stop-opacity="0.2" offset="0%"></stop>
+            <stop stop-color="#FF5F1B" stop-opacity="0.6" offset="100%"></stop>
+        </linearGradient>
+        <path d="M13.6666667,11.3333333 L13.6666667,13.3333333 C13.6666667,14.4666667 12.8,15.3333333 11.6666667,15.3333333 L2.33333333,15.3333333 C1.2,15.3333333 0.333333333,14.4666667 0.333333333,13.3333333 L0.333333333,11.3333333 C0.333333333,10.9333333 0.6,10.6666667 1,10.6666667 C1.4,10.6666667 1.66666667,10.9333333 1.66666667,11.3333333 L1.66666667,13.3333333 C1.66666667,13.7333333 1.93333333,14 2.33333333,14 L11.6666667,14 C12.0666667,14 12.3333333,13.7333333 12.3333333,13.3333333 L12.3333333,11.3333333 C12.3333333,10.9333333 12.6,10.6666667 13,10.6666667 C13.4,10.6666667 13.6666667,10.9333333 13.6666667,11.3333333 Z M6.53333333,11.1333333 C6.6,11.2 6.66666667,11.2666667 6.73333333,11.2666667 C6.8,11.3333333 6.93333333,11.3333333 7,11.3333333 C7.06666667,11.3333333 7.2,11.3333333 7.26666667,11.2666667 C7.33333333,11.2 7.4,11.2 7.46666667,11.1333333 L10.1333333,8.46666667 C10.4,8.2 10.4,7.8 10.1333333,7.53333333 C9.86666667,7.26666667 9.46666667,7.26666667 9.2,7.53333333 L7.66666667,9.06666667 L7.66666667,1.33333333 C7.66666667,0.933333333 7.4,0.666666667 7,0.666666667 C6.6,0.666666667 6.33333333,0.933333333 6.33333333,1.33333333 L6.33333333,9.06666667 L4.8,7.53333333 C4.53333333,7.26666667 4.13333333,7.26666667 3.86666667,7.53333333 C3.6,7.8 3.6,8.2 3.86666667,8.46666667 L6.53333333,11.1333333 Z" id="path-6"></path>
+    </defs>
+    <g id="Graphics/features-import" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Screen" transform="translate(8.000000, 32.000000)">
+            <rect id="Rectangle" fill="url(#linearGradient-1)" x="0" y="0" width="56" height="40" rx="3"></rect>
+            <path d="M3,0 L16,0 L16,40 L3,40 C1.34314575,40 2.02906125e-16,38.6568542 0,37 L0,3 C-2.02906125e-16,1.34314575 1.34314575,3.04359188e-16 3,0 Z" id="Rectangle" fill-opacity="0.4" fill="#FF5F1B"></path>
+            <circle id="Oval" fill="#FF5F1B" opacity="0.8" cx="10" cy="3" r="1"></circle>
+            <circle id="Oval-Copy" fill="#FF5F1B" opacity="0.8" cx="7" cy="3" r="1"></circle>
+            <circle id="Oval-Copy-2" fill="#FF5F1B" opacity="0.8" cx="4" cy="3" r="1"></circle>
+        </g>
+        <g id="Doc" transform="translate(40.000000, 8.000000)">
+            <mask id="mask-3" fill="white">
+                <use xlink:href="#path-2"></use>
+            </mask>
+            <g id="Mask"></g>
+            <polygon id="Rectangle" fill="url(#linearGradient-4)" mask="url(#mask-3)" points="0 0 18 0 32 14 32 48 0 48"></polygon>
+            <path d="M18,2 C17.8850193,1.44057483 17.6627971,0.996130385 17.3333333,0.666666667 C17.0038696,0.337202948 16.5594252,0.114980726 16,0 L18,0 L32,14 L21,14 C19.3431458,14 18,12.6568542 18,11 L18,2 Z" id="Combined-Shape" fill="url(#linearGradient-5)" mask="url(#mask-3)"></path>
+        </g>
+        <g id="icon-/-arrow-down" transform="translate(45.000000, 36.000000)">
+            <mask id="mask-7" fill="white">
+                <use xlink:href="#path-6"></use>
+            </mask>
+            <use id="Mask" fill="#FF5F1B" fill-rule="nonzero" xlink:href="#path-6"></use>
+        </g>
+    </g>
+</svg>

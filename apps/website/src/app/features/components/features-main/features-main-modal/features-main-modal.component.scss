@@ -1,0 +1,30 @@
+@import '../../../../../styles.scss';
+
+:host {
+  background-color: #1a1a1a;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  .image {
+    width: 100vw;
+    height: calc(100vh - 200px);
+    margin: 100px 0;
+  }
+
+  .close {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    width: 32px;
+    height: 32px;
+    stroke: #ffffff;
+    cursor: pointer;
+    &:hover {
+      transform: scale(0.90);
+    }
+    transition: all 0.15s;
+    }
+}

@@ -1,0 +1,86 @@
+@import '../../../../styles.scss';
+
+:host {
+  background-color: #1a1a1a;
+  display: block;
+  padding: 12px 32px 48px;
+
+  .icon {
+    width: 80px;
+    height: 80px;
+    background: url('/assets/images/svg2/features-import.svg');
+    background-size: cover;
+    margin: auto;
+  }
+
+  .container {
+    .title {
+      font-family: Heebo;
+      font-size: 22px;
+      font-weight: 500;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.27;
+      letter-spacing: 0.2px;
+      text-align: center;
+      color: #ffffff;
+      margin: 8px 0;
+    }
+
+    .text {
+      font-family: Heebo;
+      font-size: 18px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.22;
+      letter-spacing: 0.4px;
+      text-align: center;
+      color: #b1b3b4;
+      max-width: 290px;
+      margin: auto;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  :host {
+    padding: 48px 32px 48px;
+
+    .icon {
+      width: 128px;
+      height: 128px;
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  :host {
+    height: 176px;
+    padding: 0;
+    box-shadow: 0 40px 74px -80px rgba(0, 0, 0, 0.2);
+    background-image: linear-gradient(to left, #1a1a1a, #262627 52%, #1a1a1a);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .icon {
+      width: 96px;
+      height: 96px;
+      margin: 0;
+    }
+
+    .container {
+      margin-left: 40px;
+
+      .title {
+        text-align: left;
+      }
+
+      .text {
+        text-align: left;
+      }
+    }
+  }
+}

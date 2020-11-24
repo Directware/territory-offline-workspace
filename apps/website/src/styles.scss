@@ -1,0 +1,131 @@
+$light-salmon: #ffb190;
+$beige: #ffd090;
+$butterscotch: #ffb54f;
+$yellowish-orange: #ff9f1b;
+$brown: #5d1c00;
+$reddish-orange: #ff5f1b;
+$deep-orange: #d43f00;
+$orangish: #ff834f;
+$pumpkin: #d47b00;
+$brown: #5d3600;
+$sky: #91c7f4;
+$dark-sky-blue: #4f9cdc;
+$twilight-blue: #094f89;
+$navy: #03223c;
+$bluish: #2079c2;
+$light-aquamarine: #8af6ca;
+$weird-green: #45e0a2;
+$seaweed: #15c880;
+$emerald: #009056;
+$dark-blue-green: #003f26;
+$very-light-blue: #ebeced;
+$light-blue-grey: #c8cacc;
+$cool-grey: #949799;
+$slate-grey: #636566;
+$dark-grey: #313233;
+
+$font-family: 'Heebo', sans-serif;
+
+body {
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  &.menu {
+    overflow: hidden;
+  }
+}
+
+.loading-error{
+  font-family: Heebo;
+  padding: 4px;
+  color: $deep-orange;
+  font-size: 12px;
+}
+
+/* Text styles */
+head {
+  font-family: $font-family;
+  font-size: 26px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.2px;
+  color: #000000;
+}
+
+@mixin Head-2Black {
+  font-family: $font-family;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: #000000;
+}
+
+@mixin Head-2Gray {
+  font-family: $font-family;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: $cool-grey;
+}
+
+@mixin Head-3-Gray {
+  font-family: $font-family;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  color: #96999c;
+}
+
+@mixin Head-3Black {
+  font-family: $font-family;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  color: #000000;
+}
+
+@mixin NavBlack {
+  font-family: $font-family;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  color: #000000;
+}
+
+@mixin NavBlue {
+  font-family: $font-family;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  color: $bluish;
+}
+
+@mixin NavCounter-Blue {
+  font-family: $font-family;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  text-align: right;
+  color: $bluish;
+}
+
+@mixin NavCounter-Gray {
+  font-family: $font-family;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  text-align: right;
+  color: $cool-grey;
+}
+
+@mixin Text {
+  font-family: $font-family;
+  font-size: 14px;
+  color: #000000;
+}
+
+@mixin Small-text {
+  font-family: $font-family;
+  font-size: 10px;
+  color: $cool-grey;
+}

@@ -1,0 +1,156 @@
+{
+  "navigation": {
+    "home": "Home",
+    "home2": "Startseite",
+    "features": "Features",
+    "assignments": "Zuteilungen",
+    "dashboard": "Dashboard",
+    "territories": "Gebiete",
+    "publisher": "Verkündiger",
+    "notVisit": "Nicht besuchen",
+    "addresses": "Adressen",
+    "export": "Export",
+    "release": "Sei dabei",
+    "legalNotice": "Impressum"
+  },
+  "home": {
+    "main": {
+      "title": "Territory Offline",
+      "subtitle1": "Mehr als nur Gebietsverwaltung",
+      "subtitle2": "Sechs Dinge, die Territory Offline besonders machen:",
+      "feature1": {
+        "title": "Alle Daten bleiben offline und verschlüsselt",
+        "text": "Der Schutz deiner Daten hat bei Territory Offline Priorität. Deshalb haben wir uns gegen eine internetbasierte Anwendung entschieden. Die gesamte Datenbank liegt auf der Festplatte deines Computers und ist dort asymmetrisch verschlüsselt. Nur du hast mit deinem Passwort zugriff."
+      },
+      "feature2": {
+        "title": "Datenschutz konform. Sei auf der sicheren Seite",
+        "text": "Wir wissen, wie wichtig unseren Nutzern das Befolgen der gesetzlichen Richtlinien ist. Deshalb ist Territory Offline so entwickelt worden, dass es dich dabei unterstützt alle Daten gemäß den rechtlichen Bestimmungen zu speichern und weiterzugeben."
+      },
+      "feature3": {
+        "title": "Optimiert für die Arbeit mit Suchgebieten",
+        "text": "Das Verwalten von Adressen ist eine der Kernqualitäten von Territory Offline. Wenn du eine neue Adresse anlegst, wird sie für dich automatisch dem entsprechenden Gebiet zugeordnet. Schaust du dir deine Gebiete auf der Karte an, siehst du mit einem Blick auch immer alle Adressen."
+      },
+      "feature4": {
+        "title": "Import- und Exportmöglichkeit.",
+        "text": "Unsere App wurde mit dem Ziel entworfen, den Austausch von Daten so einfach, aber auch so sicher wie möglich zu gestalten. So kannst du Datensätze schnell auswählen und weitergeben sowie empfangene Daten mühelos importieren - unabhängig davon, ob andere auch Territory Offline nutzen."
+      },
+      "feature5": {
+        "title": "Keine Kosten. Unbegrenzt frei nutzbar.",
+        "text": "Unsere Motivation ist es, dir dabei zu helfen deine Aufgaben gewissenhaft und ordentlich zu erfüllen. Für die Gestaltung und Umsetzung dieser App wurde und wird daher viel Zeit und Mühe investiert. Du möchtest uns unterstützen? Dann schreib uns einfach, was dir gefällt und was wir verbessern können."
+      },
+      "feature6": {
+        "title": "Für Windows, Mac und Linux verfügbar.",
+        "text": "Jede Plattform ist wichtig für uns. Deshalb unterstützt Territory Offline deine Arbeit auf Mac, Windows oder Linux. Auch für Android und iOS werden zu einem späteren Zeitpunkt Apps verfügbar sein, die ebenfalls unsere hohen Anforderungen an Sicherheit und Datenschutz erfüllen."
+      },
+      "more": "Mehr Erfahren",
+      "less": "Weniger anzeigen"
+    },
+    "more": {
+      "title": "Da ist noch so viel mehr",
+      "subtitle": "Erfahre, wie Territory Offline deine Arbeit vereinfacht.",
+      "all": "Alle Features"
+    },
+    "release": {
+      "available": "Bald Verfügbar",
+      "title": "Final Countdown. Bleibe auf dem Laufenden",
+      "email": "E-Mail",
+      "success": "Sie haben sich erfolgreich eingetragen",
+      "text": "Gib deine E-Mail Adresse ein und sei von Anfang an dabei. Werde automatisch benachrichtigt, sobald die App zum Download bereit steht.",
+      "success-text": "Vielen Dank für dein Interesse! Du wirst automatisch benachrichtigt, sobald die App verfügbar ist oder es Neuerungen gibt."
+    },
+    "download": {
+      "title": "Territory Offline Beta",
+      "subtitle": "Download der Desktop Anwendung",
+      "text": "Lade vorab die Beta-Version von \nTerritory Offline für deinen Mac, \nPC oder Linux herunter.",
+      "button": "Laden für",
+      "releasedOn": "Veröffentlicht am",
+      "errorGettingReleaseInfo": "Daten konnten nicht geladen werden.  Versuchen Sie es bitte später noch einmal."
+    }
+  },
+  "features": {
+    "head": {
+      "title": "Alles im Griff",
+      "subtitle1": "Dein persönlicher Assistent",
+      "subtitle2": "Territory Offline ist speziell auf die Aufgaben von Gebietsdienern abgestimmt"
+    },
+    "getStarted": {
+      "title": "Einfacher Einstieg",
+      "text": "Importiere deine vorhandenen Daten ganz einfach aus Territory Helper oder Excel."
+    },
+    "main": {
+      "title": "Alle Funktionen im Überblick",
+      "dashboard": {
+        "title": "Dashboard",
+        "text1": "Du möchtest sofort wissen, wenn Gebiete bearbeitet oder neu zugeteilt werden müssen?",
+        "text2": "Diese zentrale Übersicht hilft dir dein Versammlungsgebiet im Blick zu behalten und fälligen Gebieten sofort nachgehen zu können. Du kannst die Anzeige nach einem Zeitraum filtern und deine bevorzugte Darstellung wählen: Liste oder Kacheln."
+      },
+      "assignments": {
+        "title": "Zuteilungen",
+        "text1": "Sehe auf einen Blick, welches Gebiet welchem Verkündiger zugeteilt ist.",
+        "text2": "Beruhend auf dem Konzept, das du vom Dokument S13 kennst, kannst du hier dokumentieren, welchem Verkündiger ein bestimmtes Gebiet zugeteilt ist. Trage dazu ein, wann es ausgegeben, bearbeitet oder zurückgegeben wurde. Und das alles mit nur wenigen Klicks."
+      },
+      "territories": {
+        "title": "Gebiete",
+        "text1": "Gebietskarten zeichnen und drucken war nie so einfach.",
+        "text2": "Alle deine Gebiete sind nach Gruppen geordnet und übersichtlich dargestellt. Neue Gebiete anlegen oder bestehende bearbeiten - alles nur wenige Klicks entfernt. Und dank detailierter Vektorkarten mit Gebäuden und Hausnummern haben auch die Verkündiger alles im Blick."
+      },
+      "publisher": {
+        "title": "Verkündiger",
+        "text1": "Organisiere die Verkündiger deiner Versammlung.",
+        "text2": "Eine übersichtliche Liste mit allen Infos, die du brauchst. Alphabetisch und mit Suchfunktion. Für rechtliche konformität erhältst du ein Dokument zum ausdrucken, auf dem die Verkündiger über die Verwendung ihrer Daten aufgeklärt werden und durch Unterschrift zustimmen können."
+      },
+      "notVisit": {
+        "title": "Nicht Besuchen",
+        "text1": "Die einfachste Möglichkeit, Adressen zu speichern, die nicht besucht werden sollen.",
+        "text2": "Erstelle anonymisierte Adressen, die nur Gebiet, Straße, Hausnummer und Klingelposition enthalten. Organisiere deine Adressen durch Gruppierung nach tags."
+      },
+      "addresses": {
+        "title": "Adressen",
+        "text1": "Die einfachste Möglichkeit, um Adressen zu verwalten.",
+        "text2": "Erstelle anonymisierte Datensätze, ohne personenbezogene Daten. Verwende Tags, um alles nach deinen Bedürfnissen zu organisieren. Die Geokodierung sorgt dafür, dass Die Adressen automatisch dem richtigen Gebiet zugewiesen werden - so ergeben sich auch Vorteile für das fremdsprachige Suchgebiet. Durch die einfache Export/Import Funktion, können die Datensätze einfach weitergegeben werden."
+      },
+      "export": {
+        "title": "Exportieren",
+        "text1": "Territory Offline unterstützt deine Zusammenarbeit mit Anderen.",
+        "text2": "Exportiere Datensätze in ein gewünschtes Format auf deine Festplatte und gebe sie weiter. Wenn der Empfänger ebenfalls Territory Offline benutzt, kann er alle Daten sofort importieren und seiner Datenbank hinzufügen. Für zusätzliche Sicherheit kannst du die Daten bei Bedarf auch verschlüsselt exportieren."
+      },
+      "print": {
+        "title": "Drucken",
+        "text1": "Drucke detailierte Gebietskarten in wenigen Schritten",
+        "text2": "Wir suchen automatisch die beste Positionierung, um die Gebietskarte so übersichtlich, wie Möglich zu machen. Zusätzlich hast du die Freiheit, Zoomlevel, Drehung und andere Details selbst anzupassen. Du benutzt lieber die S-12 Vorlage? Kein Problem - Sie ist nur ein Klick entfernt."
+      },
+      "tags": {
+        "title": "Tags",
+        "text1": "Mit Tags kannst du alle Daten nach deinen Wünschen organisieren.",
+        "text2": "Tags kannst du Gebieten, Zuteilungen und Adressen hinzufügen. Jedem Element kannst du ein, oder mehrere Tags hinzufügen. Suchst du später bestimmte Datensätze, kannst du nach dem entsprechenden Tag filtern und findest sofort alle Ergebnisse."
+      },
+      "preview": "Preview",
+      "next": "Nächstes Feature"
+    },
+    "startNow": {
+      "title": "Jetzt loslegen",
+      "text": "Lade vorab die Beta-Version von \nTerritory Offline für deinen Mac, \nPC oder Linux herunter.",
+      "button": "Sei dabei"
+    }
+  },
+  "footer": {
+    "contact": "Kontakt",
+    "text": "Territory Offline ist ein unabhängiges Projekt und ist nicht in Verbindung zu bringen mit der Watchtower Bible and Tract Society of Pennsylvania.",
+    "legalNotice": "Impressum"
+  },
+  "imprint": {
+    "authority": "Verantwortlicher",
+    "contact": "Kontakt",
+    "phone": "Telefon",
+    "mail": "E-Mail",
+    "title1": "Haftung für Inhalte",
+    "text1-1": "Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.",
+    "text1-2": "Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.",
+    "title2": "Haftung für Links",
+    "text2-1": "Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar.",
+    "text2-2": "Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.",
+    "title3": "Urheberrecht",
+    "text3-1": "Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.",
+    "text3-2": "Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen."
+  }
+}

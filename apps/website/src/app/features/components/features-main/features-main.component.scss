@@ -1,0 +1,144 @@
+@import '../../../../styles.scss';
+
+:host {
+  display: block;
+  padding: 48px 32px 72px;
+  background-color: #1a1a1a;
+
+  > .icon {
+    width: 80px;
+    height: 80px;
+    background: url('/assets/images/svg2/features.svg');
+    background-size: cover;
+    margin: auto;
+  }
+
+  > .title {
+    font-family: Heebo;
+    font-size: 22px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.27;
+    letter-spacing: 0.2px;
+    text-align: center;
+    color: #ffffff;
+    margin: 8px auto 32px;
+    max-width: 170px;
+  }
+
+  .taps {
+    max-width: 568px;
+    margin: auto;
+
+    .title {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 40px;
+
+      .icon-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+
+        .icon {
+          width: 24px;
+          height: 24px;
+          stroke: $slate-grey;
+
+          &:hover {
+            stroke: #c8cacc;
+          }
+
+          &.active {
+            stroke: $bluish;
+            filter: drop-shadow(0 0 4px rgba(32, 121, 194, 0.7));
+          }
+        }
+
+        .name {
+          display: none;
+          font-family: Heebo;
+          font-size: 14px;
+          font-weight: normal;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: normal;
+          letter-spacing: 0.4px;
+          text-align: center;
+          color: $bluish;
+          margin-top: 4px;
+        }
+      }
+    }
+    .head-icon {
+      display: none;
+      stroke: #ffffff;
+      margin-right: 8px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  :host {
+    > .icon {
+      width: 128px;
+      height: 128px;
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  :host {
+    padding: 80px 32px 72px;
+
+    > .title {
+      font-family: Heebo;
+      font-size: 26px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.15;
+      letter-spacing: 0.2px;
+      text-align: center;
+      color: #ffffff;
+      max-width: 200px;
+    }
+
+    .taps {
+      max-width: unset;
+
+      .title {
+        max-width: 568px;
+        margin: auto;
+
+        .icon-wrapper {
+          width: 75px;
+          height: 50px;
+
+          .icon {
+            &.active {
+              stroke: $slate-grey;
+              filter: none;
+            }
+          }
+          &:hover {
+            .icon {
+              stroke: $bluish;
+              filter: drop-shadow(0 0 4px rgba(32, 121, 194, 0.7));
+            }
+
+            .name {
+              display: block;
+            }
+          }
+        }
+      }
+      .head-icon {
+        display: block;
+      }
+    }
+  }
+}

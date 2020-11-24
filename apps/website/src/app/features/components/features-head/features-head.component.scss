@@ -1,0 +1,118 @@
+@import '../../../../styles.scss';
+
+:host {
+  display: block;
+  background: url('/assets/images/features-desk-scene-mobil.jpg') center bottom;
+  background-size: cover;
+  height: 667px;
+
+  .title {
+    max-width: 200px;
+    margin: auto;
+    padding: 80px 32px 0;
+    font-family: Heebo;
+    font-size: 50px;
+    font-weight: 800;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.04;
+    letter-spacing: 0.4px;
+    text-align: center;
+    color: $dark-sky-blue;
+  }
+
+  .subtitles {
+    padding: 28px 32px 0;
+
+    .subtitle1 {
+      font-family: Heebo;
+      font-size: 26px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.15;
+      letter-spacing: 0.2px;
+      text-align: center;
+      color: $dark-grey;
+      max-width: 300px;
+      margin: 0 auto 8px;
+    }
+
+    .subtitle2 {
+      font-family: Heebo;
+      font-size: 22px;
+      font-weight: 500;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.27;
+      letter-spacing: 0.2px;
+      text-align: center;
+      color: $cool-grey;
+      max-width: 340px;
+      margin: auto;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  :host {
+    background: url('/assets/images/features-desk-scene-tablet.jpg') center bottom;
+    background-size: cover;
+    height: 1024px;
+
+    .title {
+      padding: 104px 32px 0;
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  :host {
+    background: url('/assets/images/features-desk-scene-desktop.jpg') center bottom;
+    background-size: cover;
+    height: 800px;
+
+    .title {
+      padding: 160px 32px 0;
+      font-family: Heebo;
+      font-size: 72px;
+      font-weight: 800;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1;
+      letter-spacing: 0.6px;
+      text-align: center;
+      color: $dark-sky-blue;
+      max-width: unset;
+      margin: auto;  
+    }
+
+    .subtitles {
+      .subtitle1 {
+        font-family: Heebo;
+        font-size: 26px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.15;
+        letter-spacing: 0.2px;
+        text-align: center;
+        color: $dark-grey;
+        max-width: unset;
+      }
+
+      .subtitle2 {
+        font-family: Heebo;
+        font-size: 22px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.27;
+        letter-spacing: 0.2px;
+        text-align: center;
+        color: $cool-grey;
+        max-width: 430px;
+      }
+    }
+  }
+}

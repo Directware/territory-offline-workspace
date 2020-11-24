@@ -1,0 +1,188 @@
+@import '../../../../styles.scss';
+
+:host {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+
+  .container {
+    position: absolute;
+    background: #ffffff;
+    width: 100vw;
+    height: 100vh;
+    animation: 0.5s ease-in-out 0s 1 slideInFromLeft;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .close {
+      position: absolute;
+      right: 24px;
+      top: 24px;
+      width: 32px;
+      height: 32px;
+      opacity: 0.4;
+
+      &:hover {
+        opacity: 1;
+      }
+      cursor: pointer;
+    }
+
+    .navigation-list {
+      margin-top: 128px;
+      margin-bottom: 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .navigation-item {
+        position: relative;
+        line-height: 40px;
+        cursor: pointer;
+        height: 40px;
+        font-family: $font-family;
+        font-size: 20px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        letter-spacing: normal;
+        text-align: center;
+        color: #b1b3b4;
+        margin: auto;
+        max-width: 200px;
+
+        &.main {
+          font-size: 22px;
+          font-weight: bold;
+          color: $dark-grey;
+
+          &.home {
+            margin-bottom: 16px;
+          }
+        }
+
+        &.active {
+          &::after {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 14px;
+            width: 8px;
+            height: 8px;
+            box-shadow: 0 1px 5px 0 $dark-sky-blue;
+            background-color: $dark-sky-blue;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+
+    .foot {
+      margin-bottom: 22px;
+
+      .release {
+        display: block;
+        border: none;
+        border-radius: 24px;
+        box-shadow: 0 2px 7px 0 rgba(21, 200, 128, 0.5);
+        background-color: $seaweed;
+        margin: 16px auto 0;
+        padding: 8px 26px;
+        font-family: Heebo;
+        font-size: 18px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.22;
+        letter-spacing: 0.4px;
+        text-align: center;
+        color: #ffffff;
+        cursor: pointer;
+        &:hover {
+          transform: scale(0.95);
+        }
+        transition: all 0.15s;
+      }
+
+      .legal-notice {
+        margin-top: 48px;
+        opacity: 0.5;
+        font-family: $font-family;
+        font-size: 12px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: center;
+        color: $cool-grey;
+        display: block;
+
+        cursor: pointer;
+      }
+    }
+  }
+
+  &.closeAnimation {
+    .container {
+      animation: 0.5s ease-in-out 0s 1 slideOutFromLeft;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  :host {
+    background: rgba(0, 0, 0, 0.2);
+    animation: 0.5s ease-in-out 0s 1 fadeIn;
+
+    .container {
+      max-width: 350px;
+    }
+
+    &.closeAnimation {
+      animation: 0.5s ease-in-out 0s 1 fadeOut;
+    }
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100vw);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutFromLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100vw);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

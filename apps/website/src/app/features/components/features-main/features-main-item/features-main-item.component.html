@@ -1,0 +1,25 @@
+<div class="wrapper">
+  <div
+    class="pattern"
+    [ngStyle]="{background: 'url(/assets/images/' + pattern + ') ' + (odd ? 'left' : 'right') + ' top', 'background-size': 'cover'}"
+  ></div>
+  <div class="container">
+    <div class="head">
+      <ng-content></ng-content>
+      <div class="title">{{ feature + '.title' | translate }}</div>
+    </div>
+    <div class="text">{{ feature + '.text1' | translate }}</div>
+    <div class="text">{{ feature + '.text2' | translate }}</div>
+  </div>
+  <div class="image" *ngIf="image" [ngStyle]="{background: 'url(/assets/images/' + image + ')', 'background-size': 'contain', 'background-repeat': 'no-repeat'}">
+    <div class="preview-button">
+      <i-feather name="maximize-2" class="icon" (click)="openDialog()"></i-feather>
+    </div>
+  </div>
+  <button class="next" *ngIf="showNext" (click)="nextFeature()">
+    {{ 'features.main.next' | translate }}
+    <i-feather name="chevron-right" class="icon"></i-feather>
+  </button>
+  <app-features-main-modal [image]="image" *ngIf="maximized" (close)="closeDialog()"></app-features-main-modal>
+</div>
+<div class="separator"></div>

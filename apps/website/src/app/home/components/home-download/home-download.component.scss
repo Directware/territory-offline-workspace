@@ -1,0 +1,196 @@
+@import '../../../../styles.scss';
+
+:host {
+  padding: 48px 0 0;
+  display: block;
+  box-shadow: 0 70px 100px -70px $light-blue-grey;
+  background-color: #eff0f0;
+
+  @media (max-width: 800px) {
+    .wrapper {
+      background-position: right top !important;
+
+      .content {
+        transform: translateY(120px);
+        margin: auto;
+      }
+    }
+  }
+
+  @media (max-width: 400px) {
+    .wrapper {
+      padding: 120px 0 96px 0 !important;
+      background-position: right top !important;
+
+      .content {
+        transform: translateY(120px);
+        margin: auto;
+        width: 100vw;
+      }
+    }
+  }
+
+  .wrapper {
+    padding: 120px 80px 88px;
+    position: relative;
+    background: url('/assets/images/dashboard-workspace.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+
+    .content {
+      max-width: 410px;
+      background: #eff0f0;
+      padding: 32px;
+      box-sizing: border-box;
+      border-radius: 8px;
+
+      .title {
+        font-family: Heebo;
+        font-size: 50px;
+        font-weight: 800;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.04;
+        letter-spacing: 0.4px;
+        color: #000000;
+        margin-bottom: 32px;
+      }
+
+      .subtitle {
+        font-family: Heebo;
+        font-size: 26px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.15;
+        letter-spacing: 0.2px;
+        color: $dark-grey;
+        margin-bottom: 8px;
+      }
+
+      .text {
+        font-family: Heebo;
+        font-size: 18px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.22;
+        letter-spacing: 0.4px;
+        color: $cool-grey;
+        margin-bottom: 32px;
+      }
+
+      .button-wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .version {
+          font-family: "Heebo";
+          margin: 8px 0;
+          padding: 8px 0;
+          font-weight: normal;
+          top: -24px;
+          left: 8px;
+          color: $bluish;
+          font-size: 14px;
+
+          .creation-time {
+            margin: 0 0 0 8px;
+            font-family: Heebo;
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: 0.35px;
+            color: #b1b3b4;
+          }
+        }
+
+        .button {
+          height: 48px;
+          line-height: 48px;
+          border-radius: 4px;
+          cursor: pointer;
+          font-family: Heebo;
+          font-size: 18px;
+          font-weight: 500;
+          font-style: normal;
+          font-stretch: normal;
+          letter-spacing: 0.4px;
+          padding: 0 24px;
+          margin: 8px 8px 0 0;
+          white-space: nowrap;
+          background-color: rgba(200, 202, 204, 0.3);
+
+          &.active {
+            color: #fff;
+            background-color: $bluish;
+            box-shadow: 0 2px 7px 0 rgba(79, 156, 220, 0.7);
+
+            &:hover {
+              box-shadow: 0 2px 7px 0 $dark-sky-blue;
+              background-color: $dark-sky-blue;
+            }
+          }
+
+          &.small {
+            padding: 0;
+            background-color: rgba(99, 101, 102, 0.15);
+
+            &:hover {
+              background-color: rgba(99, 101, 102, 0.3);
+
+              &.apple,
+              &.windows,
+              &.linux {
+                opacity: 1;
+              }
+            }
+          }
+
+          .apple {
+            opacity: 0.5;
+            background: url('/assets/images/download-mac.svg') center no-repeat;
+            background-size: contain;
+            width: 22px;
+            margin: 0 13px;
+            height: 48px;
+          }
+
+          .windows {
+            opacity: 0.5;
+            background: url('/assets/images/download-windows.svg') center no-repeat;
+            background-size: contain;
+            width: 26px;
+            margin: 0 11px;
+            height: 48px;
+          }
+
+          .linux {
+            opacity: 0.5;
+            background: url('/assets/images/download-linux.svg') center no-repeat;
+            background-size: contain;
+            width: 20px;
+            margin: 0 14px;
+            height: 48px;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+@media (min-width: 1440px) {
+  :host {
+    overflow: unset;
+    margin: 0 auto 136px;
+    max-width: 1280px;
+    border-radius: 16px;
+    box-shadow: 0 70px 100px -70px $light-blue-grey;
+  }
+}

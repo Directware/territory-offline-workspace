@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="160px" height="160px" viewBox="0 0 160 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Website/Graphics/Suchgebiete</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="-2.48949813e-15%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#4F9CDC" stop-opacity="0.210910184" offset="0%"></stop>
+            <stop stop-color="#4F9CDC" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="-2.48949813e-15%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#4F9CDC" stop-opacity="0.210910184" offset="0%"></stop>
+            <stop stop-color="#4F9CDC" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#2079C2" stop-opacity="0.4" offset="0%"></stop>
+            <stop stop-color="#2079C2" stop-opacity="0.8" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#2079C2" stop-opacity="0.4" offset="0%"></stop>
+            <stop stop-color="#2079C2" stop-opacity="0.8" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Website/Graphics/Suchgebiete" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Blau-I" transform="translate(8.000000, 40.000000)">
+            <circle id="Oval" fill="url(#linearGradient-1)" cx="72" cy="48" r="40"></circle>
+            <path d="M72,88 C94.09139,88 112,70.09139 112,48 C112,25.90861 94.09139,8 72,8 C60.8987016,8 79.2470295,32.6970872 72,40 C64.8255674,47.2297562 54.2003337,49.6393994 49,59 C44,68 49.90861,88 72,88 Z" id="Oval" fill="url(#linearGradient-2)"></path>
+            <path d="M95.6097561,48 L80,64 L80,40 L80,8 C80,3.581722 83.581722,8.11624501e-16 88,0 L136,0 C140.418278,-8.11624501e-16 144,3.581722 144,8 L144,40 C144,44.418278 140.418278,48 136,48 L95.6097561,48 Z" id="Combined-Shape" fill="url(#linearGradient-3)"></path>
+            <path d="M9,44 L0,53 L0,40 L0,12 C-2.705415e-16,9.790861 1.790861,8 4,8 L44,8 C46.209139,8 48,9.790861 48,12 L48,40 C48,42.209139 46.209139,44 44,44 L9,44 Z" id="Combined-Shape" fill="url(#linearGradient-4)" transform="translate(24.000000, 30.500000) scale(-1, 1) translate(-24.000000, -30.500000) "></path>
+        </g>
+    </g>
+</svg>

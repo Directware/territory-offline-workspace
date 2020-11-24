@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="160px" height="160px" viewBox="0 0 160 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Website/Graphics/Kostenlos</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#2079C2" stop-opacity="0.311871722" offset="0%"></stop>
+            <stop stop-color="#2079C2" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Website/Graphics/Kostenlos" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Blau-I" transform="translate(25.000000, 36.000000)" fill="url(#linearGradient-1)" fill-rule="nonzero">
+            <path d="M95.2903336,8.37128713 L95.2903336,8.37128713 C90.2451717,3.08415842 83.5182892,0 76.3709764,0 L76.3709764,0 C69.2236637,0 62.076351,3.08415842 57.0311891,8.37128713 C57.0311891,8.37128713 57.0311891,8.37128713 57.0311891,8.37128713 L55.3494684,10.1336634 L53.6677478,8.37128713 C43.1569938,-2.64356436 25.9193572,-2.64356436 15.4086032,8.37128713 C9.94301112,13.6584158 7,21.1485149 7,28.6386139 C7,36.1287129 9.94301112,43.6188119 14.988173,48.9059406 L51.9860271,87.6782178 C52.8268875,88.5594059 53.6677478,89 54.9290383,89 C56.1903287,89 57.0311891,88.5594059 57.8720494,87.6782178 L94.8699035,48.9059406 C99.9150654,43.6188119 102.858077,36.1287129 102.858077,28.6386139 C103.698937,21.1485149 100.755926,13.6584158 95.2903336,8.37128713 Z" id="Mask"></path>
+        </g>
+    </g>
+</svg>

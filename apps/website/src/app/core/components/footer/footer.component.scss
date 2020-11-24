@@ -1,0 +1,80 @@
+@import '../../../../styles.scss';
+
+:host {
+  background-color: #0d0d0d;
+  display: block;
+  padding: 32px 32px 24px;
+
+  .contact {
+    font-family: $font-family;
+    font-size: 18px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: $bluish;
+  }
+
+  .mail {
+    margin: 8px auto 32px auto;
+    display: block;
+    font-family: $font-family;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: $cool-grey;
+  }
+
+  .text {
+    opacity: 0.5;
+    font-family: $font-family;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: $cool-grey;
+    margin: 0 auto 16px;
+    max-width: 480px;
+  }
+
+  .legal-notice {
+    opacity: 0.5;
+    font-family: $font-family;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: $cool-grey;
+    display: block;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 1024px) {
+  :host {
+    .text {
+      max-width: 640px;
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  :host {
+    .text {
+      max-width: unset;
+    }
+  }
+}
