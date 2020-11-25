@@ -4,10 +4,10 @@ describe('website', () => {
   beforeEach(() => cy.visit('/'));
 
   it('should display welcome message', () => {
-    // Custom command example, see `../support/commands.ts` file
-    cy.login('my-email@something.com', 'myPassword');
-
     // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome to website!');
+
+    cy.get(".territory-offline.title").should("be.visible");
+    cy.get(".territory-offline.title").should("have.text", "Territory Offline");
+
   });
 });

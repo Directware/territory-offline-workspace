@@ -12,6 +12,8 @@
     "start:website": "ng run website:serve",
     "build": "ng build",
     "test:dev:territory-offline": "nx e2e territory-offline-e2e --prod --watch",
+    "test:dev:field-companion": "nx e2e field-companion-e2e --watch",
+    "test:dev:website": "nx e2e website-e2e --watch",
     "test:prod:territory-offline": "nx e2e territory-offline-e2e --prod --headless",
     "build:territory-offline": "ng run territory-offline:build",
     "build:territory-offline:prod": "ng run territory-offline:build --prod",
