@@ -22,12 +22,12 @@ setup:
 build:
   stage: build
   script:
-    - nx affected:build
+    - npm run affected:build -- --prod
 
 test:
   stage: test
   script:
-    - nx affected:e2e --prod --headless
+    - npm run affected:e2e -- --headless
 
 deploy:
   stage: deploy
