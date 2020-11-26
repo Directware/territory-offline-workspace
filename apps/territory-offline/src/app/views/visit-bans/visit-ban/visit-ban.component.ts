@@ -1,4 +1,4 @@
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
@@ -54,7 +54,11 @@ export class VisitBanComponent implements OnInit, OnDestroy
 
   public ngOnInit(): void
   {
-    this.mapsService.setShouldBlockMapSynchronizer(true);
+    if (!isInLocationPath("all-visit-bans"))
+    {
+      this.mapsService.setShouldBlockMapSynchronizer(true);
+    }
+
     this.activatedRoute.params
       .pipe(
         takeUntil(this.destroyer),
@@ -68,21 +72,26 @@ export class VisitBanComponent implements OnInit, OnDestroy
         debounceTime(400),
         tap((input: string) => this.geocode(input))
       ).subscribe();
+
   }
 
   public ngOnDestroy(): void
   {
-    this.mapsService.clearMarkers();
-    this.mapsService.setShouldBlockMapSynchronizer(false);
+    if (!isInLocationPath("all-visit-bans"))
+    {
+      this.mapsService.clearMarkers();
+      this.mapsService.setShouldBlockMapSynchronizer(false);
+    }
+
     this.destroyer.next();
     this.destroyer.complete();
   }
 
   public cancel()
   {
-    if (isInLocationPath("/all-visit-bans"))
+    if (isInLocationPath("all-visit-bans"))
     {
-      window.history.back();
+      this.router.navigate([{outlets: {'second-thread': null}}]);
       return;
     }
     this.router.navigate([{outlets: {'second-thread': ['visit-bans', this.activatedRoute.snapshot.params.territoryId]}}]);
@@ -107,7 +116,7 @@ export class VisitBanComponent implements OnInit, OnDestroy
         const street = address.shift();
         const streetSuffix = address.join(" ");
 
-        await this.setVisitBan(e.lngLat.lng,  e.lngLat.lat, street, streetSuffix, "");
+        await this.setVisitBan(e.lngLat.lng, e.lngLat.lat, street, streetSuffix, "");
         this.isManuallyPositioning = false;
       });
   }
@@ -127,7 +136,8 @@ export class VisitBanComponent implements OnInit, OnDestroy
 
   public deleteVisitBan()
   {
-    this.translate.get('visitBan.reallyDelete').pipe(take(1)).subscribe((translation: string) => { 
+    this.translate.get('visitBan.reallyDelete').pipe(take(1)).subscribe((translation: string) =>
+    {
       const canDelete = confirm(translation);
 
       if (canDelete)
@@ -141,6 +151,12 @@ export class VisitBanComponent implements OnInit, OnDestroy
         this.store.dispatch(DeleteVisitBan({visitBan: this.visitBan.getRawValue()}));
       }
     });
+  }
+
+  public setLastVisitToday()
+  {
+    this.visitBan.patchValue({ lastVisit: new Date()});
+    this.visitBan.markAsDirty();
   }
 
   public geoCodeAgainCurrentPlaceName()
@@ -177,17 +193,20 @@ export class VisitBanComponent implements OnInit, OnDestroy
   {
     const territories = await this.chooseTerritoryConsideringFeature(lng, lat);
 
-    if(!territories.length)
+    if (!territories.length)
     {
-      this.translate.get('visitBan.noTerritoryMapped').pipe(take(1)).subscribe((translation: string) => 
+      this.translate.get('visitBan.noTerritoryMapped').pipe(take(1)).subscribe((translation: string) =>
         alert(translation));
       return;
     }
 
-    if(territories.length > 1)
+    if (territories.length > 1)
     {
       const tNames = territories.map(t => t.key + " " + t.name).join(", ");
-      this.translate.get('visitBan.noTerritoryMapped', {count: territories.length, territories: tNames}).pipe(take(1)).subscribe((translation: string) =>
+      this.translate.get('visitBan.noTerritoryMapped', {
+        count: territories.length,
+        territories: tNames
+      }).pipe(take(1)).subscribe((translation: string) =>
         alert(translation));
       return;
     }
@@ -204,8 +223,12 @@ export class VisitBanComponent implements OnInit, OnDestroy
       }
     });
 
-    this.mapsService.clearMarkers();
-    this.mapsService.setMarker([lng, lat], "");
+    if (!isInLocationPath("all-visit-bans"))
+    {
+      this.mapsService.clearMarkers();
+      this.mapsService.setMarker(this.visitBan.get("id").value, [lng, lat], "");
+    }
+
     this.visitBan.markAsDirty();
     this.geoCodingResults = null;
 
@@ -251,10 +274,10 @@ export class VisitBanComponent implements OnInit, OnDestroy
       tags: [vb ? vb.tags : []]
     });
 
-    if (vb && vb.gpsPosition)
+    if (vb && vb.gpsPosition && !this.router.url.includes("all-visit-bans"))
     {
-      this.translate.get('visitBan.noName').pipe(take(1)).subscribe((translation: string) =>
-        this.mapsService.setMarker([vb.gpsPosition.lng, vb.gpsPosition.lat], `<p>${vb.name || translation}</p>`));
+      const translation = this.translate.instant('visitBan.noName');
+      this.mapsService.setMarker(vb.id, [vb.gpsPosition.lng, vb.gpsPosition.lat], `<p>${vb.name || translation}</p>`);
     }
 
     if (vb && vb.street && vb.streetSuffix)

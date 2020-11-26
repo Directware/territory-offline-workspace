@@ -1,5 +1,5 @@
 <app-second-thread-header [specific]="true" (onBack)="back()"></app-second-thread-header>
-
+<i-feather (click)="shareList()" class="i-feather share" name="share"></i-feather>
 <div class="scrollable-wrapper" *ngIf="(assignments$ | async) as assignments">
   <app-panel *ngFor="let assignment of assignments">
     <app-list-item>

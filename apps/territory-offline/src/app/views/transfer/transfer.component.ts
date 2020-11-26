@@ -8,7 +8,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../core/store/index.reducers";
 import {selectCurrentCongregation} from "../../core/store/congregation/congregations.selectors";
-import {map, take, tap} from "rxjs/operators";
+import {first, map, take, tap} from "rxjs/operators";
 import {DataExportService} from "../../core/services/import/data-export.service";
 import {wholeTerritory} from "../../core/store/drawings/drawings.selectors";
 import * as tokml from "tokml";
@@ -24,6 +24,8 @@ import {DataImportService} from "../../core/services/import/data-import.service"
 import {uuid4} from "@capacitor/core/dist/esm/util";
 import * as Turf from '@turf/turf';
 import {BackupImportProgressComponent} from "../shared/modals/backup-import-progress/backup-import-progress.component";
+import {selectAllTerritories} from "../../core/store/territories/territories.selectors";
+import {BulkUpsertTerritory} from "../../core/store/territories/territories.actions";
 
 @Component({
   selector: 'app-transfer',
@@ -191,6 +193,48 @@ export class TransferComponent implements OnInit
         });
 
         this.importTWTerritories(territories, drawings);
+      };
+
+      jsonFileReader.readAsText(file);
+    }
+  }
+
+  public async importAnyData(event)
+  {
+    if (event.target.files && event.target.files.length)
+    {
+      const territories = await this.store.pipe(select(selectAllTerritories), first()).toPromise();
+      const [file] = event.target.files;
+      const jsonFileReader = new FileReader();
+      jsonFileReader.onload = () =>
+      {
+        const json = JSON.parse(jsonFileReader.result + "") as TerritoryWebTerritories;
+        console.log(json, json.features.length);
+
+        let i = 0;
+        const territoriesToUpdate = [];
+        json.features.forEach(data => {
+
+          if(data.properties.description)
+          {
+            const test = data.properties.TerritoryTypeCode + " " + data.properties.TerritoryNumber;
+            const test2 = data.properties.TerritoryType;
+
+            const we = parseInt(data.properties.description.replace("WE ", ""), 10);
+            const territory = territories.filter(ter => ter.key === test && ter.name === test2)[0];
+            console.log(test2 + " " + test + " | " + we, territory)
+            territoriesToUpdate.push({
+              ...territory,
+              populationCount: we
+            });
+            i++;
+          }
+
+        });
+
+        // this.store.dispatch(BulkUpsertTerritory({territories: territoriesToUpdate}));
+
+        console.log(i);
       };
 
       jsonFileReader.readAsText(file);

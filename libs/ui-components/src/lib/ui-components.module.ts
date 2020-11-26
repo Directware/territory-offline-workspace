@@ -11,6 +11,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {DurationPickerComponent} from "./form-controls/duration-picker/duration-picker.component";
 import { HideablePanelComponent } from './hideable-panel/hideable-panel.component';
 import {TranslateModule} from "@ngx-translate/core";
+import {ListItemWithDescriptionComponent} from "./list/list-item-with-description/list-item-with-description.component";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {TranslateModule} from "@ngx-translate/core";
     ListItemComponent,
     PanelComponent,
     LanguageSearchComponent,
-    HideablePanelComponent
+    HideablePanelComponent,
+    ListItemWithDescriptionComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import {TranslateModule} from "@ngx-translate/core";
     ListItemComponent,
     PanelComponent,
     LanguageSearchComponent,
-    HideablePanelComponent
+    HideablePanelComponent,
+    ListItemWithDescriptionComponent
   ]
 })
 export class UiComponentsModule {}

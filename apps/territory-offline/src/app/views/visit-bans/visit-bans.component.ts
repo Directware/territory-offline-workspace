@@ -66,7 +66,7 @@ export class VisitBansComponent implements OnInit, OnDestroy
               {
                 if (!!vb.gpsPosition)
                 {
-                  this.mapsService.setMarker([vb.gpsPosition.lng, vb.gpsPosition.lat], vb.name || translation);
+                  this.mapsService.setMarker(vb.id, [vb.gpsPosition.lng, vb.gpsPosition.lat], vb.name || translation);
                 }
               })
             }

@@ -20,19 +20,39 @@
 </app-panel>
 
 <div class="scrollable-wrapper">
+  <ng-container *ngIf="(visitBans$ | async) as visitBans; else infoBlock">
+    <app-list *ngIf="visibleVisitBans(visitBans) as filteredVisitBans">
+      <app-list-item-with-description *ngFor="let visitBan of filteredVisitBans | searchVisitBan:search | async" [class.active]="currentVisitBanId === visitBan.id" (click)="editVisitBan(visitBan)">
+        <p class="label">
+          {{visitBan.name || "visitBan.noName" | translate}}
+        </p>
+        <p class="description">
+          {{visitBan.street.length <= sliceAddressLength ? visitBan.street : visitBan.street | slice:0:sliceAddressLength }}{{visitBan.street.length > sliceAddressLength ? "..." : ""}} {{visitBan.streetSuffix}}
+        </p>
+        <p class="info" (click)="$event.stopPropagation()">
+          {{visitBan | visitBanLastVisit}}
+          <i-feather *ngIf="!visibleVisitBanMarkers[visitBan.id]" class="i-feather hidden" (click)="showVisitBanMarker($event, visitBan)" name="eye-off"></i-feather>
+          <i-feather *ngIf="visibleVisitBanMarkers[visitBan.id]" class="i-feather visible" (click)="removeVisitBanMarker($event, visitBan)" name="eye"></i-feather>
+        </p>
+      </app-list-item-with-description>
+    </app-list>
 
-  <app-list *ngIf="(visitBans$ | async) as visitBans; else infoBlock">
-    <app-list-item *ngFor="let visitBan of visitBans | searchVisitBan:search | async"
-                   [class.current]="currentVisitBanId === visitBan.id"
-                   (click)="editVisitBan(visitBan)">
-      <p class="label">
-        {{(visitBan.street | slice:0:20) + (visitBan.street.length > 20 ? "..." : "")}}
-        {{visitBan.streetSuffix}}
-        <strong>{{!!visitBan.name ? " - " + visitBan.name : ""}}</strong>
-      </p>
-      <p *ngIf="visitBan.lastVisit" class="info">{{visitBan | visitBanLastVisit}}</p>
-    </app-list-item>
-  </app-list>
+    <app-list>
+      <app-list-item-with-description *ngFor="let visitBan of notVisibleVisitBans(visitBans) | searchVisitBan:search | async" [class.active]="currentVisitBanId === visitBan.id" (click)="editVisitBan(visitBan)">
+        <p class="label">
+          {{visitBan.name || "visitBan.noName" | translate}}
+        </p>
+        <p class="description">
+          {{visitBan.street.length <= sliceAddressLength ? visitBan.street : visitBan.street | slice:0:sliceAddressLength }}{{visitBan.street.length > sliceAddressLength ? "..." : ""}} {{visitBan.streetSuffix}}
+        </p>
+        <p class="info" (click)="$event.stopPropagation()">
+          {{visitBan | visitBanLastVisit}}
+          <i-feather *ngIf="!visibleVisitBanMarkers[visitBan.id]" class="i-feather hidden" (click)="showVisitBanMarker($event, visitBan)" name="eye-off"></i-feather>
+          <i-feather *ngIf="visibleVisitBanMarkers[visitBan.id]" class="i-feather visible" (click)="removeVisitBanMarker($event, visitBan)" name="eye"></i-feather>
+        </p>
+      </app-list-item-with-description>
+    </app-list>
+  </ng-container>
 
   <ng-template #infoBlock>
     <app-info-block [title]="'visitBan.noAdressesHint' | translate"

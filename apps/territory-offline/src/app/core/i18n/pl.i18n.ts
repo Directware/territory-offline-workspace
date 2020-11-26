@@ -1,5 +1,8 @@
 export const pl = {
   "language": "Język",
+  "common": {
+    "shareNotAvailable": "Niestety udostępnianie nie jest dostępne na tej platformie. Tekst jest kopiowany do schowka."
+  },
   "assignments": {
     "startTime": "Data wydania",
     "endTime": "Data zwrotu",
@@ -21,7 +24,9 @@ export const pl = {
     "startTime": "Data wydania",
     "endTime": "Data zwrotu",
     "hasSince": "W posiadaniu od",
-    "edit": "Edytuj przydział"
+    "edit": "Edytuj przydział",
+    "shareOverdueFirstSentence": "Zgodnie z moimi notatkami, masz następujące tereny:",
+    "shareOverdueLastSentence": "Kiedy ostatnio je opracowałeś/łaś?"
   },
   "congregation": {
     "name": "Nazwa",
@@ -204,7 +209,8 @@ export const pl = {
     "reallyDelete": "Czy naprawdę chcesz usunąć ten adres?",
     "noTerritoryMapped": "Znacznik nie może być przypisany do żadnego terenu. Proszę umieścić znacznik na mapie.",
     "multipleTerritories": "Błąd - dwuznaczność! Znacznik jest na {{count}} ({{territories}}). Proszę upewnić się, że rysunki terenów nie nakładają się na siebie.",
-    "noName": "brak nazwy"
+    "noName": "brak nazwy",
+    "today": "Wprowadź dziś"
   },
   "transfer": {
     "sync": {

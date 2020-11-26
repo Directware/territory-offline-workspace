@@ -1,8 +1,19 @@
 @import "libs/ui-components/src/lib/assets/styles/colors";
 
 :host {
+  position: relative;
+  display: block;
 
   .short-action {
     margin: 0 0 0 1rem;
+  }
+
+  .i-feather.share {
+    position: absolute;
+    top: 0.7rem;
+    right: 1rem;
+    color: #fff;
+    opacity: 0.6;
+    cursor: pointer;
   }
 }

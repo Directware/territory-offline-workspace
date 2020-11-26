@@ -39,7 +39,7 @@ export const selectAllDrawings = createSelector(
         ...evaluateTerritoryStatus(_assignment, settings),
         isAssigned: isAssigned,
         description: territory.key,
-        durationPhrase: _assignment ? createDurationPhrase(isAssigned ? _assignment.startTime : _assignment.endTime) : "-"
+        durationPhrase: `${territory.key} (${_assignment ? createDurationPhrase(isAssigned ? _assignment.startTime : _assignment.endTime) : "-"})`
       }))
     });
 

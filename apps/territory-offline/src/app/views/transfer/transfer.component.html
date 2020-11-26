@@ -84,6 +84,12 @@
         <p class="label">{{ 'transfer.importPublishers' | translate }}</p>
         <i-feather *ngIf="false" class="action" name="chevron-right"></i-feather>
       </app-list-item>
+      <!--
+      <app-list-item (click)="importAny.click()">
+        <p class="label">DEVELOPER: import any</p>
+        <input #importAny style="display: none;" type="file" (change)="importAnyData($event)" />
+      </app-list-item>
+      -->
     </app-list>
   </div>
 </div>

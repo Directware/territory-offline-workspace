@@ -1,5 +1,8 @@
 export const pt = {
   "language": "Língua",
+  "common": {
+    "shareNotAvailable": "Infelizmente, a partilha não está disponível nesta plataforma. O texto é copiado para a prancheta."
+  },
   "assignments": {
     "startTime": "Data de emissão",
     "endTime": "Data de regresso",
@@ -21,7 +24,9 @@ export const pt = {
     "startTime": "Data de emissão",
     "endTime": "Data de regresso",
     "hasSince": "Propriedade desde",
-    "edit": "Editar Alocação"
+    "edit": "Editar Alocação",
+    "shareOverdueFirstSentence": "De acordo com as minhas notas, tem as seguintes áreas:",
+    "shareOverdueLastSentence": "Quando foi a última vez que os editou?"
   },
   "congregation": {
     "name": "Nome",
@@ -204,7 +209,8 @@ export const pt = {
     "reallyDelete": "Quer mesmo apagar este endereço?",
     "noTerritoryMapped": "O marcador não pode ser atribuído a nenhuma área. Por favor, coloque um marcador numa área.",
     "multipleTerritories": "Erro - ambiguidade! O marcador está em {{count}} territórios ({{territories}}).  Por favor, certificar-se de que os desenhos da área não se sobrepõem.",
-    "noName": "sem nomee"
+    "noName": "sem nomee",
+    "today": "Inscreva-se hoje"
   },
   "transfer": {
     "sync": {

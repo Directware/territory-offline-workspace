@@ -77,7 +77,8 @@ export class AppComponent implements OnInit, AfterViewInit
       // Only in this case its truly deactivated
       if (!this.showSecondThread)
       {
-        this.territoryMapsService.focusOnDrawingIds();
+        // TODO move it to every onDestroy
+        // this.territoryMapsService.focusOnDrawingIds();
       }
     }, 300);
   }

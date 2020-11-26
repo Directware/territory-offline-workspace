@@ -1,5 +1,6 @@
 import {SettingsState} from "../store/settings/settings.reducer";
 import {Assignment, Drawing, TerritoryStatus} from "@territory-offline-workspace/api";
+import * as moment from "moment";
 
 export function logger(message: string, ...args: any)
 {
@@ -14,17 +15,33 @@ export function pastDateByMonths(monthsCount: number)
 
 export function createDurationPhrase(startDate: Date)
 {
-  if (startDate)
+  if (startDate && startDate.getTime() > 0)
   {
-    const today = new Date();
-    const countOfMonthsInYear = 30.416;
+    const startMoment = moment(startDate);
+    const nowMoment = moment(new Date());
+    const durationInDays = nowMoment.diff(startMoment, "days", true);
 
-    const diffTime = Math.abs(startDate.getTime() - today.getTime());
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    const months = Math.floor(diffDays / countOfMonthsInYear);
-    const days = Math.floor(diffDays - (months * countOfMonthsInYear));
+    const averageDaysInMonth = 30.416;
+    const averageDaysInYear = 365.2425;
+    let durationPhrase = "";
 
-    return `${months}M ${days.toString().padStart(2, '0')}T`;
+    let remainingDuration = durationInDays;
+    let years: number = Math.floor(durationInDays / averageDaysInYear);
+
+    if (years > 0)
+    {
+      remainingDuration = durationInDays - (years * averageDaysInYear);
+      durationPhrase = durationPhrase.concat(`${years}J `);
+    }
+
+    let months: number = Math.floor(remainingDuration / averageDaysInMonth);
+    remainingDuration = months > 0 ? remainingDuration - (months * averageDaysInMonth) : remainingDuration;
+    durationPhrase = durationPhrase.concat(`${months.toString(10).padStart(2, "0")}M `);
+
+    const days: number = Math.floor(remainingDuration);
+    durationPhrase = durationPhrase.concat(`${days.toString(10).padStart(2, "0")}T`);
+
+    return durationPhrase;
   }
   return "-";
 }

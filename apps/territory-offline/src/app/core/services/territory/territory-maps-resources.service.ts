@@ -7,6 +7,7 @@ import {Plugins} from '@capacitor/core';
 import {environment} from '../../../../environments/environment';
 import {logger} from '../../utils/usefull.functions';
 import {ToMapBoxSources} from "@territory-offline-workspace/api";
+import * as Turf from '@turf/turf';
 
 const {Network} = Plugins;
 
@@ -17,7 +18,7 @@ export class TerritoryMapsResourcesService
 {
   private _map: MapBox.Map;
   private drawManager: MapboxDraw;
-  private currentMarkers: any[];
+  private currentMarkers: { [id: string]: any };
 
   constructor()
   {
@@ -49,7 +50,7 @@ export class TerritoryMapsResourcesService
           {
             this.initMapSource(ToMapBoxSources.MAPS);
             this.initMapLayers();
-            this.currentMarkers = [];
+            this.currentMarkers = {};
             this.initGeocoder({position: "top-left"});
 
             if (onload)
@@ -61,7 +62,7 @@ export class TerritoryMapsResourcesService
       });
   }
 
-  public setMarker(coordinates, popupText: string)
+  public setMarker(id: string, coordinates, popupText: string)
   {
     const mapMarker = document.createElement('div');
     mapMarker.className = 'mapbox-marker';
@@ -71,12 +72,32 @@ export class TerritoryMapsResourcesService
       .setPopup(new MapBox.Popup({offset: 25}).setHTML(popupText))
       .addTo(this.map);
 
-    this.currentMarkers.push(marker);
+    this.currentMarkers[id] = marker;
+  }
+
+  public clearMarker(id: string)
+  {
+    if (this.currentMarkers[id])
+    {
+      this.currentMarkers[id].remove();
+    }
+  }
+
+  public focusOnMarkers(padding)
+  {
+    const tmp = [];
+    Object.values(this.currentMarkers).forEach((marker: any) => tmp.push([marker.getLngLat().lng, marker.getLngLat().lat]));
+    if(tmp.length > 1)
+    {
+      const line = Turf.lineString(tmp);
+      const bbox = Turf.bbox(line);
+      this._map.fitBounds(bbox, {padding, maxZoom: 16});
+    }
   }
 
   public clearAllMarkers()
   {
-    this.currentMarkers.forEach((marker: any) => marker.remove());
+    Object.values(this.currentMarkers).forEach((marker: any) => marker.remove());
   }
 
   public initDrawMode(featureCollection?: FeatureCollection, callback?: Function)
@@ -204,7 +225,7 @@ export class TerritoryMapsResourcesService
 
     if (!featureCollection)
     {
-      initialFeatureCollection = { type: "FeatureCollection", features: []};
+      initialFeatureCollection = {type: "FeatureCollection", features: []};
     }
 
     this.drawManager.add({

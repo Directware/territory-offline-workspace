@@ -24,5 +24,46 @@
     @media (min-width: 568px) {
       height: calc(100vh - 15.2rem);
     }
+
+    app-list {
+      padding: 0 0 1rem 1.5rem;
+
+      app-list-item-with-description {
+        padding: 0 1rem 0 0;
+
+        ::ng-deep .info {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+
+          .i-feather {
+            margin: 0 0 0 0.75rem;
+            width: 20px;
+            height: 20px;
+
+            &.visible {
+              color: $seaweed;
+            }
+          }
+        }
+
+        &.active{
+          position: relative;
+          background: rgba(235, 237, 239, 0.1);
+          border-color: transparent;
+
+          &:before{
+            content: "";
+            position: absolute;
+            left: -1.5rem;
+            top: -1px;
+            width: 1.5rem;
+            height: calc(100% + 2px);
+            background: inherit;
+          }
+        }
+      }
+    }
   }
 }

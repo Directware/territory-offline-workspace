@@ -53,6 +53,10 @@
     <div class="wrapper" *ngIf="editLastVisit">
       <app-date-picker [vFormControl]="visitBan.get('lastVisit')"></app-date-picker>
     </div>
+    <app-list-item (click)="setLastVisitToday()">
+      <p class="label blue">{{ 'visitBan.today' | translate }}</p>
+      <i-feather class="action blue" name="calendar"></i-feather>
+    </app-list-item>
   </app-panel>
 
   <app-panel *ngIf="!isCreation" class="delete-visit-ban animate-color-and-transform"

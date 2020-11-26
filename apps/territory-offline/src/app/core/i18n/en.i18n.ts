@@ -1,4 +1,8 @@
 export const en = {
+  "language": "Language",
+  "common": {
+    "shareNotAvailable": "Unfortunately sharing is not available on this platform. The text is copied to the clipboard."
+  },
   "assignments": {
     "startTime": "Start time",
     "endTime": "End time",
@@ -20,7 +24,9 @@ export const en = {
     "startTime": "Issue date",
     "endTime": "Return date",
     "hasSince": "Owned since",
-    "edit": "Edit assignment"
+    "edit": "Edit assignment",
+    "shareOverdueFirstSentence": "According to my notes you have the following territories:",
+    "shareOverdueLastSentence": "When did you last edit them?"
   },
   "congregation": {
     "name": "Name",
@@ -203,7 +209,8 @@ export const en = {
     "reallyDelete": "Do you really want to delete this address?",
     "noTerritoryMapped": "The marking cannot be assigned to any territory. Please place a marker on a territory.",
     "multipleTerritories": "Error - ambiguity! The marking is on {{{count}} territories ({{{territories}}). Please make sure that the territory drawings do not overlap.",
-    "noName": "No name"
+    "noName": "No name",
+    "today": "Enter today"
   },
   "transfer": {
     "sync": {
@@ -369,7 +376,6 @@ export const en = {
   "search": {
     "title": "Search"
   },
-  "language": "Language",
   "platformActions": {
     "sync": "Territory Offline Sync",
     "sharingFailed": "File sharing failed"

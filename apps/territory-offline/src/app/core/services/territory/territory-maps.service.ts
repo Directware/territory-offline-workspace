@@ -134,6 +134,23 @@ export class TerritoryMapsService
     }, {})
   }
 
+  public wholeVisitBansView()
+  {
+    this.setPropsOnFeatures(this.cachedDrawings, {
+      color: "#181e25",
+      opacity: 0.1,
+      textOpacity: 0.5
+    }, {})
+  }
+
+  public leaveWholeVisitBansView()
+  {
+    this.setPropsOnFeatures(this.cachedDrawings, {
+      opacity: this.activeFeaturesProps.opacity,
+      textOpacity: this.activeFeaturesProps.textOpacity
+    }, {})
+  }
+
   public rotateMap()
   {
     let bearing = this.mapsResources.map.transform.bearing + 90;
@@ -164,9 +181,13 @@ export class TerritoryMapsService
     return this.mapsResources.map;
   }
 
-  public setMarker(coordinates, popupText: string)
+  public setMarker(id: string, coordinates, popupText: string)
   {
-    this.mapsResources.setMarker(coordinates, popupText);
+    this.mapsResources.setMarker(id, coordinates, popupText);
+  }
+  public clearMarker(id: string)
+  {
+    this.mapsResources.clearMarker(id);
   }
 
   public goTo(lng: number, lat: number, zoom = 14)
@@ -288,6 +309,11 @@ export class TerritoryMapsService
         opacity: 0.1
       });
     }
+  }
+
+  public focusOnMarkers()
+  {
+    this.mapsResources.focusOnMarkers(this.cachedPadding);
   }
 
   public setFilterDrawingsByStatus(status: TerritoryStatus, enable: boolean): { drawings: Drawing[], visibleTerritoryStatus: TerritoryStatus[] }
@@ -466,14 +492,16 @@ export class TerritoryMapsService
       {
         feature.properties = {
           ...feature.properties,
-          ...activeProps
+          ...activeProps,
+          color: activeProps.color ? activeProps.color : feature.properties.status
         };
       }
       else
       {
         feature.properties = {
           ...feature.properties,
-          ...inactiveProps
+          ...inactiveProps,
+          color: inactiveProps.color ? inactiveProps.color : feature.properties.status
         };
       }
     });

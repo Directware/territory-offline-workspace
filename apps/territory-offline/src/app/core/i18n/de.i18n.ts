@@ -1,5 +1,8 @@
 export const de = {
   "language": "Sprache",
+  "common": {
+    "shareNotAvailable": "Leider ist das Teilen auf dieser Platform nicht verfügbar. Der Text wird in die Zwischenablage kopiert."
+  },
   "assignments": {
     "startTime": "Ausgabedatum",
     "endTime": "Rückgabedatum",
@@ -21,7 +24,9 @@ export const de = {
     "startTime": "Ausgabedatum",
     "endTime": "Rückgabedatum",
     "hasSince": "Im Besitz seit",
-    "edit": "Zuteilung bearbeiten"
+    "edit": "Zuteilung bearbeiten",
+    "shareOverdueFirstSentence": "Laut meinen Notizen hast du folgende Gebiete:",
+    "shareOverdueLastSentence": "Wann hast du sie zuletzt bearbeitet?"
   },
   "congregation": {
     "name": "Name",
@@ -204,7 +209,8 @@ export const de = {
     "reallyDelete": "Möchtest du diese Adresse wirklich löschen?",
     "noTerritoryMapped": "Die Markierung kann keinem Gebiet zugeordnet werden. Setze bitte eine Markierung auf ein Gebiet.",
     "multipleTerritories": "Fehler - Mehrdeutigkeit! Die Markierung liegt auf {{count}} Gebieten ({{territories}}). Achte bitte darauf, dass sich die Gebietszeichnungen nicht überlappen.",
-    "noName": "kein Name"
+    "noName": "kein Name",
+    "today": "Heute eintragen"
   },
   "transfer": {
     "sync": {

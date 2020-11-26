@@ -1,0 +1,75 @@
+@import "./../../assets/styles/colors";
+
+:host {
+  position: relative;
+  min-height: 3.5rem;
+  width: 100%;
+  padding: 0 1.5rem 0 0;
+  border-bottom: 1px solid $pale-blue-10;
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: 0.4px;
+  color: $light-grey-blue;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  > *:empty {
+    display: none;
+  }
+
+  .main-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 100%;
+    max-height: 3.25rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    letter-spacing: 0.4px;
+    color: inherit;
+
+    .top {
+      ::ng-deep * {
+        margin: 0;
+      }
+    }
+
+    .bottom {
+
+      ::ng-deep .description {
+        font-size: 12px;
+        margin: 3px 0 0 0;
+        color: #fff;
+      }
+    }
+  }
+
+  .info {
+    font-size: 16px;
+    line-height: 1.25;
+    letter-spacing: 0.4px;
+    text-align: right;
+    color: inherit;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .action, .icon {
+    width: 18px;
+    height: 18px;
+    color: inherit;
+
+    ::ng-deep > * {
+      width: inherit;
+      height: inherit;
+      color: inherit;
+    }
+  }
+}

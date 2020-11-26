@@ -1,5 +1,11 @@
 # Changelog
 
+#### v. 2.1.23
+###### 26.11.2020
+- improved visit bans view
+- added share button to overdue assignments
+- bugfixes
+
 #### v. 2.1.18
 ###### 05.11.2020
 - bugfixes

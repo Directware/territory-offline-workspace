@@ -2,6 +2,8 @@ import {TranslateService} from '@ngx-translate/core';
 import {Injectable} from '@angular/core';
 import {Plugins} from "@capacitor/core";
 
+const {Share, Clipboard} = Plugins;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,5 +29,16 @@ export class PlatformAgnosticActionsService
         chooserTitle: translations['platformActions.sync']
       }
     }).catch(error => console.error(translations['platformActions.sharingFailed'], error.message));
+  }
+
+  public async shareText(text: string)
+  {
+    await Share.share({
+      text: text
+    }).catch(async () =>
+    {
+      await Clipboard.write({string: text});
+      alert(this.translate.instant("common.shareNotAvailable"));
+    });
   }
 }
