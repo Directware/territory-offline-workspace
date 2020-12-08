@@ -7,11 +7,11 @@
   "modifyObstructiveCode": false,
   "pluginsFile": "./src/plugins/index",
   "supportFile": "./src/support/index.ts",
-  "video": true,
+  "video": false,
   "videosFolder": "../../dist/cypress/apps/territory-offline-e2e/videos",
   "screenshotsFolder": "../../dist/cypress/apps/territory-offline-e2e/screenshots",
   "chromeWebSecurity": false,
   "trashAssetsBeforeRuns": true,
-  "screenshotOnRunFailure": true,
-  "defaultCommandTimeout": 30000
+  "screenshotOnRunFailure": false,
+  "defaultCommandTimeout": 10000
 }

@@ -3,7 +3,7 @@
 
 describe('InitialeKonfiguration', () =>
 {
-  it('Beim ersten Start der App muss immer InitialConfiguration geöffnet werden', () =>
+  xit('Beim ersten Start der App muss immer InitialConfiguration geöffnet werden', () =>
   {
     cy.visit('/territories')
     cy.wait(4000)
