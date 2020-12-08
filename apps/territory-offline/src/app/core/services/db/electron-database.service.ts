@@ -8,7 +8,6 @@ import {Dictionary} from "@ngrx/entity";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/index.reducers";
 import {CryptoService} from "../encryption/crypto.service";
-import {DataSecurityService} from "../common/data-security.service";
 import {selectCurrentCongregationId} from "../../store/settings/settings.selectors";
 import {take} from "rxjs/operators";
 import {SettingsDatabaseService} from "./settings-database.service";
@@ -21,21 +20,18 @@ export class ElectronDatabaseService implements AbstractDatabase
   public readonly database: any;
   public readonly config;
   public platform;
-  private CAN_NOT_AVOID_PASSWORD: boolean;
   private DB_CACHE: Dictionary<TimedEntity> = {};
 
   constructor(private store: Store<ApplicationState>,
               private settingsDatabase: SettingsDatabaseService,
-              private cryptoService: CryptoService,
-              private dataSecurityService: DataSecurityService,)
+              private cryptoService: CryptoService)
   {
-    this.database = CDSSPlugin.CapacitorDataStorageSqliteElectron;
+    this.database = CDSSPlugin.CapacitorDataStorageSqlite;
     this.config = {databaseName: "territory-offline"};
   }
 
   public async init()
   {
-    this.CAN_NOT_AVOID_PASSWORD = !this.dataSecurityService.canAvoidPassword();
     const info = await Device.getInfo();
     this.platform = info.platform;
   }
@@ -56,16 +52,7 @@ export class ElectronDatabaseService implements AbstractDatabase
     for (let i = 0; i < relevantKeys.length; i++)
     {
       const dataStorageResult = await this.database.get({key: relevantKeys[i]});
-
-      let entity = null;
-      if (this.CAN_NOT_AVOID_PASSWORD)
-      {
-        entity = await this.cryptoService.asymmetricDecryption(dataStorageResult.value) as TimedEntity;
-      }
-      else
-      {
-        entity = JSON.parse(dataStorageResult.value);
-      }
+      const entity = await this.cryptoService.asymmetricDecryption(dataStorageResult.value) as TimedEntity;
 
       if (!!entity["startTime"])
       {
@@ -192,17 +179,11 @@ export class ElectronDatabaseService implements AbstractDatabase
 
   private async writeToDatabase(prefix: string, entity: TimedEntity): Promise<TimedEntity>
   {
-    let dataToBeSaved: any = JSON.stringify(entity);
-
-    if (this.CAN_NOT_AVOID_PASSWORD)
-    {
-      const encrypted = await this.cryptoService.asymmetricEncryption(entity);
-      dataToBeSaved = encrypted.cipher;
-    }
+    const encrypted = await this.cryptoService.asymmetricEncryption(entity);
 
     await this.database.set({
       key: `${prefix}:${entity.id}`,
-      value: dataToBeSaved
+      value: encrypted.cipher
     });
 
     return entity;

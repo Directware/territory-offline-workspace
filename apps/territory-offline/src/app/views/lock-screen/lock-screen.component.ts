@@ -1,4 +1,4 @@
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 import {Component, HostBinding, HostListener, OnInit} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {select, Store} from '@ngrx/store';
@@ -60,14 +60,12 @@ export class LockScreenComponent implements OnInit
       setTimeout(() => this.tryToUnLockWithPassword(), 500);
     }
 
-    if (this.dataSecurityService.canAvoidPassword())
+    this.passwordNeeded = this.dataSecurityService.mustUsePassword();
+
+    if (!this.passwordNeeded)
     {
-      this.translate.get('lockScreen.unlock').pipe(take(1)).subscribe((translation: string) =>
-        this.dataSecurityService.verify(translation).then(() => this.unlockApp()));
-    }
-    else
-    {
-      this.passwordNeeded = true;
+      const translation = this.translate.instant('lockScreen.unlock');
+      this.dataSecurityService.verify(translation).then(() => this.unlockApp());
     }
   }
 
@@ -107,46 +105,44 @@ export class LockScreenComponent implements OnInit
 
   private unlockApp(password?: string)
   {
-    this.translate.get(['lockScreen.decryptPublishers', 'lockScreen.decryptTerritories', 'lockScreen.decryptAssignments', 'lockScreen.decryptAddresses', 'lockScreen.decryptDrawings', 'lockScreen.decryptCongregations', 'lockScreen.decryptTags']).pipe(take(1)).subscribe((translations: {[key: string]: string}) => {
-      this.loadAllDataListeners(translations);
+    this.loadAllDataListeners();
 
-      if (!!password)
-      {
-        this.actions$.pipe(
-          ofType(UnlockSecretKey),
+    if (!!password)
+    {
+      this.actions$.pipe(
+        ofType(UnlockSecretKey),
+        take(1),
+        tap(() => this.encryptingNow = this.translate.instant('lockScreen.decryptTags')),
+        tap(() => this.store.dispatch(LoadTags()))
+      ).subscribe();
+
+      this.store
+        .pipe(
+          select(selectSettings),
           take(1),
-          tap(() => this.encryptingNow = translations['lockScreen.decryptTags']),
-          tap(() => this.store.dispatch(LoadTags()))
-        ).subscribe();
-
-        this.store
-          .pipe(
-            select(selectSettings),
-            take(1),
-            map(settings => this.cryptoService.decryptSecretKey(password, settings.encryptedSecretKey)),
-            tap(decryptedSecretKey => this.store.dispatch(UnlockSecretKey({secretKey: decryptedSecretKey}))),
-            tap(() =>
+          map(settings => this.cryptoService.decryptSecretKey(password, settings.encryptedSecretKey)),
+          tap(decryptedSecretKey => this.store.dispatch(UnlockSecretKey({secretKey: decryptedSecretKey}))),
+          tap(() =>
+          {
+            if (!environment.production)
             {
-              if (!environment.production)
-              {
-                localStorage.setItem(this.devPasswordKey, JSON.stringify(password));
-              }
-            })
-          ).subscribe();
-      }
-      else
-      {
-        this.store.dispatch(LoadTags());
-      }
-    });
+              localStorage.setItem(this.devPasswordKey, JSON.stringify(password));
+            }
+          })
+        ).subscribe();
+    }
+    else
+    {
+      this.store.dispatch(LoadTags());
+    }
   }
 
-  private loadAllDataListeners(translations: {[key: string]: string}, showEncryptionProgress?: boolean)
+  private loadAllDataListeners(showEncryptionProgress?: boolean)
   {
     this.actions$.pipe(
       ofType(LoadTagsSuccess),
       take(1),
-      tap(() => this.encryptingNow = translations['lockScreen.decryptPublishers']),
+      tap(() => this.encryptingNow = this.translate.instant('lockScreen.decryptPublishers')),
       tap(() => this.store.dispatch(LoadPublishers())),
       catchError((e) => this.catchLoadDataError(e))
     ).subscribe();
@@ -154,7 +150,7 @@ export class LockScreenComponent implements OnInit
     this.actions$.pipe(
       ofType(LoadPublishersSuccess),
       take(1),
-      tap(() => this.encryptingNow = translations['lockScreen.decryptTerritories']),
+      tap(() => this.encryptingNow = this.translate.instant('lockScreen.decryptTerritories')),
       tap(() => this.store.dispatch(LoadTerritories())),
       catchError((e) => this.catchLoadDataError(e))
     ).subscribe();
@@ -162,7 +158,7 @@ export class LockScreenComponent implements OnInit
     this.actions$.pipe(
       ofType(LoadTerritoriesSuccess),
       take(1),
-      tap(() => this.encryptingNow = translations['lockScreen.decryptAssignments']),
+      tap(() => this.encryptingNow = this.translate.instant('lockScreen.decryptAssignments')),
       tap(() => this.store.dispatch(LoadAssignments())),
       catchError((e) => this.catchLoadDataError(e))
     ).subscribe();
@@ -170,7 +166,7 @@ export class LockScreenComponent implements OnInit
     this.actions$.pipe(
       ofType(LoadAssignmentsSuccess),
       take(1),
-      tap(() => this.encryptingNow = translations['lockScreen.decryptAddresses']),
+      tap(() => this.encryptingNow = this.translate.instant('lockScreen.decryptAddresses')),
       tap(() => this.store.dispatch(LoadVisitBans())),
       catchError((e) => this.catchLoadDataError(e))
     ).subscribe();
@@ -185,7 +181,7 @@ export class LockScreenComponent implements OnInit
     this.actions$.pipe(
       ofType(LoadLastDoingsSuccess),
       take(1),
-      tap(() => this.encryptingNow = translations['lockScreen.decryptDrawings']),
+      tap(() => this.encryptingNow = this.translate.instant('lockScreen.decryptDrawings')),
       tap(() => this.store.dispatch(LoadDrawings())),
       catchError((e) => this.catchLoadDataError(e))
     ).subscribe();
@@ -193,7 +189,7 @@ export class LockScreenComponent implements OnInit
     this.actions$.pipe(
       ofType(LoadDrawingsSuccess),
       take(1),
-      tap(() => this.encryptingNow = translations['lockScreen.decryptCongregations']),
+      tap(() => this.encryptingNow = this.translate.instant('lockScreen.decryptCongregations')),
       tap(() => this.store.dispatch(LoadCongregations())),
       catchError((e) => this.catchLoadDataError(e))
     ).subscribe();

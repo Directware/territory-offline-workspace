@@ -31,7 +31,8 @@
             ],
             "scripts": [
               "node_modules/paper/dist/paper-full.min.js",
-              "node_modules/hammerjs/hammer.min.js"
+              "node_modules/hammerjs/hammer.min.js",
+              "node_modules/source-map-support/browser-source-map-support.js"
             ]
           },
           "configurations": {
@@ -44,7 +45,12 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": {
+                "scripts": true,
+                "styles": false,
+                "hidden": false,
+                "vendor": true
+              },
               "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,

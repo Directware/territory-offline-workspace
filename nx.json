@@ -1,7 +1,7 @@
 {
   "npmScope": "territory-offline-workspace",
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "develop"
   },
   "implicitDependencies": {
     "angular.json": "*",

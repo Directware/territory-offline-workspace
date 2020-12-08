@@ -7,6 +7,7 @@ import {TimedEntity} from "@territory-offline-workspace/api";
 import {MobileDatabaseService} from "./mobile-database.service";
 import {WebDatabaseService} from "./web-database.service";
 import {ElectronDatabaseService} from "./electron-database.service";
+import {environment} from "../../../../environments/environment";
 
 const {Device} = Plugins;
 
@@ -35,6 +36,11 @@ export class DatabaseService
   {
     const info = await Device.getInfo();
     this.platform = info.platform;
+
+    if(environment.production && this.platform === "web")
+    {
+      this.platform = "electron";
+    }
 
     await this.appropriateDatabase[this.platform].init();
     await this.appropriateDatabase[this.platform].open();

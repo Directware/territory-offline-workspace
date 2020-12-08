@@ -15,7 +15,7 @@ import {IpcService} from "../../core/services/common/ipc.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ChangelogModalComponent} from "./changelog-modal/changelog-modal.component";
 import {ToUpdatesService} from "../../core/services/common/to-updates.service";
-import {TerritoryLanguageService, ToLanguage} from "@territory-offline-workspace/ui-components";
+import {ToLanguage} from "@territory-offline-workspace/ui-components";
 import {AVAILABLE_LANGUAGES} from "../../core/i18n/all.i18n";
 
 @Component({

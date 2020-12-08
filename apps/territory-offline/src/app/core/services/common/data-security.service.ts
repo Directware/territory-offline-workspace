@@ -9,6 +9,7 @@ const {Device, BiometricAuth} = Plugins;
 })
 export class DataSecurityService
 {
+  private platform: 'ios' | 'android' | 'electron' | 'web';
   private implicitEncryptionAvailable: boolean;
   private biometricAuthAvailable: boolean;
 
@@ -19,6 +20,7 @@ export class DataSecurityService
   public async init()
   {
     const deviceInfo = await Device.getInfo().catch();
+    this.platform = deviceInfo.platform;
     this.implicitEncryptionAvailable = deviceInfo.platform === 'ios' || deviceInfo.platform === 'android';
 
     try
@@ -31,14 +33,14 @@ export class DataSecurityService
     }
   }
 
-  public canAvoidPassword()
+  public mustUsePassword()
   {
     if (environment.production)
     {
-      return this.implicitEncryptionAvailable && this.biometricAuthAvailable;
+      return this.platform === "electron" || this.platform === "web";
     }
 
-    return true;
+    return false;
   }
 
   public platformBiometricAuthAvailable()

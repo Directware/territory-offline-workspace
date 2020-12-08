@@ -50,41 +50,48 @@ export class WebDatabaseService implements AbstractDatabase
     {
       const dataStorageResult = await this.database.get({key: relevantKeys[i]});
 
-      const entity = JSON.parse(dataStorageResult.value);
-
-      if (!!entity["startTime"])
+      try
       {
-        entity["startTime"] = new Date(entity["startTime"]);
-      }
+        const entity = JSON.parse(dataStorageResult.value);
 
-      if (!!entity["endTime"])
+        if (!!entity["startTime"])
+        {
+          entity["startTime"] = new Date(entity["startTime"]);
+        }
+
+        if (!!entity["endTime"])
+        {
+          entity["endTime"] = new Date(entity["endTime"]);
+        }
+
+        if (!!entity["lastVisit"])
+        {
+          entity["lastVisit"] = new Date(entity["lastVisit"]);
+        }
+
+        /* Reperatur */
+        if (!!entity["createTime"])
+        {
+          entity["creationTime"] = new Date(entity["createTime"]);
+          delete entity["createTime"];
+        }
+
+        /* Reperatur */
+        if (!!entity["isCreation"])
+        {
+          delete entity["isCreation"];
+        }
+
+        entities.push({
+          ...entity,
+          creationTime: entity.creationTime ? new Date(entity.creationTime) : null,
+          lastUpdated: entity.lastUpdated ? new Date(entity.lastUpdated) : null
+        });
+      }
+      catch (e)
       {
-        entity["endTime"] = new Date(entity["endTime"]);
+        continue;
       }
-
-      if (!!entity["lastVisit"])
-      {
-        entity["lastVisit"] = new Date(entity["lastVisit"]);
-      }
-
-      /* Reperatur */
-      if (!!entity["createTime"])
-      {
-        entity["creationTime"] = new Date(entity["createTime"]);
-        delete entity["createTime"];
-      }
-
-      /* Reperatur */
-      if (!!entity["isCreation"])
-      {
-        delete entity["isCreation"];
-      }
-
-      entities.push({
-        ...entity,
-        creationTime: entity.creationTime ? new Date(entity.creationTime) : null,
-        lastUpdated: entity.lastUpdated ? new Date(entity.lastUpdated) : null
-      });
     }
 
     return entities;

@@ -320,7 +320,7 @@ export class DataImportService
 
   private isImportingEntityNewer(alreadyExistingEntity: TimedEntity, entityToBeImported: TimedEntity)
   {
-    if(!alreadyExistingEntity)
+    if(!alreadyExistingEntity || (!alreadyExistingEntity.lastUpdated && !alreadyExistingEntity.creationTime))
     {
       return true;
     }

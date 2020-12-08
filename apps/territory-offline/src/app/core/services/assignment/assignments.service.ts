@@ -107,6 +107,7 @@ export class AssignmentsService
       {
         this.createLastDoingAndUpdateStatus(territoryCard.assignment, LastDoingActionsEnum.ASSIGN_RETURN);
         this.giveBack(territoryCard.assignment);
+        // TODO Dennis meinte, dass es nicht klappt
         territoryCard.visitBans.forEach(visitBan => this.store.dispatch(UpsertVisitBan({visitBan})));
       }
     });

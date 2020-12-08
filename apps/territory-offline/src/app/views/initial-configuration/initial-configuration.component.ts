@@ -46,10 +46,10 @@ export class InitialConfigurationComponent implements OnInit
 
   public ngOnInit()
   {
-    this.isPasswordNeeded = !this.dataSecurityService.canAvoidPassword();
     const passwordValidators = [];
+    this.isPasswordNeeded = this.dataSecurityService.mustUsePassword();
 
-    if (this.isPasswordNeeded)
+    if (this.dataSecurityService.mustUsePassword())
     {
       passwordValidators.push(Validators.required, Validators.minLength(7));
     }
@@ -62,11 +62,16 @@ export class InitialConfigurationComponent implements OnInit
       language: ['', [Validators.required]],
       languageCode: ['', [Validators.required]],
       isAppLocked: [false]
-    }, {validator: this.isPasswordNeeded ? this.checkPasswords : null});
+    }, {validator: this.dataSecurityService.mustUsePassword() ? this.checkPasswords : null});
 
     if (!environment.production)
     {
+      const language = this.languageService.getLanguageByCode("de");
       this.initialConfigFormGroup.patchValue({congregation: "Augsburg West"});
+      this.initialConfigFormGroup.patchValue({
+        language: language.nativeName,
+        languageCode: language.languageCode,
+      });
     }
   }
 

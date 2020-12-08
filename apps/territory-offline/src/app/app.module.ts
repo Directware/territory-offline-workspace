@@ -76,7 +76,7 @@ import {first, tap} from "rxjs/operators";
 import {LoadSettingsSuccess} from "./core/store/settings/settings.actions";
 import {Plugins} from '@capacitor/core';
 import {DurationPhrasePipe} from './core/pipes/duration-phrase.pipe';
-
+declare const sourceMapSupport: any;
 const {Device} = Plugins;
 
 @NgModule({
@@ -172,6 +172,12 @@ export class AppModule
               private languageService: TerritoryLanguageService,
               private translateService: TranslateService)
   {
+    if(sourceMapSupport && sourceMapSupport.install)
+    {
+      sourceMapSupport.install();
+      console.log("[AppModule] sourceMapSupport:", sourceMapSupport);
+    }
+
     AVAILABLE_LANGUAGES.forEach(lang => this.translateService.setTranslation(lang.key, lang.translations));
     this.translateService.addLangs(AVAILABLE_LANGUAGES.map(lang => lang.key));
 
