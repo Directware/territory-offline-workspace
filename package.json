@@ -10,7 +10,7 @@
     "start:field-companion": "ng run field-companion:serve",
     "start:website": "ng run website:serve",
     "build": "ng build",
-    "e2e:territory-offline:dev": "nx e2e territory-offline-e2e --watch",
+    "e2e:territory-offline:dev": "nx e2e territory-offline-e2e --prod --watch",
     "e2e:territory-offline:prod": "nx e2e territory-offline-e2e --headless",
     "e2e:field-companion:dev": "nx e2e field-companion-e2e --watch",
     "e2e:website:dev": "nx e2e website-e2e --watch --browser chrome",
