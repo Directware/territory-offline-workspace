@@ -3,17 +3,23 @@ image: node:10.16.3
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
+    - node_modules/
+    - /root/.cache/Cypress
     - dist/
 
 stages:
+  - setup
   - build
   - deploy
+
+setup:
+  stage: setup
+  script:
+    - npm ci
 
 build:
   stage: build
   script:
-    - npm ci
-    - npm install cypress
     - npm run build:website:prod
     - npm run e2e:website:prod
 
