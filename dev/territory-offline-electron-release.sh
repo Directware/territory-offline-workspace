@@ -2,6 +2,7 @@
 
 branch_name=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
 
+cd .. || exit
 git add .
 git commit -m "new release"
 git push origin "$branch_name"
