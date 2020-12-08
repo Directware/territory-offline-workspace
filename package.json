@@ -30,7 +30,7 @@
     "affected:build": "nx affected:build",
     "affected:build:prod": "nx affected:build --prod",
     "affected:e2e": "nx affected:e2e",
-    "affected:e2e:headless": "nx affected:e2e --headless --browser chrome",
+    "affected:e2e:headless": "nx affected:e2e --headless",
     "affected:test": "nx affected:test",
     "affected:lint": "nx affected:lint",
     "affected:dep-graph": "nx affected:dep-graph",
