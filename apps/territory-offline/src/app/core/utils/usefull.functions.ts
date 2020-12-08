@@ -15,7 +15,7 @@ export function pastDateByMonths(monthsCount: number)
 
 export function createDurationPhrase(startDate: Date)
 {
-  if (startDate && startDate.getTime() > 0)
+  if (typeof startDate !== "string" && startDate && startDate.getTime() > 0)
   {
     const startMoment = moment(startDate);
     const nowMoment = moment(new Date());

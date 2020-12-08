@@ -3,7 +3,7 @@
   "viewportHeight": 1000,
   "fileServerFolder": ".",
   "fixturesFolder": "./src/fixtures",
-  "integrationFolder": "./src/integration/current",
+  "integrationFolder": "./src/integration",
   "modifyObstructiveCode": false,
   "pluginsFile": "./src/plugins/index",
   "supportFile": "./src/support/index.ts",
@@ -12,5 +12,6 @@
   "screenshotsFolder": "../../dist/cypress/apps/territory-offline-e2e/screenshots",
   "chromeWebSecurity": false,
   "trashAssetsBeforeRuns": true,
-  "screenshotOnRunFailure": true
+  "screenshotOnRunFailure": true,
+  "defaultCommandTimeout": 30000
 }
