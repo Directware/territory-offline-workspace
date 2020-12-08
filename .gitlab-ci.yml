@@ -1,14 +1,25 @@
-image:
-  node:10.16.3
+image: node:10.16.3
 
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+stages:
+  - setup
+  - deploy
+
+setup-npm-dependencies:
+  stage: setup
+  script:
+    - npm install
 
 deploy-website:
-  stage: build
+  stage: deploy
   image: mcr.microsoft.com/azure-cli:2.0.80
   rules:
     - when: manual
   script:
-    - npm install
     - npm run build:website:prod
     - npm run e2e:website:prod
     - az storage blob delete-batch --source "\$web" --connection-string $AZURE_STORAGE_CONNECTION_STRING
