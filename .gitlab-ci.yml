@@ -3,16 +3,18 @@ image: node:10.16.3
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
-    - node_modules/
+    - dist/
 
 stages:
-  - setup
+  - build
   - deploy
 
-setup-npm-dependencies:
-  stage: setup
+build:
+  stage: build
   script:
     - npm install
+    - npm run build:website:prod
+    - npm run e2e:website:prod
 
 deploy-website:
   stage: deploy
@@ -20,7 +22,5 @@ deploy-website:
   rules:
     - when: manual
   script:
-    - npm run build:website:prod
-    - npm run e2e:website:prod
     - az storage blob delete-batch --source "\$web" --connection-string $AZURE_STORAGE_CONNECTION_STRING
     - az storage blob upload-batch --destination "\$web" --source dist/apps/website --connection-string $AZURE_STORAGE_CONNECTION_STRING
