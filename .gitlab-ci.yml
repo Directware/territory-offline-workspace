@@ -12,7 +12,8 @@ stages:
 build:
   stage: build
   script:
-    - npm install
+    - npm ci
+    - cypress install
     - npm run build:website:prod
     - npm run e2e:website:prod
 
