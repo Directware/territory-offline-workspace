@@ -1,9 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-
-
-
-exit
 read -p "How to bump the version? (Enter=patch): " version
 
 if [ "$version" == "" ]; then version="patch"
@@ -15,25 +11,32 @@ if [[ "$version" != "patch" && "$version" != "minor" && "$version" != "major" ]]
     exit
 fi
 
+# bump version before building the app
+cd ./../apps/territory-offline/ || exit
+npm version "$version"
+appVersion=$(node -p "require('./package.json').version") || exit
+
+# build app
+cd ../../ || exit # go to projects root
 npm run build:territory-offline:prod || exit
 #npm run e2e:territory-offline:prod || exit
 
-cd ./../apps/territory-offline/ || exit
-
+# synchronize capacitor electron resources
+cd ./apps/territory-offline/ || exit
 npm run capacitor:sync || exit
 
+# bump version in electron folder
+cd ./electron || exit
 npm version "$version"
 
-cd electron || exit
-
-npm version "$version"
-
+# release
 npm run release || exit
 
+# push to git
 cd ../../../ || exit # go to projects root
-
 branch_name=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
-
 git add .
-git commit -m "new release"
+git commit -m "New release: $appVersion"
 git push origin "$branch_name"
+
+exit

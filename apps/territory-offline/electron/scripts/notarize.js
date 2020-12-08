@@ -8,7 +8,7 @@ exports.default = async function notarizing(context) {
   }
 
   const appName = context.packager.appInfo.productFilename;
-  console.log("\n\n\t Notarizing " + appName);
+  console.log("\n\n\t Notarizing " + appName + "! Please wait...");
 
   return await notarize({
     appBundleId: 'com.territoryoffline.to',
