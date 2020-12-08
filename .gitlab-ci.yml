@@ -1,16 +1,19 @@
 image: node:10.16.3
 
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - node_modules/
-    - /root/.cache/Cypress
-    - dist/
-
 stages:
   - setup
   - build
   - deploy
+
+variables:
+  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules
+    - cache/Cypress
+    - dist
 
 setup:
   stage: setup
