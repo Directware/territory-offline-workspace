@@ -252,16 +252,19 @@ export const selectAllAssignmentsOrderedByRelevantTags = createSelector(
 export const selectTerritoriesByPublisher = createSelector(
   selectAllAssignments,
   selectAllTerritories,
-  (assignments, territories, publisherId) =>
+  selectLastEndedAssignmentOfEachTerritory,
+  (assignments, territories, lastEndedAssignments, publisherId): {t: Territory, durationPhrase: string}[] =>
   {
     const currentAssignments = assignments.filter(a => a.publisherId === publisherId && !a.endTime);
     const publishersTerritoryIds = currentAssignments.map(a => a.territoryId);
+    const helperSet = new Set<{t: Territory, durationPhrase: string}>();
 
-    const pTerritories = territories.filter(t => publishersTerritoryIds.includes(t.id));
+    territories.filter(t => publishersTerritoryIds.includes(t.id))
+      .forEach(territory => helperSet.add({
+        t: territory,
+        durationPhrase: createDurationPhrase(currentAssignments.filter(a => a.territoryId === territory.id)[0]?.startTime)
+      }));
 
-    return pTerritories.map(ter => ({
-      durationPhrase: createDurationPhrase(currentAssignments.filter(a => a.territoryId)[0] ? currentAssignments.filter(a => a.territoryId)[0].startTime : null),
-      t: ter,
-    }));
+    return Array.from(helperSet.values());
   }
 );

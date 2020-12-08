@@ -1,4 +1,4 @@
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 import {Injectable} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {UpsertAssignment, UpsertAssignmentSuccess} from './../../../core/store/assignments/assignments.actions';
@@ -28,6 +28,7 @@ import {
   TerritoryCard
 } from "@territory-offline-workspace/api";
 import {UpsertVisitBan} from "../../store/visit-bans/visit-bans.actions";
+import {selectLastAssignmentOfEachTerritory} from "../../store/assignments/assignments.selectors";
 
 @Injectable({
   providedIn: 'root',
@@ -57,7 +58,7 @@ export class AssignmentsService
       id: uuid(),
       territory: territory,
       drawing: drawing,
-      publisher: publisher,
+      publisher: {...publisher, dsgvoSignature: null, email: null, phone: null, firstName: null, name: null},
       assignment: assignment,
       visitBans: visitBans,
       type: ExportableTypesEnum.DIGITAL_TERRITORY,
@@ -87,7 +88,8 @@ export class AssignmentsService
 
   public giveBackNow(assignment: Assignment)
   {
-    this.translate.get('assignments.return').pipe(take(1)).subscribe((translation: string) => {
+    this.translate.get('assignments.return').pipe(take(1)).subscribe((translation: string) =>
+    {
       const resp = confirm(translation);
 
       if (resp)
@@ -98,24 +100,36 @@ export class AssignmentsService
     })
   }
 
-  public giveBackFromFieldCompanion(territoryCard: TerritoryCard)
+  public async giveBackFromFieldCompanion(territoryCard: TerritoryCard)
   {
-    this.translate.get('assignments.returnFromFieldCompanion', {key: territoryCard.territory.key, name: territoryCard.territory.name}).pipe(take(1)).subscribe((translation: string) => {
-      const resp = confirm(translation);
+    const translation = await this.translate.get('assignments.returnFromFieldCompanion', {
+      key: territoryCard.territory.key,
+      name: territoryCard.territory.name
+    }).pipe(first()).toPromise();
 
-      if (resp)
+    const resp = confirm(translation);
+    if (resp)
+    {
+      const assignments = await this.store.pipe(select(selectLastAssignmentOfEachTerritory), first()).toPromise();
+      const assignment = assignments.filter((a: Assignment) => a.territoryId === territoryCard.territory.id)[0];
+
+      if (territoryCard.assignment.publisherId === assignment.publisherId)
       {
-        this.createLastDoingAndUpdateStatus(territoryCard.assignment, LastDoingActionsEnum.ASSIGN_RETURN);
-        this.giveBack(territoryCard.assignment);
-        // TODO Dennis meinte, dass es nicht klappt
+        this.createLastDoingAndUpdateStatus(assignment, LastDoingActionsEnum.ASSIGN_RETURN);
+        this.giveBack(assignment);
         territoryCard.visitBans.forEach(visitBan => this.store.dispatch(UpsertVisitBan({visitBan})));
       }
-    });
+      else
+      {
+          alert(`Fehler!`);
+      }
+    }
   }
 
   public giveBackAndAssign(assignment: Assignment)
   {
-    this.translate.get('assignments.proceed').pipe(take(1)).subscribe((translation: string) => {
+    this.translate.get('assignments.proceed').pipe(take(1)).subscribe((translation: string) =>
+    {
       const resp = confirm(translation);
 
       if (resp)
