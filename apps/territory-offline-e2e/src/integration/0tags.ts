@@ -11,6 +11,7 @@ describe('TagKomponente', () =>
   //     .click()
   // }
   // )
+
   it('Rufe Tagübersicht auf', () =>
   {
     cy.get('i-feather[name="tag"]')
@@ -40,12 +41,10 @@ describe('TagKomponente', () =>
     const addedTags = cy.get(".label");
     addedTags.each((htmlTag, index) =>
     {
-      // console.log(htmlTag.text())
-      // console.log(index.toExponential())
       expect(htmlTag.text()).to.include(tagsToBeAdded[index]);
     });
   })
-  it('Tag bearbeiten', () =>
+  xit('Tag bearbeiten', () =>
   {
     cy.get('.action-link')
       .click()
@@ -57,7 +56,7 @@ describe('TagKomponente', () =>
     cy.get('div.hue')
       .click('center')
     cy.get('.hex-text .box input')
-      .should('have.value', '#01fefe')
+      .should('have.value', '#02fef4')
       .should('not.have.value', '#fe0101')
     //TODO durchsichtigkeit der farbe ändern und prüfen
     cy.get('.action-link')
