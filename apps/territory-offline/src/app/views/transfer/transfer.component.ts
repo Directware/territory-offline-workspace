@@ -25,7 +25,8 @@ import {uuid4} from "@capacitor/core/dist/esm/util";
 import * as Turf from '@turf/turf';
 import {BackupImportProgressComponent} from "../shared/modals/backup-import-progress/backup-import-progress.component";
 import {selectAllTerritories} from "../../core/store/territories/territories.selectors";
-import {BulkUpsertTerritory} from "../../core/store/territories/territories.actions";
+import {GeoJsonParseService} from "../../core/services/territory/geo-json-parse.service";
+import {FileLoaderService} from "../../core/services/common/file/file-loader.service";
 
 @Component({
   selector: 'app-transfer',
@@ -45,6 +46,7 @@ export class TransferComponent implements OnInit
               private platformAgnosticActionsService: PlatformAgnosticActionsService,
               private pdfDataExportService: PdfDataExportService,
               private matDialog: MatDialog,
+              private fileLoaderService: FileLoaderService,
               private translate: TranslateService)
   {
   }
@@ -157,48 +159,6 @@ export class TransferComponent implements OnInit
     }
   }
 
-  public importTerritoryWebTerritories(event)
-  {
-    if (event.target.files && event.target.files.length)
-    {
-      const [file] = event.target.files;
-      const jsonFileReader = new FileReader();
-      jsonFileReader.onload = () =>
-      {
-        const json = JSON.parse(jsonFileReader.result + "") as TerritoryWebTerritories;
-
-        const drawings: Drawing[] = [];
-        const territories: Territory[] = [];
-
-        json.features.forEach((feature) =>
-        {
-          const drawingId = uuid4();
-          territories.push({
-            id: uuid4(),
-            key: feature.properties.TerritoryNumber,
-            name: feature.properties.name,
-            populationCount: 0,
-            tags: [],
-            territoryDrawingId: drawingId,
-            boundaryNames: [],
-            comment: "",
-            creationTime: new Date()
-          });
-
-          drawings.push({
-            id: drawingId,
-            creationTime: new Date(),
-            featureCollection: Turf.featureCollection([Turf.feature(feature.geometry)])
-          });
-        });
-
-        this.importTWTerritories(territories, drawings);
-      };
-
-      jsonFileReader.readAsText(file);
-    }
-  }
-
   public async importAnyData(event)
   {
     if (event.target.files && event.target.files.length)
@@ -213,9 +173,10 @@ export class TransferComponent implements OnInit
 
         let i = 0;
         const territoriesToUpdate = [];
-        json.features.forEach(data => {
+        json.features.forEach(data =>
+        {
 
-          if(data.properties.description)
+          if (data.properties.description)
           {
             const test = data.properties.TerritoryTypeCode + " " + data.properties.TerritoryNumber;
             const test2 = data.properties.TerritoryType;
@@ -248,25 +209,19 @@ export class TransferComponent implements OnInit
     this.assignmentsService.giveBackFromFieldCompanion(json);
   }
 
-  private async importTWTerritories(territories: Territory[], drawings: Drawing[])
+  public importGeoJson(event: Event)
   {
-    const translations = await this.translate.get(["transfer.import.title", 'transfer.import.ok', 'transfer.import.territories', 'transfer.import.drawings']).toPromise();
-    const dialogConfig = new MatDialogConfig();
-    const progressMsg = new BehaviorSubject({label: translations["transfer.import.title"], icon: null});
-
-    dialogConfig.disableClose = true;
-    dialogConfig.width = "32rem";
-    dialogConfig.data = {progressMsg: progressMsg};
-    const importProgressDialogRef = this.matDialog.open(BackupImportProgressComponent, dialogConfig);
-
-    progressMsg.next({label: `${territories.length} ${translations['transfer.import.territories']}`, icon: null});
-    await this.dataImportService.importTerritories(territories).toPromise();
-    progressMsg.next({label: translations["transfer.import.ok"], icon: "check"});
-    progressMsg.next({label: `${drawings.length} ${translations['transfer.import.drawings']}`, icon: null})
-    await this.dataImportService.importDrawings(drawings).toPromise();
-    progressMsg.next({label: translations["transfer.import.ok"], icon: "check"});
-    progressMsg.complete();
-
-    importProgressDialogRef.close();
+    this.fileLoaderService.openFile(event).readJson(async (fileContent) =>
+    {
+      const parser = new GeoJsonParseService();
+      if (parser.isGEOJsonSchema(fileContent))
+      {
+        this.router.navigate([{outlets: {'second-thread': 'transfer/import-geo-json'}}]);
+      }
+      else
+      {
+          alert("No GEO Json Format!");
+      }
+    });
   }
 }

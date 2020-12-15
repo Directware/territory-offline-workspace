@@ -53,7 +53,7 @@
         <app-list-item
           *ngFor="let dto of dtos "
           (click)="showOverdueTerritory(dto)" [class.active]="dto.territory.id === currentSecondThreadUuid">
-          <p class="label">{{dto.territory.key}} {{dto.territory.name | slice:0:30}} {{dto.territory.name.length > 30 ? "..." : ""}}</p>
+          <p class="label">{{dto.territory.key}} {{dto.territory.name | slice:0:30}} {{dto.territory?.name?.length > 30 ? "..." : ""}}</p>
           <p class="info">{{dto.durationPhrase}}</p>
         </app-list-item>
       </app-list>

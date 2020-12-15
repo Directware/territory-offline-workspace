@@ -6,4 +6,7 @@ module.exports = {
   resolver: '@nrwl/jest/plugins/resolver',
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageReporters: ['html'],
+  transformIgnorePatterns: [
+    "<rootDir>/node_modules/@capacitor/core/dist/esm/util.js"
+  ]
 };

@@ -1,7 +1,10 @@
 export const pl = {
   "language": "Język",
   "common": {
-    "shareNotAvailable": "Niestety udostępnianie nie jest dostępne na tej platformie. Tekst jest kopiowany do schowka."
+    "shareNotAvailable": "Niestety udostępnianie nie jest dostępne na tej platformie. Tekst jest kopiowany do schowka.",
+    "ignore": "Ignoruj",
+    "choose": "Proszę wybrać",
+    "nothingChosen": "Nic nie wybrano"
   },
   "assignments": {
     "startTime": "Data wydania",
@@ -42,6 +45,7 @@ export const pl = {
     "reallyDelete": "Naprawdę chcesz skasować ten zbór?"
   },
   "territory": {
+    "title": "Teren",
     "populationCount": "Jednostki mieszkaniowe",
     "publishers": "Głosiciele",
     "allVisitBans": "Nie odwiedzać",
@@ -313,6 +317,9 @@ export const pl = {
     },
     "import": {
       "title": "Import",
+      "geoJson": "GEO Json",
+      "geoJsonDesc": "Format GEO Json może posiadać pola właściwości, które możesz również zaimportować. Te pola mogą przybrać wartość:",
+      "geoJsonDesc2": "Możesz przypisać te właściwości:",
       "start": "Rozpoczyna się import danych...",
       "tags": "Tagi są importowane...",
       "visitBans": "Nie odwiedzać adresów zostały zaimportowane...",

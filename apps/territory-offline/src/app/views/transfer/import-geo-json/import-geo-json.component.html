@@ -1,0 +1,57 @@
+<app-second-thread-header [readonly]="true" [specific]="true" (onBack)="back()"></app-second-thread-header>
+<div class="scrollable-wrapper">
+  <div class="info-wrapper">
+    <h4 class="h4-white no-user-selection">{{ 'transfer.import.title' | translate }}</h4>
+    <br/>
+    <p class="body-grey no-user-selection">
+      {{ 'transfer.import.geoJsonDesc' | translate }}
+    </p>
+  </div>
+
+  <app-list>
+    <app-list-item (click)="setCurrentMapping('territoryName')">
+      <div class="label">{{keyMappings.territoryName.translation | translate}}</div>
+      <div *ngIf="keyMappings.territoryName.propName" class="info green">{{keyMappings.territoryName.propName}}</div>
+      <div *ngIf="!keyMappings.territoryName.propName" class="info">{{"common.nothingChosen" | translate}}</div>
+    </app-list-item>
+    <app-list-item (click)="setCurrentMapping('territoryKey')">
+      <div class="label">{{keyMappings.territoryKey.translation | translate}}</div>
+      <div *ngIf="keyMappings.territoryKey.propName" class="info green">{{keyMappings.territoryKey.propName}}</div>
+      <div *ngIf="!keyMappings.territoryKey.propName" class="info">{{"common.nothingChosen" | translate}}</div>
+    </app-list-item>
+    <app-list-item (click)="setCurrentMapping('territoryPCount')">
+      <div class="label">{{keyMappings.territoryPCount.translation | translate}}</div>
+      <div *ngIf="keyMappings.territoryPCount.propName" class="info green">{{keyMappings.territoryPCount.propName}}</div>
+      <div *ngIf="!keyMappings.territoryPCount.propName" class="info">{{"common.nothingChosen" | translate}}</div>
+    </app-list-item>
+  </app-list>
+
+  <div *ngIf="keyMappings[currentKeyMapping]" class="info-wrapper">
+    <p class="body-grey no-user-selection">
+      {{ 'transfer.import.geoJsonDesc2' | translate }}
+    </p>
+  </div>
+
+  <app-panel *ngIf="keyMappings[currentKeyMapping]">
+    <div class="wrapper">
+      <h3 class="h3-white">{{"territory.title" | translate}} - <strong>{{keyMappings[currentKeyMapping]["translation"] | translate}}</strong></h3>
+
+      <app-list>
+        <app-list-item (click)="setMapping('ignore')">
+          <div class="label warn">{{"common.ignore" | translate}}</div>
+        </app-list-item>
+        <app-list-item (click)="setMapping(prop)" *ngFor="let prop of featurePropertyKeys">
+          <div class="label">{{prop}}</div>
+          <div class="info">{{featureProperties[prop] || "-"}}</div>
+        </app-list-item>
+      </app-list>
+    </div>
+  </app-panel>
+
+  <app-panel *ngIf="!keyMappings[currentKeyMapping]" class="import">
+    <app-list-item (click)="import()">
+      <p class="label blue">{{ 'transfer.import.title' | translate }}</p>
+      <i-feather class="i-feather action blue" name="log-in"></i-feather>
+    </app-list-item>
+  </app-panel>
+</div>

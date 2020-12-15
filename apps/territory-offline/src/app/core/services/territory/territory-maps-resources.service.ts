@@ -230,7 +230,7 @@ export class TerritoryMapsResourcesService
 
     this.drawManager.add({
       ...initialFeatureCollection,
-      features: initialFeatureCollection.features.filter(f => f.geometry.type === 'Polygon')
+      features: initialFeatureCollection.features.filter(f => f.geometry?.type === 'Polygon')
     });
 
     // Important! Without this the drawing would be lost

@@ -1,7 +1,10 @@
 export const en = {
   "language": "Language",
   "common": {
-    "shareNotAvailable": "Unfortunately sharing is not available on this platform. The text is copied to the clipboard."
+    "shareNotAvailable": "Unfortunately sharing is not available on this platform. The text is copied to the clipboard.",
+    "ignore": "Ignore",
+    "choose": "Please select",
+    "nothingChosen": "Nothing selected"
   },
   "assignments": {
     "startTime": "Start time",
@@ -42,6 +45,7 @@ export const en = {
     "reallyDelete": "Do you really want to delete this congregation?"
   },
   "territory": {
+    "title": "Territory",
     "populationCount": "Population count",
     "publishers": "Publisher",
     "allVisitBans": "Not visit",
@@ -313,6 +317,9 @@ export const en = {
     },
     "import": {
       "title": "Import",
+      "geoJson": "GEO Json",
+      "geoJsonDesc": "The GEO Json format may have property fields that you may also want to import. These fields can take a value:",
+      "geoJsonDesc2": "You can assign these properties:",
       "start": "Data import begins...",
       "tags": "Tags are imported...",
       "visitBans": "Not visits are imported...",
