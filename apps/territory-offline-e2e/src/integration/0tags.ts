@@ -44,20 +44,18 @@ describe('TagKomponente', () =>
       expect(htmlTag.text()).to.include(tagsToBeAdded[index]);
     });
   })
-  xit('Tag bearbeiten', () =>
+  it('Tag bearbeiten', () =>
   {
     cy.get('.action-link')
       .click()
     cy.get('input.color-picker').first()
       .click()
     cy.get('div.saturation-lightness')
-      .click('topRight')
-    //TODO klären wie genaue pixelangabe funktioniert
+      .click(50,50)
     cy.get('div.hue')
-      .click('center')
+      .click(40,0)
     cy.get('.hex-text .box input')
-      .should('have.value', '#02fef4')
-      .should('not.have.value', '#fe0101')
+      .should('have.value', '#859c7a')
     //TODO durchsichtigkeit der farbe ändern und prüfen
     cy.get('.action-link')
       .click()
