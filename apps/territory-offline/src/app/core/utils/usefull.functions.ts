@@ -94,20 +94,29 @@ export function mergeDrawings(drawings: Drawing[]): Drawing
 {
   if (drawings && drawings.length > 0)
   {
-    const drawingsWithFeatures = drawings.filter((drawing) => drawing.featureCollection && drawing.featureCollection.features);
+    const drawingsWithFeatures = drawings.filter((drawing) =>
+      drawing.featureCollection
+      && drawing.featureCollection.features
+      && drawing.featureCollection.features.filter(f => f.geometry && f.geometry.type === "Polygon").length > 0);
 
-    drawingsWithFeatures.forEach((drawing) => drawing.featureCollection.features.forEach(feature => feature.properties['drawingId'] = drawing.id));
+    drawingsWithFeatures.forEach((drawing) => drawing.featureCollection
+      .features
+      .forEach(feature => feature.properties['drawingId'] = drawing.id)
+    );
 
-    return drawingsWithFeatures.reduce((result, current) => ({
-      ...result,
-      featureCollection: {
-        ...result.featureCollection,
-        features: [
-          ...result.featureCollection.features,
-          ...current.featureCollection.features
-        ]
-      }
-    }));
+    if (drawingsWithFeatures.length > 0)
+    {
+      return drawingsWithFeatures.reduce((result, current) => ({
+        ...result,
+        featureCollection: {
+          ...result.featureCollection,
+          features: [
+            ...result.featureCollection.features,
+            ...current.featureCollection.features
+          ]
+        }
+      }));
+    }
   }
 
   return null;
