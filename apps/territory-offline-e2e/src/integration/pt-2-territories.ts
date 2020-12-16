@@ -250,12 +250,12 @@ describe('GebietsKomponente', () =>
     cy.get('app-list-item > .main-wrapper > .label.blue')
       .click()
     cy.get('.card-format-TerritoryCardFormat\\.s12 > .main-wrapper > .label')
-    //cy.get('.mapboxgl-canvas')
-    //  .should('have.attr', 'height', '781')
+    cy.get('.mapboxgl-canvas').wait(1000)
+      .invoke('css', 'height').then(value => Number(String(value).substring(0, 3)) + 0).should('be.lt', 357).and('be.gt', 354);
     cy.get('.card-format-TerritoryCardFormat\\.a6 > .main-wrapper > .label')
       .click()
-    //cy.get('.mapboxgl-canvas')
-    //  .should('have.attr', 'height', '871')
+    cy.get('.mapboxgl-canvas').wait(1000)
+      .invoke('css', 'height').then(value => Number(String(value).substring(0, 3)) + 0).should('be.lt', 397).and('be.gt', 395);
     cy.get('.card-format-TerritoryCardFormat\\.a6 > .action > .icon > .feather')
     cy.get('.bleed-edge-shadow')
       .should('not.be.visible')
