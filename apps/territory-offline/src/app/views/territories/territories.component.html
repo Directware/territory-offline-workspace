@@ -31,7 +31,7 @@
     <app-list-item *ngFor="let territory of territories | searchTerritory:search:currentlyFilteredDrawings | async"
                    [class.current]="currentTerritoryId === territory.id"
                    (click)="editTerritory(territory)">
-      <p class="label">{{territory.key}} {{territory.name | slice:0:38}} {{territory.name.length > 38 ? "..." : ""}}</p>
+      <p class="label">{{territory.key}} {{territory.name | slice:0:38}} {{territory?.name?.length > 38 ? "..." : ""}}</p>
     </app-list-item>
   </app-list>
 

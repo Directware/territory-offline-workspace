@@ -55,20 +55,22 @@
   </div>
 
   <div class="list-wrapper">
+    <h2 class="h2-white">{{ 'transfer.import.title' | translate }}</h2>
+    <app-list>
+      <app-list-item (click)="importGeoJsonInput.click()">
+        <p class="label">{{ 'transfer.import.geoJson' | translate }}</p>
+        <i-feather class="i-feather action" name="chevron-right"></i-feather>
+        <input #importGeoJsonInput style="display: none;" type="file" (change)="importGeoJson($event)" />
+      </app-list-item>
+    </app-list>
+  </div>
+
+  <div class="list-wrapper">
     <h2 class="h2-white">{{ 'transfer.importFromApp' | translate }}</h2>
     <app-list>
       <app-list-item (click)="showTerritoryHelperImportDialog()">
         <p class="label">{{ 'transfer.importFromTerritoryHelper' | translate }}</p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
-      </app-list-item>
-      <app-list-item class="disabled">
-        <p class="label">{{ 'transfer.importFromTerritoryWeb' | translate }}</p>
-        <i-feather *ngIf="false" class="action" name="chevron-right"></i-feather>
-      </app-list-item>
-      <app-list-item (click)="importTWTerritories.click()">
-        <p class="label">{{ 'transfer.import.importTWTerritories' | translate }}</p>
-        <i-feather class="i-feather action" name="chevron-right"></i-feather>
-        <input #importTWTerritories style="display: none;" type="file" (change)="importTerritoryWebTerritories($event)" />
       </app-list-item>
     </app-list>
   </div>

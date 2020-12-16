@@ -76,6 +76,7 @@ import {first, tap} from "rxjs/operators";
 import {LoadSettingsSuccess} from "./core/store/settings/settings.actions";
 import {Plugins} from '@capacitor/core';
 import {DurationPhrasePipe} from './core/pipes/duration-phrase.pipe';
+import { ImportGeoJsonComponent } from './views/transfer/import-geo-json/import-geo-json.component';
 declare const sourceMapSupport: any;
 const {Device} = Plugins;
 
@@ -132,7 +133,8 @@ const {Device} = Plugins;
     SearchVisitBanPipe,
     VisitBanLastVisitTimePipe,
     BackupImportChangesComponent,
-    DurationPhrasePipe
+    DurationPhrasePipe,
+    ImportGeoJsonComponent
   ],
   imports: [
     BrowserModule,

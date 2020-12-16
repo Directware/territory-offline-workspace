@@ -1,7 +1,10 @@
 export const de = {
   "language": "Sprache",
   "common": {
-    "shareNotAvailable": "Leider ist das Teilen auf dieser Platform nicht verfügbar. Der Text wird in die Zwischenablage kopiert."
+    "shareNotAvailable": "Leider ist das Teilen auf dieser Platform nicht verfügbar. Der Text wird in die Zwischenablage kopiert.",
+    "ignore": "Ignorieren",
+    "choose": "Bitte auswählen",
+    "nothingChosen": "Nichts ausgewählt"
   },
   "assignments": {
     "startTime": "Ausgabedatum",
@@ -42,6 +45,7 @@ export const de = {
     "reallyDelete": "Möchtest du diese Versammlung wirklich löschen?"
   },
   "territory": {
+    "title": "Gebiet",
     "populationCount": "Wohnungseinheiten",
     "publishers": "Verkündiger",
     "allVisitBans": "Nicht Besuchen",
@@ -313,6 +317,9 @@ export const de = {
     },
     "import": {
       "title": "Import",
+      "geoJson": "GEO Json",
+      "geoJsonDesc": "Das GEO Json Format besitzt ggf. Eigenschaftsfelder, die du vielleicht auch importieren möchtest. Diese Felder können einen Wert einnehmen:",
+      "geoJsonDesc2": "Diese Eigentschaften kannst du zuweisen:",
       "start": "Datenimport beginnt...",
       "tags": "Tags werden importiert...",
       "visitBans": "nicht besuchen Adressen wurden importiert...",

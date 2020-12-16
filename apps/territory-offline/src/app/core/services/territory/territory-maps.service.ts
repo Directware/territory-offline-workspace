@@ -185,6 +185,7 @@ export class TerritoryMapsService
   {
     this.mapsResources.setMarker(id, coordinates, popupText);
   }
+
   public clearMarker(id: string)
   {
     this.mapsResources.clearMarker(id);
@@ -298,16 +299,22 @@ export class TerritoryMapsService
 
   public focusOnDrawingIds(drawingIds?: string[])
   {
-    this.currentlyFocusedOnDrawingIds = drawingIds;
-    const mergedDrawings = this.mergeDrawingsConsideringCurrentlyFocused();
-
-    if (mergedDrawings && mergedDrawings.featureCollection.features.length > 0)
+    try
     {
-      this.mapsResources.map.fitBounds(Turf.bbox(mergedDrawings.featureCollection), {padding: this.cachedPadding});
+      this.currentlyFocusedOnDrawingIds = drawingIds;
+      const mergedDrawings = this.mergeDrawingsConsideringCurrentlyFocused();
 
-      this.setPropsOnFeatures(this.cachedDrawings, this.activeFeaturesProps, {
-        opacity: 0.1
-      });
+      if (mergedDrawings && mergedDrawings.featureCollection.features.length > 0)
+      {
+        this.mapsResources.map.fitBounds(Turf.bbox(mergedDrawings.featureCollection), {padding: this.cachedPadding});
+
+        this.setPropsOnFeatures(this.cachedDrawings, this.activeFeaturesProps, {
+          opacity: 0.1
+        });
+      }
+    } catch (e)
+    {
+      console.warn(e);
     }
   }
 

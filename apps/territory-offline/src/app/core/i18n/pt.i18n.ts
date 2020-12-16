@@ -1,7 +1,10 @@
 export const pt = {
   "language": "Língua",
   "common": {
-    "shareNotAvailable": "Infelizmente, a partilha não está disponível nesta plataforma. O texto é copiado para a prancheta."
+    "shareNotAvailable": "Infelizmente, a partilha não está disponível nesta plataforma. O texto é copiado para a prancheta.",
+    "ignore": "Ignorar",
+    "choose": "Por favor seleccione",
+    "nothingChosen": "Nada seleccionado"
   },
   "assignments": {
     "startTime": "Data de emissão",
@@ -42,6 +45,7 @@ export const pt = {
     "reallyDelete": "Quer mesmo apagar esta reunião?"
   },
   "territory": {
+    "title": "Área",
     "populationCount": "Unidades de apartamentos",
     "publishers": "Anunciador",
     "allVisitBans": "Não visitar",
@@ -313,6 +317,9 @@ export const pt = {
     },
     "import": {
       "title": "Importação",
+      "geoJson": "GEO Json",
+      "geoJsonDesc": "O formato GEO Json pode ter campos de propriedades que também pode querer importar. Estes campos podem ter um valor:",
+      "geoJsonDesc2": "Pode atribuir estas propriedades:",
       "start": "Começa a importação de dados...",
       "tags": "As etiquetas são importadas...",
       "visitBans": "Não visitar endereços foram importados...",

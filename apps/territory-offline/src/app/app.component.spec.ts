@@ -1,37 +1,34 @@
-import {async, TestBed} from '@angular/core/testing';
-import {RouterTestingModule} from '@angular/router/testing';
 import {AppComponent} from './app.component';
-
-jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
-  Map: () => ({})
-}));
-
-jest.mock('@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js', () => ({
-  MapboxGeocoder: () => ({})
-}));
-
-jest.mock("uuid", () => "");
+import {Store} from "@ngrx/store";
+import {Subject} from "rxjs";
 
 describe('AppComponent', () =>
 {
-  beforeEach(async(() =>
-  {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-      providers: []
-    }).compileComponents();
-  }));
+  let appComponent: AppComponent;
 
-  it('should create the app', () =>
+  let actions$;
+  let state$;
+  let reducerManager$;
+
+  beforeEach(() =>
   {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    actions$ = new Subject();
+    state$ = new Subject();
+    reducerManager$ = new Subject();
+    appComponent = new AppComponent(new Store(state$, actions$, reducerManager$), null, actions$, null);
+  });
+
+  it('should create app component class', () =>
+  {
+    expect(appComponent).toBeTruthy();
+  });
+
+  it('should lock app when press CMD+SHIFT+L', () =>
+  {
+    const keyboardEvent = {code: "KeyL", ctrlKey: true, shiftKey: true} as KeyboardEvent;
+
+    appComponent.keyboardInputListener(keyboardEvent);
+
   });
   /*
 
