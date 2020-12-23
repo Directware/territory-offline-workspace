@@ -255,7 +255,7 @@ describe('GebietsKomponente', () =>
     cy.get('.card-format-TerritoryCardFormat\\.a6 > .main-wrapper > .label')
       .click()
     cy.get('.mapboxgl-canvas').wait(1000)
-      .invoke('css', 'height').then(value => Number(String(value).substring(0, 3)) + 0).should('be.lt', 397).and('be.gt', 395);
+      .invoke('css', 'height').then(value => Number(String(value).substring(0, 3)) + 0).should('be.lt', 397).and('be.gt', 394);
     cy.get('.card-format-TerritoryCardFormat\\.a6 > .action > .icon > .feather')
     cy.get('.bleed-edge-shadow')
       .should('not.be.visible')
