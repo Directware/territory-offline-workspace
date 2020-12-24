@@ -12,6 +12,7 @@ import {DurationPickerComponent} from "./form-controls/duration-picker/duration-
 import { HideablePanelComponent } from './hideable-panel/hideable-panel.component';
 import {TranslateModule} from "@ngx-translate/core";
 import {ListItemWithDescriptionComponent} from "./list/list-item-with-description/list-item-with-description.component";
+import { DateInputComponent } from './form-controls/date-input/date-input.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {ListItemWithDescriptionComponent} from "./list/list-item-with-descriptio
     PanelComponent,
     LanguageSearchComponent,
     HideablePanelComponent,
-    ListItemWithDescriptionComponent
+    ListItemWithDescriptionComponent,
+    DateInputComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +43,8 @@ import {ListItemWithDescriptionComponent} from "./list/list-item-with-descriptio
     PanelComponent,
     LanguageSearchComponent,
     HideablePanelComponent,
-    ListItemWithDescriptionComponent
+    ListItemWithDescriptionComponent,
+    DateInputComponent
   ]
 })
 export class UiComponentsModule {}

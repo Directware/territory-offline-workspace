@@ -10,6 +10,7 @@ export * from './lib/list/list.component';
 export * from './lib/list/list-item/list-item.component';
 export * from './lib/panel/panel.component';
 export * from './lib/hideable-panel/hideable-panel.component';
+export * from './lib/form-controls/date-input/date-input.component';
 
 /* Services */
 export * from './lib/services/territory-language.service';

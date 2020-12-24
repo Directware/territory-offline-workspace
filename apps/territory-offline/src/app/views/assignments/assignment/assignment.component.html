@@ -12,7 +12,10 @@
       <p class="info">{{assignment.get('startTime').value | date:'dd.MM.yyyy'}}</p>
     </app-list-item>
     <div class="wrapper" *ngIf="editStartTime">
+      <!--
       <app-date-picker [vFormControl]="assignment.get('startTime')"></app-date-picker>
+      -->
+      <ui-date-input [vFormControl]="assignment.get('startTime')"></ui-date-input>
     </div>
   </app-panel>
 
@@ -22,7 +25,10 @@
       <p class="info">{{(assignment.get('endTime').value | date:'dd.MM.yyyy') || '-'}}</p>
     </app-list-item>
     <div class="wrapper" *ngIf="editEndTime">
+      <!--
       <app-date-picker [vFormControl]="assignment.get('endTime')"></app-date-picker>
+      -->
+      <ui-date-input [vFormControl]="assignment.get('endTime')"></ui-date-input>
     </div>
   </app-panel>
 
