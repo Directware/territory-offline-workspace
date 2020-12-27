@@ -21,28 +21,28 @@ before(() =>
   indexedDB.deleteDatabase('territory-offlineIDB')
   cy.visit('/territories')
 // 'Eingabe Name-Versammlungsgebiet'
-  cy.get('.password-wrapper input').first()
+  cy.get('[data-cy=input-congregation-name]')
     .clear()
     .type('Augsburg LM')
 // 'Eingabe/Auswahl Sprache'
-  const languageInput = '.password-wrapper input[name="language"]'
+  const languageInput = '[data-cy=input-language]'
   cy.get(languageInput)
     .type('de')
-  cy.get('app-language-search app-list-item').first()
+  cy.get('[data-cy=select-language]')
     .click()
 // 'Eingabe Passwort'
-  cy.get('.password-wrapper input[id="new-password-text-field"]')
+  cy.get('[data-cy=input-password]')
     .clear()
     .type('password')
-  cy.get('.password-wrapper input[id="confirm-password-text-field"]')
+  cy.get('[data-cy=input-password-confirm]')
     .clear()
     .type('password')
 // 'Button Weiter'
-  cy.get('.main-button').first() //Klasse gibt immer eine Liste zurück, deswegen Auswahl mit first(), auch wenn es nur einen Button gibt
+  cy.get('[data-cy=button-next]')
     .click()
 // 'Button Landkarte ausrichten anklicken'
   cy.wait(2000)
-  cy.get('div.button')
+  cy.get('[data-cy=button-choose-origin]')
     .click()
 }
 )

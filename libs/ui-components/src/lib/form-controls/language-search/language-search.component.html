@@ -1,8 +1,8 @@
-<input [formControl]="inputValue" [attr.placeholder]="'language' | translate" (focus)="toggleList()" (blur)="toggleList()" name="language" autocomplete="off"/>
+<input [formControl]="inputValue" [attr.placeholder]="'language' | translate" (focus)="toggleList()" (blur)="toggleList()" name="language" autocomplete="off" data-cy="input-language"/>
 
 <div class="list-wrapper" *ngIf="languageList && focused">
   <app-list>
-    <app-list-item *ngFor="let lang of languageList" (click)="chooseLanguage(lang)">
+    <app-list-item *ngFor="let lang of languageList" (click)="chooseLanguage(lang)" data-cy="select-language">
       <p class="label">{{lang.name}} / {{lang.nativeName}}</p>
     </app-list-item>
   </app-list>

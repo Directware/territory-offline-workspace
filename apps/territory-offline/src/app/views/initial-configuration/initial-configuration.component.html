@@ -9,18 +9,18 @@
 
 
   <form class="password-wrapper" [formGroup]="initialConfigFormGroup">
-    <input autofocus type="text" [placeholder]="'configuration.congregation' | translate" autocomplete="off" formControlName="congregation" required/>
+    <input autofocus type="text" [placeholder]="'configuration.congregation' | translate" autocomplete="off" formControlName="congregation" data-cy="input-congregation-name" required/>
     <app-language-search class="app-language-search" (onChoose)="setLanguage($event)" (onValueReset)="setLanguage(null)"></app-language-search>
     <ng-container *ngIf="isPasswordNeeded">
-      <input id="new-password-text-field" type="password" [placeholder]="'configuration.password' | translate" autocomplete="off" formControlName="lockPassword" required/>
-      <input id="confirm-password-text-field" type="password" [placeholder]="'configuration.repeatPassword' | translate" autocomplete="off" formControlName="lockPasswordRepetition" required/>
+      <input id="new-password-text-field" type="password" [placeholder]="'configuration.password' | translate" autocomplete="off" formControlName="lockPassword" data-cy="input-password" required/>
+      <input id="confirm-password-text-field" type="password" [placeholder]="'configuration.repeatPassword' | translate" autocomplete="off" formControlName="lockPasswordRepetition" data-cy="input-password-confirm" required/>
     </ng-container>
     <span *ngIf="initialConfigFormGroup.hasError('notSame')" class="error">{{ 'configuration.passwordNotSame' | translate }}</span>
   </form>
 
   <button class="main-button"
           (click)="currentStep=currentStep+1"
-          [disabled]="!initialConfigFormGroup.valid">{{ 'action.next' | translate }}</button>
+          [disabled]="!initialConfigFormGroup.valid" data-cy="button-next">{{ 'action.next' | translate }}</button>
 </div>
 <div *ngIf="currentStep === 1" class="step">
   <div class="to-icon"></div>
