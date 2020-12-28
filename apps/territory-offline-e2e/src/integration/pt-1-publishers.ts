@@ -28,107 +28,99 @@ describe('VerkuendigerKomponente', () =>
 
   it('Zwei Tags hinzufügen', () =>
   {
-    cy.get('i-feather[name="tag"]')
+    cy.get('[data-cy=icon-tag]')
       .click()
-    cy.get('.action-link')
+    cy.get('[data-cy=button-edit]')
       .click()
-    cy.get('input[placeholder="Tag hinzufügen"]')
+    cy.get('[data-cy=input-tag-name]')
       .type('Getauft')
-    cy.get('i-feather[name="plus"]')
+    cy.get('[data-cy=icon-add]')
       .click()
-    cy.get('input[placeholder="Tag hinzufügen"]')
+    cy.get('[data-cy=input-tag-name]')
       .type('Ungetauft')
-    cy.get('i-feather[name="plus"]')
+    cy.get('[data-cy=icon-add]')
       .click()
-    cy.get('.action-link')
+    cy.get('[data-cy=button-finished]')
       .click()
   }
   )
   it('Verkündigerübersicht prüfen', () =>
   {
-    cy.get('i-feather[name="users"]')
+    cy.get('[data-cy=icon-users]')
       .click()
-    cy.get('img')
-    cy.get('p')
-      .should('contain', 'Erstelle oder importiere Verkündiger, um diesen Gebiete zuteilen zu können.')
-    cy.get('h4')
-      .should('contain', 'Du hast noch keine Verkündiger!')
+    cy.get('[data-cy=img-publisher]')
+    cy.get('[data-cy=info-description]')
+      .should('have.text', 'Erstelle oder importiere Verkündiger, um diesen Gebiete zuteilen zu können.')
+    cy.get('[data-cy=info-header]')
+      .should('have.text', 'Du hast noch keine Verkündiger!')
   })
   it('Neuen Verkündiger hinzufügen & Abbrechen', () =>
   {
-    cy.get('.action-link')
+    cy.get('[data-cy=button-add-publisher]')
       .click()
-    cy.get('.cancel')
+    cy.get('[data-cy=button-cancel]')
       .click()
   })
   it('Neue Verkündiger hinzufügen', () =>
   {
     publishersToBeAdded.forEach((publisher) =>
     {
-      cy.get('.action-link')
+      cy.get('[data-cy=button-add-publisher]')
         .click()
-      cy.get('.main-wrapper input[name="firstName"]')
+      cy.get('[data-cy=input-firstName]')
         .type(publisher.firstName)
-      cy.get('.main-wrapper input[name="name"]')
+      cy.get('[data-cy=input-name]')
         .type(publisher.name)
-      cy.get('.main-wrapper input[name="email"]')
+      cy.get('[data-cy=input-email]')
         .type(publisher.email)
-      cy.get('.main-wrapper input[name="phone"]')
+      cy.get('[data-cy=input-phone]')
         .type(publisher.phone)
-       cy.get('input[placeholder="Tag hinzufügen"]')
+      cy.get('[data-cy=input-add-tag]')
         .type('ge')
-      cy.get('.search-result > .main-wrapper > .label').first()
-        .should('contain', 'Getauft')
+      cy.get('[data-cy=search-result-tag]').first()
+        .should('have.text', 'Getauft')
         .click()
-      cy.get('.save')
+      cy.get('[data-cy=button-save]')
         .click()
     })
   })
   it('Tag löschen', () =>
   {
-    cy.get('.action-link')
+    cy.get('[data-cy=button-add-publisher]')
       .click()
-    // cy.get('.main-wrapper input[name="firstName"]')
-    //   .type(publishersToBeAdded[0].firstName)
-    // cy.get('.main-wrapper input[name="name"]')
-    //   .type(publishersToBeAdded[0].name)
-    // cy.get('.main-wrapper input[name="email"]')
-    //   .type(publishersToBeAdded[0].email)
-    // cy.get('.main-wrapper input[name="phone"]')
-    //   .type(publishersToBeAdded[0].phone)
-    cy.get('input[placeholder="Tag hinzufügen"]')
+
+    cy.get('[data-cy=input-add-tag]')
       .type('ge')
-    cy.get('.search-result > .main-wrapper > .label').first()
+    cy.get('[data-cy=search-result-tag]').first()
       .click()
-    cy.get('i-feather[name="trash"]')
+    cy.get('[data-cy=icon-delete-tag]')
       .dblclick()
   })
   it('DSGVO-Überschrift,Text und Signature-Box vorhanden?', () =>
   {
-    cy.get('h4.h4-white')
-      .should('contain', 'DSGVO')
-    cy.get('p.body-grey')
+    cy.get('[data-cy=dsgvo-info-header]')
+      .should('have.text', 'DSGVO')
+    cy.get('[data-cy=dsgvo-info-description]')
       .should('contain', 'Nach dem Lesen der Datenschutzerklärung kann hier eingewilligt werden. Bitte dazu in dem Kasten unterschreiben.')
-    cy.get('canvas[id="dsgvo-signature"]')
+    cy.get('[data-cy=dsgvo-canvas]')
       .should('be.visible')
-    cy.get('.cancel')
+    cy.get('[data-cy=button-cancel]')
       .click()
   })
   it('Verkündiger in Übersicht vorhanden?', () =>
   {
-    const addedPublishers = cy.get('.main-wrapper > .label');
+    const addedPublishers = cy.get('[data-cy=label-publisher-list]');
     addedPublishers.each((name, index) =>
     {
-      expect(name.text()).to.include(publishersToBeAdded[index].firstName);
-      expect(name.text()).to.include(publishersToBeAdded[index].name);
+      cy.wrap(name).should('have.text', publishersToBeAdded[index].firstName + " " + publishersToBeAdded[index].name);
     })
   })
   it('Oberüberschriften in richtiger Reihenfolge vorhanden (A,B,C)?', () =>
   {
-    const addedChars = cy.get('h2.h2-white');
+    const addedChars = cy.get('[data-cy=letter-publisher-list]');
     addedChars.each((char, index) =>
     {
-      expect(char.text()).to.include(alphabet[index]);
+      cy.wrap(char).should('have.text', alphabet[index]);
     })
   })
   it('Verkündiger suchen', () =>
@@ -145,24 +137,27 @@ describe('VerkuendigerKomponente', () =>
     //   cy.get('.input')
     //     .clear()
     // })
-    cy.get('.input')
-        .type('R')
-    cy.get('.main-wrapper > .label')
-      .should('contain', publishersToBeAdded[1].firstName)
-      .and('contain', publishersToBeAdded[2].firstName)
+    cy.get('[data-cy=input-search]')
+      .type('R')
+      .wait(500)
+    cy.get('[data-cy=label-publisher-list]').eq(0)
+      .should('have.text', publishersToBeAdded[1].firstName + " " + publishersToBeAdded[1].name)
       .and('not.contain', publishersToBeAdded[0].firstName)
-    cy.get('.input')
+    cy.get('[data-cy=label-publisher-list]').eq(1)
+      .should('have.text', publishersToBeAdded[2].firstName + " " + publishersToBeAdded[2].name)
+      .and('not.contain', publishersToBeAdded[0].firstName)
+    cy.get('[data-cy=input-search]')
       .clear()
   })
   it('Tags "Getauft" & "Ungetauft" wieder löschen', () =>
   {
-    cy.get('i-feather[name="tag"]')
+    cy.get('[data-cy=icon-tag]')
       .click()
-    cy.get('.action-link')
+    cy.get('[data-cy=button-edit]')
       .click()
-    cy.get('div.action > .action > .feather')
+    cy.get('[data-cy=icon-trash]')
       .dblclick()
-    cy.get('.action-link')
+    cy.get('[data-cy=button-finished]')
       .click()
   })
 })

@@ -1,6 +1,6 @@
 <ng-container *ngIf="!readonly && !specific">
-  <div class="cancel" (click)="cancel()">{{ 'action.cancel' | translate }}</div>
-  <div class="save" (click)="save()" [class.not-valid]="!valid"> {{positiveActionName || 'action.save' | translate }}</div>
+  <div class="cancel" (click)="cancel()" data-cy="button-cancel">{{ 'action.cancel' | translate }}</div>
+  <div class="save" (click)="save()" [class.not-valid]="!valid" data-cy="button-save"> {{positiveActionName || 'action.save' | translate }}</div>
 </ng-container>
 
 <ng-container *ngIf="readonly && !specific">

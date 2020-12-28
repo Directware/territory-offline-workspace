@@ -1,5 +1,5 @@
 <app-main-search (onSearch)="search= {value: $event}">
-  <div class="action-link" (click)="createPublisher()">
+  <div class="action-link" (click)="createPublisher()" data-cy="button-add-publisher">
     <i-feather class="i-feather" name="plus"></i-feather>
     {{ 'publisher.add' | translate }}
   </div>
@@ -7,12 +7,12 @@
 <div class="scrollable-wrapper">
   <ng-container *ngIf="(publishersByLetters$ | async) as publishersByLetters; else infoBlock">
     <ng-container *ngFor="let publishersByLetter of publishersByLetters | searchPublisher:search | async">
-      <h2 class="h2-white">{{publishersByLetter[0].name.toUpperCase() | slice:0:1}}</h2>
+      <h2 class="h2-white" data-cy="letter-publisher-list">{{publishersByLetter[0].name.toUpperCase() | slice:0:1}}</h2>
       <app-list>
         <app-list-item *ngFor="let publisher of publishersByLetter"
                        [class.current]="currentPublisherId === publisher.id"
                        (click)="editPublisher(publisher)">
-          <p class="label">{{publisher.name}} {{publisher.firstName}}</p>
+          <p class="label" data-cy="label-publisher-list">{{publisher.name}} {{publisher.firstName}}</p>
         </app-list-item>
       </app-list>
     </ng-container>

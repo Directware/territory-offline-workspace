@@ -68,19 +68,19 @@
 <form *ngIf="!readOnly" [formGroup]="publisher">
   <app-panel>
     <app-list-item>
-      <input [placeholder]="('publisher.firstName' | translate) + '*'" class="input" formControlName="firstName" name="firstName">
+      <input [placeholder]="('publisher.firstName' | translate) + '*'" class="input" formControlName="firstName" name="firstName" data-cy="input-firstName">
     </app-list-item>
     <app-list-item>
-      <input [placeholder]="('publisher.name' | translate) + '*'" class="input" formControlName="name" name="name">
+      <input [placeholder]="('publisher.name' | translate) + '*'" class="input" formControlName="name" name="name" data-cy="input-name">
     </app-list-item>
   </app-panel>
 
   <app-panel>
     <app-list-item>
-      <input [placeholder]="('publisher.mail' | translate) + '*'" class="input" formControlName="email" name="email">
+      <input [placeholder]="('publisher.mail' | translate) + '*'" class="input" formControlName="email" name="email" data-cy="input-email">
     </app-list-item>
     <app-list-item>
-      <input [placeholder]="('publisher.phone' | translate) + '*'" class="input" formControlName="phone" name="phone">
+      <input [placeholder]="('publisher.phone' | translate) + '*'" class="input" formControlName="phone" name="phone" data-cy="input-phone">
     </app-list-item>
   </app-panel>
 
