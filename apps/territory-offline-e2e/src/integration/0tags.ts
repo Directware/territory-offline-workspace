@@ -12,43 +12,42 @@ describe('TagKomponente', () =>
   // }
   // )
 
-  it('Rufe Tagübersicht auf', () =>
+  before('Rufe Tagübersicht auf', () =>
   {
-    cy.get('i-feather[name="tag"]')
+    cy.get('[data-cy=icon-tag]')
       .click()
   }
   )
   it('Drei Tags hinzufügen', () =>
   {
-    cy.get('.action-link')
+    cy.get('[data-cy=button-edit]')
       .click()
 
     tagsToBeAdded.forEach(tag =>
     {
-      cy.get('input[placeholder="Tag hinzufügen"]')
+      cy.get('[data-cy=input-tag-name]')
         .type(tag)
         .should('have.value', tag)
-      cy.get('i-feather[name="plus"]')
+      cy.get('[data-cy=icon-add]')
         .click()
     })
 
-    cy.get('.action-link')
+    cy.get('[data-cy=button-finished]')
       .click()
   }
   )
   it('Reihenfolge prüfen', () =>
   {
-    const addedTags = cy.get(".label");
-    addedTags.each((htmlTag, index) =>
+    cy.get('[data-cy=label-tag]').each((htmlTag, index) =>
     {
-      expect(htmlTag.text()).to.include(tagsToBeAdded[index]);
+      cy.wrap(htmlTag.text()).should("include", tagsToBeAdded[index]);
     });
   })
   it('Tag bearbeiten', () =>
   {
-    cy.get('.action-link')
+    cy.get('[data-cy=button-edit]')
       .click()
-    cy.get('input.color-picker').first()
+    cy.get('[data-cy=color-picker]').first()
       .click()
     cy.get('div.saturation-lightness')
       .click(50,50)
@@ -57,46 +56,47 @@ describe('TagKomponente', () =>
     cy.get('.hex-text .box input')
       .should('have.value', '#859c7a')
     //TODO durchsichtigkeit der farbe ändern und prüfen
-    cy.get('.action-link')
+    cy.get('[data-cy=button-finished]')
       .click()
   }
   )
   it('Tag suchen', () =>
   {
-    cy.get('.search-wrapper input')
+    cy.get('[data-cy=input-search]')
+      .click()
       .type('A')
-    cy.get('p.label')
+    cy.get('[data-cy=label-tag]').first()
       .should('contain', 'A-Tag')
-    cy.get('.search-wrapper input')
+    cy.get('[data-cy=input-search]')
       .clear()
   }
   )
   it('Duplikat vorhanden?', () =>
   {
-    cy.get('.action-link')
+    cy.get('[data-cy=button-edit]')
       .click()
-    cy.get('input[placeholder="Tag hinzufügen"]')
+    cy.get('[data-cy=input-tag-name]')
       .type('A-Tag')
-    cy.get('i-feather[name="plus"]')
+    cy.get('[data-cy=icon-add]')
       .click()
     cy.on('window:alert', (alertText) =>
     {
       expect(alertText).to.contain('existiert bereits')
     })
-    cy.get('.action-link')
+    cy.get('[data-cy=button-finished]')
       .click()
   }
   )
   it('Alle Tags löschen', () =>
   {
-    cy.get('.action-link')
+    cy.get('[data-cy=button-edit]')
       .click()
     tagsToBeAdded.forEach(() =>
     {
-      cy.get('i-feather[name = "trash"]').first()
+      cy.get('[data-cy=icon-trash]').first()
         .click()
     })
-    cy.get('.action-link')
+    cy.get('[data-cy=button-finished]')
       .click()
   }
   )

@@ -41,7 +41,7 @@ before(() =>
   cy.get('[data-cy=button-next]')
     .click()
 // 'Button Landkarte ausrichten anklicken'
-  cy.wait(2000)
+  cy.wait(3000)
   cy.get('[data-cy=button-choose-origin]')
     .click()
 }

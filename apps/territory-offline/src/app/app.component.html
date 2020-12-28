@@ -2,12 +2,12 @@
   <ng-container *ngIf="appIsNotLocked$ | async">
     <div class="menu" [class.full-map]="fullMap">
       <div class="top">
-        <i-feather name="inbox" class="i-feather icon congregation" routerLink="congregations" routerLinkActive="active-link"></i-feather>
-        <i-feather name="zap" class="i-feather icon" routerLink="dashboard" routerLinkActive="active-link"></i-feather>
-        <i-feather name="layers" class="i-feather icon" routerLink="territories" routerLinkActive="active-link"></i-feather>
-        <i-feather name="users" class="i-feather icon" routerLink="publishers" routerLinkActive="active-link"></i-feather>
-        <i-feather name="tag" class="i-feather icon" routerLink="tags" routerLinkActive="active-link"></i-feather>
-        <i-feather name="bell-off" class="i-feather icon" routerLink="all-visit-bans" routerLinkActive="active-link"></i-feather>
+        <i-feather name="inbox" class="i-feather icon congregation" routerLink="congregations" routerLinkActive="active-link" data-cy="icon-inbox"></i-feather>
+        <i-feather name="zap" class="i-feather icon" routerLink="dashboard" routerLinkActive="active-link" data-cy="icon-zap"></i-feather>
+        <i-feather name="layers" class="i-feather icon" routerLink="territories" routerLinkActive="active-link" data-cy="icon-layers"></i-feather>
+        <i-feather name="users" class="i-feather icon" routerLink="publishers" routerLinkActive="active-link" data-cy="icon-users"></i-feather>
+        <i-feather name="tag" class="i-feather icon" routerLink="tags" routerLinkActive="active-link" data-cy="icon-tag"></i-feather>
+        <i-feather name="bell-off" class="i-feather icon" routerLink="all-visit-bans" routerLinkActive="active-link" data-cy="icon-bell-off"></i-feather>
       </div>
       <div class="down">
         <i-feather name="refresh-cw" routerLink="transfer" routerLinkActive="active-link"></i-feather>

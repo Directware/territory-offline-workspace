@@ -1,6 +1,6 @@
 <app-main-search (onSearch)="searchValue=$event">
-  <div *ngIf="!isEditingMode" (click)="isEditingMode=true" class="action-link">{{ 'tag.edit' | translate }}</div>
-  <div *ngIf="isEditingMode" (click)="isEditingMode=false" class="action-link">{{ 'tag.ready' | translate }}</div>
+  <div *ngIf="!isEditingMode" (click)="isEditingMode=true" class="action-link" data-cy="button-edit">{{ 'tag.edit' | translate }}</div>
+  <div *ngIf="isEditingMode" (click)="isEditingMode=false" class="action-link" data-cy="button-finished">{{ 'tag.ready' | translate }}</div>
 </app-main-search>
 
 <div class="scrollable-wrapper">
@@ -9,16 +9,17 @@
       <app-add-tag class="tag-input" *ngIf="isEditingMode" [alreadyAddedTags]="tags"></app-add-tag>
 
       <app-list-item *ngFor="let tag of tags | searchTag:searchValue">
-        <p class="label">
-          <input class="color-picker" *ngIf="isEditingMode" (colorPickerClose)="changeColor(tag)" [(colorPicker)]="tag.color" [style.background]="tag.color"/>
+        <p class="label" data-cy="label-tag">
+          <input class="color-picker" *ngIf="isEditingMode" (colorPickerClose)="changeColor(tag)" [(colorPicker)]="tag.color" [style.background]="tag.color" data-cy="color-picker"/>
 
           {{tag.name}}
-          <span *ngIf="isNewlyAdded(tag)" class="newly-added">{{ 'tag.new' | translate }}</span>
+          <span *ngIf="isNewlyAdded(tag)" class="newly-added" data-cy="span-new">{{ 'tag.new' | translate }}</span>
         </p>
         <i-feather *ngIf="isEditingMode"
                    (click)="deleteTag(tag)"
                    class="i-feather action"
-                   name="trash"></i-feather>
+                   name="trash"
+                   data-cy="icon-trash"></i-feather>
       </app-list-item>
     </app-list>
 
