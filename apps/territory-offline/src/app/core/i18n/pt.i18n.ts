@@ -46,6 +46,8 @@ export const pt = {
   },
   "territory": {
     "title": "Área",
+    "toKml": "Exportar como KML",
+    "fromKml": "Importação da KML",
     "populationCount": "Unidades de apartamentos",
     "publishers": "Anunciador",
     "allVisitBans": "Não visitar",

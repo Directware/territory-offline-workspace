@@ -237,6 +237,19 @@ export class TerritoryMapsResourcesService
     callback("initial", this.drawManager)
   }
 
+  public addToDrawingManager(geoJson: any, padding)
+  {
+    if(this.drawManager)
+    {
+      this.drawManager.add(geoJson);
+      const all = this.drawManager.getAll();
+
+      const bbox = Turf.bbox(all);
+      this._map.fitBounds(bbox, {padding, maxZoom: 16});
+      return all;
+    }
+  }
+
   public destroyDrawMode()
   {
     if (this.drawManager)

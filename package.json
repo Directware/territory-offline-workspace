@@ -71,6 +71,7 @@
     "@ngx-translate/http-loader": "^6.0.0",
     "@nicky-lenaers/ngx-scroll-to": "^9.0.0",
     "@nrwl/angular": "9.5.1",
+    "@tmcw/togeojson": "^4.3.0",
     "@turf/turf": "^5.1.6",
     "angular-feather": "^6.0.1",
     "capacitor-data-storage-sqlite": "^2.1.0",

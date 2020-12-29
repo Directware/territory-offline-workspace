@@ -46,6 +46,8 @@ export const en = {
   },
   "territory": {
     "title": "Territory",
+    "toKml": "Export to KML",
+    "fromKml": "Import from KML",
     "populationCount": "Population count",
     "publishers": "Publisher",
     "allVisitBans": "Not visit",

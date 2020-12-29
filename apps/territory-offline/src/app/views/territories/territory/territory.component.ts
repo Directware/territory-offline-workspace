@@ -1,5 +1,5 @@
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
+import * as tokml from "tokml";
 import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {v4 as uuid} from 'uuid';
@@ -24,7 +24,10 @@ import {FeatureCollection, Geometry} from '@turf/turf';
 import {DeleteAssignmentsByTerritory} from "../../../core/store/assignments/assignments.actions";
 import {selectAssignmentsByTerritoryId} from "../../../core/store/assignments/assignments.selectors";
 import {AssignmentsService} from "../../../core/services/assignment/assignments.service";
-import {Assignment, LastDoingActionsEnum, Territory} from "@territory-offline-workspace/api";
+import {Assignment, Drawing, LastDoingActionsEnum, Territory} from "@territory-offline-workspace/api";
+import {PlatformAgnosticActionsService} from "../../../core/services/common/platform-agnostic-actions.service";
+import { kml } from "@tmcw/togeojson";
+import {uuid4} from "@capacitor/core/dist/esm/util";
 
 @Component({
   selector: 'app-territory',
@@ -51,6 +54,7 @@ export class TerritoryComponent implements OnInit, OnDestroy
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private actions$: Actions,
+              private platformAgnosticActionsService: PlatformAgnosticActionsService,
               private lastDoingsService: LastDoingsService,
               private assignmentService: AssignmentsService,
               private territoryMapsService: TerritoryMapsService,
@@ -146,6 +150,38 @@ export class TerritoryComponent implements OnInit, OnDestroy
   public openAssignments(territoryId: string)
   {
     this.router.navigate([{outlets: {'second-thread': ['assignments', territoryId]}}]);
+  }
+
+  public importFromKML(event, inputElement: HTMLInputElement)
+  {
+    if (event.target.files && event.target.files.length)
+    {
+      const [file] = event.target.files;
+      const binaryFileReader = new FileReader();
+      binaryFileReader.onload = () => {
+        const doc = new DOMParser().parseFromString(binaryFileReader.result as string, "text/xml");
+        const featureCollection = kml(doc);
+        const allDrawings = this.territoryMapsService.addToDrawingManager(featureCollection);
+        this.allCurrentDrawings = allDrawings;
+        inputElement.value = null;
+        this.territory.markAsDirty();
+      };
+      binaryFileReader.readAsText(file);
+    }
+  }
+
+  public async exportToKML()
+  {
+    const territory = this.territory.getRawValue() as Territory;
+    const fileName = `${territory.key} - ${territory.name}.kml`;
+    const drawing = await this.store.pipe(select(selectDrawingById, territory.territoryDrawingId), first()).toPromise() as Drawing;
+
+    const kml = tokml(drawing.featureCollection, {
+      documentName: fileName,
+      name: "description" // property name of geojson properties that should be export als name
+    });
+
+    await this.platformAgnosticActionsService.share(kml, fileName);
   }
 
   public openVisitBans(territoryId: string)

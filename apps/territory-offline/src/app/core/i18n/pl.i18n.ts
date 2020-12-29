@@ -46,6 +46,8 @@ export const pl = {
   },
   "territory": {
     "title": "Teren",
+    "toKml": "Eksportuj w formacie KML",
+    "fromKml": "Importuj plik formatu KML",
     "populationCount": "Jednostki mieszkaniowe",
     "publishers": "Głosiciele",
     "allVisitBans": "Nie odwiedzać",

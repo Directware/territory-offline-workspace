@@ -267,6 +267,11 @@ export class TerritoryMapsService
     }
   }
 
+  public addToDrawingManager(geoJson: any)
+  {
+    return this.mapsResources.addToDrawingManager(geoJson, this.cachedPadding);
+  }
+
   public destroyDrawMode(updateCache?: boolean)
   {
     this.mapsResources.destroyDrawMode();

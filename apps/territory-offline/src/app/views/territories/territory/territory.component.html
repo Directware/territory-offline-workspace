@@ -44,6 +44,10 @@
       <p class="label blue">{{ 'territory.send' | translate }}</p>
       <i-feather name="share" class="i-feather action blue"></i-feather>
     </app-list-item>
+    <app-list-item (click)="exportToKML()">
+      <p class="label blue">{{ 'territory.toKml' | translate }}</p>
+      <i-feather name="log-out" class="i-feather action blue"></i-feather>
+    </app-list-item>
   </app-panel>
 
   <app-panel *ngIf="(assignment$ | async) as currentAssignment">
@@ -116,6 +120,14 @@
   </app-panel>
 
   <app-assigned-tags [assignedTags]="territory.get('tags')"></app-assigned-tags>
+
+  <app-panel *ngIf="!readOnly" (click)="kmlInput.click()">
+    <app-list-item>
+      <p class="label blue">{{ 'territory.fromKml' | translate }}</p>
+      <i-feather name="download" class="i-feather action blue"></i-feather>
+      <input #kmlInput type="file" style="display: none;" (change)="importFromKML($event, kmlInput)"/>
+    </app-list-item>
+  </app-panel>
 
   <app-panel *ngIf="!isCreation" class="delete-territory animate-color-and-transform" (click)="deleteTerritory()">
     <app-list-item>
