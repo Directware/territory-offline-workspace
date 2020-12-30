@@ -16,10 +16,13 @@
 // Import commands.js using ES2015 syntax:
 import './commands';
 
+
 before(() =>
 {
   indexedDB.deleteDatabase('territory-offlineIDB')
-  cy.visit('/territories')
+  cy.visit("/");
+
+  /*
 // 'Eingabe Name-Versammlungsgebiet'
   cy.get('[data-cy=input-congregation-name]')
     .clear()
@@ -44,5 +47,6 @@ before(() =>
   cy.wait(3000)
   cy.get('[data-cy=button-choose-origin]')
     .click()
-}
-)
+
+ */
+})

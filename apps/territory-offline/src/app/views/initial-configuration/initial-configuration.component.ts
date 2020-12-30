@@ -49,7 +49,7 @@ export class InitialConfigurationComponent implements OnInit
     const passwordValidators = [];
     this.isPasswordNeeded = this.dataSecurityService.mustUsePassword();
 
-    if (this.dataSecurityService.mustUsePassword())
+    if (this.isPasswordNeeded)
     {
       passwordValidators.push(Validators.required, Validators.minLength(7));
     }
@@ -62,7 +62,7 @@ export class InitialConfigurationComponent implements OnInit
       language: ['', [Validators.required]],
       languageCode: ['', [Validators.required]],
       isAppLocked: [false]
-    }, {validator: this.dataSecurityService.mustUsePassword() ? this.checkPasswords : null});
+    }, {validator: this.isPasswordNeeded ? this.checkPasswords : null});
 
     if (!environment.production)
     {
@@ -131,6 +131,8 @@ export class InitialConfigurationComponent implements OnInit
       createdSettings.encryptedSecretKey = encryptionConfig.encryptedSecretKey;
       createdSettings.publicKey = new Uint8Array(Object.values(encryptionConfig.publicKey));
       createdSettings.secretKey = new Uint8Array(Object.values(encryptionConfig.secretKey));
+
+      console.log(createdSettings);
     }
 
     this.firstOpenSequence(congregation);

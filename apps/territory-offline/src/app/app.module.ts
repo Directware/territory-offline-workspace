@@ -1,6 +1,6 @@
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserModule, HAMMER_GESTURE_CONFIG, HammerModule} from '@angular/platform-browser';
-import {APP_INITIALIZER, ErrorHandler, NgModule} from '@angular/core';
+import {APP_INITIALIZER, ErrorHandler, NgModule, NgZone} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -13,7 +13,7 @@ import {CongregationsComponent} from './views/congregations/congregations.compon
 import {TransferComponent} from './views/transfer/transfer.component';
 import {SettingsComponent} from './views/settings/settings.component';
 import {LockScreenComponent} from './views/lock-screen/lock-screen.component';
-import {Store, StoreModule} from '@ngrx/store';
+import {select, Store, StoreModule} from '@ngrx/store';
 import {Actions, EffectsModule, ofType} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {ApplicationState, reducers} from './core/store/index.reducers';
@@ -77,6 +77,7 @@ import {LoadSettingsSuccess} from "./core/store/settings/settings.actions";
 import {Plugins} from '@capacitor/core';
 import {DurationPhrasePipe} from './core/pipes/duration-phrase.pipe';
 import { ImportGeoJsonComponent } from './views/transfer/import-geo-json/import-geo-json.component';
+import {Router} from "@angular/router";
 declare const sourceMapSupport: any;
 const {Device} = Plugins;
 
@@ -171,9 +172,18 @@ export class AppModule
 {
   constructor(private store: Store<ApplicationState>,
               private actions$: Actions,
+              private ngZone: NgZone,
+              private router: Router,
               private languageService: TerritoryLanguageService,
               private translateService: TranslateService)
   {
+    if(!!window["Cypress"])
+    {
+      window["store"] = this.store;
+      window["actions"] = this.actions$;
+      window["angularRouting"] = this.navigateByUrl.bind(this);
+    }
+
     if(sourceMapSupport && sourceMapSupport.install)
     {
       sourceMapSupport.install();
@@ -211,6 +221,12 @@ export class AppModule
           setTimeout(() => this.translateService.use(language), 300);
         })
       ).subscribe();
+  }
+
+  // Method Cypress will call
+  private navigateByUrl(url: string)
+  {
+    this.ngZone.run(() => this.router.navigateByUrl(url));
   }
 }
 
