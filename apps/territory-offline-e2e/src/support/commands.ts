@@ -16,6 +16,7 @@ import {
   UpsertCongregation,
   UseCongregation
 } from "../../../territory-offline/src/app/core/store/congregation/congregations.actions";
+import {BulkImportPublishers} from "../../../territory-offline/src/app/core/store/publishers/publishers.actions";
 
 declare namespace Cypress
 {
@@ -35,18 +36,25 @@ Cypress.Commands.add('createTags', (tagName: []) =>
   cy.window()
     .then(w =>
     {
-      const tags = tagName.map(name =>
-      {
-        return {
-          id: uuid4(),
-          creationTime: new Date(),
-          name: name,
-          symbol: TagSymbol.TRIANGLE,
-          color: '#000'
-        };
-      })
+      const tags = tagName.map(name => ({
+        id: uuid4(),
+        creationTime: new Date(),
+        name: name,
+        symbol: TagSymbol.TRIANGLE,
+        color: '#000'
+      }))
 
       w["store"].dispatch(BulkImportTags({tags}));
+    });
+});
+
+Cypress.Commands.add('createPublishers', (publishers: any[]) =>
+{
+  cy.window()
+    .then(w =>
+    {
+      const p = publishers.map(publisher => ({...publisher, id: uuid4(), creationTime: new Date()}));
+      w["store"].dispatch(BulkImportPublishers({publishers: p}));
     });
 });
 
