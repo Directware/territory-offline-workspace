@@ -11,12 +11,12 @@ describe('VerkuendigerKomponente', () =>
     email: 'amadaeus@amadeus.com',
     phone: '0821 821 821'
   },
-  {
-    firstName: 'Bertholt',
-    name: 'Bertholt',
-    email: 'bertholt@bertholt.com',
-    phone: '0821 821 821'
-  },
+    {
+      firstName: 'Bertholt',
+      name: 'Bertholt',
+      email: 'bertholt@bertholt.com',
+      phone: '0821 821 821'
+    },
     {
       firstName: 'Cäsar',
       name: 'Cäsar',
@@ -26,34 +26,28 @@ describe('VerkuendigerKomponente', () =>
   ];
   const alphabet = ['A', 'B', 'C'];
 
-  it('Zwei Tags hinzufügen', () =>
+  before(() =>
   {
-    cy.get('[data-cy=icon-tag]')
-      .click()
-    cy.get('[data-cy=button-edit]')
-      .click()
-    cy.get('[data-cy=input-tag-name]')
-      .type('Getauft')
-    cy.get('[data-cy=icon-add]')
-      .click()
-    cy.get('[data-cy=input-tag-name]')
-      .type('Ungetauft')
-    cy.get('[data-cy=icon-add]')
-      .click()
-    cy.get('[data-cy=button-finished]')
-      .click()
-  }
-  )
+    // @ts-ignore
+    cy.configureApp();
+
+    // @ts-ignore
+    cy.navigate('/publishers');
+
+    // @ts-ignore
+    cy.createTags(["Getauft", "Ungetauft"]);
+  })
+
   it('Verkündigerübersicht prüfen', () =>
   {
-    cy.get('[data-cy=icon-users]')
-      .click()
+    cy.get('[data-cy=icon-users]').click()
     cy.get('[data-cy=img-publisher]')
     cy.get('[data-cy=info-description]')
       .should('have.text', 'Erstelle oder importiere Verkündiger, um diesen Gebiete zuteilen zu können.')
     cy.get('[data-cy=info-header]')
       .should('have.text', 'Du hast noch keine Verkündiger!')
   })
+
   it('Neuen Verkündiger hinzufügen & Abbrechen', () =>
   {
     cy.get('[data-cy=button-add-publisher]')
@@ -105,6 +99,7 @@ describe('VerkuendigerKomponente', () =>
         .click()
     })
   })
+
   it('Tag löschen', () =>
   {
     cy.get('[data-cy=button-add-publisher]')
@@ -181,4 +176,5 @@ describe('VerkuendigerKomponente', () =>
     cy.get('[data-cy=button-finished]')
       .click()
   })
+
 })
