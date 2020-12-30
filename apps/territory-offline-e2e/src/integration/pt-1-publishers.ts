@@ -61,6 +61,27 @@ describe('VerkuendigerKomponente', () =>
     cy.get('[data-cy=button-cancel]')
       .click()
   })
+
+  it('Speichern-Button erst klickbar wenn Pflichtfelder ausgefüllt', () =>
+  {
+    cy.get('[data-cy=button-add-publisher]')
+      .click()
+    cy.get('[data-cy=button-save]')
+      .filter('.not-valid')
+      .click()
+    cy.get('[data-cy=input-firstName]')
+      .type(publishersToBeAdded[0].firstName)
+    cy.get('[data-cy=input-name]')
+      .type(publishersToBeAdded[0].name)
+    cy.get('[data-cy=input-email]')
+      .type(publishersToBeAdded[0].email)
+    cy.get('[data-cy=input-phone]')
+      .type(publishersToBeAdded[0].phone)
+    cy.get('[data-cy=button-save]')
+      .not('not-valid')
+      .click()
+  })
+
   it('Neue Verkündiger hinzufügen', () =>
   {
     publishersToBeAdded.forEach((publisher) =>

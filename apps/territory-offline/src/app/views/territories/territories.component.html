@@ -1,5 +1,5 @@
 <app-main-search (onSearch)="search={value:$event}" (onBlur)="considerClearingSearchValue($event)">
-  <div class="action-link" (click)="createTerritory()">
+  <div class="action-link" (click)="createTerritory()" data-cy="button-add-territory">
     <i-feather class="i-feather" name="plus"></i-feather>
     {{ 'territory.add' | translate }}
   </div>

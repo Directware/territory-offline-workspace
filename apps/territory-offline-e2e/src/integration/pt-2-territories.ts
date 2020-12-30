@@ -57,51 +57,53 @@ describe('GebietsKomponente', () =>
 {
   it('Tag hinzufügen', () =>
   {
-    cy.get('i-feather[name="tag"]')
+    cy.get('[data-cy=icon-tag]')
       .click()
-    cy.get('.action-link')
+    cy.get('[data-cy=button-edit]')
       .click()
-    cy.get('input[placeholder="Tag hinzufügen"]')
+    cy.get('[data-cy=input-tag-name]')
       .type(tagToBeAdded)
-    cy.get('i-feather[name="plus"]')
+    cy.get('[data-cy=icon-add]')
       .click()
-    cy.get('.action-link')
+    cy.get('[data-cy=button-finished]')
       .click()
   })
 
   it('Verkündiger hinzufügen', () =>
   {
-    cy.get('i-feather[name="users"]')
+    cy.get('[data-cy=icon-users]')
       .click()
-      cy.get('.action-link')
-        .click()
+    cy.get('[data-cy=button-add-publisher]')
+      .click()
     publishersToBeAdded.forEach((publisher) =>
     {
-      cy.get('.action-link')
+      cy.get('[data-cy=button-add-publisher]')
         .click()
-      cy.get('.main-wrapper input[name="firstName"]')
+      cy.get('[data-cy=input-firstName]')
         .type(publisher.firstName)
-      cy.get('.main-wrapper input[name="name"]')
+      cy.get('[data-cy=input-name]')
         .type(publisher.name)
-      cy.get('.main-wrapper input[name="email"]')
+      cy.get('[data-cy=input-email]')
         .type(publisher.email)
-      cy.get('.main-wrapper input[name="phone"]')
+      cy.get('[data-cy=input-phone]')
         .type(publisher.phone)
-      cy.get('.save')
+      cy.get('[data-cy=button-save]')
         .click()
     })
   })
 
   it('Gebietsübersicht aufrufen und auf "+Neues Gebiet klicken"', () =>
   {
-    cy.get('[name="layers"] > .feather')
+    cy.get('[data-cy=icon-layers]')
       .click()
-    cy.get('.action-link')
+    cy.get('[data-cy=button-add-territory]')
       .click()
   })
   it('1."Speichern-Button" erst dann klickbar wenn Gebietszahl, -ort, -bereich angegeben \n 2.Gebietsauswahl wieder löschen \n 3.Gebiet hinzufügen Abbrechen', () =>
   {
-    cy.get('.save.not-valid')
+    cy.get('[data-cy=button-save]')
+      .filter('.not-valid')
+
     cy.get('input[placeholder="Nummer*"]')
       .type('1')
     cy.get('input[placeholder = "Ort*"]')
@@ -110,7 +112,7 @@ describe('GebietsKomponente', () =>
     cy.get('.mapbox-gl-draw_trash')
       .click()
     territorySelection()
-    cy.get('.save')
+    cy.get('[data-cy=button-save]').not('.not-valid')
     cy.get('.cancel')
       .click()
   })
