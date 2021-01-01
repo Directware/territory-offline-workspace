@@ -113,8 +113,8 @@
         <i-feather (click)="removeBoundaryName(boundary)" name="trash" class="i-feather action red"></i-feather>
       </app-list-item>
       <app-list-item>
-        <input #boundaryNameInput (keyup.enter)="addBoundaryName(boundaryNameInput.value)" [placeholder]="'territory.addStreet' | translate" class="input blue" autocomplete="off">
-        <i-feather (click)="addBoundaryName(boundaryNameInput.value)" class="i-feather action blue" name="plus"></i-feather>
+        <input #boundaryNameInput (keyup.enter)="addBoundaryName(boundaryNameInput.value)" [placeholder]="'territory.addStreet' | translate" class="input blue" autocomplete="off" data-cy="input-territory-street">
+        <i-feather (click)="addBoundaryName(boundaryNameInput.value)" class="i-feather action blue" name="plus" data-cy="icon-add-territory-street"></i-feather>
       </app-list-item>
     </div>
   </app-panel>

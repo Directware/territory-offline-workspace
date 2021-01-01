@@ -34,10 +34,17 @@ const territoriesToBeAdded = [{
 
 const tagToBeAdded = 'Dienstwoche';
 
-const date = new Date();
-const currDate = ('0' + date.getDate()).slice(-2) + '.'
-              + ('0' + (date.getMonth() + 1)).slice(-2) + '.'
-              + date.getFullYear();
+const today = new Date();
+const yesterday = new Date(Date.now() - 24*60*60*1000);
+const formatDateToday = ('0' + today.getDate()).slice(-2) + '.' + ('0' + (today.getMonth() + 1)).slice(-2) + '.' + today.getFullYear();
+const formatDateYesterday = ('0' + yesterday.getDate()).slice(-2) + '.' + ('0' + (yesterday.getMonth() + 1)).slice(-2) + '.' + yesterday.getFullYear();
+
+function datePieces( date )
+{
+  const datePiece = date.split(".");
+  const validDateInput = datePiece[2] + '-' + datePiece[1] + '-' + datePiece[0];
+  return validDateInput;
+}
 
 describe('GebietsKomponente', () =>
 {
@@ -119,15 +126,15 @@ describe('GebietsKomponente', () =>
         .type(territory.comment)
       streetsToBeAdded.forEach((street) =>
       {
-        cy.get('input[placeholder="Straße hinzufügen"]')
+        cy.get('[data-cy=input-territory-street]')
           .type(street)
-        cy.get('.wrapper.boundary-names i-feather[name="plus"]')
+        cy.get('[data-cy=icon-add-territory-street]')
           .click()
       })
-      cy.get('input[placeholder="Tag hinzufügen"]')
+      cy.get('[data-cy=input-add-tag]')
         .clear()
         .type(tagToBeAdded)
-      cy.get('.search-result i-feather[name="plus"]')
+      cy.get('[data-cy=search-result-tag]').first()
         .click()
       //Gebietsbereiche auf Karte auswählen
       cy.get('.mapbox-gl-draw_polygon')
@@ -282,50 +289,51 @@ describe('GebietsKomponente', () =>
       .click()
   })
 
-  xit('Zuteilungen', () =>
+  it('Zuteilungen', () =>
   {
     cy.get('[data-cy=label-assignment-second-thread]')
       .click()
-    cy.get('.action.edit')
+    cy.get('[data-cy=button-add-assignment-second-thread-header]')
       .click()
     cy.get('[data-cy=button-cancel-second-thread-header]')
       .click()
 
-    cy.get('.action.edit')
+    cy.get('[data-cy=button-add-assignment-second-thread-header]')
       .click()
     cy.get('[data-cy=button-save-second-thread-header]')
       .filter('.not-valid')
       .should('contain', 'Speichern')
 
-    cy.get('input[placeholder="Verkündiger"]')
+    cy.get('[data-cy=input-add-publisher]')
       .type('A')
-    cy.get('.search-result').first()
-      .should('contain', 'Amadeus Amadeus')
+    cy.get('[data-cy=search-result-publisher-list]').first()
+      .should('have.text', 'Amadeus Amadeus')
       .click()
 
 
-    cy.get('.start-time .label')
-      .should('contain', 'Ausgabedatum')
+    cy.get('[data-cy=label-assignments-start-time]')
+      .should('have.text', 'Ausgabedatum')
       .click()
-    cy.get('.info')
-      .should('contain', currDate)
+    cy.get('[data-cy=info-assignments-start-time]')
+      .should('have.text', formatDateToday)
+    cy.get('[data-cy=input-date-start-time-assignments]')
+      .click()
+      .type(datePieces(formatDateYesterday))
 
-    cy.get('.end-time .label')
-      .should('contain', 'Rückgabedatum')
-      .click()
-    cy.get('.end-time .info')
-      .should('contain', '-')
-    cy.get('.end-time .highlight').first()
-      .wait(2000)
-      .click()
-    cy.get('.end-time .info')
-      .should('contain', currDate)
+    cy.get('[data-cy=label-assignments-end-time]')
+      .should('have.text', 'Rückgabedatum')
+    cy.get('[data-cy=info-assignments-end-time]')
+      .should('have.text', '-')
+    //cy.get('[data-cy=input-date-end-time-assignments]')
+    //  .click()
 
-    cy.get('.send-not-to-publisher > .feather')
-    cy.contains('Gebietskarte an Verkündiger senden')
+
+    cy.get('[data-cy=icon-send-territory-card-false]')
+    cy.get('[data-cy=icon-send-territory-card-true]').should('not.exist')
+    cy.get('[data-cy=label-send-territory-card-assignment]')
       .click()
-    cy.get('.send-to-publisher > .feather')
-    cy.contains('Gebietskarte an Verkündiger senden')
+    cy.get('[data-cy=icon-send-territory-card-true]')
+    cy.get('[data-cy=label-send-territory-card-assignment]')
       .click()
 
     cy.get('[data-cy=button-save-second-thread-header]')
@@ -364,18 +372,18 @@ describe('GebietsKomponente', () =>
       .wait(1000)
     cy.get('p.info').eq(1).invoke('text').then((text) =>
     {
-      expect(text).equal(currDate)
+      expect(text).equal(formatDateToday)
     });
-    cy.get('[data-cy=button-back-second-thread-header]')
+    cy.get('[data-cy=button-back-specific-second-thread-header]')
       .click()
   })
-  xit('Nicht besuchen Adressen testen', () =>
+  it('Nicht besuchen Adressen testen', () =>
   {
 
     //Hin und Zurück
     cy.contains('Nicht besuchen')
       .click()
-    cy.get('[data-cy=button-back-second-thread-header]')
+    cy.get('[data-cy=button-back-specific-second-thread-header]')
       .click()
     cy.contains('Nicht besuchen')
       .click()
@@ -413,7 +421,7 @@ describe('GebietsKomponente', () =>
     cy.get('.app-panel')
       .eq(4)
       .find('.info')
-      .should('contain', currDate)
+      .should('contain', formatDateToday)
 
   })
 })

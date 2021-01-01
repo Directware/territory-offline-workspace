@@ -13,7 +13,7 @@
     </app-list-item>
     <app-list-item *ngFor="let result of searchResults" (click)="addTag(result)" class="search-result">
       <p class="label" data-cy="search-result-tag">{{result.name}}</p>
-      <i-feather class="i-feather action" (click)="addTag(result)" name="plus"></i-feather>
+      <i-feather class="i-feather action" (click)="addTag(result)" name="plus" data-cy="icon-add-tag"></i-feather>
     </app-list-item>
   </div>
 </app-panel>

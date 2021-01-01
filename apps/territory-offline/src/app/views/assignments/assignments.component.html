@@ -1,5 +1,5 @@
 <app-second-thread-header [specific]="true" (onBack)="back()" (onEdit)="createAssignment()">
-  <div class="action edit" (click)="createAssignment()">{{ 'assignments.add' | translate }}</div>
+  <div class="action edit" (click)="createAssignment()" data-cy="button-add-assignment-second-thread-header">{{ 'assignments.add' | translate }}</div>
 </app-second-thread-header>
 
 <div class="scrollable-wrapper" *ngIf="(assignments$ | async) as assignments">
