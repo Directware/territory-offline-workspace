@@ -21,32 +21,18 @@ const territoriesToBeAdded = [{
   number: '1',
   place: 'Pfersee',
   units: '20',
-  commentary: 'Das ist ein Test-Kommentar',
+  comment: 'Das ist ein Test-Kommentar',
   streets: streetsToBeAdded,
 },
 {
   number: '2',
   place: 'Haunstetten-Nord',
   units: '30',
-  commentary: 'Das ist ein Test-Kommentar',
+  comment: 'Das ist ein Test-Kommentar',
   streets: streetsToBeAdded,
 }];
 
 const tagToBeAdded = 'Dienstwoche';
-
-const publishersToBeAdded = [{
-  firstName: 'Amadeus',
-  name: 'Amadeus',
-  email: 'amadaeus@amadeus.com',
-  phone: '0821 821 821'
-},
-{
-  firstName: 'Bertholt',
-  name: 'Bertholt',
-  email: 'bertholt@bertholt.com',
-  phone: '0821 821 821'
-},
-];
 
 const date = new Date();
 const currDate = ('0' + date.getDate()).slice(-2) + '.'
@@ -55,65 +41,63 @@ const currDate = ('0' + date.getDate()).slice(-2) + '.'
 
 describe('GebietsKomponente', () =>
 {
-  it('Tag hinzufügen', () =>
+  Cypress.on('uncaught:exception', (err, runnable) =>
   {
-    cy.get('[data-cy=icon-tag]')
-      .click()
-    cy.get('[data-cy=button-edit]')
-      .click()
-    cy.get('[data-cy=input-tag-name]')
-      .type(tagToBeAdded)
-    cy.get('[data-cy=icon-add]')
-      .click()
-    cy.get('[data-cy=button-finished]')
-      .click()
+    // returning false here prevents Cypress from
+    // failing the test
+    return false
   })
 
-  it('Verkündiger hinzufügen', () =>
+  before(() =>
   {
-    cy.get('[data-cy=icon-users]')
-      .click()
-    cy.get('[data-cy=button-add-publisher]')
-      .click()
-    publishersToBeAdded.forEach((publisher) =>
-    {
-      cy.get('[data-cy=button-add-publisher]')
-        .click()
-      cy.get('[data-cy=input-firstName]')
-        .type(publisher.firstName)
-      cy.get('[data-cy=input-name]')
-        .type(publisher.name)
-      cy.get('[data-cy=input-email]')
-        .type(publisher.email)
-      cy.get('[data-cy=input-phone]')
-        .type(publisher.phone)
-      cy.get('[data-cy=button-save]')
-        .click()
-    })
+    // @ts-ignore
+    cy.configureApp();
+
+    // @ts-ignore
+    cy.navigate('/dashboard');
+
+    // @ts-ignore
+    cy.createTags([tagToBeAdded, "Ungetauft"]);
+
+    // @ts-ignore
+    cy.createPublishers([{
+      firstName: 'Amadeus',
+      name: 'Amadeus',
+      email: 'amadaeus@amadeus.com',
+      phone: '0821 821 821'
+      },
+      {
+        firstName: 'Bertholt',
+        name: 'Bertholt',
+        email: 'bertholt@bertholt.com',
+        phone: '0821 821 821'
+      }])
   })
 
   it('Gebietsübersicht aufrufen und auf "+Neues Gebiet klicken"', () =>
   {
-    cy.get('[data-cy=icon-layers]')
+    cy.get('[data-cy=icon-menu-layers]')
       .click()
     cy.get('[data-cy=button-add-territory]')
       .click()
   })
+
   it('1."Speichern-Button" erst dann klickbar wenn Gebietszahl, -ort, -bereich angegeben \n 2.Gebietsauswahl wieder löschen \n 3.Gebiet hinzufügen Abbrechen', () =>
   {
-    cy.get('[data-cy=button-save]')
+    cy.get('[data-cy=button-save-second-thread-header]')
       .filter('.not-valid')
 
-    cy.get('input[placeholder="Nummer*"]')
+    cy.get('[data-cy=input-territory-number]')
       .type('1')
-    cy.get('input[placeholder = "Ort*"]')
+    cy.get('[data-cy=input-territory-location]')
       .type('Pfersee')
     territorySelection()
     cy.get('.mapbox-gl-draw_trash')
       .click()
     territorySelection()
-    cy.get('[data-cy=button-save]').not('.not-valid')
-    cy.get('.cancel')
+    cy.get('[data-cy=button-save-second-thread-header]')
+      .not('.not-valid')
+    cy.get('[data-cy=button-cancel-second-thread-header]')
       .click()
   })
   it('Gebiete hinzufügen', () =>
@@ -122,17 +106,17 @@ describe('GebietsKomponente', () =>
     let yBottom = 160
 
     territoriesToBeAdded.forEach((territory) => {
-      cy.get('.action-link')
+      cy.get('[data-cy=button-add-territory]')
         .click()
-      cy.get('input[placeholder="Nummer*"]')
+      cy.get('[data-cy=input-territory-number]')
         .type(territory.number)
-      cy.get('input[placeholder="Ort*"]')
+      cy.get('[data-cy=input-territory-location]')
         .type(territory.place)
-      cy.get('input[placeholder="Wohneinheiten"]')
+      cy.get('[data-cy=input-territory-units]')
         .clear()
         .type(territory.units)
-      cy.get('textarea[placeholder="Kommentar"]')
-        .type(territory.commentary)
+      cy.get('[data-cy=input-territory-comment]')
+        .type(territory.comment)
       streetsToBeAdded.forEach((street) =>
       {
         cy.get('input[placeholder="Straße hinzufügen"]')
@@ -142,7 +126,7 @@ describe('GebietsKomponente', () =>
       })
       cy.get('input[placeholder="Tag hinzufügen"]')
         .clear()
-        .type('Dienstwoche')
+        .type(tagToBeAdded)
       cy.get('.search-result i-feather[name="plus"]')
         .click()
       //Gebietsbereiche auf Karte auswählen
@@ -154,7 +138,7 @@ describe('GebietsKomponente', () =>
         .click(1100, yBottom)
         .click(1000, yBottom)
         .click(1000, yTop)
-      cy.get('.save')
+      cy.get('[data-cy=button-save-second-thread-header]')
         .click()
       yTop = yTop + 60
       yBottom = yBottom + 60
@@ -171,135 +155,146 @@ describe('GebietsKomponente', () =>
   })
   it('Gebietsübersicht prüfen: \n Versammlungsname und Filter vorhanden', () =>
   {
-    cy.get('.h2-white')
+    /*cy.get('[data-cy=text-overview-congregation-name]')
       .should('contain', 'Augsburg LM')
-    cy.get('.blue')
+      */
+    cy.get('[data-cy=filter-in-progress]')
       .should('contain', 'In Bearbeitung')
-    cy.get('.green')
+    cy.get('[data-cy=filter-finished]')
       .should('contain', 'Bearbeitet')
-    cy.get('.yellow')
+    cy.get('[data-cy=filter-to-assign]')
       .should('contain', 'Neu zuteilen')
-    cy.get('.red')
+    cy.get('[data-cy=filter-overdue-assignment]')
       .should('contain', 'Zuteilung fällig')
-    cy.get('.h4-white')
+    cy.get('[data-cy=text-overview-filter-header]')
       .should('contain', 'Filter')
   })
   it('Gebiet suchen und bei einzigem Ergebnis ', () =>
   {
-    cy.get('.input')
+    cy.get('[data-cy=input-search]')
       .type('P')
-    cy.get('.info')
+    cy.get('[data-cy=info-location-second-thread]')
       .should('contain', 'Pfersee')
-    cy.get('.back')
+    cy.get('[data-cy=button-back-readonly-second-thread-header]')
       .click()
-    cy.get('.input')
+    cy.get('[data-cy=input-search]')
       .clear()
   })
   it('Gebiet suchen und bei mehreren Ergebnissen anzeigen', () =>
   {
-    cy.get('.input')
+    cy.get('[data-cy=input-search]')
       .type('Ha')
-    cy.get('.main-wrapper > .label')
+    cy.get('[data-cy=label-territory-list]')
       .should('contain', territoriesToBeAdded[1].place)
-    cy.get('.back')
+    cy.get('[data-cy=button-back-readonly-second-thread-header]')
       .click()
-    cy.get('.input')
+    cy.get('[data-cy=input-search]')
       .clear()
   })
 
-
-  xit('Gebiet auf Karte anklicken \n Felder prüfen', () =>
-  {
-    cy.get('.mapboxgl-canvas')
-      .click(1000,100)
-    cy.get('.label.location')
-      .should('contain', 'Ort')
-    cy.get('.info.location')
-      .should('contain', territoriesToBeAdded[1].place)
-    cy.get('.label.number')
-      .should('contain', 'Nummer')
-    cy.get('.info.number')
-      .should('contain', territoriesToBeAdded[1].number)
-    cy.get('.label.units')
-      .should('contain', 'Wohneinheiten')
-    cy.get('.info.units')
-      .should('contain', territoriesToBeAdded[1].units)
-    cy.get('.label.comment')
-      .should('contain', 'Kommentar')
-    cy.get('.info.comment')
-      .should('contain', territoriesToBeAdded[1].commentary)
-    cy.get('.h3-white')
-      .should('contain', 'Tags')
-    cy.get('app-tags-preview')
-      .should('contain', tagToBeAdded)
-    cy.get('.label.blue')
-      .should('contain', 'Gebietskarte drucken')
-    cy.get('.label.assignment')
-      .should('contain', 'Zuteilungen')
-    cy.get('.label.do-not-visit')
-      .should('contain', 'Nicht besuchen Adressen')
-  })
-
-
   it('für den Fall dass Karte nicht angecklickt werden kann', () =>
   {
-    cy.get('.input')
-      .type('Haunstetten-Nord')
+    cy.get('[data-cy=input-search]')
+      .type(territoriesToBeAdded[1].place)
+  })
+
+  it('Gebiet auf Karte anklicken \n Felder prüfen', () =>
+  {
+    cy.get('.mapboxgl-canvas')
+      .click(1000, 100)
+    cy.get('[data-cy=label-location-second-thread]')
+      .should('contain', 'Ort')
+    cy.get('[data-cy=info-location-second-thread]')
+      .should('contain', territoriesToBeAdded[1].place)
+    cy.get('[data-cy=label-number-second-thread]')
+      .should('contain', 'Nummer')
+    cy.get('[data-cy=info-number-second-thread]')
+      .should('contain', territoriesToBeAdded[1].number)
+    cy.get('[data-cy=label-units-second-thread]')
+      .should('contain', 'Wohneinheiten')
+    cy.get('[data-cy=info-units-second-thread]')
+      .should('contain', territoriesToBeAdded[1].units)
+    cy.get('[data-cy=label-comment-second-thread]')
+      .should('contain', 'Kommentar')
+    cy.get('[data-cy=info-comment-second-thread]')
+      .should('contain', territoriesToBeAdded[1].comment)
+    cy.get('[data-cy=label-tags-second-thread]')
+      .should('contain', 'Tags')
+    cy.get('[data-cy=tags-preview-second-thread]')
+      .should('contain', tagToBeAdded)
+    cy.get('[data-cy=label-print-territory-second-thread]')
+      .should('contain', 'Gebiet drucken')
+    cy.get('[data-cy=label-assignment-second-thread]')
+      .should('contain', 'Zuteilungen')
+    cy.get('[data-cy=label-not-visit-second-thread]')
+      .should('contain', 'Nicht besuchen Adressen')
   })
 
   it('Gebietskarte drucken', () =>
   {
-    cy.get('app-list-item > .main-wrapper > .label.blue')
+    cy.get('[data-cy=label-print-territory-second-thread]')
       .click()
-    cy.get('.card-format-TerritoryCardFormat\\.s12 > .main-wrapper > .label')
+    cy.get('[data-cy=list-card-format-second-thread]').eq(0)
     cy.get('.mapboxgl-canvas').wait(1000)
       .invoke('css', 'height').then(value => Number(String(value).substring(0, 3)) + 0).should('be.lt', 357).and('be.gt', 354);
-    cy.get('.card-format-TerritoryCardFormat\\.a6 > .main-wrapper > .label')
+
+    cy.get('[data-cy=list-card-format-second-thread]').eq(1)
       .click()
+      .children('.action')
+      .children('[data-cy=icon-format-checked]')
+    cy.get('[data-cy=list-card-format-second-thread]').eq(0)
+      .children('.action')
+      .children('[data-cy=icon-format-checked]')
+      .should('not.exist')
     cy.get('.mapboxgl-canvas').wait(1000)
       .invoke('css', 'height').then(value => Number(String(value).substring(0, 3)) + 0).should('be.lt', 397).and('be.gt', 394);
-    cy.get('.card-format-TerritoryCardFormat\\.a6 > .action > .icon > .feather')
-    cy.get('.bleed-edge-shadow')
-      .should('not.be.visible')
 
-    //cy.get('.comment')
-    //  .should('not.contain', 'Das ist ein Test-Kommentar')
-    cy.get('.preferences.ng-star-inserted > .wrapper').children().click({ multiple: true })
-    cy.get('.bleed-edge-shadow')
-      .should('be.visible')
-    cy.get('.place')
-      .should('contain', territoriesToBeAdded[1].place)
-    cy.get('.number')
-      .should('contain', territoriesToBeAdded[1].number)
-    cy.get('.population-count')
-      .should('contain', territoriesToBeAdded[1].units + ' WE')
-    cy.get('.compass')
-    cy.get('i-feather[name="rotate-cw"]')
+    cy.get('[data-cy=bleeding-edges-territory-card]')
+      .should('not.exist')
+    cy.get('[data-cy=territory-name-card-heading]')
+      .should('not.exist')
+    cy.get('[data-cy=territory-number-card-heading]')
+      .should('not.exist')
+    cy.get('[data-cy=territory-units-card-heading]')
+      .should('not.exist')
+    cy.get('[data-cy=territory-compass-card-heading]')
+      .should('not.exist')
+
+
+    cy.get('[data-cy=territory-card-properties]').children().click({ multiple: true })
+    cy.get('[data-cy=bleeding-edges-territory-card]')
+      .should('exist')
+    cy.get('[data-cy=territory-name-card-heading]')
+      .should('have.text', territoriesToBeAdded[1].place)
+    cy.get('[data-cy=territory-number-card-heading]')
+      .should('have.text', territoriesToBeAdded[1].number)
+    cy.get('[data-cy=territory-units-card-heading]')
+      .should('contain', territoriesToBeAdded[1].units)
+    cy.get('[data-cy=territory-compass-card-heading]')
+    cy.get('[data-cy=button-flip-card-second-thread]')
       .click()
     cy.get('.comment')
-      .should('contain', 'Das ist ein Test-Kommentar')
-    cy.get('i-feather[name="arrow-down-circle"]')
+      .should('contain', territoriesToBeAdded[1].comment)
     cy.get('.street-name')
       .should('contain', streetsToBeAdded[0])
       .and('contain', streetsToBeAdded[1])
-    cy.get('.cancel')
+    cy.get('[data-cy=button-cancel-second-thread-header]')
       .click()
   })
 
-  it('Zuteilungen', () =>
+  xit('Zuteilungen', () =>
   {
-    cy.get('.label.assignment')
+    cy.get('[data-cy=label-assignment-second-thread]')
       .click()
     cy.get('.action.edit')
-      .should('contain', '+ Neue Zuteilung')
       .click()
-    cy.get('.cancel')
+    cy.get('[data-cy=button-cancel-second-thread-header]')
       .click()
 
     cy.get('.action.edit')
-      .should('contain', '+ Neue Zuteilung')
       .click()
-    cy.get('.save.not-valid')
+    cy.get('[data-cy=button-save-second-thread-header]')
+      .filter('.not-valid')
       .should('contain', 'Speichern')
 
     cy.get('input[placeholder="Verkündiger"]')
@@ -333,7 +328,7 @@ describe('GebietsKomponente', () =>
     cy.contains('Gebietskarte an Verkündiger senden')
       .click()
 
-    cy.get('.save')
+    cy.get('[data-cy=button-save-second-thread-header]')
       .click()
     cy.get('app-assignments')
       .should('contain', 'Amadeus')
@@ -355,7 +350,7 @@ describe('GebietsKomponente', () =>
       .type('B')
     cy.get('.search-result').first()
       .click()
-    cy.get('.save')
+    cy.get('[data-cy=button-save-second-thread-header]')
       .click()
     cy.get('app-assignments')
       .should('contain', 'Bertholt')
@@ -371,23 +366,23 @@ describe('GebietsKomponente', () =>
     {
       expect(text).equal(currDate)
     });
-    cy.get('.back')
+    cy.get('[data-cy=button-back-second-thread-header]')
       .click()
   })
-  it('Nicht besuchen Adressen testen', () =>
+  xit('Nicht besuchen Adressen testen', () =>
   {
 
     //Hin und Zurück
     cy.contains('Nicht besuchen')
       .click()
-    cy.get('.back')
+    cy.get('[data-cy=button-back-second-thread-header]')
       .click()
     cy.contains('Nicht besuchen')
       .click()
 
     cy.contains('+ Neue Adresse')
       .click()
-    cy.get('.cancel')
+    cy.get('[data-cy=button-cancel-second-thread-header]')
       .click()
     cy.contains('+ Neue Adresse')
       .click()

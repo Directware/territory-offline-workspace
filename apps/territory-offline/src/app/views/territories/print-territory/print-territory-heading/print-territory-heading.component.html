@@ -1,15 +1,15 @@
 <ng-container *ngIf="printedMapConfiguration">
   <div class="name">
-    <div *ngIf="printedMapConfiguration.showTerritoryName" class="place">{{territory.name}}</div>
+    <div *ngIf="printedMapConfiguration.showTerritoryName" class="place" data-cy="territory-name-card-heading">{{territory.name}}</div>
     <div *ngIf="printedMapConfiguration.showTerritoryName && printedMapConfiguration.showTerritoryKey" class="separator"></div>
-    <div class="number" *ngIf="printedMapConfiguration.showTerritoryKey">{{territory.key}}</div>
+    <div class="number" *ngIf="printedMapConfiguration.showTerritoryKey" data-cy="territory-number-card-heading">{{territory.key}}</div>
     <img alt="image" class="background-color" [src]="blackBackground()"/>
   </div>
-  <div *ngIf="printedMapConfiguration.showPopulationCount" class="population-count">
+  <div *ngIf="printedMapConfiguration.showPopulationCount" class="population-count" data-cy="territory-units-card-heading">
     {{territory.populationCount}} WE
     <img alt="image" class="background-color" [src]="blackBackground()"/>
   </div>
-  <div *ngIf="printedMapConfiguration.showNorth" class="compass" (click)="resetNorth()">
+  <div *ngIf="printedMapConfiguration.showNorth" class="compass" (click)="resetNorth()" data-cy="territory-compass-card-heading">
     N
     <img alt="image" class="north" [ngStyle]="{transform: 'rotate(' + currentBearing +'deg)'}"
          src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDYxICg4OTU4MSkgLSBodHRwczovL3NrZXRjaC5jb20gLS0+CiAgICA8dGl0bGU+Q29tcGFzc3M8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZyBpZD0iQXBwIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0iRHJ1Y2tlbi0tLVByb2dyZXNzaXYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC01NDguMDAwMDAwLCAtMjU3LjAwMDAwMCkiPgogICAgICAgICAgICA8ZyBpZD0iS2FydGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI4My4wMDAwMDAsIDI0NS4wMDAwMDApIj4KICAgICAgICAgICAgICAgIDxnIGlkPSJOb3J0aCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjM5LjAwMDAwMCwgOC4wMDAwMDApIj4KICAgICAgICAgICAgICAgICAgICA8ZyBpZD0iQ29tcGFzc3MiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI2LjAwMDAwMCwgNC4wMDAwMDApIj4KICAgICAgICAgICAgICAgICAgICAgICAgPGNpcmNsZSBpZD0iT3ZhbCIgZmlsbD0iI0ZGNUYxQiIgY3g9IjEyIiBjeT0iMTIiIHI9IjEyIj48L2NpcmNsZT4KICAgICAgICAgICAgICAgICAgICAgICAgPHBvbHlnb24gaWQ9IlBhdGgiIHN0cm9rZT0iI0ZGRkZGRiIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgcG9pbnRzPSI4IDE3IDEyIDYgMTYgMTcgMTIgMTUiPjwvcG9seWdvbj4KICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==">

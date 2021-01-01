@@ -14,7 +14,13 @@ describe('TagKomponente', () =>
 
   before('Rufe Tagübersicht auf', () =>
   {
-    cy.get('[data-cy=icon-tag]')
+    // @ts-ignore
+    cy.configureApp();
+
+    // @ts-ignore
+    cy.navigate('/dashboard');
+
+    cy.get('[data-cy=icon-menu-tags]')
       .click()
   }
   )

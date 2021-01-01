@@ -32,7 +32,7 @@ describe('VerkuendigerKomponente', () =>
     cy.configureApp();
 
     // @ts-ignore
-    cy.navigate('/publishers');
+    cy.navigate('/dashboard');
 
     // @ts-ignore
     cy.createTags(["Getauft", "Ungetauft"]);
@@ -40,7 +40,7 @@ describe('VerkuendigerKomponente', () =>
 
   it('Verkündigerübersicht prüfen', () =>
   {
-    cy.get('[data-cy=icon-users]').click()
+    cy.get('[data-cy=icon-menu-users]').click()
     cy.get('[data-cy=img-publisher]')
     cy.get('[data-cy=info-description]')
       .should('have.text', 'Erstelle oder importiere Verkündiger, um diesen Gebiete zuteilen zu können.')
@@ -52,7 +52,7 @@ describe('VerkuendigerKomponente', () =>
   {
     cy.get('[data-cy=button-add-publisher]')
       .click()
-    cy.get('[data-cy=button-cancel]')
+    cy.get('[data-cy=button-cancel-second-thread-header]')
       .click()
   })
 
@@ -60,7 +60,7 @@ describe('VerkuendigerKomponente', () =>
   {
     cy.get('[data-cy=button-add-publisher]')
       .click()
-    cy.get('[data-cy=button-save]')
+    cy.get('[data-cy=button-save-second-thread-header]')
       .filter('.not-valid')
       .click()
     cy.get('[data-cy=input-firstName]')
@@ -71,8 +71,18 @@ describe('VerkuendigerKomponente', () =>
       .type(publishersToBeAdded[0].email)
     cy.get('[data-cy=input-phone]')
       .type(publishersToBeAdded[0].phone)
-    cy.get('[data-cy=button-save]')
+    cy.get('[data-cy=button-save-second-thread-header]')
       .not('not-valid')
+      .click()
+  })
+
+  it('Verkündiger löschen', () =>
+  {
+    cy.get('[data-cy=label-publisher-list]').eq(0)
+      .click()
+    cy.get('[data-cy=button-edit-second-thread-header]')
+      .click()
+    cy.get('[data-cy=button-delete-publisher]')
       .click()
   })
 
@@ -95,7 +105,7 @@ describe('VerkuendigerKomponente', () =>
       cy.get('[data-cy=search-result-tag]').first()
         .should('have.text', 'Getauft')
         .click()
-      cy.get('[data-cy=button-save]')
+      cy.get('[data-cy=button-save-second-thread-header]')
         .click()
     })
   })
@@ -120,7 +130,7 @@ describe('VerkuendigerKomponente', () =>
       .should('contain', 'Nach dem Lesen der Datenschutzerklärung kann hier eingewilligt werden. Bitte dazu in dem Kasten unterschreiben.')
     cy.get('[data-cy=dsgvo-canvas]')
       .should('be.visible')
-    cy.get('[data-cy=button-cancel]')
+    cy.get('[data-cy=button-cancel-second-thread-header]')
       .click()
   })
   it('Verkündiger in Übersicht vorhanden?', () =>
@@ -165,16 +175,4 @@ describe('VerkuendigerKomponente', () =>
     cy.get('[data-cy=input-search]')
       .clear()
   })
-  it('Tags "Getauft" & "Ungetauft" wieder löschen', () =>
-  {
-    cy.get('[data-cy=icon-tag]')
-      .click()
-    cy.get('[data-cy=button-edit]')
-      .click()
-    cy.get('[data-cy=icon-trash]')
-      .dblclick()
-    cy.get('[data-cy=button-finished]')
-      .click()
-  })
-
 })

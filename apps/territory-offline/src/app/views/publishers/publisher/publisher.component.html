@@ -88,7 +88,7 @@
 
   <app-publisher-signature [signature]="publisher.get('dsgvoSignature')"></app-publisher-signature>
 
-  <app-panel *ngIf="!isCreation" class="delete-publisher animate-color-and-transform" (click)="tryToDeletePublisher()">
+  <app-panel *ngIf="!isCreation" class="delete-publisher animate-color-and-transform" (click)="tryToDeletePublisher()" data-cy="button-delete-publisher">
     <app-list-item>
       <p class="label">{{ 'publisher.delete' | translate }}</p>
       <i-feather class="i-feather action" name="trash"></i-feather>

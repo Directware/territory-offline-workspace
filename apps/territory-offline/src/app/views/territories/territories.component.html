@@ -6,21 +6,21 @@
 </app-main-search>
 <app-panel *ngIf="(territories$ | async) as territories;">
   <div class="wrapper">
-    <p *ngIf="(congregationName$ | async) as congregationName" class="h2-white">{{congregationName}}</p>
+    <p *ngIf="(congregationName$ | async) as congregationName" class="h2-white" data-cy="text-overview-congregation-name‚">{{congregationName}}</p>
     <br/>
-    <p class="h4-white">{{ 'territory.filter' | translate }}</p>
+    <p class="h4-white" data-cy="text-overview-filter-header">{{ 'territory.filter' | translate }}</p>
     <div class="filter-grid">
-      <div [class.active]="mapFilter.inProgress.show" (click)="toggleMapFilter('inProgress')" class="blue">
+      <div [class.active]="mapFilter.inProgress.show" (click)="toggleMapFilter('inProgress')" class="blue" data-cy="filter-in-progress">
         <i-feather name="bell" class="i-feather icon"></i-feather>
         <span class="text">{{ 'territory.inProcessing' | translate }}</span></div>
-      <div [class.active]="mapFilter.done.show" (click)="toggleMapFilter('done')" class="green">
+      <div [class.active]="mapFilter.done.show" (click)="toggleMapFilter('done')" class="green" data-cy="filter-finished">
         <i-feather name="check" class="i-feather icon"></i-feather>
         <span class="text">{{ 'territory.processed' | translate }}</span></div>
-      <div [class.active]="mapFilter.assignable.show" (click)="toggleMapFilter('assignable')" class="yellow">
+      <div [class.active]="mapFilter.assignable.show" (click)="toggleMapFilter('assignable')" class="yellow" data-cy="filter-to-assign">
         <i-feather name="plus" class="i-feather icon"></i-feather>
         <span class="text">{{ 'territory.assign' | translate }}</span></div>
       <div [class.active]="mapFilter.overdueAssignation.show" (click)="toggleMapFilter('overdueAssignation')"
-           class="red">
+           class="red" data-cy="filter-overdue-assignment">
         <i-feather name="alert-circle" class="i-feather icon"></i-feather>
         <span class="text">{{ 'territory.reasignDue' | translate }}</span></div>
     </div>
@@ -31,7 +31,7 @@
     <app-list-item *ngFor="let territory of territories | searchTerritory:search:currentlyFilteredDrawings | async"
                    [class.current]="currentTerritoryId === territory.id"
                    (click)="editTerritory(territory)">
-      <p class="label">{{territory.key}} {{territory.name | slice:0:38}} {{territory?.name?.length > 38 ? "..." : ""}}</p>
+      <p class="label" data-cy="label-territory-list">{{territory.key}} {{territory.name | slice:0:38}} {{territory?.name?.length > 38 ? "..." : ""}}</p>
     </app-list-item>
   </app-list>
 

@@ -5,15 +5,15 @@
   <app-panel class="preferences">
     <div class="wrapper">
       <h2 class="h2-white">{{ 'territory.print.format' | translate }}</h2>
-      <app-list-item *ngFor="let format of territoryCardFormats" (click)="changeFormat(format)" [ngClass]="'card-format-'+format.id">
-        <p class="label">{{format.label}}</p>
-        <i-feather *ngIf="tcf && format.id === tcf.id" class="i-feather icon checked" name="check-circle"></i-feather>
+      <app-list-item *ngFor="let format of territoryCardFormats" (click)="changeFormat(format)" [ngClass]="'card-format-'+format.id" data-cy="list-card-format-second-thread">
+        <p class="label" data-cy="label-card-format-second-thread">{{format.label}}</p>
+        <i-feather *ngIf="tcf && format.id === tcf.id" class="i-feather icon checked" name="check-circle" data-cy="icon-format-checked"></i-feather>
       </app-list-item>
     </div>
   </app-panel>
 
   <app-panel *ngIf="printedMapConfiguration" class="preferences">
-    <div class="wrapper sticker">
+    <div class="wrapper sticker" data-cy="territory-card-properties">
       <h2 class="h2-white">{{ 'territory.print.editLook' | translate }}</h2>
 
       <app-list-item (click)="toggleProp('showTerritoryName')">
@@ -73,7 +73,7 @@
   </app-panel>
 
   <app-panel>
-    <app-list-item (click)="flipCard()">
+    <app-list-item (click)="flipCard()" data-cy="button-flip-card-second-thread">
       <p class="label blue">{{ 'territory.print.flipCard' | translate }}</p>
       <i-feather class="i-feather icon blue" name="rotate-cw"></i-feather>
     </app-list-item>

@@ -8,36 +8,36 @@
 <ng-container *ngIf="readOnly && territory">
   <app-panel>
     <app-list-item>
-      <p class="label location">{{ 'territory.location' | translate }}</p>
-      <p *ngIf="territory.get('name').value as territoryName" class="info location">{{territoryName | slice:0:38}} {{territoryName.length > 38 ? "..." : ""}}</p>
+      <p class="label location" data-cy="label-location-second-thread">{{ 'territory.location' | translate }}</p>
+      <p *ngIf="territory.get('name').value as territoryName" class="info location" data-cy="info-location-second-thread">{{territoryName | slice:0:38}} {{territoryName.length > 38 ? "..." : ""}}</p>
     </app-list-item>
     <app-list-item>
-      <p class="label number">{{ 'territory.number' | translate }}</p>
-      <p class="info number">{{territory.get('key').value}}</p>
+      <p class="label number" data-cy="label-number-second-thread">{{ 'territory.number' | translate }}</p>
+      <p class="info number" data-cy="info-number-second-thread">{{territory.get('key').value}}</p>
     </app-list-item>
   </app-panel>
 
   <app-panel>
     <app-list-item>
-      <p class="label units">{{ 'territory.units' | translate }}</p>
-      <p class="info units">{{territory.get('populationCount').value}}</p>
+      <p class="label units" data-cy="label-units-second-thread">{{ 'territory.units' | translate }}</p>
+      <p class="info units" data-cy="info-units-second-thread">{{territory.get('populationCount').value}}</p>
     </app-list-item>
     <app-list-item>
-      <p class="label comment">{{ 'territory.comment' | translate }}</p>
-      <p class="info comment">{{territory.get('comment').value}}</p>
+      <p class="label comment" data-cy="label-comment-second-thread">{{ 'territory.comment' | translate }}</p>
+      <p class="info comment" data-cy="info-comment-second-thread">{{territory.get('comment').value}}</p>
     </app-list-item>
   </app-panel>
 
   <app-panel class="tags-panel">
     <div class="wrapper">
-      <h3 class="h3-white">{{ 'territory.tags' | translate }}:</h3>
-      <app-tags-preview [tagIds]="territory.get('tags').value"></app-tags-preview>
+      <h3 class="h3-white" data-cy="label-tags-second-thread">{{ 'territory.tags' | translate }}:</h3>
+      <app-tags-preview [tagIds]="territory.get('tags').value" data-cy="tags-preview-second-thread"></app-tags-preview>
     </div>
   </app-panel>
 
   <app-panel>
     <app-list-item (click)="printTerritory(territory.get('id').value)">
-      <p class="label blue">{{ 'territory.print.title' | translate }}</p>
+      <p class="label blue" data-cy="label-print-territory-second-thread">{{ 'territory.print.title' | translate }}</p>
       <i-feather name="printer" class="i-feather action blue"></i-feather>
     </app-list-item>
     <app-list-item *ngIf="(assignment$ | async)" (click)="sendToPublisher()">
@@ -45,7 +45,7 @@
       <i-feather name="share" class="i-feather action blue"></i-feather>
     </app-list-item>
     <app-list-item (click)="exportToKML()">
-      <p class="label blue">{{ 'territory.toKml' | translate }}</p>
+      <p class="label blue" data-cy="label-export-kml-second-thread">{{ 'territory.toKml' | translate }}</p>
       <i-feather name="log-out" class="i-feather action blue"></i-feather>
     </app-list-item>
   </app-panel>
@@ -74,11 +74,11 @@
 
   <app-panel>
     <app-list-item (click)="openAssignments(territory.get('id').value)">
-      <p class="label assignment">{{ 'territory.assignment' | translate }}</p>
+      <p class="label assignment" data-cy="label-assignment-second-thread">{{ 'territory.assignment' | translate }}</p>
       <i-feather name="chevron-right" class="i-feather action"></i-feather>
     </app-list-item>
     <app-list-item (click)="openVisitBans(territory.get('id').value)">
-      <p class="label do-not-visit">{{ 'territory.visitBans' | translate }}</p>
+      <p class="label do-not-visit" data-cy="label-not-visit-second-thread">{{ 'territory.visitBans' | translate }}</p>
       <i-feather name="chevron-right" class="i-feather action"></i-feather>
     </app-list-item>
   </app-panel>
@@ -87,21 +87,21 @@
 <form *ngIf="!readOnly" [formGroup]="territory">
   <app-panel>
     <app-list-item>
-      <input type="text" [placeholder]="('territory.number' | translate) + '*'" class="input" formControlName="key" name="firstName" autocomplete="off">
+      <input type="text" [placeholder]="('territory.number' | translate) + '*'" class="input" formControlName="key" name="firstName" autocomplete="off" data-cy="input-territory-number">
     </app-list-item>
     <app-list-item>
-      <input type="text" [placeholder]="('territory.location' | translate) + '*'" class="input" formControlName="name" name="name" autocomplete="off">
+      <input type="text" [placeholder]="('territory.location' | translate) + '*'" class="input" formControlName="name" name="name" autocomplete="off" data-cy="input-territory-location">
     </app-list-item>
   </app-panel>
 
   <app-panel>
     <app-list-item>
       <input type="number" [placeholder]="'territory.units' | translate" class="input" formControlName="populationCount"
-             name="populationCount" autocomplete="off">
+             name="populationCount" autocomplete="off" data-cy="input-territory-units">
     </app-list-item>
     <app-list-item>
       <textarea [placeholder]="'territory.comment' | translate" class="input" formControlName="comment" name="comment"
-                autocomplete="off"></textarea>
+                autocomplete="off" data-cy="input-territory-comment"></textarea>
     </app-list-item>
   </app-panel>
 

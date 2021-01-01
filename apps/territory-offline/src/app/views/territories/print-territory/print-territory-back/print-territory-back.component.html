@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <div class="comment" *ngIf="showComment">
+    <div class="comment" *ngIf="showComment" data-cy="comment-territory-card-back">
       <i-feather class="i-feather" name="info"></i-feather>
       {{territory.comment}}
     </div>
@@ -41,7 +41,7 @@
       <div class="bleed-edge-shadow left"></div>
     </ng-container>
 
-    <div *ngIf="showBleedingEdges" class="for-printing">
+    <div *ngIf="showBleedingEdges" class="for-printing" data-cy="bleeding-edges-territory-card">
       <div class="line top left horizontal"></div>
       <div class="line top left vertical"></div>
       <div class="line top right horizontal"></div>
@@ -63,7 +63,7 @@
         <div class="street">{{ 'territory.print.streets' | translate }}</div>
       </div>
       <div class="address-line" *ngFor="let boundaryName of boundaryNamesWithPadding();let i = index">
-        <div class="street-name">{{boundaryName}}</div>
+        <div class="street-name" data-cy="street-names-territory-card-back">{{boundaryName}}</div>
       </div>
     </div>
   </div>
