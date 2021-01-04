@@ -5,21 +5,21 @@
 <div class="scrollable-wrapper" *ngIf="(assignments$ | async) as assignments">
   <app-panel *ngFor="let assignment of assignments">
     <app-list-item>
-      <p class="label h3-white">{{(assignment.publisherId | publisherIdToName | async) || assignment.removedPublisherLabel || 'assignments.unkown' | translate }}</p>
+      <p class="label h3-white" data-cy="label-assignments-publisher">{{(assignment.publisherId | publisherIdToName | async) || assignment.removedPublisherLabel || 'assignments.unkown' | translate }}</p>
     </app-list-item>
     <app-list-item>
-      <p class="label body-white">{{ 'assignments.startTime' | translate }}</p>
-      <p class="info">{{assignment.startTime | date:'dd.MM.yyyy'}}</p>
+      <p class="label body-white" data-cy="label-assignments-start-time">{{ 'assignments.startTime' | translate }}</p>
+      <p class="info" data-cy="info-assignments-start-time">{{assignment.startTime | date:'dd.MM.yyyy'}}</p>
     </app-list-item>
     <app-list-item>
-      <p class="label body-white">{{ 'assignments.endTime' | translate }}</p>
-      <p class="info">{{assignment.endTime | date:'dd.MM.yyyy'}}</p>
+      <p class="label body-white" data-cy="label-assignments-end-time">{{ 'assignments.endTime' | translate }}</p>
+      <p class="info" data-cy="info-assignments-end-time">{{assignment.endTime | date:'dd.MM.yyyy'}}</p>
     </app-list-item>
     <app-list-item>
-      <p (click)="editAssignment(assignment)" class="label blue">{{ 'assignments.edit' | translate }}</p>
+      <p (click)="editAssignment(assignment)" class="label blue" data-cy="label-assignments-edit">{{ 'assignments.edit' | translate }}</p>
       <div class="info" *ngIf="!assignment.endTime">
-        <i-feather (click)="giveBack(assignment)" name="download" class="i-feather blue short-action"></i-feather>
-        <i-feather (click)="giveBackAndAssign(assignment)" name="repeat" class="i-feather blue short-action"></i-feather>
+        <i-feather (click)="giveBack(assignment)" name="download" class="i-feather blue short-action" data-cy="icon-assignments-download"></i-feather>
+        <i-feather (click)="giveBackAndAssign(assignment)" name="repeat" class="i-feather blue short-action" data-cy="icon-assignments-repeat"></i-feather>
       </div>
     </app-list-item>
   </app-panel>

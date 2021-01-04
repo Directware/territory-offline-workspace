@@ -8,27 +8,27 @@
 
   <app-panel class="start-time">
     <app-list-item  (click)="editStartTime=true">
-      <p class="label" data-cy="label-assignments-start-time">{{ 'assignments.startTime' | translate }}</p>
-      <p class="info" data-cy="info-assignments-start-time">{{assignment.get('startTime').value | date:'dd.MM.yyyy'}}</p>
+      <p class="label" data-cy="label-assignment-start-time">{{ 'assignments.startTime' | translate }}</p>
+      <p class="info" data-cy="info-assignment-start-time">{{assignment.get('startTime').value | date:'dd.MM.yyyy'}}</p>
     </app-list-item>
     <div class="wrapper" *ngIf="editStartTime">
       <!--
       <app-date-picker [vFormControl]="assignment.get('startTime')"></app-date-picker>
       -->
-      <ui-date-input [vFormControl]="assignment.get('startTime')" data-cy="input-date-start-time-assignments"></ui-date-input>
+      <ui-date-input [vFormControl]="assignment.get('startTime')" data-cy="input-date-start-time-assignment"></ui-date-input>
     </div>
   </app-panel>
 
   <app-panel class="end-time">
     <app-list-item  (click)="editEndTime=true">
-      <p class="label" data-cy="label-assignments-end-time">{{ 'assignments.endTime' | translate }}</p>
-      <p class="info"data-cy="info-assignments-end-time">{{(assignment.get('endTime').value | date:'dd.MM.yyyy') || '-'}}</p>
+      <p class="label" data-cy="label-assignment-end-time">{{ 'assignments.endTime' | translate }}</p>
+      <p class="info"data-cy="info-assignment-end-time">{{(assignment.get('endTime').value | date:'dd.MM.yyyy') || '-'}}</p>
     </app-list-item>
     <div class="wrapper" *ngIf="editEndTime">
       <!--
       <app-date-picker [vFormControl]="assignment.get('endTime')"></app-date-picker>
       -->
-      <ui-date-input [vFormControl]="assignment.get('endTime')" data-cy="input-date-end-time-assignments"></ui-date-input>
+      <ui-date-input [vFormControl]="assignment.get('endTime')" data-cy="input-date-end-time-assignment"></ui-date-input>
     </div>
   </app-panel>
 
@@ -45,7 +45,8 @@
 
   <app-panel *ngIf="!isCreation" class="delete-assignment animate-color-and-transform"
              (click)="deleteAssignment()"
-             [class.ready-to-delete-button]="readyToDelete">
+             [class.ready-to-delete-button]="readyToDelete"
+             data-cy="button-delete-assignment">
     <app-list-item>
       <p class="label">{{ 'assignments.delete' | translate }}</p>
       <i-feather class="i-feather action" name="trash"></i-feather>
