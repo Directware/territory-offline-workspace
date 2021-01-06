@@ -2,8 +2,8 @@
 <ng-container *ngIf="grid">
   <div class="grid-cell" (click)="chooseDate(day)" *ngFor="let day of grid"
        [class.chosen]="chosenDay && day.dayIndex === chosenDay.dayIndex"
-       [class.has-data]="day.hasData">
+       [class.has-data]="day.hasData" data-cy="number-days-calendar">
     {{day.text}}
-    <div *ngIf="day.hasDot" class="has-dot"></div>
+    <div *ngIf="day.hasDot" class="has-dot" data-cy="curr-day-with-dot"></div>
   </div>
 </ng-container>

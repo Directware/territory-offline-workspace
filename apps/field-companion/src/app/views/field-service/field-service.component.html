@@ -76,11 +76,13 @@
   <div class="service-input-wrapper" [class.not-empty]="(chosenCalendarCell$ | async)">
 
     <app-field-service-inputs *ngIf="(chosenCalendarCell$ | async) as chosenCalendarCell; else noChosenDay"
-                              [chosenDay]="chosenCalendarCell"></app-field-service-inputs>
+                              [chosenDay]="chosenCalendarCell" data-cy="inputs-field-service"></app-field-service-inputs>
 
     <ng-template #noChosenDay>
-      <p class="no-day-chosen">{{"service.noDayChosen" | translate}}</p>
-      <p class="no-day-chosen-desc">{{"service.noDayChosenDesc" | translate}}</p>
+      <div data-cy="info-box-no-day-chosen">
+        <p class="no-day-chosen">{{"service.noDayChosen" | translate}}</p>
+        <p class="no-day-chosen-desc">{{"service.noDayChosenDesc" | translate}}</p>
+      </div>
     </ng-template>
   </div>
 </div>

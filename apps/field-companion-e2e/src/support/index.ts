@@ -15,3 +15,21 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands';
+
+before(() =>
+{
+  indexedDB.deleteDatabase('field-companionIDB')
+  cy.visit("/");
+  cy.url()
+    .should('include', 'welcome')
+  cy.get('[data-cy=button-continue-welcome]')
+    .click()
+  cy.url()
+    .should('include', 'field-service')
+  cy.get('[data-cy=button-confirm-new-feature-territory]')
+    .click()
+  cy.get('[data-cy=button-confirm-new-feature-report-minute]')
+    .click()
+})
+
+
