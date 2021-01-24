@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import * as XLSX from 'xlsx';
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ImportFromExcelModalComponent} from "../import-from-excel-modal.component";
@@ -10,36 +10,44 @@ import {selectAllTerritories} from "../../../../core/store/territories/territori
 import {selectAllDrawings} from "../../../../core/store/drawings/drawings.selectors";
 import {combineLatest} from "rxjs";
 import * as Turf from '@turf/turf';
-import {BulkImportVisitBansSuccess} from "../../../../core/store/visit-bans/visit-bans.actions";
+import {BulkImportVisitBans, BulkImportVisitBansSuccess} from "../../../../core/store/visit-bans/visit-bans.actions";
 import {uuid4} from "@capacitor/core/dist/esm/util";
 import {Actions, ofType} from "@ngrx/effects";
 import {WaitingModalComponent} from "../../../shared/modals/waiting-modal/waiting-modal.component";
 import {parseXlsxDate} from "../../../../core/utils/usefull.functions";
 import {Drawing, Territory, VisitBan} from "@territory-offline-workspace/api";
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
+import {VisitBanImportMapperStepper} from "./visit-ban-import-mapper-stepper";
+import {MatStepper} from "@angular/material/stepper";
+import {ExcelToEntityMapper} from "../../../../core/utils/excel/excel-to-entity-mapper";
+import {ExcelColumn} from "../../../../core/utils/excel/excel-column";
 
 @Component({
   selector: 'app-import-visit-bans-from-excel',
   templateUrl: './import-visit-bans-from-excel.component.html',
   styleUrls: ['./import-visit-bans-from-excel.component.scss']
 })
-export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewChecked
+export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewInit
 {
-  @Input()
-  public currentStep: number;
-
   @Input()
   public workbook: XLSX.WorkBook;
 
-  public steps = ["", "sheetName", "name", "street", "streetSuffix", "city", "latitude", "longitude", "comment", "lastVisit", "creationTime"];
-  public chosenProps = {};
-  public foundColumns = [];
+  @ViewChild(MatStepper, {static: false})
+  public matStepper: MatStepper;
+
+  public steps = ["name", "street", "streetSuffix", "city", "latitude", "longitude", "comment", "lastVisit", "creationTime"];
+  public titles = ["chooseNameColumns", "chooseStreetColumn", "chooseHouseNumberColumn", "chooseCitiesColumn", "chooseLatitudeColumn", "chooseLongitudeColumn", "chooseCommentColumn", "chooseLastVisitColumn", "chooseCreationTimeColumn"];
+
+  public foundColumns: ExcelColumn[];
   public overrideExistingData: boolean;
   public importDone: boolean;
   public visitBansWithoutTerritory: VisitBan[];
+  public excelToEntityMapper: ExcelToEntityMapper;
+  public visitBanImportMapperStepper: VisitBanImportMapperStepper;
 
   constructor(private store: Store<ApplicationState>,
               private actions$: Actions,
+              private elementRef: ElementRef,
               private matDialog: MatDialog,
               private dialogRef: MatDialogRef<ImportFromExcelModalComponent>,
               private translate: TranslateService)
@@ -50,38 +58,26 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewCheck
   {
   }
 
-  public ngAfterViewChecked()
+  public async ngAfterViewInit()
   {
-    this.translate.get('transfer.import.column').pipe(take(1)).subscribe((translation: string) => {
-      if (this.currentStep === 2 && this.foundColumns.length === 0)
-      {
-        const sheet = this.workbook.Sheets[this.chosenProps[this.steps[1]]];
-        const range = XLSX.utils.decode_range(sheet["!ref"]);
+    // expression changed after it was checked bei isLastStep()
+    setTimeout(() => this.visitBanImportMapperStepper = new VisitBanImportMapperStepper(this.matStepper));
+  }
 
-        for (let colNum = range.s.c; colNum <= range.e.c; colNum++)
-        {
-          const cell = sheet[XLSX.utils.encode_cell({r: 0, c: colNum})];
+  public nextStep()
+  {
+    this.visitBanImportMapperStepper.nextStep();
+    this.scrollMatStepToTop();
 
-          if (cell && cell["t"] === "s")
-          {
-            const value = cell["v"];
-            this.foundColumns.push({
-              label: `${colNum + 1}. ${translation} - ${value}`,
-              index: colNum
-            });
-          }
+    if (this.visitBanImportMapperStepper.currentStep() === 1)
+    {
+      this.readColumnsOfCurrentSheet();
+    }
+  }
 
-          if (cell && cell["t"] === "n")
-          {
-            const value = XLSX.SSF.parse_date_code(cell["v"]);
-            this.foundColumns.push({
-              label: `${colNum + 1}. ${translation} - ${value.d}.${value.m}.${value.y}`,
-              index: colNum
-            });
-          }
-        }
-      }
-    });
+  public isLastStep(): boolean
+  {
+    return this.visitBanImportMapperStepper && this.visitBanImportMapperStepper.isLastStep();
   }
 
   public close()
@@ -91,31 +87,22 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewCheck
 
   public setSheet(sheetName: string)
   {
-    this.chosenProps[this.steps[this.currentStep]] = sheetName;
+    this.excelToEntityMapper = new ExcelToEntityMapper(sheetName);
   }
 
-  public setChosenProp(column: any)
+  public setChosenProp(step: string, column: ExcelColumn)
   {
-    this.chosenProps[this.steps[this.currentStep]] = column.index;
+    this.excelToEntityMapper.setValueOf(step, column)
   }
 
-  public shouldHide(column: any): boolean
+  public shouldHide(step: string, column: ExcelColumn): boolean
   {
-    return this.chosenProps[this.steps[this.currentStep]] !== column.index && Object.values(this.chosenProps).includes(column.index);
-  }
-
-  public showChosenProp(column: any)
-  {
-    const key = Object.keys(this.chosenProps).filter(key => this.chosenProps[key] === column.index)[0];
-    return {
-      label: key ? `transfer.importExcel.visitBans.${key}` : "transfer.importExcel.skipped",
-      isGreen: !!key
-    }
+    return this.excelToEntityMapper.isValueAlreadyInUse(column) && this.excelToEntityMapper.getColumnValueOf(step) !== column.value;
   }
 
   public import()
   {
-    const waitingModal = this.matDialog.open(WaitingModalComponent);
+    const waitingModal = this.matDialog.open(WaitingModalComponent, {disableClose: true});
     combineLatest([
       this.store.pipe(select(selectAllVisitBans)),
       this.store.pipe(select(selectAllTerritories)),
@@ -172,7 +159,7 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewCheck
           tap(() => waitingModal.close())
         ).subscribe();
 
-        // this.store.dispatch(BulkImportVisitBans({visitBans: extractedDataWithTerritory}));
+        this.store.dispatch(BulkImportVisitBans({visitBans: extractedDataWithTerritory}));
 
         if (!!extractedDataWithoutTerritory && extractedDataWithoutTerritory.length > 0)
         {
@@ -184,20 +171,20 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewCheck
 
   private extractDataFromSheet(territories: Territory[], drawings: Drawing[])
   {
-    const sheet = this.workbook.Sheets[this.chosenProps[this.steps[1]]];
+    const sheet = this.workbook.Sheets[this.excelToEntityMapper.sheetName];
     const range = XLSX.utils.decode_range(sheet["!ref"]);
     const tmp = [];
     let territoryId = null;
 
     for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++)
     {
-      const name = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.chosenProps["name"]})];
-      const street = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.chosenProps["street"]})];
-      const streetSuffix = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.chosenProps["streetSuffix"]})];
-      const city = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.chosenProps["city"]})];
-      const comment = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.chosenProps["comment"]})];
-      const latitude = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.chosenProps["latitude"]})];
-      const longitude = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.chosenProps["longitude"]})];
+      const name = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("name")})];
+      const street = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("street")})];
+      const streetSuffix = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("streetSuffix")})];
+      const city = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("city")})];
+      const comment = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("comment")})];
+      const latitude = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("latitude")})];
+      const longitude = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("longitude")})];
 
       const lat = latitude ? parseFloat(latitude["v"]) : null;
       const lng = longitude ? parseFloat(longitude["v"]) : null;
@@ -207,7 +194,16 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewCheck
         drawings.forEach(d => d.featureCollection.features.forEach((f: any) =>
         {
           const point = Turf.point([lng, lat]);
-          if (Turf.booleanPointInPolygon(point, f))
+
+          let isIn = false;
+          try
+          {
+            isIn = Turf.booleanPointInPolygon(point, f)
+          } catch (e)
+          {
+          }
+
+          if (isIn)
           {
             territoryId = territories.filter(t => t.territoryDrawingId === d.id)[0].id;
           }
@@ -215,7 +211,7 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewCheck
       }
       else
       {
-          // TODO implement geo coding
+        // TODO implement geo coding
       }
 
       tmp.push({
@@ -224,13 +220,67 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewCheck
         streetSuffix: streetSuffix ? streetSuffix["v"] : "",
         city: city ? city["v"] : "",
         comment: comment ? comment["v"] : "",
-        lastVisit: parseXlsxDate(sheet[XLSX.utils.encode_cell({r: rowNum, c: this.chosenProps["lastVisit"]})]),
-        creationTime: parseXlsxDate(sheet[XLSX.utils.encode_cell({r: rowNum, c: this.chosenProps["creationTime"]})]),
+        lastVisit: parseXlsxDate(sheet[XLSX.utils.encode_cell({
+          r: rowNum,
+          c: this.excelToEntityMapper.getColumnIndexOf("lastVisit")
+        })]),
+        creationTime: parseXlsxDate(sheet[XLSX.utils.encode_cell({
+          r: rowNum,
+          c: this.excelToEntityMapper.getColumnIndexOf("creationTime")
+        })]),
         gpsPosition: {lat: lat, lng: lng},
         territoryId: territoryId
       });
     }
 
     return tmp;
+  }
+
+  private async readColumnsOfCurrentSheet()
+  {
+    const translation = await this.translate.get('transfer.import.column').pipe(take(1)).toPromise();
+    this.foundColumns = [];
+    const sheet = this.workbook.Sheets[this.excelToEntityMapper.sheetName];
+    const range = XLSX.utils.decode_range(sheet["!ref"]);
+
+    for (let colNum = range.s.c; colNum <= range.e.c; colNum++)
+    {
+      const cell = sheet[XLSX.utils.encode_cell({r: 0, c: colNum})];
+
+      if (cell && cell["t"] === "s")
+      {
+        const value = cell["v"];
+        this.foundColumns.push({
+          label: `${colNum + 1}. ${translation} - ${value}`,
+          index: colNum,
+          value: value
+        });
+      }
+
+      if (cell && cell["t"] === "n")
+      {
+        const value = XLSX.SSF.parse_date_code(cell["v"]);
+        this.foundColumns.push({
+          label: `${colNum + 1}. ${translation} - ${value.d}.${value.m}.${value.y}`,
+          index: colNum,
+          value: value
+        });
+      }
+    }
+  }
+
+  private scrollMatStepToTop()
+  {
+    setTimeout(() =>
+    {
+      const currentStep = this.visitBanImportMapperStepper.currentStep();
+      const dialogBody = this.elementRef.nativeElement.querySelector(".body") as HTMLDivElement;
+      const currentStepHeaderElement = this.elementRef.nativeElement.querySelectorAll(".mat-step-header")[currentStep] as HTMLElement;
+
+      dialogBody.scroll({
+        top: currentStepHeaderElement.offsetTop,
+        behavior: 'smooth'
+      });
+    }, 300);
   }
 }

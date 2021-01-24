@@ -9,6 +9,7 @@ import {VisitBan} from "@territory-offline-workspace/api";
 import {TerritoryMapsService} from "../../../core/services/territory/territory-maps.service";
 import {TranslateService} from "@ngx-translate/core";
 import {isInLocationPath} from "../../../core/utils/usefull.functions";
+import {DeleteVisitBan} from "../../../core/store/visit-bans/visit-bans.actions";
 
 @Component({
   selector: 'app-whole-visit-bans',
@@ -133,7 +134,8 @@ export class WholeVisitBansComponent implements OnInit, OnDestroy
     this.visitBans$ = this.store.pipe(
       select(selectAllVisitBans),
       map(visitBans => visitBans.sort((vb1, vb2) => this.sortFunction(vb1, vb2))),
-      map(visitBans => [...visitBans])
+      map(visitBans => [...visitBans]),
+      // tap(vbs => vbs.forEach(vb => this.store.dispatch(DeleteVisitBan({visitBan: vb}))))
     );
   }
 

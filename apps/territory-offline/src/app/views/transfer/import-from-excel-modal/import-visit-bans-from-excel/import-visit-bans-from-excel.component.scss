@@ -26,13 +26,73 @@
   }
 
   .body {
+    position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 1.5rem 7rem;
+    padding: 1.5rem 2rem;
     box-sizing: border-box;
     max-height: 32rem;
     overflow: auto;
+
+    .choose-property {
+      margin: 0 0 1.5rem 0;
+    }
+
+    .stepper {
+      background: transparent;
+
+      ::ng-deep .mat-step-icon {
+        background: rgba(255, 255, 255, 0.3);
+        height: 1rem;
+        width: 1rem;
+        margin: 0 12px 0 5px;
+
+        &.mat-step-icon-state-edit,
+        &.mat-step-icon-selected{
+          background: #fff;
+        }
+
+        .mat-step-icon-content {
+
+          > * {
+            display: none;
+          }
+        }
+      }
+
+      ::ng-deep .mat-stepper-vertical-line {
+
+        &::before {
+          border-left-color: rgba(255, 255, 255, 0.3);
+          // top: -28px;
+          // bottom: -28px;
+        }
+      }
+
+      ::ng-deep .mat-step-label {
+        color: #a0a4ac;
+
+        &.mat-step-label-active {
+          color: #fff;
+
+          .chosen-value-step {
+            display: inline-block;
+          }
+        }
+
+        .chosen-value-step {
+          display: none;
+          color: $seaweed;
+          margin: 0 0 0 1rem;
+          font-size: 12px;
+        }
+      }
+
+      .step-description {
+        color: #adb1b8;
+      }
+    }
 
     &.import-done {
       justify-content: center;
@@ -73,6 +133,13 @@
       }
     }
 
+    .scrollable-wrapper {
+
+      app-panel.app-panel {
+        margin: 0;
+      }
+    }
+
     .app-panel {
       margin: 1.5rem 0 0 0;
 
@@ -85,6 +152,8 @@
 
         .app-list {
           padding: 0 0 0 0.25rem;
+          max-height: 15rem;
+          overflow: auto;
 
           .app-list-item {
 

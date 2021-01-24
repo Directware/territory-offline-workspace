@@ -1,62 +1,78 @@
 <div *ngIf="!importDone" class="header">
   <p (click)="close()">{{ 'transfer.importExcel.cancel' | translate }}</p>
-  <p class="continue" *ngIf="currentStep < steps.length" [class.disabled]="!chosenProps['sheetName']" (click)="currentStep=currentStep+1">{{ 'transfer.importExcel.next' | translate }}</p>
-  <p class="continue" *ngIf="currentStep === steps.length" (click)="import()">{{ 'transfer.importExcel.import' | translate }}</p>
+  <p class="continue" *ngIf="!isLastStep()"
+     [class.disabled]="!excelToEntityMapper"
+     (click)="nextStep()">{{ 'transfer.importExcel.next' | translate }}</p>
+  <p class="continue" *ngIf="isLastStep()" (click)="import()">{{ 'transfer.importExcel.import' | translate }}</p>
 </div>
+
 <div *ngIf="!importDone" class="body">
-  <p *ngIf="currentStep === 1" class="body-grey" [innerHtml]="'transfer.importExcel.chooseSheets' | translate"></p>
-  <p *ngIf="currentStep === 2" class="body-grey" [innerHtml]="'transfer.importExcel.chooseNameColumns' | translate"></p>
-  <p *ngIf="currentStep === 3" class="body-grey" [innerHtml]="'transfer.importExcel.chooseStreetColumn' | translate"></p>
-  <p *ngIf="currentStep === 4" class="body-grey" [innerHtml]="'transfer.importExcel.chooseHouseNumberColumn' | translate"></p>
-  <p *ngIf="currentStep === 5" class="body-grey" [innerHtml]="'transfer.importExcel.chooseCitiesColumn' | translate"></p>
-  <p *ngIf="currentStep === 6" class="body-grey" [innerHtml]="'transfer.importExcel.chooseLatitudeColumn' | translate"></p>
-  <p *ngIf="currentStep === 7" class="body-grey" [innerHtml]="'transfer.importExcel.chooseLongitudeColumn' | translate"></p>
-  <p *ngIf="currentStep === 8" class="body-grey" [innerHtml]="'transfer.importExcel.chooseCommentColumn' | translate"></p>
-  <p *ngIf="currentStep === 9" class="body-grey" [innerHtml]="'transfer.importExcel.chooseLastVisitColumn' | translate"></p>
-  <p *ngIf="currentStep === steps.length" class="body-grey">
-    {{ 'transfer.importExcel.verify' | translate }}
-    <br />
-    <br />
-    <strong class="danger">{{ 'transfer.importExcel.override' | translate }}</strong></p>
-  <ui-switch class="ui-switch" *ngIf="currentStep === steps.length" [(ngModel)]="overrideExistingData"></ui-switch>
+  <mat-vertical-stepper [linear]="true" class="stepper" #stepper>
+    <!-- SHEET SELECT -->
+    <mat-step>
+      <ng-template matStepLabel>
+        {{"transfer.importExcel.visitBanCols.sheetName" | translate}}
+        <span class="chosen-value-step">{{excelToEntityMapper?.sheetName}}</span>
+      </ng-template>
+      <div>
+        <p class="step-description" [innerHtml]="'transfer.importExcel.chooseSheets' | translate"></p>
+        <app-panel>
+          <div class="wrapper">
+            <h2 class="h2-white">{{ 'transfer.importExcel.foundSheets' | translate }}</h2>
+            <app-list>
+              <app-list-item *ngFor="let sheetName of workbook.SheetNames" (click)="setSheet(sheetName)">
+                <p class="label">{{sheetName}}</p>
+                <i-feather *ngIf="excelToEntityMapper?.sheetName === sheetName" name="check" class="action"></i-feather>
+              </app-list-item>
+            </app-list>
+          </div>
+        </app-panel>
+      </div>
+    </mat-step>
 
-  <app-panel *ngIf="currentStep === 1">
-    <div class="wrapper">
-      <h2 class="h2-white">{{ 'transfer.importExcel.foundSheets' | translate }}</h2>
-      <app-list>
-        <app-list-item *ngFor="let sheetName of workbook.SheetNames" (click)="setSheet(sheetName)">
-          <p class="label">{{sheetName}}</p>
-          <i-feather *ngIf="chosenProps[steps[currentStep]] === sheetName" name="check" class="action"></i-feather>
-        </app-list-item>
-      </app-list>
-    </div>
-  </app-panel>
+    <!-- COLUMN SELECT -->
+    <mat-step *ngFor="let step of steps;let i = index">
+        <ng-template matStepLabel>
+          {{"transfer.importExcel.visitBanCols." + steps[i] | translate}}
+          <span class="chosen-value-step">{{excelToEntityMapper?.getColumnOf(step)?.value || ("common.skip" | translate)}}</span>
+        </ng-template>
+        <div>
+          <p class="step-description" [innerHtml]="'transfer.importExcel.' + titles[i] | translate"></p>
 
-  <app-panel *ngIf="currentStep > 1 && currentStep < steps.length">
-    <div class="wrapper">
-      <h2 class="h2-white">{{ 'transfer.importExcel.foundColumns' | translate }}</h2>
-      <app-list>
-        <app-list-item *ngFor="let column of foundColumns" [class.disabled]="shouldHide(column)"
-                       (click)="setChosenProp(column)">
-          <p class="label">{{column.label}}</p>
-          <i-feather *ngIf="column.index === chosenProps[steps[currentStep]]" name="check" class="action"></i-feather>
-        </app-list-item>
-      </app-list>
-    </div>
-  </app-panel>
+          <app-panel *ngIf="excelToEntityMapper">
+            <div class="wrapper">
+              <h2 class="h2-white">{{ 'transfer.importExcel.foundColumns' | translate }}</h2>
+              <app-list>
+                <app-list-item (click)="excelToEntityMapper.setValueOf(step, null)">
+                  <p class="danger label">{{"common.skip" | translate}}</p>
+                  <i-feather *ngIf="!excelToEntityMapper.hasValue(step)" name="check" class="action"></i-feather>
+                </app-list-item>
+                <app-list-item *ngFor="let column of foundColumns" [class.disabled]="shouldHide(step, column)" (click)="setChosenProp(step, column)">
+                  <p class="label">{{column.label}}</p>
+                  <i-feather *ngIf="excelToEntityMapper.getColumnValueOf(step) === column.value" name="check" class="action"></i-feather>
+                </app-list-item>
+              </app-list>
+            </div>
+          </app-panel>
 
-  <app-panel *ngIf="currentStep === steps.length">
-    <div class="wrapper">
-      <h2 class="h2-white">{{ 'transfer.importExcel.mappedColumns' | translate }}</h2>
-      <app-list>
-        <app-list-item *ngFor="let column of foundColumns">
-          <p class="label">{{column.label}}</p>
-          <p *ngIf="showChosenProp(column) as result" class="info" [class.green]="result.isGreen">{{result.label | translate}}</p>
-        </app-list-item>
-      </app-list>
-    </div>
-  </app-panel>
+        </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>
+        {{"transfer.importExcel.import"| translate}}
+      </ng-template>
+      <div>
+        <p class="choose-property body-grey">
+          <strong class="danger">{{ 'transfer.importExcel.override' | translate }}</strong>
+          <br />
+          <br />
+          <ui-switch class="ui-switch" [(ngModel)]="overrideExistingData"></ui-switch>
+        </p>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
 </div>
+
 <div *ngIf="importDone" class="body import-done">
   <img alt="image" src="assets/images/import-done.svg">
   <h3 class="h3-white">{{ 'transfer.importExcel.success' | translate }}</h3>

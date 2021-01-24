@@ -13,7 +13,7 @@ import {CongregationsComponent} from './views/congregations/congregations.compon
 import {TransferComponent} from './views/transfer/transfer.component';
 import {SettingsComponent} from './views/settings/settings.component';
 import {LockScreenComponent} from './views/lock-screen/lock-screen.component';
-import {select, Store, StoreModule} from '@ngrx/store';
+import {Store, StoreModule} from '@ngrx/store';
 import {Actions, EffectsModule, ofType} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {ApplicationState, reducers} from './core/store/index.reducers';
@@ -76,8 +76,10 @@ import {first, tap} from "rxjs/operators";
 import {LoadSettingsSuccess} from "./core/store/settings/settings.actions";
 import {Plugins} from '@capacitor/core';
 import {DurationPhrasePipe} from './core/pipes/duration-phrase.pipe';
-import { ImportGeoJsonComponent } from './views/transfer/import-geo-json/import-geo-json.component';
+import {ImportGeoJsonComponent} from './views/transfer/import-geo-json/import-geo-json.component';
 import {Router} from "@angular/router";
+import {MatStepperModule} from "@angular/material/stepper";
+
 declare const sourceMapSupport: any;
 const {Device} = Plugins;
 
@@ -155,6 +157,7 @@ const {Device} = Plugins;
     UiComponentsModule,
     HammerModule,
     ColorPickerModule,
+    MatStepperModule,
     TranslateModule.forRoot(),
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),

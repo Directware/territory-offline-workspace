@@ -4,7 +4,8 @@ export const de = {
     "shareNotAvailable": "Leider ist das Teilen auf dieser Platform nicht verfügbar. Der Text wird in die Zwischenablage kopiert.",
     "ignore": "Ignorieren",
     "choose": "Bitte auswählen",
-    "nothingChosen": "Nichts ausgewählt"
+    "nothingChosen": "Nichts ausgewählt",
+    "skip": "Überspringen"
   },
   "assignments": {
     "startTime": "Ausgabedatum",
@@ -304,7 +305,9 @@ export const de = {
       "chooseLongitudeColumn": "Bitte wähle aus, in welcher der Spalten die <strong>Längengrade</strong> sind.",
       "chooseCommentColumn": "Bitte wähle aus, in welcher der Spalten die <strong>Kommentare</strong> sind.",
       "chooseLastVisitColumn": "Bitte wähle aus, in welcher der Spalten die <strong>letzte Besuche</strong> sind.",
+      "chooseCreationTimeColumn": "Bitte wähle aus, in welcher der Spalten die<strong>Zeitpunkte der Erstellung</strong> sind.",
       "visitBanCols": {
+        "sheetName": "Sheet-Name",
         "name": "Name",
         "street": "Straße",
         "streetSuffix": "Hausnummer",

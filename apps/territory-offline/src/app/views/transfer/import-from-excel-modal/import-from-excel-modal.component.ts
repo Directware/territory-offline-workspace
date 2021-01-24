@@ -1,8 +1,8 @@
-import { take } from 'rxjs/operators';
+import {take} from 'rxjs/operators';
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
 import * as XLSX from 'xlsx';
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-import-from-excel-modal',
@@ -29,7 +29,7 @@ export class ImportFromExcelModalComponent implements OnInit
     this.dialogRef.close();
   }
 
-  public importFile(event)
+  public async importFile(event)
   {
     const excelFileReader = new FileReader();
 
@@ -45,8 +45,8 @@ export class ImportFromExcelModalComponent implements OnInit
       }
       else
       {
-        this.translate.get('transfer.import.noExcelFile', {file: file.name}).pipe(take(1)).subscribe((translation: string) => 
-          alert(translation));
+        const translation = await this.translate.get('transfer.import.noExcelFile', {file: file.name}).pipe(take(1));
+        alert(translation);
       }
     }
   }

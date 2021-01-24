@@ -4,7 +4,8 @@ export const pl = {
     "shareNotAvailable": "Niestety udostępnianie nie jest dostępne na tej platformie. Tekst jest kopiowany do schowka.",
     "ignore": "Ignoruj",
     "choose": "Proszę wybrać",
-    "nothingChosen": "Nic nie wybrano"
+    "nothingChosen": "Nic nie wybrano",
+    "skip": "Pomiń"
   },
   "assignments": {
     "startTime": "Data wydania",

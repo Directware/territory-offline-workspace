@@ -4,7 +4,8 @@ export const pt = {
     "shareNotAvailable": "Infelizmente, a partilha não está disponível nesta plataforma. O texto é copiado para a prancheta.",
     "ignore": "Ignorar",
     "choose": "Por favor seleccione",
-    "nothingChosen": "Nada seleccionado"
+    "nothingChosen": "Nada seleccionado",
+    "skip": "saltar"
   },
   "assignments": {
     "startTime": "Data de emissão",

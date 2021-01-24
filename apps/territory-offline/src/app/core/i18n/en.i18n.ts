@@ -4,7 +4,8 @@ export const en = {
     "shareNotAvailable": "Unfortunately sharing is not available on this platform. The text is copied to the clipboard.",
     "ignore": "Ignore",
     "choose": "Please select",
-    "nothingChosen": "Nothing selected"
+    "nothingChosen": "Nothing selected",
+    "skip": "Skip"
   },
   "assignments": {
     "startTime": "Start time",
