@@ -56,6 +56,10 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewInit
 
   public ngOnInit(): void
   {
+    // TODO:
+    // was passiert wenn keine GPS Koordinaten vorhanden sind?
+    // was passiert mit Einträgen, die einem Gebiet nicht zugeordnet werden können? (obwohl GPS vllt da sind - kein matching...)
+    // das Überschreiben der Einträge muss mit unit tests gesichert sein
   }
 
   public async ngAfterViewInit()

@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "nx",
     "nx": "nx",
+    "ngcc": "ngcc",
     "start": "ng serve",
     "start:territory-offline": "ng run territory-offline:serve --base-href / --no-live-reload",
     "start:field-companion": "ng run field-companion:serve",
@@ -48,6 +49,10 @@
     "i18n:extract": "ngx-translate-extract --input ./apps/territory-offline/src --output ./apps/territory-offline/src/assets/i18n/{en,da,de,fi,nb,nl,sv}.json --clean --format json"
   },
   "private": true,
+  "browser": {
+    "fs": false,
+    "path": false
+  },
   "dependencies": {
     "@angular/animations": "^9.1.0",
     "@angular/cdk": "^9.2.2",
@@ -62,7 +67,7 @@
     "@capacitor-community/sqlite": "^2.4.2-8",
     "@capacitor/android": "^2.0.1",
     "@capacitor/ios": "^2.0.2",
-    "@mapbox/mapbox-gl-draw": "^1.1.2",
+    "@mapbox/mapbox-gl-draw": "^1.2.0",
     "@mapbox/mapbox-gl-geocoder": "^4.5.1",
     "@ngrx/effects": "^8.3.0",
     "@ngrx/entity": "^8.3.0",
@@ -97,7 +102,7 @@
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "0.901.0",
+    "@angular-devkit/build-angular": "~0.901.13",
     "@angular/cli": "9.1.0",
     "@angular/compiler-cli": "^9.1.0",
     "@angular/language-service": "^9.1.0",
@@ -119,13 +124,13 @@
     "dotenv": "6.2.0",
     "electron-rebuild": "^2.3.2",
     "eslint": "6.8.0",
-    "jest": "25.2.3",
-    "jest-preset-angular": "8.1.2",
+    "jest": "^26.6.3",
+    "jest-preset-angular": "8.3.2",
     "prettier": "2.0.4",
     "sonar-scanner": "^3.1.0",
     "source-map-support": "^0.5.19",
     "tokml": "^0.4.0",
-    "ts-jest": "25.2.1",
+    "ts-jest": "26.4.4",
     "ts-node": "~7.0.0",
     "tslint": "~6.0.0",
     "typescript": "~3.8.3",
