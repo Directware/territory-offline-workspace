@@ -5,7 +5,7 @@
     "module": "commonjs",
     "types": ["jest", "node"],
     "allowJs": true,
-    "esModuleInterop": true
+    "esModuleInterop": false
   },
   "files": ["src/test-setup.ts"],
   "include": ["**/*.spec.ts", "**/*.d.ts"]

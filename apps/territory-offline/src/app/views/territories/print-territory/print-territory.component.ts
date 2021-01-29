@@ -28,6 +28,7 @@ import {
   TerritoryCardFormat,
   TerritoryCardFormats
 } from "@territory-offline-workspace/api";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-print-territory',
@@ -140,7 +141,14 @@ export class PrintTerritoryComponent implements OnInit, OnDestroy
   {
     this.saveDrawingPrintAlignment(true);
 
-    setTimeout(() => this.ipcService.send("print"), 500);
+    if(environment.production)
+    {
+      setTimeout(() => this.ipcService.send("print"), 500);
+    }
+    else
+    {
+      setTimeout(() => window.print(), 0);
+    }
   }
 
   public goBack()
@@ -174,7 +182,7 @@ export class PrintTerritoryComponent implements OnInit, OnDestroy
 
       if (!silent)
       {
-        this.translate.get('territory.print.alignmentSaved').pipe(take(1)).subscribe((translation: string) => 
+        this.translate.get('territory.print.alignmentSaved').pipe(take(1)).subscribe((translation: string) =>
           alert(translation));
       }
     }

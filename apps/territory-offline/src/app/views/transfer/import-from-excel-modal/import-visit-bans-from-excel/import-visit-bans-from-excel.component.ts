@@ -5,22 +5,21 @@ import {ImportFromExcelModalComponent} from "../import-from-excel-modal.componen
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../../core/store/index.reducers";
 import {selectAllVisitBans} from "../../../../core/store/visit-bans/visit-bans.selectors";
-import {take, tap} from "rxjs/operators";
+import {first, take, tap} from "rxjs/operators";
 import {selectAllTerritories} from "../../../../core/store/territories/territories.selectors";
 import {selectAllDrawings} from "../../../../core/store/drawings/drawings.selectors";
 import {combineLatest} from "rxjs";
-import * as Turf from '@turf/turf';
 import {BulkImportVisitBans, BulkImportVisitBansSuccess} from "../../../../core/store/visit-bans/visit-bans.actions";
-import {uuid4} from "@capacitor/core/dist/esm/util";
 import {Actions, ofType} from "@ngrx/effects";
 import {WaitingModalComponent} from "../../../shared/modals/waiting-modal/waiting-modal.component";
-import {parseXlsxDate} from "../../../../core/utils/usefull.functions";
-import {Drawing, Territory, VisitBan} from "@territory-offline-workspace/api";
+import {VisitBan} from "@territory-offline-workspace/api";
 import {TranslateService} from '@ngx-translate/core';
 import {VisitBanImportMapperStepper} from "./visit-ban-import-mapper-stepper";
 import {MatStepper} from "@angular/material/stepper";
 import {ExcelToEntityMapper} from "../../../../core/utils/excel/excel-to-entity-mapper";
 import {ExcelColumn} from "../../../../core/utils/excel/excel-column";
+import {ExcelToEntityParser} from "../../../../core/utils/excel/excel-to-entity-parser";
+import {GpsToTerritoryLocator} from "../../../../core/services/territory/gps-to-territory-locator";
 
 @Component({
   selector: 'app-import-visit-bans-from-excel',
@@ -112,50 +111,22 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewInit
       this.store.pipe(select(selectAllTerritories)),
       this.store.pipe(select(selectAllDrawings)),
     ]).pipe(
-      take(1),
-      tap(([visitBans, territories, drawings]) =>
+      first(),
+      tap(([existingVisitBans, territories, drawings]) =>
       {
-        const extractedData = this.extractDataFromSheet(territories, drawings);
-        const extractedDataWithoutTerritory = extractedData.filter(ed => !ed.territoryId);
-        const extractedDataWithTerritory = extractedData.filter(ed => !!ed.territoryId);
+        const excelToEntityParser = new ExcelToEntityParser(this.excelToEntityMapper, this.workbook);
+        let parsedVisitBans = excelToEntityParser.extractVisitBans();
+        const locator = new GpsToTerritoryLocator(territories, drawings);
+
+        parsedVisitBans = parsedVisitBans.map(vb => ({...vb, territoryId: locator.locate(vb.gpsPosition)}));
+
+        const orphanVisitBans = parsedVisitBans.filter(ed => !ed.territoryId);
+        let toBeImported = parsedVisitBans.filter(ed => !!ed.territoryId);
 
         if (this.overrideExistingData)
         {
-          extractedDataWithTerritory.forEach((vb) =>
-          {
-            const foundVbs = visitBans.filter((evb) =>
-              evb.street.toLowerCase() === vb.street.toLowerCase()
-              && evb.streetSuffix.toLowerCase() === vb.streetSuffix.toLocaleLowerCase()
-            );
-
-            if (foundVbs.length === 1)
-            {
-              vb.id = foundVbs[0].id;
-            }
-            else
-            {
-              const foundVbsWithName = foundVbs.filter(evb => !!evb.name && !!vb.name && evb.name.toLowerCase() === vb.name.toLowerCase())
-
-              if (foundVbsWithName.length === 0)
-              {
-                // its a new entry
-                vb.id = uuid4();
-              }
-              else if (foundVbsWithName.length === 1)
-              {
-                vb.id = foundVbsWithName[0].id;
-              }
-              else
-              {
-                // because its ambiguous - new entry
-                vb.id = uuid4();
-              }
-            }
-          });
+          toBeImported = this.overrideExistingVisitBans(existingVisitBans, toBeImported);
         }
-
-        // catch last visit bans without uuid
-        extractedDataWithTerritory.filter(vb => !vb.id).forEach(vb => vb.id = uuid4());
 
         this.actions$.pipe(
           ofType(BulkImportVisitBansSuccess),
@@ -163,81 +134,32 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewInit
           tap(() => waitingModal.close())
         ).subscribe();
 
-        this.store.dispatch(BulkImportVisitBans({visitBans: extractedDataWithTerritory}));
+        this.store.dispatch(BulkImportVisitBans({visitBans: toBeImported}));
 
-        if (!!extractedDataWithoutTerritory && extractedDataWithoutTerritory.length > 0)
+        if (orphanVisitBans && orphanVisitBans.length > 0)
         {
-          this.visitBansWithoutTerritory = extractedDataWithoutTerritory;
+          this.visitBansWithoutTerritory = orphanVisitBans;
         }
       })
     ).subscribe();
   }
 
-  private extractDataFromSheet(territories: Territory[], drawings: Drawing[])
+  public overrideExistingVisitBans(existing: VisitBan[], toBeImported: VisitBan[]): VisitBan[]
   {
-    const sheet = this.workbook.Sheets[this.excelToEntityMapper.sheetName];
-    const range = XLSX.utils.decode_range(sheet["!ref"]);
-    const tmp = [];
-    let territoryId = null;
+    return toBeImported.map((newVisitBan) => {
 
-    for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++)
-    {
-      const name = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("name")})];
-      const street = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("street")})];
-      const streetSuffix = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("streetSuffix")})];
-      const city = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("city")})];
-      const comment = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("comment")})];
-      const latitude = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("latitude")})];
-      const longitude = sheet[XLSX.utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("longitude")})];
+      const toBeOverridden = existing.filter(vb =>
+        vb.street.toLowerCase().trim() === newVisitBan.street.toLocaleLowerCase().trim() &&
+        vb.streetSuffix.toLowerCase().trim() === newVisitBan.streetSuffix.toLocaleLowerCase().trim()
+      )[0];
 
-      const lat = latitude ? parseFloat(latitude["v"]) : null;
-      const lng = longitude ? parseFloat(longitude["v"]) : null;
-
-      if (!!lat && !!lng && !isNaN(lat) && !isNaN(lng))
+      if(toBeOverridden)
       {
-        drawings.forEach(d => d.featureCollection.features.forEach((f: any) =>
-        {
-          const point = Turf.point([lng, lat]);
-
-          let isIn = false;
-          try
-          {
-            isIn = Turf.booleanPointInPolygon(point, f)
-          } catch (e)
-          {
-          }
-
-          if (isIn)
-          {
-            territoryId = territories.filter(t => t.territoryDrawingId === d.id)[0].id;
-          }
-        }));
-      }
-      else
-      {
-        // TODO implement geo coding
+        return {...newVisitBan, id: toBeOverridden.id};
       }
 
-      tmp.push({
-        name: name ? name["v"] : "",
-        street: street ? street["v"] : "",
-        streetSuffix: streetSuffix ? streetSuffix["v"] : "",
-        city: city ? city["v"] : "",
-        comment: comment ? comment["v"] : "",
-        lastVisit: parseXlsxDate(sheet[XLSX.utils.encode_cell({
-          r: rowNum,
-          c: this.excelToEntityMapper.getColumnIndexOf("lastVisit")
-        })]),
-        creationTime: parseXlsxDate(sheet[XLSX.utils.encode_cell({
-          r: rowNum,
-          c: this.excelToEntityMapper.getColumnIndexOf("creationTime")
-        })]),
-        gpsPosition: {lat: lat, lng: lng},
-        territoryId: territoryId
-      });
-    }
-
-    return tmp;
+      return newVisitBan;
+    });
   }
 
   private async readColumnsOfCurrentSheet()
