@@ -1,12 +1,11 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ImportVisitBansFromExcelComponent} from './import-visit-bans-from-excel.component';
-import {CommonModule} from "@angular/common";
-import {UiSwitchModule} from "ngx-ui-switch";
+import {APP_BASE_HREF, CommonModule} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AppRoutingModule} from "../../../../app-routing.module";
 import {HttpClientModule} from "@angular/common/http";
-import {MatDialogModule} from "@angular/material/dialog";
+import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {FeatherIconsModule} from "../../../../core/shared/feather-icons/feather-icons.module";
 import {UiComponentsModule} from "@territory-offline-workspace/ui-components";
@@ -17,6 +16,8 @@ import {TranslateModule} from "@ngx-translate/core";
 import {StoreModule} from "@ngrx/store";
 import {EffectsModule} from "@ngrx/effects";
 import {NoopAnimationsModule} from "@angular/platform-browser/animations";
+import {provideMockStore} from "@ngrx/store/testing";
+import {createVisitBan} from "@territory-offline-workspace/api";
 
 describe('ImportVisitBansFromExcelComponent', () =>
 {
@@ -29,6 +30,8 @@ describe('ImportVisitBansFromExcelComponent', () =>
       imports: [
         CommonModule,
         NoopAnimationsModule,
+        StoreModule.forRoot({}),
+        EffectsModule.forRoot([]),
         FormsModule,
         ReactiveFormsModule,
         AppRoutingModule,
@@ -40,11 +43,17 @@ describe('ImportVisitBansFromExcelComponent', () =>
         HammerModule,
         ColorPickerModule,
         MatStepperModule,
-        TranslateModule.forRoot(),
-        StoreModule.forRoot({}),
-        EffectsModule.forRoot([])
+        TranslateModule.forRoot()
       ],
-      declarations: [ImportVisitBansFromExcelComponent]
+      declarations: [ImportVisitBansFromExcelComponent],
+      providers: [
+        provideMockStore({}),
+        {provide: APP_BASE_HREF, useValue: "/"},
+        {
+          provide: MatDialogRef,
+          useValue: {}
+        },
+      ]
     }).compileComponents();
   }));
 
@@ -55,8 +64,104 @@ describe('ImportVisitBansFromExcelComponent', () =>
     fixture.detectChanges();
   });
 
-  it('should create', () =>
+  it('should create', () => expect(component).toBeTruthy());
+
+  it('should not override existing visit bans', () =>
   {
-    expect(component).toBeTruthy();
-  });
+    const existingVisitBans = [
+      createVisitBan({name: "vb1"}),
+      createVisitBan({name: "vb2"}),
+      createVisitBan({name: "vb3"})
+    ];
+
+    const newVisitBans = [createVisitBan({name: "vb4"})];
+
+    const result = component.overrideExistingVisitBans(existingVisitBans, newVisitBans);
+
+    expect(result).toHaveLength(4);
+    expect(result[0].name).toBe("vb1");
+    expect(result[1].name).toBe("vb2");
+    expect(result[2].name).toBe("vb3");
+    expect(result[3].name).toBe("vb4");
+  })
+
+  it('should override existing visit bans with the same street', () =>
+  {
+    const street = "Prinz-Regenten-Str."
+    const existingVisitBans = [
+      createVisitBan({name: "vb1"}),
+      createVisitBan({name: "vb2", street}),
+      createVisitBan({name: "vb3"})
+    ];
+
+    const newVisitBans = [createVisitBan({name: "vb4", street})];
+
+    const result = component.overrideExistingVisitBans(existingVisitBans, newVisitBans);
+
+    expect(result).toHaveLength(3);
+    expect(result[0].name).toBe("vb1");
+    expect(result[1].name).toBe("vb4");
+    expect(result[2].name).toBe("vb3");
+  })
+
+  it('should not override existing visit bans with the same street suffix', () =>
+  {
+    const streetSuffix = "125e"
+    const existingVisitBans = [
+      createVisitBan({name: "vb1"}),
+      createVisitBan({name: "vb2", streetSuffix}),
+      createVisitBan({name: "vb3"})
+    ];
+
+    const newVisitBans = [createVisitBan({name: "vb4", streetSuffix})];
+
+    const result = component.overrideExistingVisitBans(existingVisitBans, newVisitBans);
+
+    expect(result).toHaveLength(4);
+    expect(result[0].name).toBe("vb1");
+    expect(result[1].name).toBe("vb2");
+    expect(result[2].name).toBe("vb3");
+    expect(result[3].name).toBe("vb4");
+  })
+
+  it('should override existing visit bans with the same street and suffix', () =>
+  {
+    const street = "Prinz-Regenten-Str."
+    const streetSuffix = "125e"
+    const existingVisitBans = [
+      createVisitBan({name: "vb1"}),
+      createVisitBan({name: "vb2", streetSuffix, street}),
+      createVisitBan({name: "vb3"})
+    ];
+
+    const newVisitBans = [createVisitBan({name: "vb4", streetSuffix, street})];
+
+    const result = component.overrideExistingVisitBans(existingVisitBans, newVisitBans);
+
+    expect(result).toHaveLength(3);
+    expect(result[0].name).toBe("vb1");
+    expect(result[1].name).toBe("vb4");
+    expect(result[2].name).toBe("vb3");
+  })
+
+  it('should override existing visit bans with the same street and suffix (less existing)', () =>
+  {
+    const street = "Prinz-Regenten-Str."
+    const streetSuffix = "125e"
+    const existingVisitBans = [createVisitBan({name: "vb0", streetSuffix, street}),];
+
+    const newVisitBans = [
+      createVisitBan({name: "vb1"}),
+      createVisitBan({name: "vb2"}),
+      createVisitBan({name: "vb3", streetSuffix, street})
+    ];
+
+    const result = component.overrideExistingVisitBans(existingVisitBans, newVisitBans);
+
+    expect(result).toHaveLength(3);
+    expect(result[0].name).toBe("vb3");
+    expect(result[1].name).toBe("vb1");
+    expect(result[2].name).toBe("vb2");
+  })
 });
+

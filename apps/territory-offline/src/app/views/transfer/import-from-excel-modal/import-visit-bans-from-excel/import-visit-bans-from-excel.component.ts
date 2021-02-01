@@ -58,7 +58,6 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewInit
     // TODO:
     // was passiert wenn keine GPS Koordinaten vorhanden sind?
     // was passiert mit Einträgen, die einem Gebiet nicht zugeordnet werden können? (obwohl GPS vllt da sind - kein matching...)
-    // das Überschreiben der Einträge muss mit unit tests gesichert sein
   }
 
   public async ngAfterViewInit()
@@ -121,7 +120,7 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewInit
         parsedVisitBans = parsedVisitBans.map(vb => ({...vb, territoryId: locator.locate(vb.gpsPosition)}));
 
         const orphanVisitBans = parsedVisitBans.filter(ed => !ed.territoryId);
-        let toBeImported = parsedVisitBans.filter(ed => !!ed.territoryId);
+        let toBeImported = parsedVisitBans;
 
         if (this.overrideExistingData)
         {
@@ -146,20 +145,29 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewInit
 
   public overrideExistingVisitBans(existing: VisitBan[], toBeImported: VisitBan[]): VisitBan[]
   {
-    return toBeImported.map((newVisitBan) => {
+    const overridden = [] as string[];
+    const superset = [];
 
-      const toBeOverridden = existing.filter(vb =>
-        vb.street.toLowerCase().trim() === newVisitBan.street.toLocaleLowerCase().trim() &&
-        vb.streetSuffix.toLowerCase().trim() === newVisitBan.streetSuffix.toLocaleLowerCase().trim()
-      )[0];
+    existing.forEach((existingVisitBan) =>
+    {
+      const foundToBeImportedVisitBan = toBeImported.find(toBeImportedVisitBan =>
+        toBeImportedVisitBan.street && existingVisitBan.street &&
+        toBeImportedVisitBan.street.toLowerCase().trim() === existingVisitBan.street.toLocaleLowerCase().trim() &&
+        toBeImportedVisitBan.streetSuffix.toLowerCase().trim() === existingVisitBan.streetSuffix.toLocaleLowerCase().trim()
+      );
 
-      if(toBeOverridden)
+      if (foundToBeImportedVisitBan)
       {
-        return {...newVisitBan, id: toBeOverridden.id};
+        superset.push({...foundToBeImportedVisitBan, id: existingVisitBan.id});
+        overridden.push(foundToBeImportedVisitBan.id);
       }
-
-      return newVisitBan;
+      else
+      {
+        superset.push(existingVisitBan);
+      }
     });
+
+    return [...superset, ...toBeImported.filter(vb => !overridden.includes(vb.id))];
   }
 
   private async readColumnsOfCurrentSheet()

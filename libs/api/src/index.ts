@@ -30,3 +30,4 @@ export * from './lib/territory/print/territory-card-format.interface';
 export * from './lib/territory/print/territory-card-formats';
 export * from './lib/territory/print/territory-drawing-print-configuration.interface';
 export * from './lib/visit-ban/visit-ban.model';
+export * from './lib/visit-ban/visit-ban.factory';
