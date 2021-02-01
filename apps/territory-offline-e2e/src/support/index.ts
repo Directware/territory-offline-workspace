@@ -19,7 +19,7 @@ import './commands';
 
 before(() =>
 {
-  indexedDB.deleteDatabase('territory-offlineIDB')
+  //indexedDB.deleteDatabase('territory-offlineIDB')
   cy.visit("/");
 
   /*
