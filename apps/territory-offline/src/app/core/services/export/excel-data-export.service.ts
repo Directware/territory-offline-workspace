@@ -1,11 +1,11 @@
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 import {Injectable} from '@angular/core';
 import * as XLSX from 'xlsx';
 import {PlatformAgnosticActionsService} from "../common/platform-agnostic-actions.service";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/index.reducers";
 import {selectPublishers} from "../../store/publishers/publishers.selectors";
-import {first, take, tap} from "rxjs/operators";
+import {first, last, take, tap} from "rxjs/operators";
 import {selectAllVisitBans} from "../../store/visit-bans/visit-bans.selectors";
 import {Assignment, VisitBan} from "@territory-offline-workspace/api";
 import {selectAllTerritories} from "../../store/territories/territories.selectors";
@@ -27,7 +27,7 @@ export class ExcelDataExportService
 
   public exportPublishers()
   {
-    this.translate.get(['transfer.export.publisher', "transfer.export.firstName", "transfer.export.lastName", "transfer.export.mail", "transfer.export.phone"]).pipe(take(1)).subscribe((translations: {[key: string]: string}) =>
+    this.translate.get(['transfer.export.publisher', "transfer.export.firstName", "transfer.export.lastName", "transfer.export.mail", "transfer.export.phone"]).pipe(take(1)).subscribe((translations: { [key: string]: string }) =>
       this.store.pipe(
         select(selectPublishers),
         take(1),
@@ -47,7 +47,7 @@ export class ExcelDataExportService
 
   public exportTerritoryNames()
   {
-    this.translate.get(['transfer.export.territories', "transfer.export.number", "transfer.export.name", "transfer.export.mail", "transfer.export.phone"]).pipe(take(1)).subscribe((translations: {[key: string]: string}) =>
+    this.translate.get(['transfer.export.territories', "transfer.export.number", "transfer.export.name", "transfer.export.mail", "transfer.export.phone"]).pipe(take(1)).subscribe((translations: { [key: string]: string }) =>
       this.store.pipe(
         select(selectAllTerritories),
         take(1),
@@ -119,7 +119,7 @@ export class ExcelDataExportService
 
   public exportVisitBans()
   {
-    this.translate.get(['transfer.export.visitBans', "transfer.export.name", "transfer.export.level", "transfer.export.street", "transfer.export.numberShort", 'transfer.export.city', 'transfer.export.lastVisit', 'transfer.export.comment', 'transfer.export.latitude', 'transfer.export.longitude']).pipe(take(1)).subscribe((translations: {[key: string]: string}) =>
+    this.translate.get(['transfer.export.visitBans', "transfer.export.name", "transfer.export.level", "transfer.export.street", "transfer.export.numberShort", 'transfer.export.city', 'transfer.export.lastVisit', 'transfer.export.comment', 'transfer.export.latitude', 'transfer.export.longitude']).pipe(take(1)).subscribe((translations: { [key: string]: string }) =>
       this.store.pipe(
         select(selectAllVisitBans),
         take(1),
@@ -129,22 +129,23 @@ export class ExcelDataExportService
           wb.SheetNames.push(translations["transfer.export.visitBans"]);
 
           const tmp = [[translations["transfer.export.name"], translations["transfer.export.level"], translations["transfer.export.street"], translations["transfer.export.numberShort"], translations["transfer.export.city"], translations["transfer.export.lastVisit"], translations["transfer.export.comment"], translations["transfer.export.latitude"], translations["transfer.export.longitude"]]];
-          visitBans.forEach((a, index) => tmp[index + 1] = [
-            a.name,
-            a.floor + "",
-            a.street,
-            a.streetSuffix,
-            a.city,
-            !!a.lastVisit ? new Date(a.lastVisit).toLocaleDateString() : "",
-            a.comment,
-            a.gpsPosition ? a.gpsPosition.lat + "" : "",
-            a.gpsPosition ? a.gpsPosition.lng + "" : "",
-          ]);
+          visitBans.forEach((a, index) => tmp[index + 1] = this.tmp(a));
           const ws = XLSX.utils.aoa_to_sheet(tmp);
           wb.Sheets[translations["transfer.export.visitBans"]] = ws;
+
           this.saveWorkBook(wb, translations["transfer.export.visitBans"]);
         })
       ).subscribe());
+  }
+
+  private tmp(visitBan: VisitBan)
+  {
+    const name = visitBan.name || "";
+    const floor = visitBan.floor ? `${visitBan.floor}` : "";
+    const lastVisit = visitBan.lastVisit ? new Date(visitBan.lastVisit).toLocaleDateString() : "";
+    const latitude = visitBan.gpsPosition && visitBan.gpsPosition.lat ? `${visitBan.gpsPosition.lat}` : "";
+    const longitude = visitBan.gpsPosition && visitBan.gpsPosition.lng ? `${visitBan.gpsPosition.lng}` : "";
+    return [name, floor, visitBan.street, visitBan.streetSuffix, visitBan.city || "", lastVisit, visitBan.comment || "", latitude, longitude];
   }
 
   private craeteWorkBook(subject: string)

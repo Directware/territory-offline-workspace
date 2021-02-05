@@ -12,13 +12,16 @@ import {combineLatest} from "rxjs";
 import {BulkImportVisitBans, BulkImportVisitBansSuccess} from "../../../../core/store/visit-bans/visit-bans.actions";
 import {Actions, ofType} from "@ngrx/effects";
 import {WaitingModalComponent} from "../../../shared/modals/waiting-modal/waiting-modal.component";
-import {VisitBan} from "@territory-offline-workspace/api";
+import {
+  compareVisitBans,
+  ExcelColumn,
+  ExcelToEntityMapper,
+  ExcelToEntityParser,
+  VisitBan
+} from "@territory-offline-workspace/api";
 import {TranslateService} from '@ngx-translate/core';
 import {VisitBanImportMapperStepper} from "./visit-ban-import-mapper-stepper";
 import {MatStepper} from "@angular/material/stepper";
-import {ExcelToEntityMapper} from "../../../../core/utils/excel/excel-to-entity-mapper";
-import {ExcelColumn} from "../../../../core/utils/excel/excel-column";
-import {ExcelToEntityParser} from "../../../../core/utils/excel/excel-to-entity-parser";
 import {GpsToTerritoryLocator} from "../../../../core/services/territory/gps-to-territory-locator";
 
 @Component({
@@ -40,7 +43,6 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewInit
   public foundColumns: ExcelColumn[];
   public overrideExistingData: boolean;
   public importDone: boolean;
-  public visitBansWithoutTerritory: VisitBan[];
   public excelToEntityMapper: ExcelToEntityMapper;
   public visitBanImportMapperStepper: VisitBanImportMapperStepper;
 
@@ -55,9 +57,6 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewInit
 
   public ngOnInit(): void
   {
-    // TODO:
-    // was passiert wenn keine GPS Koordinaten vorhanden sind?
-    // was passiert mit Einträgen, die einem Gebiet nicht zugeordnet werden können? (obwohl GPS vllt da sind - kein matching...)
   }
 
   public async ngAfterViewInit()
@@ -119,7 +118,6 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewInit
 
         parsedVisitBans = parsedVisitBans.map(vb => ({...vb, territoryId: locator.locate(vb.gpsPosition)}));
 
-        const orphanVisitBans = parsedVisitBans.filter(ed => !ed.territoryId);
         let toBeImported = parsedVisitBans;
 
         if (this.overrideExistingData)
@@ -134,40 +132,27 @@ export class ImportVisitBansFromExcelComponent implements OnInit, AfterViewInit
         ).subscribe();
 
         this.store.dispatch(BulkImportVisitBans({visitBans: toBeImported}));
-
-        if (orphanVisitBans && orphanVisitBans.length > 0)
-        {
-          this.visitBansWithoutTerritory = orphanVisitBans;
-        }
       })
     ).subscribe();
   }
 
-  public overrideExistingVisitBans(existing: VisitBan[], toBeImported: VisitBan[]): VisitBan[]
+  /* Sollte nur die neuen Einträge zurück liefern, die entweder einen neuen Datensatz darstellen oder den alten aktualisieren */
+  public overrideExistingVisitBans(allExisting: VisitBan[], allToBeImported: VisitBan[]): VisitBan[]
   {
-    const overridden = [] as string[];
-    const superset = [];
-
-    existing.forEach((existingVisitBan) =>
+    return allToBeImported.map((toBeImported) =>
     {
-      const foundToBeImportedVisitBan = toBeImported.find(toBeImportedVisitBan =>
-        toBeImportedVisitBan.street && existingVisitBan.street &&
-        toBeImportedVisitBan.street.toLowerCase().trim() === existingVisitBan.street.toLocaleLowerCase().trim() &&
-        toBeImportedVisitBan.streetSuffix.toLowerCase().trim() === existingVisitBan.streetSuffix.toLocaleLowerCase().trim()
-      );
+      const toBeUpdated = allExisting.find(existing => compareVisitBans(toBeImported, existing));
 
-      if (foundToBeImportedVisitBan)
+      if (toBeUpdated)
       {
-        superset.push({...foundToBeImportedVisitBan, id: existingVisitBan.id});
-        overridden.push(foundToBeImportedVisitBan.id);
+        return {
+          ...toBeImported,
+          id: toBeUpdated.id
+        };
       }
-      else
-      {
-        superset.push(existingVisitBan);
-      }
-    });
 
-    return [...superset, ...toBeImported.filter(vb => !overridden.includes(vb.id))];
+      return toBeImported;
+    })
   }
 
   private async readColumnsOfCurrentSheet()

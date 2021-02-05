@@ -78,90 +78,26 @@ describe('ImportVisitBansFromExcelComponent', () =>
 
     const result = component.overrideExistingVisitBans(existingVisitBans, newVisitBans);
 
-    expect(result).toHaveLength(4);
-    expect(result[0].name).toBe("vb1");
-    expect(result[1].name).toBe("vb2");
-    expect(result[2].name).toBe("vb3");
-    expect(result[3].name).toBe("vb4");
+    expect(result).toHaveLength(1);
+    expect(result[0].name).toBe("vb4");
   })
 
   it('should override existing visit bans with the same street', () =>
   {
     const street = "Prinz-Regenten-Str."
-    const existingVisitBans = [
-      createVisitBan({name: "vb1"}),
-      createVisitBan({name: "vb2", street}),
-      createVisitBan({name: "vb3"})
-    ];
-
-    const newVisitBans = [createVisitBan({name: "vb4", street})];
-
-    const result = component.overrideExistingVisitBans(existingVisitBans, newVisitBans);
-
-    expect(result).toHaveLength(3);
-    expect(result[0].name).toBe("vb1");
-    expect(result[1].name).toBe("vb4");
-    expect(result[2].name).toBe("vb3");
-  })
-
-  it('should not override existing visit bans with the same street suffix', () =>
-  {
     const streetSuffix = "125e"
     const existingVisitBans = [
       createVisitBan({name: "vb1"}),
-      createVisitBan({name: "vb2", streetSuffix}),
+      createVisitBan({name: "vb2", street, streetSuffix}),
       createVisitBan({name: "vb3"})
     ];
 
-    const newVisitBans = [createVisitBan({name: "vb4", streetSuffix})];
+    const newVisitBans = [createVisitBan({name: "vb4", street, streetSuffix})];
 
     const result = component.overrideExistingVisitBans(existingVisitBans, newVisitBans);
 
-    expect(result).toHaveLength(4);
-    expect(result[0].name).toBe("vb1");
-    expect(result[1].name).toBe("vb2");
-    expect(result[2].name).toBe("vb3");
-    expect(result[3].name).toBe("vb4");
-  })
-
-  it('should override existing visit bans with the same street and suffix', () =>
-  {
-    const street = "Prinz-Regenten-Str."
-    const streetSuffix = "125e"
-    const existingVisitBans = [
-      createVisitBan({name: "vb1"}),
-      createVisitBan({name: "vb2", streetSuffix, street}),
-      createVisitBan({name: "vb3"})
-    ];
-
-    const newVisitBans = [createVisitBan({name: "vb4", streetSuffix, street})];
-
-    const result = component.overrideExistingVisitBans(existingVisitBans, newVisitBans);
-
-    expect(result).toHaveLength(3);
-    expect(result[0].name).toBe("vb1");
-    expect(result[1].name).toBe("vb4");
-    expect(result[2].name).toBe("vb3");
-  })
-
-  it('should override existing visit bans with the same street and suffix (less existing)', () =>
-  {
-    const street = "Prinz-Regenten-Str."
-    const streetSuffix = "125e"
-    const existingVisitBans = [createVisitBan({name: "vb0", streetSuffix, street}),];
-
-    const newVisitBans = [
-      createVisitBan({name: "vb1"}),
-      createVisitBan({name: "vb2"}),
-      createVisitBan({name: "vb3", streetSuffix, street})
-    ];
-
-    const result = component.overrideExistingVisitBans(existingVisitBans, newVisitBans);
-
-    expect(result).toHaveLength(3);
-    expect(result[0].name).toBe("vb3");
-    expect(result[1].name).toBe("vb1");
-    expect(result[2].name).toBe("vb2");
+    expect(result).toHaveLength(1);
+    expect(result[0].name).toBe("vb4");
   })
 });
 

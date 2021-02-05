@@ -21,6 +21,7 @@
 
       &.continue {
         color: $dark-sky-blue;
+        user-select: none;
       }
     }
   }
@@ -97,6 +98,7 @@
     &.import-done {
       justify-content: center;
       align-items: center;
+      height: 32rem;
 
       img {
         margin: 2rem 0 0 0;

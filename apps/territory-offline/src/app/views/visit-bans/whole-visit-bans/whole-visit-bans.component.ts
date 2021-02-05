@@ -8,8 +8,8 @@ import {NavigationEnd, Router} from "@angular/router";
 import {VisitBan} from "@territory-offline-workspace/api";
 import {TerritoryMapsService} from "../../../core/services/territory/territory-maps.service";
 import {TranslateService} from "@ngx-translate/core";
-import {isInLocationPath} from "../../../core/utils/usefull.functions";
-import {DeleteVisitBan} from "../../../core/store/visit-bans/visit-bans.actions";
+import {isInLocationPath} from "@territory-offline-workspace/api";
+import {sortBy} from "lodash";
 
 @Component({
   selector: 'app-whole-visit-bans',
@@ -22,7 +22,7 @@ export class WholeVisitBansComponent implements OnInit, OnDestroy
   public search: { value: string };
   public currentVisitBanId: string;
   public visitBans$: Observable<VisitBan[]>;
-  public sort: string = "alphabetic";
+  public sort: "alphabetic" | "lastVisit" = "alphabetic";
   public sortFunction: Function;
   public sliceAddressLength = 30;
 
@@ -106,10 +106,10 @@ export class WholeVisitBansComponent implements OnInit, OnDestroy
   public editVisitBan(vb: VisitBan)
   {
     this.currentVisitBanId = vb.id;
-    this.router.navigate([{outlets: {'second-thread': ['visit-ban', vb.territoryId, vb.id]}}]);
+    this.router.navigate([{outlets: {'second-thread': ['visit-ban', vb.territoryId || "", vb.id]}}]);
   }
 
-  public changeSorting(sort)
+  public changeSorting(sort: "alphabetic" | "lastVisit")
   {
     this.sort = sort;
     this.considerSortFunction(this.sort);
@@ -128,20 +128,25 @@ export class WholeVisitBansComponent implements OnInit, OnDestroy
 
   private considerSortFunction(sort: string)
   {
-    this.sortFunction = sort === "alphabetic" ? this.sortAlphabetical : this.sortLastVisit;
-
     this.visitBans$ = null;
     this.visitBans$ = this.store.pipe(
       select(selectAllVisitBans),
-      map(visitBans => visitBans.sort((vb1, vb2) => this.sortFunction(vb1, vb2))),
-      map(visitBans => [...visitBans]),
-      // tap(vbs => vbs.forEach(vb => this.store.dispatch(DeleteVisitBan({visitBan: vb}))))
+      map(visitBans =>
+      {
+        switch (sort)
+        {
+          case "lastVisit":
+          {
+            return visitBans.sort(this.sortLastVisit)
+          }
+          default:
+          {
+            return sortBy(visitBans, ["street", "streetSuffix"]);
+          }
+        }
+      }),
+      map(visitBans => [...visitBans])
     );
-  }
-
-  private sortAlphabetical(vb1: VisitBan, vb2: VisitBan)
-  {
-    return vb1.street < vb2.street ? -1 : 1;
   }
 
   private sortLastVisit(vb1: VisitBan, vb2: VisitBan)

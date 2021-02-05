@@ -31,3 +31,10 @@ export * from './lib/territory/print/territory-card-formats';
 export * from './lib/territory/print/territory-drawing-print-configuration.interface';
 export * from './lib/visit-ban/visit-ban.model';
 export * from './lib/visit-ban/visit-ban.factory';
+export * from './lib/visit-ban/visit-ban.comparator';
+
+/* UTILS */
+export * from './utils/usefull.functions';
+export * from './utils/excel/excel-column';
+export * from './utils/excel/excel-to-entity-mapper';
+export * from './utils/excel/excel-to-entity-parser';

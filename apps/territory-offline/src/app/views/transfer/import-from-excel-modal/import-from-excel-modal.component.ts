@@ -45,7 +45,7 @@ export class ImportFromExcelModalComponent implements OnInit
       }
       else
       {
-        const translation = await this.translate.get('transfer.import.noExcelFile', {file: file.name}).pipe(take(1));
+        const translation = await this.translate.get('transfer.import.noExcelFile', {file: file.name}).pipe(take(1)).toPromise();
         alert(translation);
       }
     }

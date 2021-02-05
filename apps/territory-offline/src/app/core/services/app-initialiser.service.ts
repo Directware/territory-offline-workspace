@@ -8,7 +8,7 @@ import {ToUpdatesService} from './common/to-updates.service';
 import {SettingsState} from '../store/settings/settings.reducer';
 import {DataSecurityService} from "./common/data-security.service";
 import {DatabaseService} from "./db/database.service";
-import {logger} from "../utils/usefull.functions";
+import {logger} from "../../../../../../libs/api/src/utils/usefull.functions";
 import {SettingsDatabaseService} from "./db/settings-database.service";
 
 @Injectable({providedIn: 'root'})

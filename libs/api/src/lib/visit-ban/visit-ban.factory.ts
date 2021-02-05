@@ -1,7 +1,7 @@
 import {VisitBan} from "@territory-offline-workspace/api";
 import {v4 as uuid} from 'uuid';
 
-export function createVisitBan(visitBanProperties: Partial<VisitBan>): VisitBan
+export function createVisitBan(visitBanProperties: Partial<VisitBan> = {}): VisitBan
 {
   return {
     id: uuid(),

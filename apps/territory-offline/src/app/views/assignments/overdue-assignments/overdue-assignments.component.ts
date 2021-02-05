@@ -9,7 +9,7 @@ import {AssignmentsService} from '../../../core/services/assignment/assignments.
 import {TerritoryMapsService} from "../../../core/services/territory/territory-maps.service";
 import {selectAllTerritories} from "../../../core/store/territories/territories.selectors";
 import {Assignment} from "@territory-offline-workspace/api";
-import {createDurationPhrase} from "../../../core/utils/usefull.functions";
+import {createDurationPhrase} from "../../../../../../../libs/api/src/utils/usefull.functions";
 import {PlatformAgnosticActionsService} from "../../../core/services/common/platform-agnostic-actions.service";
 import {TranslateService} from "@ngx-translate/core";
 

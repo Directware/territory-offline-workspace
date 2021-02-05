@@ -20,7 +20,7 @@ import {LastDoingsService} from "../../../core/services/common/last-doings.servi
 import {selectAllDrawings} from "../../../core/store/drawings/drawings.selectors";
 import {selectAllTerritories} from "../../../core/store/territories/territories.selectors";
 import * as Turf from '@turf/turf';
-import {isInLocationPath} from "../../../core/utils/usefull.functions";
+import {isInLocationPath} from "../../../../../../../libs/api/src/utils/usefull.functions";
 import {GeocodingResult, LastDoingActionsEnum, Territory, VisitBan} from "@territory-offline-workspace/api";
 
 @Component({

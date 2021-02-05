@@ -4,7 +4,7 @@ import {drawingsAdapter} from './drawings.reducer';
 import {selectLastAssignmentOfEachTerritory} from "../assignments/assignments.selectors";
 import {selectAllTerritories} from "../territories/territories.selectors";
 import {selectSettings} from "../settings/settings.selectors";
-import {createDurationPhrase, evaluateTerritoryStatus, mergeDrawings} from "../../utils/usefull.functions";
+import {createDurationPhrase, evaluateTerritoryStatus, mergeDrawings} from "../../../../../../../libs/api/src/utils/usefull.functions";
 import {selectCurrentCongregation} from "../congregation/congregations.selectors";
 
 export const selectDrawingsFeature = (state: ApplicationState) => state.drawings;

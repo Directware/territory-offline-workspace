@@ -22,7 +22,11 @@
 <div class="scrollable-wrapper">
   <ng-container *ngIf="(visitBans$ | async) as visitBans; else infoBlock">
     <app-list *ngIf="visibleVisitBans(visitBans) as filteredVisitBans">
-      <app-list-item-with-description *ngFor="let visitBan of filteredVisitBans | searchVisitBan:search | async" [class.active]="currentVisitBanId === visitBan.id" (click)="editVisitBan(visitBan)">
+      <app-list-item-with-description *ngFor="let visitBan of filteredVisitBans | searchVisitBan:search | async"
+                                      [class.active]="currentVisitBanId === visitBan.id"
+                                      [class.redundant]="visitBan | isRedundantVisitBan:visitBans"
+                                      [class.orphan]="visitBan | isOrphanVisitBan"
+                                      (click)="editVisitBan(visitBan)">
         <p class="label">
           {{visitBan.name || "visitBan.noName" | translate}}
         </p>
@@ -38,7 +42,11 @@
     </app-list>
 
     <app-list>
-      <app-list-item-with-description *ngFor="let visitBan of notVisibleVisitBans(visitBans) | searchVisitBan:search | async" [class.active]="currentVisitBanId === visitBan.id" (click)="editVisitBan(visitBan)">
+      <app-list-item-with-description *ngFor="let visitBan of notVisibleVisitBans(visitBans) | searchVisitBan:search | async"
+                                      [class.active]="currentVisitBanId === visitBan.id"
+                                      [class.redundant]="visitBan | isRedundantVisitBan:visitBans"
+                                      [class.orphan]="visitBan | isOrphanVisitBan"
+                                      (click)="editVisitBan(visitBan)">
         <p class="label">
           {{visitBan.name || "visitBan.noName" | translate}}
         </p>

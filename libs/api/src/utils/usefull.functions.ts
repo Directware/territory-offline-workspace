@@ -1,6 +1,8 @@
-import {SettingsState} from "../store/settings/settings.reducer";
-import {Assignment, Drawing, TerritoryStatus} from "@territory-offline-workspace/api";
+import {SettingsState} from "../../../../apps/territory-offline/src/app/core/store/settings/settings.reducer";
 import * as moment from "moment";
+import {Assignment} from "../lib/assignment/assignment.model";
+import {Drawing} from "../lib/drawing/drawing.model";
+import {TerritoryStatus} from "../lib/territory/territory-status.enum";
 
 export function logger(message: string, ...args: any)
 {
@@ -138,4 +140,43 @@ export function currentServiceYear(): string
   }
 
   return `${today.getFullYear() - 1}/${today.getFullYear()}`;
+}
+
+export function normalizeStreetName(street: string): string
+{
+  if (!street)
+  {
+    return "";
+  }
+
+  if(typeof street !== "string")
+  {
+    street = `${street}`;
+  }
+
+  return street.trim();
+}
+
+export function normalizeStreetSuffix(streetSuffix: string): string
+{
+  if (!streetSuffix)
+  {
+    return "";
+  }
+
+  if(typeof streetSuffix !== "string")
+  {
+    streetSuffix = `${streetSuffix}`;
+  }
+
+  if (streetSuffix.includes("/"))
+  {
+    const slashPosition = streetSuffix.trim().indexOf("/");
+    if(streetSuffix.charAt(slashPosition - 2) !== " ")
+    {
+      streetSuffix = [streetSuffix.slice(0, slashPosition - 1), " ", streetSuffix.slice(slashPosition - 1)].join('');
+    }
+  }
+
+  return streetSuffix.replace(new RegExp(/[a-zA-Z]\w+/g), "").trim();
 }

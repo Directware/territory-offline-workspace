@@ -79,6 +79,8 @@ import {DurationPhrasePipe} from './core/pipes/duration-phrase.pipe';
 import {ImportGeoJsonComponent} from './views/transfer/import-geo-json/import-geo-json.component';
 import {Router} from "@angular/router";
 import {MatStepperModule} from "@angular/material/stepper";
+import {RedundantVisitBanPipe} from "./core/pipes/visit-bans/redundant-visit-ban.pipe";
+import {OrphanVisitBanPipe} from "./core/pipes/visit-bans/orphan-visit-ban.pipe";
 
 declare const sourceMapSupport: any;
 const {Device} = Plugins;
@@ -137,7 +139,9 @@ const {Device} = Plugins;
     VisitBanLastVisitTimePipe,
     BackupImportChangesComponent,
     DurationPhrasePipe,
-    ImportGeoJsonComponent
+    ImportGeoJsonComponent,
+    RedundantVisitBanPipe,
+    OrphanVisitBanPipe
   ],
   imports: [
     BrowserModule,

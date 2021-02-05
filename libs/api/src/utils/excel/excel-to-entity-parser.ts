@@ -1,8 +1,9 @@
 import {utils, WorkBook} from 'xlsx';
 import {ExcelToEntityMapper} from "./excel-to-entity-mapper";
 import * as Turf from "@turf/turf";
-import {VisitBan} from "@territory-offline-workspace/api";
 import {uuid4} from "@capacitor/core/dist/esm/util";
+import {normalizeStreetName, normalizeStreetSuffix} from "../usefull.functions";
+import {VisitBan} from "../../lib/visit-ban/visit-ban.model";
 
 export class ExcelToEntityParser
 {
@@ -44,43 +45,42 @@ export class ExcelToEntityParser
 
     for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++)
     {
-      const name = sheet[utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("name")})];
-      const street = sheet[utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("street")})];
-      const streetSuffix = sheet[utils.encode_cell({
-        r: rowNum,
-        c: this.excelToEntityMapper.getColumnIndexOf("streetSuffix")
-      })];
-      const city = sheet[utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("city")})];
-      const comment = sheet[utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("comment")})];
-      const latitude = sheet[utils.encode_cell({r: rowNum, c: this.excelToEntityMapper.getColumnIndexOf("latitude")})];
-      const longitude = sheet[utils.encode_cell({
-        r: rowNum,
-        c: this.excelToEntityMapper.getColumnIndexOf("longitude")
-      })];
-
+      const name = this.getValueFrom(rowNum, "name");
+      const street = this.getValueFrom(rowNum, "street");
+      const streetSuffix = this.getValueFrom(rowNum, "streetSuffix");
+      const city = this.getValueFrom(rowNum, "city");
+      const comment = this.getValueFrom(rowNum, "comment");
+      const latitude = this.getValueFrom(rowNum, "latitude");
+      const longitude = this.getValueFrom(rowNum, "longitude");
       const lat = latitude ? parseFloat(latitude["v"]) : null;
       const lng = longitude ? parseFloat(longitude["v"]) : null;
 
       extractedData.push({
         id: uuid4(),
         name: name ? name["v"] : "",
-        street: street ? street["v"] : "",
-        streetSuffix: streetSuffix ? streetSuffix["v"] : "",
+        street: street ? normalizeStreetName(street["v"]) : "",
+        streetSuffix: streetSuffix ? normalizeStreetSuffix(streetSuffix["v"]) : "",
         city: city ? city["v"] : "",
         comment: comment ? comment["v"] : "",
-        lastVisit: ExcelToEntityParser.parseXlsxDate(sheet[utils.encode_cell({
-          r: rowNum,
-          c: this.excelToEntityMapper.getColumnIndexOf("lastVisit")
-        })]),
-        creationTime: ExcelToEntityParser.parseXlsxDate(sheet[utils.encode_cell({
-          r: rowNum,
-          c: this.excelToEntityMapper.getColumnIndexOf("creationTime")
-        })]),
+        lastVisit: ExcelToEntityParser.parseXlsxDate(this.getValueFrom(rowNum, "lastVisit")),
+        creationTime: ExcelToEntityParser.parseXlsxDate(this.getValueFrom(rowNum, "creationTime")),
         gpsPosition: {lat: lat, lng: lng},
         tags: [],
         territoryId: null
       });
     }
     return extractedData;
+  }
+
+  private getValueFrom(rowNum, propertyName: string)
+  {
+    const columnIndex = this.excelToEntityMapper.getColumnIndexOf(propertyName);
+    if(!columnIndex)
+    {
+      return "";
+    }
+
+    const sheet = this.workBook.Sheets[this.excelToEntityMapper.sheetName];
+    return sheet[utils.encode_cell({r: rowNum, c: columnIndex})]
   }
 }

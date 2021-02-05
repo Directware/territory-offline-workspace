@@ -78,16 +78,4 @@
   <h3 class="h3-white">{{ 'transfer.importExcel.success' | translate }}</h3>
   <p class="body-grey">{{ 'transfer.importExcel.successMessage' | translate }}</p>
   <button (click)="close()" class="button primary">OK</button>
-
-  <app-panel *ngIf="visitBansWithoutTerritory">
-    <div class="wrapper">
-      <p class="body-grey not-imported">{{ 'transfer.importExcel.failures' | translate }}</p>
-      <app-list>
-        <app-list-item *ngFor="let vb of visitBansWithoutTerritory; let i = index">
-          <p class="label">{{i+1}}. {{vb.street}} {{vb.streetSuffix}}</p>
-          <p class="info" >{{vb.name}}</p>
-        </app-list-item>
-      </app-list>
-    </div>
-  </app-panel>
 </div>

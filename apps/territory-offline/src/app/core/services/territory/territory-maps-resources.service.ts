@@ -5,7 +5,7 @@ import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geoco
 import {FeatureCollection} from '@turf/turf';
 import {Plugins} from '@capacitor/core';
 import {environment} from '../../../../environments/environment';
-import {logger} from '../../utils/usefull.functions';
+import {logger} from '../../../../../../../libs/api/src/utils/usefull.functions';
 import {ToMapBoxSources} from "@territory-offline-workspace/api";
 import * as Turf from '@turf/turf';
 
