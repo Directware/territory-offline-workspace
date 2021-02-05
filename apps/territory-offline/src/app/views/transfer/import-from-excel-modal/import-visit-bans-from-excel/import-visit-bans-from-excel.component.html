@@ -20,7 +20,7 @@
           <div class="wrapper">
             <h2 class="h2-white">{{ 'transfer.importExcel.foundSheets' | translate }}</h2>
             <app-list>
-              <app-list-item *ngFor="let sheetName of workbook.SheetNames" (click)="setSheet(sheetName)">
+              <app-list-item *ngFor="let sheetName of workbook?.SheetNames" (click)="setSheet(sheetName)">
                 <p class="label">{{sheetName}}</p>
                 <i-feather *ngIf="excelToEntityMapper?.sheetName === sheetName" name="check" class="action"></i-feather>
               </app-list-item>
@@ -66,7 +66,7 @@
           <strong class="danger">{{ 'transfer.importExcel.override' | translate }}</strong>
           <br />
           <br />
-          <ui-switch class="ui-switch" [(ngModel)]="overrideExistingData"></ui-switch>
+          <ui-switch class="ui-switch" ngDefaultControl name="overrideExistingData" [(ngModel)]="overrideExistingData"></ui-switch>
         </p>
       </div>
     </mat-step>

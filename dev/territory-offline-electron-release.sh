@@ -11,6 +11,10 @@ if [[ "$version" != "patch" && "$version" != "minor" && "$version" != "major" ]]
     exit
 fi
 
+# unit tests green?
+echo "Checking whether tests are green..."
+nx test territory-offline
+
 # bump version before building the app
 cd ./../apps/territory-offline/ || exit
 npm version "$version"
