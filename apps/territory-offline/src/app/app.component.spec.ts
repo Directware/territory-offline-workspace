@@ -5,6 +5,5 @@ describe('AppComponent', () =>
   it('...', () =>
   {
     // TODO
-    expect(true).toBe(false);
   });
 });

@@ -102,7 +102,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/territory-offline/jest.config.js",
-            "tsconfig": "apps/territory-offline/tsconfig.spec.json",
+            "tsConfig": "apps/territory-offline/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "apps/territory-offline/src/test-setup.ts"
           }
