@@ -22,10 +22,6 @@ export class AppDatabaseService
     {
       this._storage = CapacitorDataStorageSqlite;
     }
-    else if (info.platform === "electron")
-    {
-      this._storage = CDSSPlugin.CapacitorDataStorageSqliteElectron;
-    }
     else
     {
       this._storage = CDSSPlugin.CapacitorDataStorageSqlite
