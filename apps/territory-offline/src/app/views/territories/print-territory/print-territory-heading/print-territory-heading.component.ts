@@ -19,7 +19,7 @@ export class PrintTerritoryHeadingComponent implements OnInit
 
   public ngOnInit(): void
   {
-    this.currentBearing = 0;
+    this.currentBearing = this.territoryMapsService.getMap().getBearing() * -1;
     this.territoryMapsService.getMap().on("rotate", (data) => this.currentBearing = (data.target.getBearing() * -1));
   }
 
