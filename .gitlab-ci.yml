@@ -34,5 +34,5 @@ deploy-website:
   rules:
     - when: manual
   script:
-    - az storage blob delete-batch --source "\$web" --connection-string $AZURE_STORAGE_CONNECTION_STRING
-    - az storage blob upload-batch --destination "\$web" --source dist/apps/website --connection-string $AZURE_STORAGE_CONNECTION_STRING
+    - az storage blob delete-batch --source "\$web" --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
+    - az storage blob upload-batch --destination "\$web" --source dist/apps/website --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
