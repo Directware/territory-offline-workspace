@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {select, Store} from "@ngrx/store";
+import {registerWebPlugin} from "@capacitor/core";
+import {FileSharer} from '@byteowls/capacitor-filesharer';
 import {ApplicationState} from "./core/store/index.reducers";
 import {Observable} from "rxjs";
 import {selectInitialConfigurationDone} from "./core/store/settings/settings.selectors";
@@ -26,6 +28,7 @@ export class AppComponent implements OnInit
   {
     this.isAlreadyConfigured$ = this.store.pipe(select(selectInitialConfigurationDone));
     this.localNotificationsService.handleMonthlyReminder();
+    registerWebPlugin(FileSharer);
   }
 
   public activateRouterOutlet(e)
