@@ -119,11 +119,11 @@ export class TerritoryMapsService
     }
   }
 
-  public setPrintingDrawingColor()
+  public setPrintingDrawingColor(color: string, opacity: number)
   {
     this.setPropsOnFeatures(this.cachedDrawings, {
-      color: "#15C880",
-      opacity: 0.2,
+      color: color,
+      opacity: opacity,
       textOpacity: 0
     }, {opacity: 0, textOpacity: 0});
   }

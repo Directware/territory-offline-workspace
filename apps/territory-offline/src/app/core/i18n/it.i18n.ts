@@ -5,7 +5,9 @@ export const it = {
     "ignore": "Ignore",
     "choose": "Please select",
     "nothingChosen": "Nothing selected",
-    "skip": "Salta"
+    "skip": "Salta",
+    "color": "Colore",
+    "opacity": "Trasparenza"
   },
   "assignments": {
     "startTime": "Start time",

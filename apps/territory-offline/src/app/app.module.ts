@@ -81,6 +81,7 @@ import {Router} from "@angular/router";
 import {MatStepperModule} from "@angular/material/stepper";
 import {RedundantVisitBanPipe} from "./core/pipes/visit-bans/redundant-visit-ban.pipe";
 import {OrphanVisitBanPipe} from "./core/pipes/visit-bans/orphan-visit-ban.pipe";
+import {MatSliderModule} from "@angular/material/slider";
 
 declare const sourceMapSupport: any;
 const {Device} = Plugins;
@@ -162,6 +163,7 @@ const {Device} = Plugins;
     HammerModule,
     ColorPickerModule,
     MatStepperModule,
+    MatSliderModule,
     TranslateModule.forRoot(),
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),

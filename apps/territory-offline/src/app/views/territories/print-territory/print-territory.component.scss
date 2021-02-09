@@ -15,6 +15,54 @@
         .checked {
           color: $seaweed;
         }
+
+        .label {
+
+          .opacity {
+            font-size: 0.875rem;
+          }
+        }
+
+        .info {
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          align-items: center;
+
+          .territory-color {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin: 0 0.25rem;
+            opacity: 0.3;
+            transition: border-radius .3s;
+            border-radius: 50%;
+
+            &.active {
+              opacity: 1;
+              border-radius: 0;
+            }
+          }
+
+          mat-slider {
+            min-width: 10.25rem;
+
+            ::ng-deep {
+
+              .mat-slider-thumb {
+                background: #15C880;
+              }
+
+              .mat-slider-track-fill {
+                background: #15C880;
+              }
+
+              .mat-slider-thumb-label {
+                background: #15C880;
+              }
+            }
+          }
+        }
       }
     }
   }

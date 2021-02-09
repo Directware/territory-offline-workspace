@@ -29,6 +29,7 @@ import {
   TerritoryCardFormats
 } from "@territory-offline-workspace/api";
 import {environment} from "../../../../environments/environment";
+import {MatSliderChange} from "@angular/material/slider";
 
 @Component({
   selector: 'app-print-territory',
@@ -79,7 +80,7 @@ export class PrintTerritoryComponent implements OnInit, OnDestroy
         take(1),
         tap(territory => this.territory = territory),
         tap((territory: Territory) => this.initWithData(territory)),
-        tap((territory: Territory) => this.territoryMapsService.setPrintingDrawingColor())
+        tap((territory: Territory) => this.territoryMapsService.setPrintingDrawingColor(this.printedMapConfiguration['territoryColor'], this.printedMapConfiguration["opacity"]))
       ).subscribe()
   }
 
@@ -228,6 +229,20 @@ export class PrintTerritoryComponent implements OnInit, OnDestroy
     }
 
     this.territoryMapsService.getMap().resize();
+  }
+
+  public setColor(color: string)
+  {
+    this.printedMapConfiguration["territoryColor"] = color;
+    this.territoryMapsService.setPrintingDrawingColor(this.printedMapConfiguration['territoryColor'], this.printedMapConfiguration['opacity'])
+    this.savePrintConfiguration();
+  }
+
+  public setOpacity(e: MatSliderChange)
+  {
+    this.printedMapConfiguration['opacity'] = e.value
+    this.territoryMapsService.setPrintingDrawingColor(this.printedMapConfiguration['territoryColor'], this.printedMapConfiguration["opacity"])
+    this.savePrintConfiguration();
   }
 
   private initWithData(territory: Territory)
@@ -425,6 +440,16 @@ export class PrintTerritoryComponent implements OnInit, OnDestroy
   {
     this.printedMapConfiguration = JSON.parse(localStorage.getItem("printedMapConfiguration")) || {};
     this.tcf = TerritoryCardFormats.filter((format) => format.id === this.printedMapConfiguration.chosenFormatId)[0];
+
+    if(!this.printedMapConfiguration["territoryColor"])
+    {
+      this.printedMapConfiguration["territoryColor"] = "#2079C2";
+    }
+
+    if(!this.printedMapConfiguration["opacity"])
+    {
+      this.printedMapConfiguration["opacity"] = 0.2;
+    }
 
     if (!this.tcf)
     {
