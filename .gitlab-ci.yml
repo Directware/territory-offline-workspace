@@ -12,8 +12,8 @@ cache:
 
 build-field-companion:
   stage: build
-  only:
-    - release/field-companion
+#  only:
+#    - release/field-companion
   script:
     - npm ci
     - npm run build:field-companion:prod -- --base-href "/field-companion"
@@ -21,10 +21,9 @@ build-field-companion:
 deploy-field-companion:
   stage: deploy
   image: mcr.microsoft.com/azure-cli:2.0.80
-  only:
-    - release/field-companion
   rules:
     - when: manual
+#    - if: '$CI_COMMIT_BRANCH != "release/field-companion"'
   script:
     - az storage blob delete-batch --source "\$web/field-companion" --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
     - az storage blob upload-batch --destination "\$web/field-companion" --source apps/field-companion/dist/field-companion --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
