@@ -45,6 +45,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: field-companion-dist
+          path: dist
 
       - name: Display structure of downloaded files
         run: ls -R
@@ -65,4 +66,4 @@ jobs:
         with:
           azcliversion: 2.0.80
           inlineScript: |
-            az storage blob upload-batch -d "\$web/field-companion" -s "apps/field-companion/dist/field-companion" --connection-string "$azureConnectionString"
+            az storage blob upload-batch -d "\$web/field-companion" -s "dist" --connection-string "$azureConnectionString"
