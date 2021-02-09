@@ -1,0 +1,33 @@
+name: CI - Default
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-node@v2
+        with:
+         node-version: '12'
+      - uses: actions/checkout@v2
+
+      - name: Run a multi-line script
+        run: |
+          npm ci
+          npm run affected:build:prod
+          npm run affected:test
+          npm run affected:e2e:headless
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: field-companion-dist
+          path: apps/field-companion/dist/field-companion/
+          if-no-files-found: error
