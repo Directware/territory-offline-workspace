@@ -33,7 +33,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: field-companion-dist
-          path: apps/field-companion/dist/field-companion
+          path: apps/field-companion/dist/field-companion/
+          if-no-files-found: error
 
   deploy:
     needs: build
