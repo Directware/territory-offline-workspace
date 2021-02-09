@@ -48,6 +48,19 @@ jobs:
           name: website-dist
           path: dist
 
+      - name: Empty Website blob storage
+        uses: azure/CLI@v1
+        env:
+          azureConnectionString: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+        with:
+          azcliversion: 2.0.80
+          inlineScript: |
+            az storage blob delete-batch -s "\$web" --pattern "assets" --connection-string "$azureConnectionString"
+            az storage blob delete-batch -s "\$web" --pattern ".js$" --connection-string "$azureConnectionString"
+            az storage blob delete-batch -s "\$web" --pattern ".html$" --connection-string "$azureConnectionString"
+            az storage blob delete-batch -s "\$web" --pattern ".txt$" --connection-string "$azureConnectionString"
+            az storage blob delete-batch -s "\$web" --pattern ".css$" --connection-string "$azureConnectionString"
+
       - name: Upload to Website blob storage
         uses: azure/CLI@v1
         env:
@@ -55,4 +68,4 @@ jobs:
         with:
           azcliversion: 2.0.80
           inlineScript: |
-            az storage blob sync -d "\$web" -s "dist" --exclude-path "field-companion" --connection-string "$azureConnectionString"
+            az storage blob upload-batch -d "\$web" -s "dist" --connection-string "$azureConnectionString"
