@@ -2,9 +2,8 @@ name: CI - Website
 
 on:
   push:
-    branches: [ release/website ]
-  pull_request:
-    branches: [ release/website ]
+    tags:
+      - release/website/*
 
   workflow_dispatch:
 
