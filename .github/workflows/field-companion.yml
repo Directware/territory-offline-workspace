@@ -1,8 +1,7 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: [CI] Field Companion
 
-# Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the develop branch
   push:
@@ -25,11 +24,20 @@ jobs:
       - uses: actions/setup-node@v2
         with:
          node-version: '12'
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
 
-      # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
           npm ci
           npm run build:field-companion:prod -- --base-href "/field-companion"
+
+      - name: Upload to blob storage
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+            az storage blob delete-batch --source "\$web/field-companion" --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
+            az storage blob upload-batch --destination "\$web/field-companion" --source apps/field-companion/dist/field-companion --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
