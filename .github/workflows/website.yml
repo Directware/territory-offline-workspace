@@ -56,10 +56,10 @@ jobs:
           azcliversion: 2.0.80
           inlineScript: |
             az storage blob delete-batch -s "\$web" --pattern "assets" --connection-string "$azureConnectionString"
-            az storage blob delete-batch -s "\$web" --pattern ".js$" --connection-string "$azureConnectionString"
-            az storage blob delete-batch -s "\$web" --pattern ".html$" --connection-string "$azureConnectionString"
-            az storage blob delete-batch -s "\$web" --pattern ".txt$" --connection-string "$azureConnectionString"
-            az storage blob delete-batch -s "\$web" --pattern ".css$" --connection-string "$azureConnectionString"
+            az storage blob delete-batch -s "\$web" --pattern "[-.a-zA-Z0-9]+.js" --connection-string "$azureConnectionString"
+            az storage blob delete-batch -s "\$web" --pattern "[-.a-zA-Z0-9]+.html" --connection-string "$azureConnectionString"
+            az storage blob delete-batch -s "\$web" --pattern "[-.a-zA-Z0-9]+.txt" --connection-string "$azureConnectionString"
+            az storage blob delete-batch -s "\$web" --pattern "[-.a-zA-Z0-9]+.css" --connection-string "$azureConnectionString"
 
       - name: Upload to Website blob storage
         uses: azure/CLI@v1
