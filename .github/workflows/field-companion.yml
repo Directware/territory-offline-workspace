@@ -2,9 +2,9 @@ name: CI - Field Companion
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ release/field-companion ]
   pull_request:
-    branches: [ develop ]
+    branches: [ release/field-companion ]
 
   workflow_dispatch:
 
@@ -27,7 +27,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           npm ci
-          npm run build:field-companion:prod -- --base-href "/field-companion"
+          npm run build:field-companion:prod -- --base-href "/field-companion/" -- --deploy-url "/field-companion/"
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
@@ -46,9 +46,6 @@ jobs:
         with:
           name: field-companion-dist
           path: dist
-
-      - name: Display structure of downloaded files
-        run: ls -R
 
       - name: Empty Field Companion blob storage
         uses: azure/CLI@v1
