@@ -30,6 +30,7 @@ jobs:
           npm run build:field-companion:prod -- --base-href "/field-companion"
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
