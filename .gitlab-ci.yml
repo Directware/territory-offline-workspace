@@ -1,16 +1,30 @@
 image: node:12.15.0
 
 stages:
-  - setup
   - build
   - deploy
 
-deploy-field-companion:
-  stage: deploy
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - dist
+    - apps/field-companion/dist/field-companion
+
+build-field-companion:
+  stage: build
   only:
     - release/field-companion
   script:
     - npm ci
     - npm run build:field-companion:prod -- --base-href "/field-companion"
+
+deploy-field-companion:
+  stage: deploy
+  image: mcr.microsoft.com/azure-cli:2.0.80
+  only:
+    - release/field-companion
+  rules:
+    - when: manual
+  script:
     - az storage blob delete-batch --source "\$web/field-companion" --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
     - az storage blob upload-batch --destination "\$web/field-companion" --source apps/field-companion/dist/field-companion --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
