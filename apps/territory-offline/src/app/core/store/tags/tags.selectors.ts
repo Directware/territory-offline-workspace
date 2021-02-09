@@ -27,6 +27,6 @@ export const selectTagsByIds = createSelector(
   {
     const tmp = [];
     ids.forEach(id => tmp.push(entities[id]));
-    return tmp;
+    return tmp.filter(tag => !!tag);
   }
 );

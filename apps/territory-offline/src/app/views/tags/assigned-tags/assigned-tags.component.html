@@ -1,6 +1,6 @@
 <app-panel *ngIf="(allTagsEntities$ | async) as allTagsEntities">
   <div class="wrapper">
-    <h2 class="body-grey">{{ 'tag.assigned' | translate }}:</h2>
+    <h2 class="body-grey">{{ 'tag.assigned' | translate }}</h2>
     <app-list-item *ngFor="let tagId of assignedTags.value">
       <p *ngIf="allTagsEntities[tagId] as tag" class="label">{{tag.name}}</p>
       <i-feather *ngIf="!readonly" class="i-feather action trash"

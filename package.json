@@ -7,7 +7,7 @@
     "nx": "nx",
     "ngcc": "ngcc",
     "start": "ng serve",
-    "start:territory-offline": "ng run territory-offline:serve --base-href / --no-live-reload",
+    "start:territory-offline": "nx serve territory-offline -- --base-href / -- --no-live-reload",
     "start:field-companion": "nx serve field-companion",
     "start:website": "ng run website:serve",
     "build": "ng build",
