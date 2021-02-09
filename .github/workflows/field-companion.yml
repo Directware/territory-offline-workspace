@@ -37,7 +37,7 @@ jobs:
           if-no-files-found: error
 
   deploy:
-    needs: build
+    #needs: build
     runs-on: ubuntu-latest
 
     steps:
