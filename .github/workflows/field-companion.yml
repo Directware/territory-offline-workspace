@@ -29,20 +29,31 @@ jobs:
           npm ci
           npm run build:field-companion:prod -- --base-href "/field-companion"
 
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Empty Field Companion blob storage
         uses: azure/CLI@v1
         env:
           azureConnectionString: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
         with:
-          azcliversion: 2.0.72
+          azcliversion: 2.0.80
           inlineScript: |
-            az storage blob delete-batch --source "\$web/field-companion" --connection-string "$azureConnectionString"
+            az storage blob delete-batch -s "\$web" --pattern "field-companion/*" --connection-string "$azureConnectionString"
 
       - name: Upload to Field Companion blob storage
         uses: azure/CLI@v1
         env:
           azureConnectionString: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
         with:
-          azcliversion: 2.0.72
+          azcliversion: 2.0.80
           inlineScript: |
-            az storage blob upload-batch --destination "\$web/field-companion" --source apps/field-companion/dist/field-companion --connection-string "$azureConnectionString"
+            az storage blob upload-batch -d "\$web/field-companion" -s "apps/field-companion/dist/field-companion" --connection-string "$azureConnectionString"
