@@ -29,12 +29,20 @@ jobs:
           npm ci
           npm run build:field-companion:prod -- --base-href "/field-companion"
 
-      - name: Upload to blob storage
+      - name: Empty Field Companion blob storage
         uses: azure/CLI@v1
         env:
           azureConnectionString: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
         with:
           azcliversion: 2.0.72
-          script: |
+          inlineScript: |
             az storage blob delete-batch --source "\$web/field-companion" --connection-string "$azureConnectionString"
+
+      - name: Upload to Field Companion blob storage
+        uses: azure/CLI@v1
+        env:
+          azureConnectionString: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
             az storage blob upload-batch --destination "\$web/field-companion" --source apps/field-companion/dist/field-companion --connection-string "$azureConnectionString"
