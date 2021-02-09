@@ -46,6 +46,9 @@ jobs:
         with:
           name: field-companion-dist
 
+      - name: Display structure of downloaded files
+        run: ls -R
+
       - name: Empty Field Companion blob storage
         uses: azure/CLI@v1
         env:
