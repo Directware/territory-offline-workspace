@@ -1,6 +1,7 @@
 <h1 class="header">
   {{"territories.title" | translate}}
-  <i-feather (click)="select()" class="blue add-territory" name="plus"></i-feather>
+  <i-feather (click)="openFileConsideringPlatform()" class="blue add-territory" name="plus"></i-feather>
+  <input #htmlInputElement type="file" style="display: none;" (change)="openTerritoryCardFromWeb($event)">
 </h1>
 
 <ng-container *ngIf="(territoryCards$ | async) as territoryCards">

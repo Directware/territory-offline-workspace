@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../core/store/index.reducers";
@@ -21,6 +21,9 @@ const {FileSelector, Device} = Plugins;
 })
 export class TerritoriesComponent implements OnInit
 {
+  @ViewChild("htmlInputElement", {static: false})
+  public htmlInputElement: ElementRef;
+
   public isMenuOpened: boolean;
   public territoryCards$: Observable<TerritoryCard[]>
   public expiredTerritoryCards$: Observable<TerritoryCard[]>
@@ -35,6 +38,30 @@ export class TerritoriesComponent implements OnInit
   {
     this.territoryCards$ = this.store.pipe(select(selectAllNotExpiredTerritoryCards));
     this.expiredTerritoryCards$ = this.store.pipe(select(selectAllExpiredTerritoryCards));
+  }
+
+  public async openFileConsideringPlatform()
+  {
+    const deviceInfo = await Device.getInfo();
+
+    switch (deviceInfo.platform)
+    {
+      case "ios":
+      {
+        this.select();
+        break;
+      }
+      case "android":
+      {
+        this.select();
+        break;
+      }
+      default:
+      {
+        console.log(this.htmlInputElement);
+        this.htmlInputElement.nativeElement.click();
+      }
+    }
   }
 
   public async select()
@@ -59,13 +86,23 @@ export class TerritoriesComponent implements OnInit
     if (selectedFile.extensions.includes("territory"))
     {
       const file = await fetch(paths[0]).then((r) => r.blob());
-      const reader = new FileReader();
-      reader.onload = () => this.territoryCardService.importTerritory(reader.result as any);
-      reader.readAsArrayBuffer(file);
+      this.readFile(file);
     }
     else
     {
       alert(this.translateService.instant("territories.wrongFileType"));
     }
+  }
+
+  public openTerritoryCardFromWeb(e)
+  {
+    this.readFile(this.htmlInputElement.nativeElement.files[0])
+  }
+
+  public readFile(file)
+  {
+    const reader = new FileReader();
+    reader.onload = () => this.territoryCardService.importTerritory(reader.result as any);
+    reader.readAsArrayBuffer(file);
   }
 }
