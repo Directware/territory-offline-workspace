@@ -7,7 +7,7 @@
   margin: auto;
   overflow: hidden;
   // Dieser Hintergrund muss hier sein, alle overlays haben einen backdrop blur Effekt
-  background-image: url("/assets/images/background-map.jpeg");
+  background-image: url("./../assets/images/background-map.jpeg");
   background-size: auto 100%;
   background-position-y: bottom;
 
