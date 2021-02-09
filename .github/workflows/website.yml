@@ -1,0 +1,67 @@
+name: CI - Website
+
+on:
+  push:
+    branches: [ release/website ]
+  pull_request:
+    branches: [ release/website ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-node@v2
+        with:
+         node-version: '12'
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Run a multi-line script
+        run: |
+          npm ci
+          npm run build:website:prod
+          npm run e2e:website:prod
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: website-dist
+          path: dist/apps/website/
+          if-no-files-found: error
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download website artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: website-dist
+          path: dist
+
+      - name: Empty Website blob storage
+        uses: azure/CLI@v1
+        env:
+          azureConnectionString: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+        with:
+          azcliversion: 2.0.80
+          inlineScript: |
+            az storage blob delete-batch -s "\$web" --pattern "[!field-companion]" --connection-string "$azureConnectionString"
+
+      - name: Upload to Website blob storage
+        uses: azure/CLI@v1
+        env:
+          azureConnectionString: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+        with:
+          azcliversion: 2.0.80
+          inlineScript: |
+            az storage blob upload-batch -d "\$web" -s "dist" --connection-string "$azureConnectionString"
