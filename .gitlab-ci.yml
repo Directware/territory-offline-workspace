@@ -1,38 +1,16 @@
-image: cypress/base:10
-
-variables:
-  npm_config_cache: "$CI_PROJECT_DIR/.npm"
-  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
+image: node:12.15.0
 
 stages:
   - setup
   - build
   - deploy
 
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - .npm
-    - cache/Cypress
-    - node_modules
-    - dist
-
-setup:
-  stage: setup
+deploy-field-companion:
+  stage: deploy
+  only:
+    - release/field-companion
   script:
     - npm ci
-
-build:
-  stage: build
-  script:
-    - npm run build:website:prod
-    - npm run e2e:website:prod
-
-deploy-website:
-  stage: deploy
-  image: mcr.microsoft.com/azure-cli:2.0.80
-  rules:
-    - when: manual
-  script:
-    - az storage blob delete-batch --source "\$web" --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
-    - az storage blob upload-batch --destination "\$web" --source dist/apps/website --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
+    - npm run build:field-companion:prod -- --base-href "/field-companion"
+    - az storage blob delete-batch --source "\$web/field-companion" --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
+    - az storage blob upload-batch --destination "\$web/field-companion" --source apps/field-companion/dist/field-companion --connection-string "$AZURE_STORAGE_CONNECTION_STRING"
