@@ -2,8 +2,9 @@ name: CI - Field Companion
 
 on:
   push:
-    tags:
-      - release/field-companion/*
+    branches: [ release/field-companion ]
+  pull_request:
+    branches: [ release/field-companion ]
 
   workflow_dispatch:
 
