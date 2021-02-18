@@ -36,14 +36,13 @@ export const TABLE_NAME_MAPPINGS = {
   [HASHED_ASSIGNMENT_TABLE_NAME]: {
     tableName: ASSIGNMENT_TABLE_NAME,
     deleteByIdQuery: (entityId: string): string => SQL_DELETE_ASSIGNMENT.replace("{id}", entityId),
-    insertQuery: (entity: TimedEntity): capSQLiteSet =>
+    insertQuery: (entities: TimedEntity[]): capSQLiteSet =>
     {
-      const assignment = entity as Assignment;
       return {
         statement: SQL_INSERT_ASSIGNMENT,
-        values: [
-          entity.id,
-          entity.congregationId,
+        values: entities.map((assignment: Assignment) => ([
+          assignment.id,
+          assignment.congregationId,
           assignment.prefix || "",
           serializeDate(assignment.creationTime),
           serializeDate(assignment.lastUpdated),
@@ -53,7 +52,7 @@ export const TABLE_NAME_MAPPINGS = {
           serializeDate(assignment.endTime),
           assignment.statusColor || "",
           assignment.removedPublisherLabel || ""
-        ]
+        ]))
       };
     },
     parseEntity: (assignment: Assignment) =>
@@ -75,13 +74,12 @@ export const TABLE_NAME_MAPPINGS = {
   [HASHED_CONGREGATION_TABLE_NAME]: {
     tableName: CONGREGATION_TABLE_NAME,
     deleteByIdQuery: (entityId: string): string => SQL_DELETE_CONGREGATION.replace("{id}", entityId),
-    insertQuery: (entity: TimedEntity): capSQLiteSet =>
+    insertQuery: (entities: TimedEntity[]): capSQLiteSet =>
     {
-      const congregation = entity as Congregation;
       return {
         statement: SQL_INSERT_CONGREGATION,
-        values: [
-          entity.id,
+        values: entities.map((congregation: Congregation) => ([
+          congregation.id,
           congregation.prefix || "",
           serializeDate(congregation.creationTime),
           serializeDate(congregation.lastUpdated),
@@ -89,7 +87,7 @@ export const TABLE_NAME_MAPPINGS = {
           congregation.languageCode,
           congregation.language,
           congregation.hashedName
-        ]
+        ]))
       };
     },
     parseEntity: (congregation: Congregation) =>
@@ -109,21 +107,19 @@ export const TABLE_NAME_MAPPINGS = {
   [HASHED_DRAWING_TABLE_NAME]: {
     tableName: DRAWING_TABLE_NAME,
     deleteByIdQuery: (entityId: string): string => SQL_DELETE_DRAWING.replace("{id}", entityId),
-    insertQuery: (entity: TimedEntity): capSQLiteSet =>
+    insertQuery: (entities: TimedEntity[]): capSQLiteSet =>
     {
-      const drawing = entity as Drawing;
-
       return {
         statement: SQL_INSERT_DRAWING,
-        values: [
-          entity.id,
-          entity.congregationId,
+        values: entities.map((drawing: Drawing) => ([
+          drawing.id,
+          drawing.congregationId,
           drawing.prefix || "",
           serializeDate(drawing.creationTime),
           serializeDate(drawing.lastUpdated),
           serializeObject(drawing.featureCollection),
           serializeObject(drawing.printConfiguration)
-        ]
+        ]))
       };
     },
     parseEntity: (drawing: Drawing) =>
@@ -141,20 +137,19 @@ export const TABLE_NAME_MAPPINGS = {
   [HASHED_LAST_DOING_TABLE_NAME]: {
     tableName: LAST_DOING_TABLE_NAME,
     deleteByIdQuery: (entityId: string): string => SQL_DELETE_LAST_DOING.replace("{id}", entityId),
-    insertQuery: (entity: TimedEntity): capSQLiteSet =>
+    insertQuery: (entities: TimedEntity[]): capSQLiteSet =>
     {
-      const lastDoing = entity as LastDoing;
       return {
         statement: SQL_INSERT_LAST_DOING,
-        values: [
-          entity.id,
-          entity.congregationId,
+        values: entities.map((lastDoing: LastDoing) => ([
+          lastDoing.id,
+          lastDoing.congregationId,
           lastDoing.prefix || "",
           serializeDate(lastDoing.creationTime),
           serializeDate(lastDoing.lastUpdated),
           lastDoing.action,
           lastDoing.label
-        ]
+        ]))
       };
     },
     parseEntity: (lastDoing: LastDoing) =>
@@ -172,14 +167,13 @@ export const TABLE_NAME_MAPPINGS = {
   [HASHED_PUBLISHER_TABLE_NAME]: {
     tableName: PUBLISHER_TABLE_NAME,
     deleteByIdQuery: (entityId: string): string => SQL_DELETE_PUBLISHER.replace("{id}", entityId),
-    insertQuery: (entity: TimedEntity): capSQLiteSet =>
+    insertQuery: (entities: TimedEntity[]): capSQLiteSet =>
     {
-      const publisher = entity as Publisher;
       return {
         statement: SQL_INSERT_PUBLISHER,
-        values: [
-          entity.id,
-          entity.congregationId,
+        values: entities.map((publisher: Publisher) => ([
+          publisher.id,
+          publisher.congregationId,
           publisher.prefix || "",
           serializeDate(publisher.creationTime),
           serializeDate(publisher.lastUpdated),
@@ -190,7 +184,7 @@ export const TABLE_NAME_MAPPINGS = {
           serializeArray(publisher.tags),
           publisher.dsgvoSignature || "",
           serializeBoolean(publisher.isDeactivated)
-        ]
+        ]))
       };
     },
     parseEntity: (publisher: Publisher) =>
@@ -213,14 +207,13 @@ export const TABLE_NAME_MAPPINGS = {
   [HASHED_TAG_TABLE_NAME]: {
     tableName: TAG_TABLE_NAME,
     deleteByIdQuery: (entityId: string): string => SQL_DELETE_TAG.replace("{id}", entityId),
-    insertQuery: (entity: TimedEntity): capSQLiteSet =>
+    insertQuery: (entities: TimedEntity[]): capSQLiteSet =>
     {
-      const tag = entity as Tag;
       return {
         statement: SQL_INSERT_TAG,
-        values: [
-          entity.id,
-          entity.congregationId,
+        values: entities.map((tag: Tag) => ([
+          tag.id,
+          tag.congregationId,
           tag.prefix || "",
           serializeDate(tag.creationTime),
           serializeDate(tag.lastUpdated),
@@ -228,7 +221,7 @@ export const TABLE_NAME_MAPPINGS = {
           tag.color || "",
           tag.symbol || "",
           serializeObject(tag.metaInfos)
-        ]
+        ]))
       };
     },
     parseEntity: (tag: Tag) =>
@@ -248,14 +241,13 @@ export const TABLE_NAME_MAPPINGS = {
   [HASHED_TERRITORY_TABLE_NAME]: {
     tableName: TERRITORY_TABLE_NAME,
     deleteByIdQuery: (entityId: string): string => SQL_DELETE_TERRITORY.replace("{id}", entityId),
-    insertQuery: (entity: TimedEntity): capSQLiteSet =>
+    insertQuery: (entities: TimedEntity[]): capSQLiteSet =>
     {
-      const territory = entity as Territory;
       return {
         statement: SQL_INSERT_TERRITORY,
-        values: [
-          entity.id,
-          entity.congregationId,
+        values: entities.map((territory: Territory) => ([
+          territory.id,
+          territory.congregationId,
           territory.prefix || "",
           serializeDate(territory.creationTime),
           serializeDate(territory.lastUpdated),
@@ -268,7 +260,7 @@ export const TABLE_NAME_MAPPINGS = {
           serializeBoolean(territory.deactivated),
           serializeBoolean(territory.isCreation),
           territory.comment || ""
-        ]
+        ]))
       };
     },
     parseEntity: (territory: Territory) =>
@@ -293,14 +285,13 @@ export const TABLE_NAME_MAPPINGS = {
   [HASHED_VISIT_BAN_TABLE_NAME]: {
     tableName: VISIT_BAN_TABLE_NAME,
     deleteByIdQuery: (entityId: string): string => SQL_DELETE_VISIT_BAN.replace("{id}", entityId),
-    insertQuery: (entity: TimedEntity): capSQLiteSet =>
+    insertQuery: (entities: TimedEntity[]): capSQLiteSet =>
     {
-      const visitBan = entity as VisitBan;
       return {
         statement: SQL_INSERT_VISIT_BAN,
-        values: [
-          entity.id,
-          entity.congregationId,
+        values: entities.map((visitBan: VisitBan) => ([
+          visitBan.id,
+          visitBan.congregationId,
           visitBan.prefix || "",
           serializeDate(visitBan.creationTime),
           serializeDate(visitBan.lastUpdated),
@@ -314,7 +305,7 @@ export const TABLE_NAME_MAPPINGS = {
           serializeDate(visitBan.lastVisit),
           visitBan.comment || "",
           serializeObject(visitBan.gpsPosition)
-        ]
+        ]))
       };
     },
     parseEntity: (visitBan: VisitBan) =>

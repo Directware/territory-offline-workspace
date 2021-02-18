@@ -101,8 +101,7 @@ export class MobileDatabaseService implements AbstractDatabase
   public async upsert(hashedTableName: string, entity: TimedEntity, excludeCongregationPrefix?: boolean): Promise<TimedEntity>
   {
     const congregationPrefix = excludeCongregationPrefix ? null : await this.getCurrentCongregationPrefix();
-
-    const statement = TABLE_NAME_MAPPINGS[hashedTableName].insertQuery({...entity, congregationId: congregationPrefix});
+    const statement = TABLE_NAME_MAPPINGS[hashedTableName].insertQuery([{...entity, congregationId: congregationPrefix}]);
 
     await this.executeSet([statement]);
 
@@ -111,22 +110,18 @@ export class MobileDatabaseService implements AbstractDatabase
 
   public async bulkUpsert(hashedTableName: string, entities: TimedEntity[], excludeCongregationPrefix?: boolean): Promise<TimedEntity[]>
   {
-    // TODO verschiedene Statemens machen nur dann Sinn wenn sie sich ändern an sonsten einfach values benutzen
-    const set = [];
     const congregationPrefix = excludeCongregationPrefix ? null : await this.getCurrentCongregationPrefix();
+    const entitiesWithCongregationId = entities.map(entity => ({...entity, congregationId: congregationPrefix}));
+    const set = TABLE_NAME_MAPPINGS[hashedTableName].insertQuery(entitiesWithCongregationId);
 
-    entities.forEach(entity => set.push(TABLE_NAME_MAPPINGS[hashedTableName].insertQuery({
-      ...entity,
-      congregationId: congregationPrefix
-    })));
-
-    await this.executeSet(set);
+    await this.executeSet([set]);
 
     return entities;
   }
 
   public async bulkDelete(hashedTableName: string, entities: TimedEntity[], excludeCongregationPrefix?: boolean): Promise<TimedEntity[]>
   {
+    // TODO so wie bulk upsert
     const statements = [];
 
     entities.forEach(entity => statements.push({
