@@ -1,7 +1,6 @@
 import {utils, WorkBook} from 'xlsx';
 import {ExcelToEntityMapper} from "./excel-to-entity-mapper";
-import * as Turf from "@turf/turf";
-import {uuid4} from "@capacitor/core/dist/esm/util";
+import { v4 as uuid4 } from 'uuid';
 import {normalizeStreetName, normalizeStreetSuffix} from "../usefull.functions";
 import {VisitBan} from "../../lib/visit-ban/visit-ban.model";
 

@@ -4,7 +4,7 @@ import {ApplicationState} from "../../../core/store/index.reducers";
 import {UpsertSettings, UpsertSettingsSuccess} from "../../../core/store/settings/settings.actions";
 import {take, tap} from "rxjs/operators";
 import {Router} from "@angular/router";
-import {uuid4} from "@capacitor/core/dist/esm/util";
+import { v4 as uuid4 } from 'uuid';
 import {Actions, ofType} from "@ngrx/effects";
 import {TerritoryLanguageService} from "@territory-offline-workspace/ui-components";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";

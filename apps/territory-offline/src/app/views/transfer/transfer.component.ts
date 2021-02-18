@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {TerritoryHelperImportComponent} from "./territory-helper-import/territory-helper-import.component";
 import {SyncDataComponent} from "./sync-data/sync-data.component";
 import {PdfDataExportService} from "../../core/services/export/pdf-data-export.service";
-import {BehaviorSubject, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../core/store/index.reducers";
 import {selectCurrentCongregation} from "../../core/store/congregation/congregations.selectors";
@@ -17,13 +17,10 @@ import {ImportFromExcelModalComponent} from "./import-from-excel-modal/import-fr
 import {ExcelDataExportService} from "../../core/services/export/excel-data-export.service";
 import * as Pako from 'pako';
 import {AssignmentsService} from "../../core/services/assignment/assignments.service";
-import {Drawing, Territory, TerritoryCard} from "@territory-offline-workspace/api";
+import {TerritoryCard} from "@territory-offline-workspace/api";
 import {TranslateService} from '@ngx-translate/core';
 import {TerritoryWebTerritories} from "../../../../../../libs/api/src/lib/territory-web/territory-web.territories";
 import {DataImportService} from "../../core/services/import/data-import.service";
-import {uuid4} from "@capacitor/core/dist/esm/util";
-import * as Turf from '@turf/turf';
-import {BackupImportProgressComponent} from "../shared/modals/backup-import-progress/backup-import-progress.component";
 import {selectAllTerritories} from "../../core/store/territories/territories.selectors";
 import {GeoJsonParseService} from "../../core/services/territory/geo-json-parse.service";
 import {FileLoaderService} from "../../core/services/common/file/file-loader.service";

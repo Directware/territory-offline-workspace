@@ -180,3 +180,62 @@ export function normalizeStreetSuffix(streetSuffix: string): string
 
   return streetSuffix.replace(new RegExp(/[a-zA-Z]\w+/g), "").trim();
 }
+
+export function serializeObject(object): string
+{
+  if(!object)
+  {
+    return "";
+  }
+  let stringifiedObject = "null";
+
+  try {
+    stringifiedObject = JSON.stringify(object);
+  }
+  catch (e)
+  {
+    console.error("[serializeObject()]:", JSON.stringify(e));
+  }
+
+  return stringifiedObject;
+}
+
+export function serializeArray(data: any[]): string
+{
+  if(!data || data.length === 0)
+  {
+    return "null";
+  }
+
+  return JSON.stringify(data);
+}
+
+export function serializeDate(date: Date): string
+{
+  if(!date)
+  {
+    return "null";
+  }
+
+  return date.toISOString();
+}
+
+export function deserializeDate(isoDateString: string): Date
+{
+  if(!isoDateString || isoDateString === "null")
+  {
+    return null;
+  }
+
+  return new Date(isoDateString);
+}
+
+export function serializeBoolean(value: boolean | string): string
+{
+  if(value === true || value === "true")
+  {
+    return "true";
+  }
+
+  return "false";
+}

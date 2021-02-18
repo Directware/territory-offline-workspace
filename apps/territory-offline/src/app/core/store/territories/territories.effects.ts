@@ -14,8 +14,12 @@ import {
   UpsertTerritorySuccess
 } from './territories.actions';
 import {LastDoingsService} from "../../services/common/last-doings.service";
-import {LastDoingActionsEnum, Territory, TimedEntity} from "@territory-offline-workspace/api";
-import {HASHED_TERRITORY_TABLE_NAME} from "../../services/db/mobile-db-schemas/schemas.db";
+import {
+  HASHED_TERRITORY_TABLE_NAME,
+  LastDoingActionsEnum,
+  Territory,
+  TimedEntity
+} from "@territory-offline-workspace/api";
 
 @Injectable({providedIn: 'root'})
 export class TerritoriesEffects

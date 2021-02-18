@@ -1,5 +1,5 @@
 import {Drawing, Territory} from "@territory-offline-workspace/api";
-import {uuid4} from "@capacitor/core/dist/esm/util";
+import { v4 as uuid4 } from 'uuid';
 import * as Turf from "@turf/turf";
 
 export class GeoJsonParseService

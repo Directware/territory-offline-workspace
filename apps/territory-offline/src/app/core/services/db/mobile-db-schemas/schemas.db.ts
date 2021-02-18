@@ -1,619 +1,340 @@
-/*
-    Create schema for assignments
- */
 import {
   Assignment,
+  ASSIGNMENT_TABLE_NAME,
   Congregation,
+  CONGREGATION_TABLE_NAME, deserializeDate,
   Drawing,
+  DRAWING_TABLE_NAME,
+  HASHED_ASSIGNMENT_TABLE_NAME,
+  HASHED_CONGREGATION_TABLE_NAME,
+  HASHED_DRAWING_TABLE_NAME,
+  HASHED_LAST_DOING_TABLE_NAME,
+  HASHED_PUBLISHER_TABLE_NAME,
+  HASHED_TAG_TABLE_NAME, HASHED_TERRITORY_TABLE_NAME, HASHED_VISIT_BAN_TABLE_NAME,
+  LAST_DOING_TABLE_NAME,
   LastDoing,
   Publisher,
-  Tag, Territory,
-  TimedEntity, VisitBan
+  PUBLISHER_TABLE_NAME, serializeArray, serializeBoolean, serializeDate, serializeObject,
+  SQL_DELETE_ASSIGNMENT,
+  SQL_DELETE_CONGREGATION,
+  SQL_DELETE_DRAWING,
+  SQL_DELETE_LAST_DOING,
+  SQL_DELETE_PUBLISHER, SQL_DELETE_TAG, SQL_DELETE_TERRITORY, SQL_DELETE_VISIT_BAN,
+  SQL_INSERT_ASSIGNMENT,
+  SQL_INSERT_CONGREGATION,
+  SQL_INSERT_DRAWING,
+  SQL_INSERT_LAST_DOING,
+  SQL_INSERT_PUBLISHER, SQL_INSERT_TAG, SQL_INSERT_TERRITORY, SQL_INSERT_VISIT_BAN,
+  Tag, TAG_TABLE_NAME,
+  Territory, TERRITORY_TABLE_NAME,
+  TimedEntity, VISIT_BAN_TABLE_NAME,
+  VisitBan
 } from "@territory-offline-workspace/api";
-
-export const ASSIGNMENT_TABLE_NAME = "assignments";
-export const HASHED_ASSIGNMENT_TABLE_NAME = btoa("assignments");
-export const SQL_CREATE_ASSIGNMENTS = `
-  BEGIN TRANSACTION;
-  CREATE TABLE IF NOT EXISTS ${ASSIGNMENT_TABLE_NAME} (
-    id TEXT PRIMARY KEY NOT NULL,
-    congregationId TEXT,
-    prefix TEXT,
-    creationTime TEXT NOT NULL,
-    lastUpdated TEXT,
-    publisherId TEXT NOT NULL,
-    territoryId TEXT NOT NULL,
-    startTime TEXT NOT NULL,
-    endTime TEXT,
-    statusColor TEXT,
-    removedPublisherLabel TEXT
-  );
-  PRAGMA ${ASSIGNMENT_TABLE_NAME}_version = 1;
-  COMMIT TRANSACTION;
-`;
-
-export const SQL_INSERT_ASSIGNMENT = `
-  INSERT OR REPLACE INTO ${ASSIGNMENT_TABLE_NAME} (
-    id,
-    congregationId,
-    prefix,
-    creationTime,
-    lastUpdated,
-    publisherId,
-    territoryId,
-    startTime,
-    endTime,
-    statusColor,
-    removedPublisherLabel
-  ) VALUES ({id},{congregationId},{prefix},{creationTime},{lastUpdated},{publisherId},{territoryId},{startTime},{endTime},{statusColor},{removedPublisherLabel});
-`;
-
-export const SQL_DELETE_ASSIGNMENT = `DELETE FROM ${ASSIGNMENT_TABLE_NAME} WHERE id='{id}';`;
-
-/*
-    Create schema for congregation
- */
-export const CONGREGATION_TABLE_NAME = "congregations";
-export const HASHED_CONGREGATION_TABLE_NAME = btoa("congregations");
-export const SQL_CREATE_CONGREGATION = `
-  BEGIN TRANSACTION;
-  CREATE TABLE IF NOT EXISTS ${CONGREGATION_TABLE_NAME} (
-    id TEXT PRIMARY KEY NOT NULL,
-    congregationId TEXT,
-    prefix TEXT,
-    creationTime TEXT NOT NULL,
-    lastUpdated TEXT,
-    name TEXT NOT NULL,
-    languageCode TEXT NOT NULL,
-    language TEXT NOT NULL,
-    hashedName TEXT NOT NULL
-  );
-  PRAGMA ${CONGREGATION_TABLE_NAME}_version = 1;
-  COMMIT TRANSACTION;
-`;
-export const SQL_INSERT_CONGREGATION = `
-  INSERT OR REPLACE INTO ${CONGREGATION_TABLE_NAME} (
-    id,
-    congregationId,
-    prefix,
-    creationTime,
-    lastUpdated,
-    name,
-    languageCode,
-    language,
-    hashedName
-  ) VALUES ({id},{congregationId},{prefix},{creationTime},{lastUpdated},{name},{languageCode},{language},{hashedName});
-`;
-export const SQL_DELETE_CONGREGATION = `DELETE FROM ${CONGREGATION_TABLE_NAME} WHERE id='{id}';`;
-
-/*
-    Create schema for drawings
- */
-export const DRAWING_TABLE_NAME = "drawings";
-export const HASHED_DRAWING_TABLE_NAME = btoa("drawings");
-export const SQL_CREATE_DRAWING = `
-  BEGIN TRANSACTION;
-  CREATE TABLE IF NOT EXISTS ${DRAWING_TABLE_NAME} (
-    id TEXT PRIMARY KEY NOT NULL,
-    congregationId TEXT,
-    prefix TEXT,
-    creationTime TEXT NOT NULL,
-    lastUpdated TEXT,
-    featureCollection TEXT NOT NULL,
-    printConfiguration TEXT
-  );
-  PRAGMA ${DRAWING_TABLE_NAME}_version = 1;
-  COMMIT TRANSACTION;
-`;
-export const SQL_INSERT_DRAWING = `
-  INSERT OR REPLACE INTO ${DRAWING_TABLE_NAME} (
-    id,
-    congregationId,
-    prefix,
-    creationTime,
-    lastUpdated,
-    featureCollection,
-    printConfiguration
-  ) VALUES ({id},{congregationId},{prefix},{creationTime},{lastUpdated},{featureCollection},{printConfiguration});
-`;
-export const SQL_DELETE_DRAWING = `DELETE FROM ${DRAWING_TABLE_NAME} WHERE id='{id}';`;
-
-/*
-    Create schema for last doings
- */
-export const LAST_DOING_TABLE_NAME = "lastDoings";
-export const HASHED_LAST_DOING_TABLE_NAME = btoa("lastDoings");
-export const SQL_CREATE_LAST_DOING = `
-  BEGIN TRANSACTION;
-  CREATE TABLE IF NOT EXISTS ${LAST_DOING_TABLE_NAME} (
-    id TEXT PRIMARY KEY NOT NULL,
-    congregationId TEXT,
-    prefix TEXT,
-    creationTime TEXT NOT NULL,
-    lastUpdated TEXT,
-    action TEXT NOT NULL,
-    label TEXT NOT NULL
-  );
-  PRAGMA ${LAST_DOING_TABLE_NAME}_version = 1;
-  COMMIT TRANSACTION;
-`;
-
-export const SQL_INSERT_LAST_DOING = `
-  INSERT OR REPLACE INTO ${LAST_DOING_TABLE_NAME} (
-    id,
-    congregationId,
-    prefix,
-    creationTime,
-    lastUpdated,
-    action,
-    label
-  ) VALUES ({id},{congregationId},{prefix},{creationTime},{lastUpdated},{action},{label});
-`;
-export const SQL_DELETE_LAST_DOING = `DELETE FROM ${LAST_DOING_TABLE_NAME} WHERE id='{id}';`;
-
-/*
-    Create schema for publishers
- */
-export const PUBLISHER_TABLE_NAME = "publishers";
-export const HASHED_PUBLISHER_TABLE_NAME = btoa("publishers");
-export const SQL_CREATE_PUBLISHER = `
-  BEGIN TRANSACTION;
-  CREATE TABLE IF NOT EXISTS ${PUBLISHER_TABLE_NAME} (
-    id TEXT PRIMARY KEY NOT NULL,
-    congregationId TEXT,
-    prefix TEXT,
-    creationTime TEXT NOT NULL,
-    lastUpdated TEXT,
-    name TEXT NOT NULL,
-    firstName TEXT NOT NULL,
-    email TEXT NOT NULL,
-    phone TEXT,
-    tags TEXT,
-    dsgvoSignature TEXT,
-    isDeactivated TEXT
-  );
-  PRAGMA ${PUBLISHER_TABLE_NAME}_version = 1;
-  COMMIT TRANSACTION;
-`;
-
-export const SQL_INSERT_PUBLISHER = `
-  INSERT OR REPLACE INTO ${PUBLISHER_TABLE_NAME} (
-    id,
-    congregationId,
-    prefix,
-    creationTime,
-    lastUpdated,
-    name,
-    firstName,
-    email,
-    phone,
-    tags,
-    dsgvoSignature,
-    isDeactivated
-  ) VALUES ({id},{congregationId},{prefix},{creationTime},{lastUpdated},{name},{firstName},{email},{phone},{tags},{dsgvoSignature},{isDeactivated});
-`;
-export const SQL_DELETE_PUBLISHER = `DELETE FROM ${PUBLISHER_TABLE_NAME} WHERE id='{id}';`;
-
-/*
-    Create schema for tags
- */
-export const TAG_TABLE_NAME = "tags";
-export const HASHED_TAG_TABLE_NAME = btoa("tags");
-export const SQL_CREATE_TAG = `
-  BEGIN TRANSACTION;
-  CREATE TABLE IF NOT EXISTS ${TAG_TABLE_NAME} (
-    id TEXT PRIMARY KEY NOT NULL,
-    congregationId TEXT,
-    prefix TEXT,
-    creationTime TEXT NOT NULL,
-    lastUpdated TEXT,
-    name TEXT NOT NULL,
-    color TEXT NOT NULL,
-    symbol TEXT,
-    metaInfos TEXT
-  );
-  PRAGMA ${TAG_TABLE_NAME}_version = 1;
-  COMMIT TRANSACTION;
-`;
-
-export const SQL_INSERT_TAG = `
-  INSERT OR REPLACE INTO ${TAG_TABLE_NAME} (
-    id,
-    congregationId,
-    prefix,
-    creationTime,
-    lastUpdated,
-    name,
-    color,
-    symbol,
-    metaInfos
-  ) VALUES ({id},{congregationId},{prefix},{creationTime},{lastUpdated},{name},{color},{symbol},{metaInfos});
-`;
-export const SQL_DELETE_TAG = `DELETE FROM ${TAG_TABLE_NAME} WHERE id='{id}';`;
-
-/*
-    Create schema for territories
- */
-export const TERRITORY_TABLE_NAME = "territories";
-export const HASHED_TERRITORY_TABLE_NAME = btoa("territories");
-export const SQL_CREATE_TERRITORY = `
-  BEGIN TRANSACTION;
-  CREATE TABLE IF NOT EXISTS ${TERRITORY_TABLE_NAME} (
-    id TEXT PRIMARY KEY NOT NULL,
-    congregationId TEXT,
-    prefix TEXT,
-    creationTime TEXT NOT NULL,
-    lastUpdated TEXT,
-    name TEXT NOT NULL,
-    key TEXT NOT NULL,
-    populationCount TEXT,
-    tags TEXT,
-    territoryDrawingId TEXT NOT NULL,
-    boundaryNames TEXT,
-    deactivated TEXT,
-    isCreation TEXT,
-    comment TEXT
-  );
-  PRAGMA ${TERRITORY_TABLE_NAME}_version = 1;
-  COMMIT TRANSACTION;
-`;
-export const SQL_INSERT_TERRITORY = `
-  INSERT OR REPLACE INTO ${TERRITORY_TABLE_NAME} (
-    id,
-    congregationId,
-    prefix,
-    creationTime,
-    lastUpdated,
-    name,
-    key,
-    populationCount,
-    tags,
-    territoryDrawingId,
-    boundaryNames,
-    deactivated,
-    isCreation,
-    comment
-  ) VALUES ({id},{congregationId},{prefix},{creationTime},{lastUpdated},{name},{key},{populationCount},{tags},{territoryDrawingId},{boundaryNames},{deactivated},{isCreation},{comment});
-`;
-export const SQL_DELETE_TERRITORY = `DELETE FROM ${TERRITORY_TABLE_NAME} WHERE id='{id}';`;
-
-/*
-    Create schema for visit bans
- */
-export const VISIT_BAN_TABLE_NAME = "visitBans";
-export const HASHED_VISIT_BAN_TABLE_NAME = btoa("visitBans");
-export const SQL_CREATE_VISIT_BAN = `
-  BEGIN TRANSACTION;
-  CREATE TABLE IF NOT EXISTS ${VISIT_BAN_TABLE_NAME} (
-    id TEXT PRIMARY KEY NOT NULL,
-    congregationId TEXT,
-    prefix TEXT,
-    creationTime TEXT NOT NULL,
-    lastUpdated TEXT,
-    name TEXT,
-    street TEXT,
-    streetSuffix TEXT,
-    territoryId TEXT NOT NULL,
-    tags TEXT,
-    city TEXT,
-    floor TEXT,
-    lastVisit TEXT,
-    comment TEXT,
-    gpsPosition TEXT
-  );
-  PRAGMA ${VISIT_BAN_TABLE_NAME}_version = 1;
-  COMMIT TRANSACTION;
-`;
-export const SQL_INSERT_VISIT_BAN = `
-  INSERT OR REPLACE INTO ${VISIT_BAN_TABLE_NAME} (
-    id,
-    congregationId,
-    prefix,
-    creationTime,
-    lastUpdated,
-    name,
-    street,
-    streetSuffix,
-    territoryId,
-    tags,
-    city,
-    floor,
-    lastVisit,
-    comment,
-    gpsPosition
-  ) VALUES ({id},{congregationId},{prefix},{creationTime},{lastUpdated},{name},{street},{streetSuffix},{territoryId},{tags},{city},{floor},{lastVisit},{comment},{gpsPosition});
-`;
-export const SQL_DELETE_VISIT_BAN = `DELETE FROM ${VISIT_BAN_TABLE_NAME} WHERE id='{id}';`;
-/*
-  Table names mappings
- */
+import {capSQLiteSet} from "@capacitor-community/sqlite";
 
 export const TABLE_NAME_MAPPINGS = {
   [HASHED_ASSIGNMENT_TABLE_NAME]: {
     tableName: ASSIGNMENT_TABLE_NAME,
     deleteByIdQuery: (entityId: string): string => SQL_DELETE_ASSIGNMENT.replace("{id}", entityId),
-    insertQuery: (entity: TimedEntity): string =>
+    insertQuery: (entity: TimedEntity): capSQLiteSet =>
     {
       const assignment = entity as Assignment;
-      return SQL_INSERT_ASSIGNMENT
-        .replace("{id}", '"' + entity.id + '"')
-        .replace("{congregationId}", '"' + entity.congregationId + '"')
-        .replace("{prefix}", '"' + assignment.prefix + '"')
-        .replace("{creationTime}", '"' + assignment.creationTime?.toISOString() + '"')
-        .replace("{lastUpdated}", '"' + assignment.lastUpdated?.toISOString() + '"')
-        .replace("{publisherId}", '"' + assignment.publisherId + '"')
-        .replace("{territoryId}", '"' + assignment.territoryId + '"')
-        .replace("{startTime}", '"' + assignment.startTime?.toISOString() + '"')
-        .replace("{endTime}", '"' + assignment.endTime?.toISOString() + '"')
-        .replace("{statusColor}", '"' + assignment.statusColor + '"')
-        .replace("{removedPublisherLabel}", '"' + assignment.removedPublisherLabel + '"');
-    },
-    parseEntity: (entity: TimedEntity) =>
-    {
-      const assignment = entity as any;
       return {
-        ...assignment,
-        congregationId: undefined,
-        creationTime: parseDateIfPossible(assignment.creationTime),
-        lastUpdated: parseDateIfPossible(assignment.lastUpdated),
-        startTime: parseDateIfPossible(assignment.startTime),
-        endTime: parseDateIfPossible(assignment.endTime)
+        statement: SQL_INSERT_ASSIGNMENT,
+        values: [
+          entity.id,
+          entity.congregationId,
+          assignment.prefix || "",
+          serializeDate(assignment.creationTime),
+          serializeDate(assignment.lastUpdated),
+          assignment.publisherId,
+          assignment.territoryId,
+          serializeDate(assignment.startTime),
+          serializeDate(assignment.endTime),
+          assignment.statusColor || "",
+          assignment.removedPublisherLabel || ""
+        ]
+      };
+    },
+    parseEntity: (assignment: Assignment) =>
+    {
+      return {
+        id: assignment.id,
+        congregationId: assignment.congregationId,
+        creationTime: deserializeDate(assignment.creationTime as unknown as string),
+        lastUpdated: deserializeDate(assignment.lastUpdated as unknown as string),
+        publisherId: assignment.publisherId,
+        territoryId: assignment.territoryId,
+        startTime: deserializeDate(assignment.startTime as unknown as string),
+        endTime: deserializeDate(assignment.endTime as unknown as string),
+        statusColor: assignment.statusColor,
+        removedPublisherLabel: assignment.removedPublisherLabel
       };
     }
   },
   [HASHED_CONGREGATION_TABLE_NAME]: {
     tableName: CONGREGATION_TABLE_NAME,
     deleteByIdQuery: (entityId: string): string => SQL_DELETE_CONGREGATION.replace("{id}", entityId),
-    insertQuery: (entity: TimedEntity): string =>
+    insertQuery: (entity: TimedEntity): capSQLiteSet =>
     {
       const congregation = entity as Congregation;
-      return SQL_INSERT_CONGREGATION
-        .replace("{id}", '"' + entity.id + '"')
-        .replace("{congregationId}", '"' + entity.congregationId + '"')
-        .replace("{prefix}", '"' + congregation.prefix + '"')
-        .replace("{creationTime}", '"' + congregation.creationTime?.toISOString() + '"')
-        .replace("{lastUpdated}", '"' + congregation.lastUpdated?.toISOString() + '"')
-        .replace("{name}", '"' + congregation.name + '"')
-        .replace("{languageCode}", '"' + congregation.languageCode + '"')
-        .replace("{language}", '"' + congregation.language + '"')
-        .replace("{hashedName}", '"' + congregation.hashedName + '"');
-    },
-    parseEntity: (entity: TimedEntity) =>
-    {
-      const congregation = entity as any;
       return {
-        ...congregation,
-        congregationId: undefined,
-        creationTime: parseDateIfPossible(congregation.creationTime),
-        lastUpdated: parseDateIfPossible(congregation.lastUpdated)
+        statement: SQL_INSERT_CONGREGATION,
+        values: [
+          entity.id,
+          congregation.prefix || "",
+          serializeDate(congregation.creationTime),
+          serializeDate(congregation.lastUpdated),
+          congregation.name,
+          congregation.languageCode,
+          congregation.language,
+          congregation.hashedName
+        ]
+      };
+    },
+    parseEntity: (congregation: Congregation) =>
+    {
+      return {
+        id: congregation.id,
+        congregationId: congregation.congregationId,
+        creationTime: deserializeDate(congregation.creationTime as unknown as string),
+        lastUpdated: deserializeDate(congregation.lastUpdated as unknown as string),
+        name: congregation.name,
+        languageCode: congregation.languageCode,
+        language: congregation.language,
+        hashedName: congregation.hashedName
       };
     }
   },
   [HASHED_DRAWING_TABLE_NAME]: {
     tableName: DRAWING_TABLE_NAME,
     deleteByIdQuery: (entityId: string): string => SQL_DELETE_DRAWING.replace("{id}", entityId),
-    insertQuery: (entity: TimedEntity): string =>
+    insertQuery: (entity: TimedEntity): capSQLiteSet =>
     {
       const drawing = entity as Drawing;
-      return SQL_INSERT_DRAWING
-        .replace("{id}", '"' + entity.id + '"')
-        .replace("{congregationId}", '"' + entity.congregationId + '"')
-        .replace("{prefix}", '"' + drawing.prefix + '"')
-        .replace("{creationTime}", '"' + drawing.creationTime?.toISOString() + '"')
-        .replace("{lastUpdated}", '"' + drawing.lastUpdated?.toISOString() + '"')
-        .replace("{featureCollection}", "'" + JSON.stringify(drawing.featureCollection) + "'")
-        .replace("{printConfiguration}", "'" + JSON.stringify(drawing.printConfiguration) + "'");
-    },
-    parseEntity: (entity: TimedEntity) =>
-    {
-      const drawing = entity as any;
+
       return {
-        ...drawing,
-        congregationId: undefined,
-        creationTime: parseDateIfPossible(drawing.creationTime),
-        lastUpdated: parseDateIfPossible(drawing.lastUpdated),
-        featureCollection: parseJsonIfPossible(drawing.featureCollection),
-        printConfiguration: parseJsonIfPossible(drawing.printConfiguration)
+        statement: SQL_INSERT_DRAWING,
+        values: [
+          entity.id,
+          entity.congregationId,
+          drawing.prefix || "",
+          serializeDate(drawing.creationTime),
+          serializeDate(drawing.lastUpdated),
+          serializeObject(drawing.featureCollection),
+          serializeObject(drawing.printConfiguration)
+        ]
+      };
+    },
+    parseEntity: (drawing: Drawing) =>
+    {
+      return {
+        id: drawing.id,
+        congregationId: drawing.congregationId,
+        creationTime: deserializeDate(drawing.creationTime as unknown as string),
+        lastUpdated: deserializeDate(drawing.lastUpdated as unknown as string),
+        featureCollection: JSON.parse(drawing.featureCollection as unknown as string || "null"),
+        printConfiguration: JSON.parse(drawing.printConfiguration as unknown as string || "{}")
       };
     }
   },
   [HASHED_LAST_DOING_TABLE_NAME]: {
     tableName: LAST_DOING_TABLE_NAME,
     deleteByIdQuery: (entityId: string): string => SQL_DELETE_LAST_DOING.replace("{id}", entityId),
-    insertQuery: (entity: TimedEntity): string =>
+    insertQuery: (entity: TimedEntity): capSQLiteSet =>
     {
       const lastDoing = entity as LastDoing;
-      return SQL_INSERT_LAST_DOING
-        .replace("{id}", '"' + entity.id + '"')
-        .replace("{congregationId}", '"' + entity.congregationId + '"')
-        .replace("{prefix}", '"' + lastDoing.prefix + '"')
-        .replace("{creationTime}", '"' + lastDoing.creationTime?.toISOString() + '"')
-        .replace("{lastUpdated}", '"' + lastDoing.lastUpdated?.toISOString() + '"')
-        .replace("{action}", '"' + lastDoing.action + '"')
-        .replace("{label}", '"' + lastDoing.label + '"');
-    },
-    parseEntity: (entity: TimedEntity) =>
-    {
-      const lastDoing = entity as any;
       return {
-        ...lastDoing,
-        congregationId: undefined,
-        creationTime: parseDateIfPossible(lastDoing.creationTime),
-        lastUpdated: parseDateIfPossible(lastDoing.lastUpdated)
+        statement: SQL_INSERT_LAST_DOING,
+        values: [
+          entity.id,
+          entity.congregationId,
+          lastDoing.prefix || "",
+          serializeDate(lastDoing.creationTime),
+          serializeDate(lastDoing.lastUpdated),
+          lastDoing.action,
+          lastDoing.label
+        ]
+      };
+    },
+    parseEntity: (lastDoing: LastDoing) =>
+    {
+      return {
+        id: lastDoing.id,
+        congregationId: lastDoing.congregationId,
+        creationTime: deserializeDate(lastDoing.creationTime as unknown as string),
+        lastUpdated: deserializeDate(lastDoing.lastUpdated as unknown as string),
+        action: lastDoing.action,
+        label: lastDoing.label
       };
     }
   },
   [HASHED_PUBLISHER_TABLE_NAME]: {
     tableName: PUBLISHER_TABLE_NAME,
     deleteByIdQuery: (entityId: string): string => SQL_DELETE_PUBLISHER.replace("{id}", entityId),
-    insertQuery: (entity: TimedEntity): string =>
+    insertQuery: (entity: TimedEntity): capSQLiteSet =>
     {
       const publisher = entity as Publisher;
-      return SQL_INSERT_PUBLISHER
-        .replace("{id}", '"' + entity.id + '"')
-        .replace("{congregationId}", '"' + entity.congregationId + '"')
-        .replace("{prefix}", '"' + publisher.prefix + '"')
-        .replace("{creationTime}", '"' + publisher.creationTime?.toISOString() + '"')
-        .replace("{lastUpdated}", '"' + publisher.lastUpdated?.toISOString() + '"')
-        .replace("{name}", '"' + publisher.name + '"')
-        .replace("{firstName}", '"' + publisher.firstName + '"')
-        .replace("{email}", '"' + publisher.email + '"')
-        .replace("{phone}", '"' + publisher.phone + '"')
-        .replace("{tags}", "'" + JSON.stringify(publisher.tags) + "'")
-        .replace("{dsgvoSignature}", '"' + publisher.dsgvoSignature + '"')
-        .replace("{isDeactivated}", "'" + JSON.stringify(!!publisher.isDeactivated) + "'");
-    },
-    parseEntity: (entity: TimedEntity) =>
-    {
-      const publisher = entity as any;
       return {
-        ...publisher,
-        congregationId: undefined,
-        creationTime: parseDateIfPossible(publisher.creationTime),
-        lastUpdated: parseDateIfPossible(publisher.lastUpdated),
-        tags: parseJsonIfPossible(publisher.tags),
-        isDeactivated: parseJsonIfPossible(publisher.isDeactivated)
+        statement: SQL_INSERT_PUBLISHER,
+        values: [
+          entity.id,
+          entity.congregationId,
+          publisher.prefix || "",
+          serializeDate(publisher.creationTime),
+          serializeDate(publisher.lastUpdated),
+          publisher.name,
+          publisher.firstName,
+          publisher.email,
+          publisher.phone,
+          serializeArray(publisher.tags),
+          publisher.dsgvoSignature || "",
+          serializeBoolean(publisher.isDeactivated)
+        ]
+      };
+    },
+    parseEntity: (publisher: Publisher) =>
+    {
+      return {
+        id: publisher.id,
+        congregationId: publisher.congregationId,
+        creationTime: deserializeDate(publisher.creationTime as unknown as string),
+        lastUpdated: deserializeDate(publisher.lastUpdated as unknown as string),
+        name: publisher.name,
+        firstName: publisher.firstName,
+        email: publisher.email,
+        phone: publisher.phone,
+        tags: JSON.parse(publisher.tags as unknown as string || "[]"),
+        dsgvoSignature: publisher.dsgvoSignature,
+        isDeactivated: JSON.parse(publisher.isDeactivated as unknown as string || "false"),
       };
     }
   },
   [HASHED_TAG_TABLE_NAME]: {
     tableName: TAG_TABLE_NAME,
     deleteByIdQuery: (entityId: string): string => SQL_DELETE_TAG.replace("{id}", entityId),
-    insertQuery: (entity: TimedEntity): string =>
+    insertQuery: (entity: TimedEntity): capSQLiteSet =>
     {
       const tag = entity as Tag;
-      return SQL_INSERT_TAG
-        .replace("{id}", '"' + entity.id + '"')
-        .replace("{congregationId}", '"' + entity.congregationId + '"')
-        .replace("{prefix}", '"' + tag.prefix + '"')
-        .replace("{creationTime}", '"' + tag.creationTime?.toISOString() + '"')
-        .replace("{lastUpdated}", '"' + tag.lastUpdated?.toISOString() + '"')
-        .replace("{name}", '"' + tag.name + '"')
-        .replace("{color}", '"' + tag.color + '"')
-        .replace("{symbol}", '"' + tag.symbol + '"')
-        .replace("{metaInfos}", '"' + JSON.stringify(tag.metaInfos) + '"');
-    },
-    parseEntity: (entity: TimedEntity) =>
-    {
-      const tag = entity as any;
       return {
-        ...tag,
-        congregationId: undefined,
-        creationTime: parseDateIfPossible(tag.creationTime),
-        lastUpdated: parseDateIfPossible(tag.lastUpdated),
-        metaInfos: parseJsonIfPossible(tag.metaInfos)
+        statement: SQL_INSERT_TAG,
+        values: [
+          entity.id,
+          entity.congregationId,
+          tag.prefix || "",
+          serializeDate(tag.creationTime),
+          serializeDate(tag.lastUpdated),
+          tag.name,
+          tag.color || "",
+          tag.symbol || "",
+          serializeObject(tag.metaInfos)
+        ]
+      };
+    },
+    parseEntity: (tag: Tag) =>
+    {
+      return {
+        id: tag.id,
+        congregationId: tag.congregationId,
+        creationTime: deserializeDate(tag.creationTime as unknown as string),
+        lastUpdated: deserializeDate(tag.lastUpdated as unknown as string),
+        name: tag.name,
+        color: tag.color,
+        symbol: tag.symbol,
+        metaInfos: JSON.parse(tag.metaInfos as unknown as string || "null")
       };
     }
   },
   [HASHED_TERRITORY_TABLE_NAME]: {
     tableName: TERRITORY_TABLE_NAME,
     deleteByIdQuery: (entityId: string): string => SQL_DELETE_TERRITORY.replace("{id}", entityId),
-    insertQuery: (entity: TimedEntity): string =>
+    insertQuery: (entity: TimedEntity): capSQLiteSet =>
     {
       const territory = entity as Territory;
-      return SQL_INSERT_TERRITORY
-        .replace("{id}", '"' + entity.id + '"')
-        .replace("{congregationId}", '"' + entity.congregationId + '"')
-        .replace("{prefix}", '"' + territory.prefix + '"')
-        .replace("{creationTime}", '"' + territory.creationTime?.toISOString() + '"')
-        .replace("{lastUpdated}", '"' + territory.lastUpdated?.toISOString() + '"')
-        .replace("{name}", '"' + territory.name + '"')
-        .replace("{key}", '"' + territory.key + '"')
-        .replace("{populationCount}", '"' + territory.populationCount + '"')
-        .replace("{tags}", "'" + JSON.stringify(territory.tags) + "'")
-        .replace("{territoryDrawingId}", '"' + territory.territoryDrawingId + '"')
-        .replace("{boundaryNames}", "'" + JSON.stringify(territory.boundaryNames) + "'")
-        .replace("{deactivated}", '"' + territory.deactivated + '"')
-        .replace("{isCreation}", '"' + territory.isCreation + '"')
-        .replace("{comment}", '"' + territory.comment + '"');
-    },
-    parseEntity: (entity: TimedEntity) =>
-    {
-      const territory = entity as any;
       return {
-        ...territory,
-        congregationId: undefined,
-        deactivated: parseJsonIfPossible(territory.deactivated),
-        populationCount: parseInt(territory.populationCount, 10),
-        creationTime: parseDateIfPossible(territory.creationTime),
-        lastUpdated: parseDateIfPossible(territory.lastUpdated),
-        tags: parseJsonIfPossible(territory.tags),
-        boundaryNames: parseJsonIfPossible(territory.boundaryNames)
+        statement: SQL_INSERT_TERRITORY,
+        values: [
+          entity.id,
+          entity.congregationId,
+          territory.prefix || "",
+          serializeDate(territory.creationTime),
+          serializeDate(territory.lastUpdated),
+          territory.name,
+          territory.key,
+          territory.populationCount,
+          serializeArray(territory.tags),
+          territory.territoryDrawingId,
+          serializeArray(territory.boundaryNames),
+          serializeBoolean(territory.deactivated),
+          serializeBoolean(territory.isCreation),
+          territory.comment || ""
+        ]
+      };
+    },
+    parseEntity: (territory: Territory) =>
+    {
+      return {
+        id: territory.id,
+        congregationId: territory.congregationId,
+        creationTime: deserializeDate(territory.creationTime as unknown as string),
+        lastUpdated: deserializeDate(territory.lastUpdated as unknown as string),
+        name: territory.name,
+        key: territory.key,
+        populationCount: JSON.parse(territory.populationCount as unknown as string || "0"),
+        tags: JSON.parse(territory.tags as unknown as string || "[]"),
+        territoryDrawingId: territory.territoryDrawingId,
+        boundaryNames: JSON.parse(territory.boundaryNames as unknown as string || "[]"),
+        deactivated: JSON.parse(territory.deactivated as unknown as string || "false"),
+        isCreation: JSON.parse(territory.isCreation as unknown as string || "false"),
+        comment: territory.comment,
       };
     }
   },
   [HASHED_VISIT_BAN_TABLE_NAME]: {
     tableName: VISIT_BAN_TABLE_NAME,
     deleteByIdQuery: (entityId: string): string => SQL_DELETE_VISIT_BAN.replace("{id}", entityId),
-    insertQuery: (entity: TimedEntity): string =>
+    insertQuery: (entity: TimedEntity): capSQLiteSet =>
     {
       const visitBan = entity as VisitBan;
-      return SQL_INSERT_VISIT_BAN
-        .replace("{id}", '"' + entity.id + '"')
-        .replace("{congregationId}", '"' + entity.congregationId + '"')
-        .replace("{prefix}", '"' + visitBan.prefix + '"')
-        .replace("{creationTime}", '"' + visitBan.creationTime?.toISOString() + '"')
-        .replace("{lastUpdated}", '"' + visitBan.lastUpdated?.toISOString() + '"')
-        .replace("{name}", '"' + visitBan.name + '"')
-        .replace("{street}", '"' + visitBan.street + '"')
-        .replace("{streetSuffix}", '"' + visitBan.streetSuffix + '"')
-        .replace("{territoryId}", '"' + visitBan.territoryId + '"')
-        .replace("{tags}", "'" + JSON.stringify(visitBan.tags) + "'")
-        .replace("{city}", '"' + visitBan.city + '"')
-        .replace("{floor}", '"' + visitBan.floor + '"')
-        .replace("{lastVisit}", '"' + visitBan.lastVisit?.toISOString() + '"')
-        .replace("{comment}", '"' + visitBan.comment + '"')
-        .replace("{gpsPosition}", "'" + JSON.stringify(visitBan.gpsPosition) + "'");
-    },
-    parseEntity: (entity: TimedEntity) =>
-    {
-      const territory = entity as any;
       return {
-        ...territory,
-        congregationId: undefined,
-        floor: parseInt(territory.floor, 10) || null,
-        creationTime: parseDateIfPossible(territory.creationTime),
-        lastUpdated: parseDateIfPossible(territory.lastUpdated),
-        tags: parseJsonIfPossible(territory.tags),
-        lastVisit: parseDateIfPossible(territory.lastVisit),
-        gpsPosition: parseJsonIfPossible(territory.boundaryNames)
+        statement: SQL_INSERT_VISIT_BAN,
+        values: [
+          entity.id,
+          entity.congregationId,
+          visitBan.prefix || "",
+          serializeDate(visitBan.creationTime),
+          serializeDate(visitBan.lastUpdated),
+          visitBan.name || "",
+          visitBan.street,
+          visitBan.streetSuffix,
+          visitBan.territoryId,
+          serializeArray(visitBan.tags),
+          visitBan.city || "",
+          visitBan.floor || "",
+          serializeDate(visitBan.lastVisit),
+          visitBan.comment || "",
+          serializeObject(visitBan.gpsPosition)
+        ]
+      };
+    },
+    parseEntity: (visitBan: VisitBan) =>
+    {
+      return {
+        id: visitBan.id,
+        congregationId: visitBan.congregationId,
+        creationTime: deserializeDate(visitBan.creationTime as unknown as string),
+        lastUpdated: deserializeDate(visitBan.lastUpdated as unknown as string),
+        name: visitBan.name,
+        street: visitBan.street,
+        streetSuffix: visitBan.streetSuffix,
+        territoryId: visitBan.territoryId,
+        tags: JSON.parse(visitBan.tags as unknown as string || "[]"),
+        city: visitBan.city,
+        floor: JSON.parse(visitBan.floor as unknown as string || "null"),
+        lastVisit: deserializeDate(visitBan.lastVisit as unknown as string),
+        comment: visitBan.comment,
+        gpsPosition: JSON.parse(visitBan.gpsPosition as unknown as string || "null")
       };
     }
   },
 };
-
-function parseJsonIfPossible(stringifyProperty: string)
-{
-  if (!stringifyProperty || stringifyProperty === "undefined" || stringifyProperty === "null")
-  {
-    return undefined;
-  }
-
-  try
-  {
-    return JSON.parse(stringifyProperty);
-  }
-  catch (e)
-  {
-    console.log("[parseJsonIfPossible]", e);
-    return undefined;
-  }
-}
-
-function parseDateIfPossible(stringifyDate: string)
-{
-  if (!stringifyDate || stringifyDate === "undefined" || stringifyDate === "null")
-  {
-    return undefined;
-  }
-
-  try
-  {
-    return new Date(stringifyDate)
-  }
-  catch (e)
-  {
-    console.log("[parseDateIfPossible]", e);
-    return undefined;
-  }
-}

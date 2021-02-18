@@ -14,8 +14,12 @@ import {
   UpsertVisitBanSuccess
 } from './visit-bans.actions';
 import {LastDoingsService} from "../../services/common/last-doings.service";
-import {LastDoingActionsEnum, TimedEntity, VisitBan} from "@territory-offline-workspace/api";
-import {HASHED_VISIT_BAN_TABLE_NAME} from "../../services/db/mobile-db-schemas/schemas.db";
+import {
+  HASHED_VISIT_BAN_TABLE_NAME,
+  LastDoingActionsEnum,
+  TimedEntity,
+  VisitBan
+} from "@territory-offline-workspace/api";
 
 @Injectable({providedIn: 'root'})
 export class VisitBansEffects

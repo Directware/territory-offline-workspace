@@ -1,6 +1,5 @@
-import {HapticsImpactStyle, Plugins} from '@capacitor/core';
-
-const {Haptics, Device} = Plugins;
+import { Plugins } from '@capacitor/core';
+ const {Device, HapticsImpactStyle, Haptics} = Plugins;
 
 // Source from here https://codepen.io/gnauhca/pen/JrdpZZ
 const easing = {

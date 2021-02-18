@@ -8,7 +8,6 @@ import {MobileDatabaseService} from "./mobile-database.service";
 import {WebDatabaseService} from "./web-database.service";
 import {ElectronDatabaseService} from "./electron-database.service";
 import {environment} from "../../../../environments/environment";
-
 const {Device} = Plugins;
 
 @Injectable({providedIn: 'root'})

@@ -1,5 +1,8 @@
 # Territory Offline Workspace
 
+### Allgemein
+Das Projekt ist am 03.03.2019 erstellt worden.
+
 ### Territory Offline releasen
 
 - workspace package.json - ```npm run build:territory-offline:prod```

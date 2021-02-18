@@ -10,7 +10,6 @@ import {ApplicationState} from "../../store/index.reducers";
 import {selectCurrentCongregationId} from "../../store/settings/settings.selectors";
 import {take} from "rxjs/operators";
 import {SettingsDatabaseService} from "./settings-database.service";
-
 const {Device} = Plugins;
 
 @Injectable({providedIn: "root"})

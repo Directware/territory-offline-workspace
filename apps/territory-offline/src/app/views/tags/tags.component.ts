@@ -62,8 +62,8 @@ export class TagsComponent implements OnInit
           take(1),
           tap(([territories, publisher]) =>
           {
-            const usedOnTerritories = territories.filter(t => t.tags.includes(tag.id));
-            const usedOnPublisher = publisher.filter(p => p.tags.includes(tag.id));
+            const usedOnTerritories = territories.filter(t => t.tags?.includes(tag.id));
+            const usedOnPublisher = publisher.filter(p => p.tags?.includes(tag.id));
 
             let ok = true;
             if (usedOnPublisher.length > 0 || usedOnTerritories.length > 0)

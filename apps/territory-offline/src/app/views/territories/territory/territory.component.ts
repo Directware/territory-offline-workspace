@@ -27,7 +27,6 @@ import {AssignmentsService} from "../../../core/services/assignment/assignments.
 import {Assignment, Drawing, LastDoingActionsEnum, Territory} from "@territory-offline-workspace/api";
 import {PlatformAgnosticActionsService} from "../../../core/services/common/platform-agnostic-actions.service";
 import { kml } from "@tmcw/togeojson";
-import {uuid4} from "@capacitor/core/dist/esm/util";
 
 @Component({
   selector: 'app-territory',

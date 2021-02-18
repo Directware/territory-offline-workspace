@@ -20,7 +20,6 @@ import {TerritoryLanguageService, ToLanguage} from "@territory-offline-workspace
 import {Congregation} from "@territory-offline-workspace/api";
 import {Plugins} from '@capacitor/core';
 import {TranslateService} from "@ngx-translate/core";
-
 const {Device} = Plugins;
 
 @Component({

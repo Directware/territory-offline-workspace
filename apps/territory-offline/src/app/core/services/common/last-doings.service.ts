@@ -4,7 +4,7 @@ import {ApplicationState} from "../../store/index.reducers";
 import {Actions, ofType} from "@ngrx/effects";
 import {map, take, tap} from "rxjs/operators";
 import {DeleteLastDoing, UpsertLastDoing} from "../../store/last-doings/last-doings.actions";
-import {uuid4} from "@capacitor/core/dist/esm/util";
+import { v4 as uuid4 } from 'uuid';
 import {selectLastDoingsForTidyUp} from "../../store/last-doings/last-doings.selectors";
 import {LastDoing, LastDoingActionsEnum} from "@territory-offline-workspace/api";
 

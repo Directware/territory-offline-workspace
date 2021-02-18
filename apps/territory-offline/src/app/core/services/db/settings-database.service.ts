@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {SettingsState} from '../../store/settings/settings.reducer';
 import {Plugins} from "@capacitor/core";
-const {Device} = Plugins;
 import {  CapacitorDataStorageSqlite } from 'capacitor-data-storage-sqlite';
+const {Device} = Plugins;
 
 @Injectable({providedIn: 'root'})
 export class SettingsDatabaseService
@@ -20,11 +20,6 @@ export class SettingsDatabaseService
     const info = await Device.getInfo();
     if (info.platform === "ios" || info.platform === "android")
     {
-      this._storage = CapacitorDataStorageSqlite;
-    }
-    else if (info.platform === "electron")
-    {
-      // this._storage = CapacitorDataStorageSqliteElectron;
       this._storage = CapacitorDataStorageSqlite;
     }
     else

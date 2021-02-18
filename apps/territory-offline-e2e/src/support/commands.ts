@@ -10,7 +10,7 @@
 // eslint-disable-next-line @typescript-eslint/no-namespace
 import {BulkImportTags, UpsertTag} from "../../../territory-offline/src/app/core/store/tags/tags.actions";
 import {TagSymbol} from "@territory-offline-workspace/api";
-import {uuid4} from "@capacitor/core/dist/esm/util";
+import { v4 as uuid4 } from 'uuid';
 import {UnlockApp, UpsertSettings} from "../../../territory-offline/src/app/core/store/settings/settings.actions";
 import {
   UpsertCongregation,

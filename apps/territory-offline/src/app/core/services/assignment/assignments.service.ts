@@ -12,8 +12,6 @@ import {ApplicationState} from "../../store/index.reducers";
 import {selectPublisherById} from "../../store/publishers/publishers.selectors";
 import {Plugins} from '@capacitor/core';
 import {FileSharer} from "@byteowls/capacitor-filesharer";
-
-const {Device} = Plugins;
 import * as Pako from 'pako';
 import {selectDrawingById} from "../../store/drawings/drawings.selectors";
 import {selectVisitBansByTerritoryId} from "../../store/visit-bans/visit-bans.selectors";
@@ -29,6 +27,7 @@ import {
 } from "@territory-offline-workspace/api";
 import {UpsertVisitBan} from "../../store/visit-bans/visit-bans.actions";
 import {selectLastAssignmentOfEachTerritory} from "../../store/assignments/assignments.selectors";
+const {Device} = Plugins;
 
 @Injectable({
   providedIn: 'root',

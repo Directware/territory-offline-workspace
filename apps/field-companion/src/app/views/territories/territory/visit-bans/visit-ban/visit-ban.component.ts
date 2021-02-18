@@ -7,7 +7,7 @@ import {selectTerritoryCardById} from "../../../../../core/store/territory-card/
 import {ActivatedRoute} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {debounceTime, first, takeUntil, tap} from "rxjs/operators";
-import {uuid4} from "@capacitor/core/dist/esm/util";
+import { v4 as uuid4 } from 'uuid';
 import {MapService} from "../../../../../core/services/map/map.service";
 import * as Turf from '@turf/turf';
 import {UpsertTerritoryCard} from "../../../../../core/store/territory-card/territory-card.actions";

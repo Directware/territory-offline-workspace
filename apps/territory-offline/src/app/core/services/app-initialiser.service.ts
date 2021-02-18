@@ -8,8 +8,9 @@ import {ToUpdatesService} from './common/to-updates.service';
 import {SettingsState} from '../store/settings/settings.reducer';
 import {DataSecurityService} from "./common/data-security.service";
 import {DatabaseService} from "./db/database.service";
-import {logger} from "../../../../../../libs/api/src/utils/usefull.functions";
 import {SettingsDatabaseService} from "./db/settings-database.service";
+import {logger} from "@territory-offline-workspace/api";
+import {environment} from "../../../environments/environment";
 
 @Injectable({providedIn: 'root'})
 export class AppInitializerService
@@ -30,12 +31,13 @@ export class AppInitializerService
 
   private async beforeAppStart(): Promise<any>
   {
+    this.logNgrxActions();
     await this.dataSecurityService.init();
     await this.settingsDatabaseService.initAppropriateSQLite();
     await this.databaseService
       .init()
       .then(() => logger(`Database successfully opened.`))
-      .catch((e) => console.log('Fehler beim öffnen der Datenbank', e));
+      .catch((e) => console.error('####### \n\n Fehler beim öffnen der Datenbank! \n\n', e));
 
     await this.loadAppConfiguration();
     return "ready";
@@ -53,6 +55,16 @@ export class AppInitializerService
     );
     this.store.dispatch(LoadSettings());
     return promise;
+  }
+
+  private logNgrxActions()
+  {
+    if(!environment.production)
+    {
+      this.actions$.pipe(
+        tap((action) => console.log(`[NGRX - ${action.type}]: ${JSON.stringify(action)}`))
+      ).subscribe();
+    }
   }
 
   private considerToGetReleaseInfos(settings: SettingsState)

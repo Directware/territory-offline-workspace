@@ -16,8 +16,12 @@ import {
   UpsertPublisherSuccess
 } from './publishers.actions';
 import {LastDoingsService} from "../../services/common/last-doings.service";
-import {LastDoingActionsEnum, Publisher, TimedEntity} from "@territory-offline-workspace/api";
-import {HASHED_PUBLISHER_TABLE_NAME} from "../../services/db/mobile-db-schemas/schemas.db";
+import {
+  HASHED_PUBLISHER_TABLE_NAME,
+  LastDoingActionsEnum,
+  Publisher,
+  TimedEntity
+} from "@territory-offline-workspace/api";
 
 @Injectable({providedIn: 'root'})
 export class PublishersEffects

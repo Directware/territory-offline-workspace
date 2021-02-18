@@ -83,8 +83,9 @@ import {RedundantVisitBanPipe} from "./core/pipes/visit-bans/redundant-visit-ban
 import {OrphanVisitBanPipe} from "./core/pipes/visit-bans/orphan-visit-ban.pipe";
 import {MatSliderModule} from "@angular/material/slider";
 
-declare const sourceMapSupport: any;
 const {Device} = Plugins;
+
+declare const sourceMapSupport: any;
 
 @NgModule({
   declarations: [

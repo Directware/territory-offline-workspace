@@ -2,20 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/android.iml" filepath="$PROJECT_DIR$/android.iml" group="android" />
-      <module fileurl="file://$PROJECT_DIR$/app/android-app.iml" filepath="$PROJECT_DIR$/app/android-app.iml" group="android/app" />
-      <module fileurl="file://$PROJECT_DIR$/capacitor-cordova-android-plugins/android-capacitor-cordova-android-plugins.iml" filepath="$PROJECT_DIR$/capacitor-cordova-android-plugins/android-capacitor-cordova-android-plugins.iml" group="android/capacitor-cordova-android-plugins" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/capacitor-cordova-android-plugins/apps-territory-offline-android-capacitor-cordova-android-plugins.iml" filepath="$PROJECT_DIR$/capacitor-cordova-android-plugins/apps-territory-offline-android-capacitor-cordova-android-plugins.iml" group="android/capacitor-cordova-android-plugins" />
-      <module fileurl="file://$PROJECT_DIR$/capacitor-cordova-android-plugins/apps-territory-offline-android-capacitor-cordova-android-plugins~1.iml" filepath="$PROJECT_DIR$/capacitor-cordova-android-plugins/apps-territory-offline-android-capacitor-cordova-android-plugins~1.iml" group="android/capacitor-cordova-android-plugins" />
-      <module fileurl="file://$PROJECT_DIR$/capacitor-cordova-android-plugins/apps-territory-offline-android-capacitor-cordova-android-plugins~2.iml" filepath="$PROJECT_DIR$/capacitor-cordova-android-plugins/apps-territory-offline-android-capacitor-cordova-android-plugins~2.iml" group="android/capacitor-cordova-android-plugins" />
-      <module fileurl="file://$PROJECT_DIR$/../../../node_modules/@byteowls/capacitor-filesharer/android/byteowls-capacitor-filesharer.iml" filepath="$PROJECT_DIR$/../../../node_modules/@byteowls/capacitor-filesharer/android/byteowls-capacitor-filesharer.iml" group="android/byteowls-capacitor-filesharer" />
-      <module fileurl="file://$PROJECT_DIR$/../../../node_modules/@capacitor/android/capacitor/capacitor-android.iml" filepath="$PROJECT_DIR$/../../../node_modules/@capacitor/android/capacitor/capacitor-android.iml" group="android/capacitor-android" />
-      <module fileurl="file://$PROJECT_DIR$/../../../node_modules/capacitor-biometric-auth/android/capacitor-biometric-auth.iml" filepath="$PROJECT_DIR$/../../../node_modules/capacitor-biometric-auth/android/capacitor-biometric-auth.iml" group="android/capacitor-biometric-auth" />
-      <module fileurl="file://$PROJECT_DIR$/../../../node_modules/@capacitor-community/sqlite/android/capacitor-community-sqlite.iml" filepath="$PROJECT_DIR$/../../../node_modules/@capacitor-community/sqlite/android/capacitor-community-sqlite.iml" group="android/capacitor-community-sqlite" />
-      <module fileurl="file://$PROJECT_DIR$/capacitor-cordova-android-plugins/capacitor-cordova-android-plugins.iml" filepath="$PROJECT_DIR$/capacitor-cordova-android-plugins/capacitor-cordova-android-plugins.iml" group="android/capacitor-cordova-android-plugins" />
-      <module fileurl="file://$PROJECT_DIR$/capacitor-cordova-android-plugins/null.iml" filepath="$PROJECT_DIR$/capacitor-cordova-android-plugins/null.iml" group="android/capacitor-cordova-android-plugins" />
-      <module fileurl="file://$PROJECT_DIR$/capacitor-cordova-android-plugins/territory-offline-android-capacitor-cordova-android-plugins.iml" filepath="$PROJECT_DIR$/capacitor-cordova-android-plugins/territory-offline-android-capacitor-cordova-android-plugins.iml" group="android/capacitor-cordova-android-plugins" />
+      <module fileurl="file://$PROJECT_DIR$/android.iml" filepath="$PROJECT_DIR$/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/android.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1290487390/android.byteowls-capacitor-filesharer.iml" filepath="$PROJECT_DIR$/.idea/modules/1290487390/android.byteowls-capacitor-filesharer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/515986593/android.capacitor-android.iml" filepath="$PROJECT_DIR$/.idea/modules/515986593/android.capacitor-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-481812428/android.capacitor-biometric-auth.iml" filepath="$PROJECT_DIR$/.idea/modules/-481812428/android.capacitor-biometric-auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1686469873/android.capacitor-community-sqlite.iml" filepath="$PROJECT_DIR$/.idea/modules/1686469873/android.capacitor-community-sqlite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/capacitor-cordova-android-plugins/android.capacitor-cordova-android-plugins.iml" filepath="$PROJECT_DIR$/.idea/modules/capacitor-cordova-android-plugins/android.capacitor-cordova-android-plugins.iml" />
     </modules>
   </component>
 </project>

@@ -117,25 +117,25 @@ export class SettingsComponent implements OnInit
     this.dialog.open(ChangelogModalComponent, {maxWidth: "50vw", maxHeight: "50vh"});
   }
 
-  public clearAllAppData()
+  public async clearAllAppData()
   {
-    this.translate.get(['settings.reallyReset', 'settings.restartApp']).pipe(take(1)).subscribe((translations: { [key: string]: string }) =>
-    {
-      const reallyDelete = confirm(translations['settings.reallyReset']);
+    const translations = await this.translate.get(['settings.reallyReset', 'settings.restartApp']).pipe(take(1)).toPromise();
 
-      if (reallyDelete)
+    const reallyDelete = confirm(translations['settings.reallyReset']);
+
+    if (reallyDelete)
+    {
+      this.database.clear().then((resp) =>
       {
-        this.database.clear().then((resp) =>
+        if (resp.result)
         {
-          if (resp.result)
-          {
-            alert(translations['settings.restartApp']);
-            this.ipcService.send("restartTerritoryOffline");
-            setTimeout(() => window.location.href = "/", 500);
-          }
-        });
-      }
-    })
+          alert(translations['settings.restartApp']);
+          this.ipcService.send("restartTerritoryOffline");
+          setTimeout(() => window.location.href = "/", 500);
+        }
+      });
+    }
+
   }
 
   public contact()

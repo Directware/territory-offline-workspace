@@ -4,7 +4,7 @@ import {Store} from "@ngrx/store";
 import {ApplicationState} from "../../../core/store/index.reducers";
 import {DataImportService} from "../../../core/services/import/data-import.service";
 import {Router} from "@angular/router";
-import {uuid4} from "@capacitor/core/dist/esm/util";
+import { v4 as uuid4 } from 'uuid';
 import * as XLSX from 'xlsx';
 import {MatDialogRef} from "@angular/material/dialog";
 import {
@@ -75,7 +75,7 @@ export class TerritoryHelperImportComponent implements OnInit
         }
         else
         {
-          this.translate.get('transfer.import.wrongFileType').pipe(take(1)).subscribe((translation: string) => 
+          this.translate.get('transfer.import.wrongFileType').pipe(take(1)).subscribe((translation: string) =>
             alert(translation));
         }
         break;
@@ -87,7 +87,7 @@ export class TerritoryHelperImportComponent implements OnInit
         }
         else
         {
-          this.translate.get('transfer.import.wrongFileType').pipe(take(1)).subscribe((translation: string) => 
+          this.translate.get('transfer.import.wrongFileType').pipe(take(1)).subscribe((translation: string) =>
             alert(translation));
         }
         break;
@@ -99,7 +99,7 @@ export class TerritoryHelperImportComponent implements OnInit
         }
         else
         {
-          this.translate.get('transfer.import.wrongFileType').pipe(take(1)).subscribe((translation: string) => 
+          this.translate.get('transfer.import.wrongFileType').pipe(take(1)).subscribe((translation: string) =>
             alert(translation));
         }
         break;
@@ -111,7 +111,7 @@ export class TerritoryHelperImportComponent implements OnInit
         }
         else
         {
-          this.translate.get('transfer.import.noJsonFile').pipe(take(1)).subscribe((translation: string) => 
+          this.translate.get('transfer.import.noJsonFile').pipe(take(1)).subscribe((translation: string) =>
             alert(translation));
         }
     }

@@ -1,10 +1,11 @@
 import {Injectable} from "@angular/core";
 import {Plugins} from '@capacitor/core';
 import '@capacitor-community/sqlite';
-import {TimedEntity} from "@territory-offline-workspace/api";
-import {AbstractDatabase} from "./abstract-database.interface";
 import {
-  ASSIGNMENT_TABLE_NAME, DRAWING_TABLE_NAME, LAST_DOING_TABLE_NAME, PUBLISHER_TABLE_NAME,
+  ASSIGNMENT_TABLE_NAME,
+  DRAWING_TABLE_NAME,
+  LAST_DOING_TABLE_NAME,
+  PUBLISHER_TABLE_NAME,
   SQL_CREATE_ASSIGNMENTS,
   SQL_CREATE_CONGREGATION,
   SQL_CREATE_DRAWING,
@@ -13,148 +14,168 @@ import {
   SQL_CREATE_TAG,
   SQL_CREATE_TERRITORY,
   SQL_CREATE_VISIT_BAN,
-  TABLE_NAME_MAPPINGS, TAG_TABLE_NAME, TERRITORY_TABLE_NAME, VISIT_BAN_TABLE_NAME
-} from "./mobile-db-schemas/schemas.db";
+  TAG_TABLE_NAME,
+  TERRITORY_TABLE_NAME,
+  TimedEntity,
+  VISIT_BAN_TABLE_NAME
+} from "@territory-offline-workspace/api";
+import {AbstractDatabase} from "./abstract-database.interface";
+
 import {select, Store} from "@ngrx/store";
 import {selectCurrentCongregationId} from "../../store/settings/settings.selectors";
 import {take} from "rxjs/operators";
 import {ApplicationState} from "../../store/index.reducers";
 import {SettingsDatabaseService} from "./settings-database.service";
+import {capSQLiteSet, SQLiteConnection} from "@capacitor-community/sqlite";
+import {TABLE_NAME_MAPPINGS} from "./mobile-db-schemas/schemas.db";
+import {environment} from "../../../../environments/environment";
+import {capSQLiteChanges} from "@capacitor-community/sqlite/dist/esm/definitions";
 
-const {CapacitorSQLite, Device} = Plugins;
+const {CapacitorSQLite} = Plugins;
 
 @Injectable({providedIn: "root"})
 export class MobileDatabaseService implements AbstractDatabase
 {
-  public readonly database: any;
-  private sqlite: any;
+  private readonly databaseName = "territory-offline"
+  public database: SQLiteConnection;
   public platform;
 
   constructor(private store: Store<ApplicationState>, private settingsDatabase: SettingsDatabaseService)
   {
-    this.database = CapacitorSQLite;
   }
 
   public async init()
   {
-    const info = await Device.getInfo();
-    this.platform = info.platform;
+    this.logDatabaseActions("[MobileDatabaseService.init] start", "log");
 
-    if (info.platform === "android")
-    {
-      try
-      {
-        await this.database.requestPermissions();
-      } catch (e)
-      {
-        throw new Error("User declined database permission request!");
-      }
-    }
+    this.database = new SQLiteConnection(CapacitorSQLite)
+    await this.database.createConnection(this.databaseName, true, "secret", 1);
+
+    this.logDatabaseActions("[MobileDatabaseService.init] end", "log");
   }
 
   public async open()
   {
-    const info = await Device.getInfo();
-    this.platform = info.platform;
-    this.sqlite = CapacitorSQLite;
+    this.logDatabaseActions("[MobileDatabaseService.open] start", "log");
+    const db = await this.retrieveConnection();
+    await db.open();
+    await this.considerToInitSchemas();
+    this.logDatabaseActions("[MobileDatabaseService.open] end", "log");
+  }
 
-    await this.sqlite.open({
-      database: "territory-offline",
-      version: 1,
-      encrypted: true,
-      mode: "secret"
-    });
-
-    await this.initSchemas();
+  public retrieveConnection()
+  {
+    this.logDatabaseActions("[MobileDatabaseService.retrieveConnection]", "log");
+    return this.database.retrieveConnection(this.databaseName);
   }
 
   public async load(hashedTableName: string, excludeCongregationPrefix?: boolean): Promise<TimedEntity[]>
   {
-    const entities: TimedEntity[] = [];
-    let query;
-    const congregationPrefix = excludeCongregationPrefix ? `SELECT * FROM ${TABLE_NAME_MAPPINGS[hashedTableName].tableName}` : await this.getCurrentCongregationPrefix();
+    const db = await this.retrieveConnection();
+    let statement = `SELECT * FROM ${TABLE_NAME_MAPPINGS[hashedTableName].tableName}`;
 
-    query = excludeCongregationPrefix
-      ? `SELECT * FROM ${TABLE_NAME_MAPPINGS[hashedTableName].tableName}`
-      : `SELECT * FROM ${TABLE_NAME_MAPPINGS[hashedTableName].tableName} WHERE congregationId='${congregationPrefix}'`;
-
-    const result: any = await this.database.query({
-      statement: query,
-      values: []
-    });
-
-    for (let i = 0; i < result.values.length; i++)
+    if (!excludeCongregationPrefix)
     {
-      const entity = result.values[i];
-      const parsedEntity = TABLE_NAME_MAPPINGS[hashedTableName].parseEntity(entity);
-      entities.push(parsedEntity);
+      const congregationPrefix = await this.getCurrentCongregationPrefix()
+      statement += ` WHERE congregationId = '${congregationPrefix}'`;
     }
 
-    return entities;
+    statement += ";";
+
+    this.logDatabaseActions(`[MobileDatabase.execute]: statement=>${statement}<.`, "log", "start");
+
+    const result = await db.query(statement);
+
+    this.logDatabaseActions(`[MobileDatabase.execute]: values=>${JSON.stringify(result.values)}<.`, "log");
+
+    if (result.message)
+    {
+      this.logDatabaseActions(`[MobileDatabase.execute]: message=>${result.message}<.`, "error");
+    }
+
+    this.logDatabaseActions("", "", "end");
+
+    return result.values.map(value => TABLE_NAME_MAPPINGS[hashedTableName].parseEntity(value));
   }
 
   public async upsert(hashedTableName: string, entity: TimedEntity, excludeCongregationPrefix?: boolean): Promise<TimedEntity>
   {
     const congregationPrefix = excludeCongregationPrefix ? null : await this.getCurrentCongregationPrefix();
 
-    const tmp = TABLE_NAME_MAPPINGS[hashedTableName].insertQuery({...entity, congregationId: congregationPrefix});
-    await this.database.execute({statements: tmp});
+    const statement = TABLE_NAME_MAPPINGS[hashedTableName].insertQuery({...entity, congregationId: congregationPrefix});
+
+    await this.executeSet([statement]);
+
     return entity;
   }
 
   public async bulkUpsert(hashedTableName: string, entities: TimedEntity[], excludeCongregationPrefix?: boolean): Promise<TimedEntity[]>
   {
+    // TODO verschiedene Statemens machen nur dann Sinn wenn sie sich ändern an sonsten einfach values benutzen
     const set = [];
     const congregationPrefix = excludeCongregationPrefix ? null : await this.getCurrentCongregationPrefix();
 
-    entities.forEach(entity => set.push({
-      statement: TABLE_NAME_MAPPINGS[hashedTableName].insertQuery({...entity, congregationId: congregationPrefix}),
-      values: []
-    }));
+    entities.forEach(entity => set.push(TABLE_NAME_MAPPINGS[hashedTableName].insertQuery({
+      ...entity,
+      congregationId: congregationPrefix
+    })));
 
-    await this.database.executeSet({set: set});
+    await this.executeSet(set);
+
     return entities;
   }
 
   public async bulkDelete(hashedTableName: string, entities: TimedEntity[], excludeCongregationPrefix?: boolean): Promise<TimedEntity[]>
   {
-    const set = [];
+    const statements = [];
 
-    entities.forEach(entity => set.push({
+    entities.forEach(entity => statements.push({
       statement: TABLE_NAME_MAPPINGS[hashedTableName].deleteByIdQuery(entity.id),
       values: []
     }));
 
-    await this.database.executeSet({set: set});
+    await this.executeSet(statements);
     return entities;
   }
 
   public async delete(hashedTableName: string, entity: TimedEntity, excludeCongregationPrefix?: boolean): Promise<TimedEntity>
   {
-    const tmp = TABLE_NAME_MAPPINGS[hashedTableName].deleteByIdQuery(entity.id);
-    await this.database.execute({statements: tmp});
+    const statement = TABLE_NAME_MAPPINGS[hashedTableName].deleteByIdQuery(entity.id);
+    await this.execute(statement);
     return entity;
   }
 
   public async clear()
   {
+    const statements = [
+      {statement: `DELETE * FROM ${ASSIGNMENT_TABLE_NAME};`, values: []},
+      {statement: `DELETE * FROM ${DRAWING_TABLE_NAME};`, values: []},
+      {statement: `DELETE * FROM ${LAST_DOING_TABLE_NAME};`, values: []},
+      {statement: `DELETE * FROM ${PUBLISHER_TABLE_NAME};`, values: []},
+      {statement: `DELETE * FROM ${TAG_TABLE_NAME};`, values: []},
+      {statement: `DELETE * FROM ${TERRITORY_TABLE_NAME};`, values: []},
+      {statement: `DELETE * FROM ${VISIT_BAN_TABLE_NAME};`, values: []}
+    ];
+
+    const result = await this.executeSet(statements);
     await this.settingsDatabase.clear();
-    return await this.database.deleteDatabase({database: "territory-offline"});
+
+    return {result: result.changes.changes > -1};
   }
 
   public async clearAllWithPrefix(prefix: string)
   {
-    const set = [
-      {statement: `DELETE FROM ${ASSIGNMENT_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
-      {statement: `DELETE FROM ${DRAWING_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
-      {statement: `DELETE FROM ${LAST_DOING_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
-      {statement: `DELETE FROM ${PUBLISHER_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
-      {statement: `DELETE FROM ${TAG_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
-      {statement: `DELETE FROM ${TERRITORY_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
-      {statement: `DELETE FROM ${VISIT_BAN_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []}
+    const statements = [
+      {statement: `DELETE * FROM ${ASSIGNMENT_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
+      {statement: `DELETE * FROM ${DRAWING_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
+      {statement: `DELETE * FROM ${LAST_DOING_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
+      {statement: `DELETE * FROM ${PUBLISHER_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
+      {statement: `DELETE * FROM ${TAG_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
+      {statement: `DELETE * FROM ${TERRITORY_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
+      {statement: `DELETE * FROM ${VISIT_BAN_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []}
     ];
 
-    await this.database.executeSet({set: set});
+    await this.executeSet(statements);
 
     return prefix;
   }
@@ -164,15 +185,71 @@ export class MobileDatabaseService implements AbstractDatabase
     return await this.store.pipe(select(selectCurrentCongregationId), take(1)).toPromise();
   }
 
-  private async initSchemas()
+  public async considerToInitSchemas()
   {
-    await this.database.execute({statements: SQL_CREATE_ASSIGNMENTS});
-    await this.database.execute({statements: SQL_CREATE_CONGREGATION});
-    await this.database.execute({statements: SQL_CREATE_DRAWING});
-    await this.database.execute({statements: SQL_CREATE_LAST_DOING});
-    await this.database.execute({statements: SQL_CREATE_PUBLISHER});
-    await this.database.execute({statements: SQL_CREATE_TAG});
-    await this.database.execute({statements: SQL_CREATE_TERRITORY});
-    await this.database.execute({statements: SQL_CREATE_VISIT_BAN});
+    await this.execute(`
+      ${SQL_CREATE_ASSIGNMENTS}
+      ${SQL_CREATE_CONGREGATION}
+      ${SQL_CREATE_DRAWING}
+      ${SQL_CREATE_LAST_DOING}
+      ${SQL_CREATE_PUBLISHER}
+      ${SQL_CREATE_TAG}
+      ${SQL_CREATE_TERRITORY}
+      ${SQL_CREATE_VISIT_BAN}
+    `);
+  }
+
+  private async execute(statement: string): Promise<capSQLiteChanges>
+  {
+    this.logDatabaseActions(`[MobileDatabase.execute]: statement=>|${statement}|<`, "log", "start");
+    const database = await this.retrieveConnection();
+    const result = await database.execute(statement);
+
+    const hasError = result.changes.changes < 0;
+    this.logDatabaseActions(`[MobileDatabase.execute]: changes=>|${JSON.stringify(result.changes)}|<`, hasError ? "error" : "log");
+    this.logDatabaseActions(`[MobileDatabase.execute]: message="${result.message}"`, hasError ? "error" : "log");
+    this.logDatabaseActions("", "", "end");
+
+    return result;
+  }
+
+  /*
+    https://github.com/capacitor-community/sqlite/issues/82#issuecomment-781116465
+   */
+  private async executeSet(statements: capSQLiteSet[]): Promise<capSQLiteChanges>
+  {
+    this.logDatabaseActions(``, "log", "start");
+    statements.forEach((s, i) => this.logDatabaseActions(`[MobileDatabase.executeSet]: statement(${i})=>|${s.statement}|<`, "log",))
+
+    const database = await this.retrieveConnection();
+    const result = await database.executeSet(statements);
+
+    const hasError = result.changes.changes < 0;
+    this.logDatabaseActions(`[MobileDatabase.executeSet]: changes=>|${JSON.stringify(result.changes)}|<`, hasError ? "error" : "log");
+    this.logDatabaseActions(`[MobileDatabase.executeSet]: message="${result.message}"`, hasError ? "error" : "log");
+    this.logDatabaseActions("", "", "end");
+
+    return result;
+  }
+
+  private logDatabaseActions(log: string, severity: string, grouping?: "start" | "end")
+  {
+    if (!environment.production)
+    {
+      if (grouping === "start")
+      {
+        console.warn(`\n\n########## DB Group ${severity}:`)
+      }
+
+      if (severity && console[severity] && typeof console[severity] === "function")
+      {
+        console[severity](log);
+      }
+
+      if (grouping === "end")
+      {
+        console.warn(`\n\n########## DB Group ${severity} END\n\n.`)
+      }
+    }
   }
 }

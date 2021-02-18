@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Plugins} from '@capacitor/core';
 import {environment} from "../../../../environments/environment";
-
-const {Device, BiometricAuth} = Plugins;
+const {BiometricAuth, Device} = Plugins;
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +18,7 @@ export class DataSecurityService
 
   public async init()
   {
-    const deviceInfo = await Device.getInfo().catch();
+    const deviceInfo = await Device.getInfo();
     this.platform = deviceInfo.platform;
     this.implicitEncryptionAvailable = deviceInfo.platform === 'ios' || deviceInfo.platform === 'android';
 

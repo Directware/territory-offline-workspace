@@ -13,7 +13,12 @@ import {
   UpsertCongregationSuccess,
   UseCongregation
 } from './congregations.actions';
-import {Congregation, LastDoingActionsEnum, TimedEntity} from "@territory-offline-workspace/api";
+import {
+  Congregation,
+  HASHED_CONGREGATION_TABLE_NAME,
+  LastDoingActionsEnum,
+  TimedEntity
+} from "@territory-offline-workspace/api";
 import {select, Store} from '@ngrx/store';
 import {selectSettings} from '../settings/settings.selectors';
 import {UpsertSettings, UpsertSettingsSuccess} from '../settings/settings.actions';
@@ -23,7 +28,6 @@ import {PlatformAgnosticActionsService} from "../../services/common/platform-agn
 import {MatDialog} from "@angular/material/dialog";
 import {WaitingModalComponent} from "../../../views/shared/modals/waiting-modal/waiting-modal.component";
 import { TranslateService } from '@ngx-translate/core';
-import {HASHED_CONGREGATION_TABLE_NAME} from "../../services/db/mobile-db-schemas/schemas.db";
 
 @Injectable({providedIn: 'root'})
 export class CongregationsEffects

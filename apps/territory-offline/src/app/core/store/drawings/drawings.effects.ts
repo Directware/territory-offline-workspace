@@ -18,8 +18,7 @@ import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../index.reducers';
 import {selectDrawingById} from './drawings.selectors';
 import {LastDoingsService} from "../../services/common/last-doings.service";
-import {Drawing, TimedEntity} from "@territory-offline-workspace/api";
-import {HASHED_DRAWING_TABLE_NAME} from "../../services/db/mobile-db-schemas/schemas.db";
+import {Drawing, HASHED_DRAWING_TABLE_NAME, TimedEntity} from "@territory-offline-workspace/api";
 
 @Injectable({providedIn: 'root'})
 export class DrawingsEffects
