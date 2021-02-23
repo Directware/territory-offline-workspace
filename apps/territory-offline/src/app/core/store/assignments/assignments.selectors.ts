@@ -141,7 +141,7 @@ export const selectOverdueAssignmentsByPreacher = createSelector(
       return filteredDto.assignments;
     }
 
-    return null;
+    return [];
   }
 );
 
