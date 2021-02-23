@@ -1,5 +1,4 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {DatePipe} from "@angular/common";
 import * as moment from "moment";
 
 @Pipe({
@@ -16,13 +15,13 @@ export class DateNotOlderThanPipe implements PipeTransform
     const dateAsMoment = moment(date);
     const thresholdInYears = parseInt(args[0], 10);
 
-    if(thresholdInYears)
+    if (thresholdInYears)
     {
       const today = new Date();
       const thresholdInYears = parseInt(args[0], 10);
       const dateInThePast = new Date(today.getFullYear() - thresholdInYears, today.getMonth(), today.getDate());
 
-      if(dateAsMoment.isBefore(dateInThePast, "day"))
+      if (dateAsMoment.isBefore(dateInThePast, "day"))
       {
         return "";
       }
