@@ -13,12 +13,12 @@ import {
 import {TerritoryMapsService} from '../../../core/services/territory/territory-maps.service';
 import {PrintTerritoryBackComponent} from "./print-territory-back/print-territory-back.component";
 import {PrintTerritoryHeadingComponent} from "./print-territory-heading/print-territory-heading.component";
-import {take, tap} from "rxjs/operators";
-import {ActivatedRoute} from "@angular/router";
+import {first, take, tap} from "rxjs/operators";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Subject} from "rxjs";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../core/store/index.reducers";
-import {selectTerritoryById} from "../../../core/store/territories/territories.selectors";
+import {selectAllTerritories, selectTerritoryById} from "../../../core/store/territories/territories.selectors";
 import {SaveDrawingPrintAlignmentConfiguration} from "../../../core/store/drawings/drawings.actions";
 import {selectDrawingById} from "../../../core/store/drawings/drawings.selectors";
 import {IpcService} from "../../../core/services/common/ipc.service";
@@ -51,8 +51,8 @@ export class PrintTerritoryComponent implements OnInit, OnDestroy
 
   /* Helper */
   public isFlipped: boolean;
+  public territory: Territory;
   private initialMapPadding;
-  private territory: Territory;
   private destroyer = new Subject();
 
   constructor(
@@ -60,6 +60,7 @@ export class PrintTerritoryComponent implements OnInit, OnDestroy
     private activatedRoute: ActivatedRoute,
     private renderer2: Renderer2,
     private injector: Injector,
+    private router: Router,
     private appRef: ApplicationRef,
     private ipcService: IpcService,
     private territoryMapsService: TerritoryMapsService,
@@ -76,8 +77,8 @@ export class PrintTerritoryComponent implements OnInit, OnDestroy
 
     this.store
       .pipe(
-        select(selectTerritoryById, this.activatedRoute.snapshot.params.id),
-        take(1),
+        select(selectTerritoryById, this.activatedRoute.snapshot.params.territoryId),
+        first(),
         tap(territory => this.territory = territory),
         tap((territory: Territory) => this.initWithData(territory)),
         tap((territory: Territory) => this.territoryMapsService.setPrintingDrawingColor(this.printedMapConfiguration['territoryColor'], this.printedMapConfiguration["opacity"]))
@@ -136,6 +137,32 @@ export class PrintTerritoryComponent implements OnInit, OnDestroy
       this.applyDrawingPrintAlignment();
       this.savePrintConfiguration();
     }
+  }
+
+  public async moveForward(currentTerritoryId: string)
+  {
+    const territories = await this.store.pipe(select(selectAllTerritories), first()).toPromise();
+    const currentIndex = territories.map(t => t.id).indexOf(currentTerritoryId);
+    const nextTerritory = territories[currentIndex + 1] ? territories[currentIndex + 1] : territories[0]
+
+    await this.move(nextTerritory);
+  }
+
+  public async moveBackward(currentTerritoryId: string)
+  {
+    const territories = await this.store.pipe(select(selectAllTerritories), first()).toPromise();
+    const currentIndex = territories.map(t => t.id).indexOf(currentTerritoryId);
+    const nextTerritory = territories[currentIndex - 1] ? territories[currentIndex - 1] : territories[territories.length - 1]
+
+    await this.move(nextTerritory);
+  }
+
+  public async move(nextTerritory: Territory)
+  {
+    await this.router.navigate([{outlets: {'second-thread': ['print', nextTerritory.id]}}]);
+    this.ngOnDestroy();
+    this.territoryMapsService.focusOnDrawingIds([nextTerritory.territoryDrawingId]);
+    this.ngOnInit();
   }
 
   public print()

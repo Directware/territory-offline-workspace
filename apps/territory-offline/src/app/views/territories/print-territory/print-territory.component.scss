@@ -66,4 +66,24 @@
       }
     }
   }
+
+  .navi-between-territories {
+    padding: 0;
+
+    ::ng-deep .wrapper {
+      padding: 1.5rem 1.5rem 1rem 1.5rem;
+
+      .h2-white {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .i-feather {
+          opacity: 0.4;
+          cursor: pointer;
+        }
+      }
+    }
+  }
 }

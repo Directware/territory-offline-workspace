@@ -18,10 +18,10 @@
         <div class="visit-ban-name">{{address?.name}}</div>
         <div class="date-value">
           <ng-container *ngIf="address && address.creationTime && !address.lastVisit">
-            {{address.creationTime | date:'dd.MM.yyyy'}}
+            {{address.creationTime | dateNotOlderThan:"10"}}
           </ng-container>
           <ng-container *ngIf="address && address.lastVisit">
-            {{address.lastVisit | date:'dd.MM.yyyy'}}
+            {{address.lastVisit | dateNotOlderThan:"10"}}
           </ng-container>
         </div>
       </div>

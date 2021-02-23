@@ -12,6 +12,16 @@
     </div>
   </app-panel>
 
+  <app-panel class="navi-between-territories">
+    <div class="wrapper">
+      <h2 class="h2-white">
+        <span>Gebiet wechseln</span>
+        <i-feather (click)="moveBackward(territory.id)" name="chevron-left" class="i-feather"></i-feather>
+        <i-feather (click)="moveForward(territory.id)" name="chevron-right" class="i-feather"></i-feather>
+      </h2>
+    </div>
+  </app-panel>
+
   <app-panel *ngIf="printedMapConfiguration" class="preferences">
     <div class="wrapper sticker" data-cy="territory-card-properties">
       <h2 class="h2-white">{{ 'territory.print.editLook' | translate }}</h2>

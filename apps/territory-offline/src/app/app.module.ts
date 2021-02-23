@@ -82,6 +82,7 @@ import {MatStepperModule} from "@angular/material/stepper";
 import {RedundantVisitBanPipe} from "./core/pipes/visit-bans/redundant-visit-ban.pipe";
 import {OrphanVisitBanPipe} from "./core/pipes/visit-bans/orphan-visit-ban.pipe";
 import {MatSliderModule} from "@angular/material/slider";
+import { DateNotOlderThanPipe } from './core/pipes/date-not-older-than.pipe';
 
 const {Device} = Plugins;
 
@@ -143,7 +144,8 @@ declare const sourceMapSupport: any;
     DurationPhrasePipe,
     ImportGeoJsonComponent,
     RedundantVisitBanPipe,
-    OrphanVisitBanPipe
+    OrphanVisitBanPipe,
+    DateNotOlderThanPipe
   ],
   imports: [
     BrowserModule,
