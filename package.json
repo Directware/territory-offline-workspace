@@ -117,7 +117,6 @@
     "@types/jest": "25.1.4",
     "@types/node": "~8.9.4",
     "@types/sqlite3": "^3.1.6",
-    "capacitor-biometric-auth": "^0.1.0",
     "capacitor-face-id": "^2.0.1",
     "codelyzer": "~5.0.1",
     "cordova-plugin-openwith-cxm": "^1.6.2",

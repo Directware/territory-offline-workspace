@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Plugins} from '@capacitor/core';
 import {environment} from "../../../../environments/environment";
-const {BiometricAuth, Device} = Plugins;
+const {Device} = Plugins;
 
 @Injectable({
   providedIn: 'root'
@@ -22,14 +22,7 @@ export class DataSecurityService
     this.platform = deviceInfo.platform;
     this.implicitEncryptionAvailable = deviceInfo.platform === 'ios' || deviceInfo.platform === 'android';
 
-    try
-    {
-      const result = await BiometricAuth.isAvailable();
-      this.biometricAuthAvailable = result.has;
-    } catch (e)
-    {
-      console.warn(e)
-    }
+    this.biometricAuthAvailable = false
   }
 
   public mustUsePassword()
@@ -49,13 +42,5 @@ export class DataSecurityService
 
   public async verify(message: string)
   {
-    if (this.biometricAuthAvailable)
-    {
-      await BiometricAuth.verify({
-        reason: message, // iOS
-        title: "", // Android
-        description: message // Android
-      });
-    }
   }
 }

@@ -25,6 +25,11 @@ export const selectTagsByIds = createSelector(
   selectEntities,
   (entities, ids: string[]) =>
   {
+    if(!ids || ids.length === 0)
+    {
+      return [];
+    }
+
     const tmp = [];
     ids.forEach(id => tmp.push(entities[id]));
     return tmp.filter(tag => !!tag);

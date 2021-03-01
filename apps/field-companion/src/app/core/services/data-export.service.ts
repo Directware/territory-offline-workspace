@@ -9,7 +9,6 @@ import {Plugins} from "@capacitor/core";
 import {selectSettings} from "../store/settings/settings.selectors";
 import {TerritoryCard} from "@territory-offline-workspace/api";
 import {TranslateService} from "@ngx-translate/core";
-import {DeleteTerritoryCard} from "../store/territory-card/territory-card.actions";
 import {Router} from "@angular/router";
 
 @Injectable({providedIn: "root"})

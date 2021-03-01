@@ -11,7 +11,6 @@ import {TerritoryMapsService} from "../territory/territory-maps.service";
 import {ApplicationState} from "../../store/index.reducers";
 import {selectPublisherById} from "../../store/publishers/publishers.selectors";
 import {Plugins} from '@capacitor/core';
-import {FileSharer} from "@byteowls/capacitor-filesharer";
 import * as Pako from 'pako';
 import {selectDrawingById} from "../../store/drawings/drawings.selectors";
 import {selectVisitBansByTerritoryId} from "../../store/visit-bans/visit-bans.selectors";
@@ -67,7 +66,7 @@ export class AssignmentsService
 
     const gzippedData = Pako.gzip(JSON.stringify(digitalTerritoryCard), {to: "string"});
 
-    await FileSharer.share({
+    await Plugins.FileSharer.share({
       filename: `${territory.key} ${territory.name}.territory`,
       base64Data: btoa(gzippedData),
       contentType: "text/plain;charset=utf-8",

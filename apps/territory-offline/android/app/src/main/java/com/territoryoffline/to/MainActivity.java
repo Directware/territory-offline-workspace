@@ -5,7 +5,6 @@ import android.os.Bundle;
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.community.database.sqlite.CapacitorSQLite;
-import com.ahm.capacitor.biometric.BiometricAuth;
 import java.util.ArrayList;
 import com.byteowls.capacitor.filesharer.FileSharerPlugin;
 
@@ -19,7 +18,6 @@ public class MainActivity extends BridgeActivity {
       // Additional plugins you've installed go here
       // Ex: add(TotallyAwesomePlugin.class);
       add(CapacitorSQLite.class);
-      add(BiometricAuth.class);
       add(FileSharerPlugin.class);
     }});
   }
