@@ -83,6 +83,7 @@ import {RedundantVisitBanPipe} from "./core/pipes/visit-bans/redundant-visit-ban
 import {OrphanVisitBanPipe} from "./core/pipes/visit-bans/orphan-visit-ban.pipe";
 import {MatSliderModule} from "@angular/material/slider";
 import { DateNotOlderThanPipe } from './core/pipes/date-not-older-than.pipe';
+import { ExportReportForGroupOverseerComponent } from './views/transfer/export-report-for-group-overseer/export-report-for-group-overseer.component';
 
 const {Device} = Plugins;
 
@@ -145,7 +146,8 @@ declare const sourceMapSupport: any;
     ImportGeoJsonComponent,
     RedundantVisitBanPipe,
     OrphanVisitBanPipe,
-    DateNotOlderThanPipe
+    DateNotOlderThanPipe,
+    ExportReportForGroupOverseerComponent
   ],
   imports: [
     BrowserModule,

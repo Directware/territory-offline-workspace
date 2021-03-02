@@ -59,6 +59,11 @@ export const selectLastAssignmentOfEachTerritory = createSelector(
   }
 );
 
+export const selectCurrentlyOpenAssignments = createSelector(
+  selectAll,
+  (assignments) => assignments.filter(a => !a.endTime)
+);
+
 export const selectLastEndedAssignmentOfEachTerritory = createSelector(
   selectAll,
   selectAllTerritories,

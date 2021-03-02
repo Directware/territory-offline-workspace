@@ -69,6 +69,11 @@ export class TransferComponent implements OnInit
     await this.dataExportService.exportAllAndShare()
   }
 
+  public exportToGroupOverseer()
+  {
+    this.router.navigate([{outlets: {'second-thread': 'group-overseer-report'}}]);
+  }
+
   public exportS13()
   {
     this.pdfDataExportService.exportS13();

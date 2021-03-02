@@ -27,6 +27,10 @@
         <p class="label">{{ 'transfer.exportBackup' | translate }}</p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
+      <app-list-item (click)="exportToGroupOverseer()">
+        <p class="label">{{ 'transfer.exportGroupOverseerReport' | translate }}</p>
+        <i-feather class="i-feather action" name="chevron-right"></i-feather>
+      </app-list-item>
       <app-list-item (click)="exportS13()">
         <p class="label">{{ 'transfer.exportS13' | translate }}</p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>

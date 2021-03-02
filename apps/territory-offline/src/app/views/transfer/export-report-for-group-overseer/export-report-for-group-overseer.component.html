@@ -1,0 +1,15 @@
+<app-second-thread-header [readonly]="false"
+                          (onBack)="back()"
+                          (onSave)="createReport()"
+                          [valid]="addedTagIds.valid"
+                          [positiveActionName]="'common.create'"></app-second-thread-header>
+
+<app-assigned-tags [assignedTags]="addedTagIds"></app-assigned-tags>
+
+<app-panel>
+  <app-list-item (click)="saveTagsForNextTime=!saveTagsForNextTime">
+    <div class="label">Merken</div>
+    <i-feather *ngIf="saveTagsForNextTime" class="action green" name="check-circle"></i-feather>
+    <i-feather *ngIf="!saveTagsForNextTime" class="action" name="x"></i-feather>
+  </app-list-item>
+</app-panel>

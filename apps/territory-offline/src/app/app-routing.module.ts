@@ -27,6 +27,7 @@ import {ReassignDueAfterComponent} from "./views/settings/reassign-due-after/rea
 import {ChooseOriginComponent} from "./views/initial-configuration/choose-origin/choose-origin.component";
 import {WholeVisitBansComponent} from "./views/visit-bans/whole-visit-bans/whole-visit-bans.component";
 import {ImportGeoJsonComponent} from "./views/transfer/import-geo-json/import-geo-json.component";
+import {ExportReportForGroupOverseerComponent} from "./views/transfer/export-report-for-group-overseer/export-report-for-group-overseer.component";
 
 const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [InitialConfigurationGuard, AppNotLockedGuard]},
@@ -58,6 +59,7 @@ const routes: Routes = [
 
   {path: 'transfer', component: TransferComponent, canActivate: [InitialConfigurationGuard, AppNotLockedGuard]},
   {path: 'transfer/import-geo-json', component: ImportGeoJsonComponent, outlet: "second-thread"},
+  {path: 'group-overseer-report', component: ExportReportForGroupOverseerComponent, outlet: "second-thread"},
   {path: 'tags', component: TagsComponent, canActivate: [InitialConfigurationGuard, AppNotLockedGuard]},
   {path: 'lock-screen', component: LockScreenComponent, outlet: "global", data: { animation: 'LockScreen' }},
 

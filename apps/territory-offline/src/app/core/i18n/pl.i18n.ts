@@ -7,7 +7,8 @@ export const pl = {
     "nothingChosen": "Nic nie wybrano",
     "skip": "Pomiń",
     "color": "Kolor",
-    "opacity": "Przejrzystość"
+    "opacity": "Przejrzystość",
+    "create": "Utwórz"
   },
   "assignments": {
     "startTime": "Data wydania",
@@ -339,7 +340,8 @@ export const pl = {
       "wrongFileType": "Zły typ pliku! Proszę wprowadzić plik w formacie Excel.",
       "noJsonFile": "Zły typ pliku! Proszę wprowadzić plik JSON.",
       "importTWTerritories": "Territory Web - Tereny"
-    }
+    },
+    "exportGroupOverseerReport": "Dla nadzorcy grup"
   },
   "tag": {
     "edit": "Edytuj",

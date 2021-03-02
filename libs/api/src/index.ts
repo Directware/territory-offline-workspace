@@ -23,6 +23,7 @@ export * from './lib/last-doing/last-doing.model';
 export * from './lib/last-doing/last-doing.db';
 export * from './lib/publisher/publisher.model';
 export * from './lib/publisher/publisher.db';
+export * from './lib/report/group-overseer-report.model';
 export * from './lib/tag/tag-symbol.enum';
 export * from './lib/tag/tag.model';
 export * from './lib/tag/tag.db';
@@ -38,8 +39,16 @@ export * from './lib/territory/print/territory-card-formats';
 export * from './lib/territory/print/territory-drawing-print-configuration.interface';
 export * from './lib/visit-ban/visit-ban.model';
 export * from './lib/visit-ban/visit-ban.db';
-export * from './lib/visit-ban/visit-ban.factory';
 export * from './lib/visit-ban/visit-ban.comparator';
+
+/* Factories */
+// export * from './lib/';
+export * from './lib/assignment/assignment.factory';
+export * from './lib/publisher/publisher.factory';
+export * from './lib/report/group-overseer-report.factory'
+export * from './lib/tag/tag.factory';
+export * from './lib/territory/territory.factory';
+export * from './lib/visit-ban/visit-ban.factory';
 
 /* UTILS */
 export * from './utils/usefull.functions';

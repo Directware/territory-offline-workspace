@@ -7,7 +7,8 @@ export const it = {
     "nothingChosen": "Nothing selected",
     "skip": "Salta",
     "color": "Colore",
-    "opacity": "Trasparenza"
+    "opacity": "Trasparenza",
+    "create": "Creare"
   },
   "assignments": {
     "startTime": "Start time",
@@ -339,7 +340,8 @@ export const it = {
       "wrongFileType": "Wrong file type! Please enter an Excel file.",
       "noJsonFile": "Wrong file type! Please enter a JSON file.",
       "importTWTerritories": "Territory Web - Territories"
-    }
+    },
+    "exportGroupOverseerReport": "Per i supervisori di gruppo"
   },
   "tag": {
     "edit": "Edit",

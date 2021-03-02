@@ -7,7 +7,8 @@ export const de = {
     "nothingChosen": "Nichts ausgewählt",
     "skip": "Überspringen",
     "color": "Farbe",
-    "opacity": "Transparenz"
+    "opacity": "Transparenz",
+    "create": "Erstellen"
   },
   "assignments": {
     "startTime": "Ausgabedatum",
@@ -341,7 +342,8 @@ export const de = {
       "wrongFileType": "Falscher Dateityp! Gebe bitte eine Excel Datei ein.",
       "noJsonFile": "Falscher Dateityp! Gebe bitte eine JSON Datei ein.",
       "importTWTerritories": "Territory Web - Gebiete"
-    }
+    },
+    "exportGroupOverseerReport": "Für Gruppenaufseher"
   },
   "tag": {
     "edit": "Bearbeiten",

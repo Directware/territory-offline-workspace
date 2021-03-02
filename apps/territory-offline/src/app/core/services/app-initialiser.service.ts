@@ -59,7 +59,7 @@ export class AppInitializerService
 
   private logNgrxActions()
   {
-    if(!environment.production)
+    if(environment.consoleLogNgrxActions)
     {
       this.actions$.pipe(
         tap((action) => console.log(`[NGRX - ${action.type}]: ${JSON.stringify(action)}`))

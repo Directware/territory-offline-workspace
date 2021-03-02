@@ -1,13 +1,25 @@
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 import {Injectable} from '@angular/core';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfMakeFonts from "pdfmake/build/vfs_fonts.js";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/index.reducers";
 import {selectCurrentCongregation} from "../../store/congregation/congregations.selectors";
-import {take} from "rxjs/operators";
-import {selectAllAssignmentsOrderedByRelevantTags} from "../../store/assignments/assignments.selectors";
-import {Assignment, Publisher, VisitBan} from "@territory-offline-workspace/api";
+import {first, take} from "rxjs/operators";
+import {
+  selectAllAssignments,
+  selectAllAssignmentsOrderedByRelevantTags, selectCurrentlyOpenAssignments, selectLastAssignmentOfEachTerritory
+} from "../../store/assignments/assignments.selectors";
+import {
+  Assignment,
+  groupOverseerFactory,
+  groupOverseerPdfMakeContentFactory,
+  Publisher,
+  VisitBan
+} from "@territory-offline-workspace/api";
+import {selectTagsByIds} from "../../store/tags/tags.selectors";
+import {selectPublishers} from "../../store/publishers/publishers.selectors";
+import {selectAllTerritories} from "../../store/territories/territories.selectors";
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +36,8 @@ export class PdfDataExportService
 
   public exportPublisher(publisher: Publisher[])
   {
-    this.translate.get(["transfer.export.firstName", "transfer.export.lastName", "transfer.export.mail", "transfer.export.phone"]).pipe(take(1)).subscribe((translations: {[key: string]: string}) => {
+    this.translate.get(["transfer.export.firstName", "transfer.export.lastName", "transfer.export.mail", "transfer.export.phone"]).pipe(take(1)).subscribe((translations: { [key: string]: string }) =>
+    {
       const body = [];
       publisher.forEach((p, index) =>
         body[index] = [p.firstName, p.name, p.email || "-", p.phone || "-"]);
@@ -53,7 +66,8 @@ export class PdfDataExportService
 
   public exportVisitBans(visitBans: VisitBan[])
   {
-    this.translate.get(["transfer.export.bellPosition", "transfer.export.level", "transfer.export.street", "transfer.export.numberShort", "transfer.export.city", "transfer.export.lastVisit"]).pipe(take(1)).subscribe((translations: {[key: string]: string}) => {
+    this.translate.get(["transfer.export.bellPosition", "transfer.export.level", "transfer.export.street", "transfer.export.numberShort", "transfer.export.city", "transfer.export.lastVisit"]).pipe(take(1)).subscribe((translations: { [key: string]: string }) =>
+    {
       const body = [];
       visitBans.forEach((a, index) =>
         body[index] = [a.name, a.floor, a.street, a.streetSuffix, a.city, !!a.lastVisit ? new Date(a.lastVisit).toLocaleDateString() : ""]);
@@ -79,6 +93,29 @@ export class PdfDataExportService
 
       pdfMake.createPdf(docDefinition).download("to-visit-bans");
     });
+  }
+
+  public async exportGroupOverseerReport(tagIds: string[])
+  {
+    const tags = await this.store.pipe(select(selectTagsByIds, tagIds), first()).toPromise();
+    const publishers = await this.store.pipe(select(selectPublishers), first()).toPromise();
+    const territories = await this.store.pipe(select(selectAllTerritories), first()).toPromise();
+    const assignments = await this.store.pipe(select(selectCurrentlyOpenAssignments), first()).toPromise();
+
+    const groupOverseerReport = groupOverseerFactory(tags, publishers, territories, assignments);
+
+    const docDefinition = {
+      footer: this.pdfFooter,
+      pageMargins: [30, 30, 30, 30],
+      content: groupOverseerPdfMakeContentFactory(groupOverseerReport, {
+        since: "seit",
+        noTerritory: "Kein Gebiet zugeteilt"
+      })
+    };
+
+    const congregation = await this.store.pipe(select(selectCurrentCongregation), take(1)).toPromise();
+    const createdPdf = pdfMake.createPdf(docDefinition);
+    createdPdf.download(`${congregation.name} - group overseers`);
   }
 
   public async exportS13()
@@ -220,11 +257,15 @@ export class PdfDataExportService
     return [
       {
         alignment: 'center',
+        color: "#777777",
+        fontSize: 10,
         text: `${currentPage.toString()} / ${pageCount}`
       },
       {
         alignment: 'right',
-        color: "#aaaaaa",
+        color: "#777777",
+        fontSize: 10,
+        margin: [0, 0, 20, 40],
         text: `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`
       }
     ];
