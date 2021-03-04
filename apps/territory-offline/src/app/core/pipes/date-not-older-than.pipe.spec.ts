@@ -30,7 +30,7 @@ describe('DateNotOlderThanPipe', () =>
     const month = today.getMonth() + 1;
     const day = today.getDate();
 
-    expect(pipe.transform(withinFiveYears, 5)).toBe(`${day}.${month.toString(10).padStart(2, "0")}.${year}`);
+    expect(pipe.transform(withinFiveYears, 5)).toBe(`${day.toString(10).padStart(2, "0")}.${month.toString(10).padStart(2, "0")}.${year}`);
     expect(pipe.transform(overFiveYears, 5)).toBe("");
   });
 });

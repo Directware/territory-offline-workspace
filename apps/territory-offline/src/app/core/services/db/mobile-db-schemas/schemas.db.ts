@@ -2,7 +2,7 @@ import {
   Assignment,
   ASSIGNMENT_TABLE_NAME,
   Congregation,
-  CONGREGATION_TABLE_NAME, deserializeDate,
+  CONGREGATION_TABLE_NAME, deserializeArray, deserializeDate, deserializeObject,
   Drawing,
   DRAWING_TABLE_NAME,
   HASHED_ASSIGNMENT_TABLE_NAME,
@@ -44,7 +44,7 @@ export const TABLE_NAME_MAPPINGS = {
           assignment.id,
           assignment.congregationId,
           assignment.prefix || "",
-          serializeDate(assignment.creationTime),
+          serializeDate(assignment.creationTime || assignment.startTime),
           serializeDate(assignment.lastUpdated),
           assignment.publisherId,
           assignment.territoryId,
@@ -115,7 +115,7 @@ export const TABLE_NAME_MAPPINGS = {
           drawing.id,
           drawing.congregationId,
           drawing.prefix || "",
-          serializeDate(drawing.creationTime),
+          serializeDate(drawing.creationTime || new Date()),
           serializeDate(drawing.lastUpdated),
           serializeObject(drawing.featureCollection),
           serializeObject(drawing.printConfiguration)
@@ -129,8 +129,8 @@ export const TABLE_NAME_MAPPINGS = {
         congregationId: drawing.congregationId,
         creationTime: deserializeDate(drawing.creationTime as unknown as string),
         lastUpdated: deserializeDate(drawing.lastUpdated as unknown as string),
-        featureCollection: JSON.parse(drawing.featureCollection as unknown as string || "null"),
-        printConfiguration: JSON.parse(drawing.printConfiguration as unknown as string || "{}")
+        featureCollection: deserializeObject(drawing.featureCollection as unknown as string || "null"),
+        printConfiguration: deserializeObject(drawing.printConfiguration as unknown as string || "{}")
       };
     }
   },
@@ -175,7 +175,7 @@ export const TABLE_NAME_MAPPINGS = {
           publisher.id,
           publisher.congregationId,
           publisher.prefix || "",
-          serializeDate(publisher.creationTime),
+          serializeDate(publisher.creationTime || new Date()),
           serializeDate(publisher.lastUpdated),
           publisher.name,
           publisher.firstName,
@@ -198,7 +198,7 @@ export const TABLE_NAME_MAPPINGS = {
         firstName: publisher.firstName,
         email: publisher.email,
         phone: publisher.phone,
-        tags: JSON.parse(publisher.tags as unknown as string || "[]"),
+        tags: deserializeArray(publisher.tags as unknown as string || "[]"),
         dsgvoSignature: publisher.dsgvoSignature,
         isDeactivated: JSON.parse(publisher.isDeactivated as unknown as string || "false"),
       };
@@ -215,7 +215,7 @@ export const TABLE_NAME_MAPPINGS = {
           tag.id,
           tag.congregationId,
           tag.prefix || "",
-          serializeDate(tag.creationTime),
+          serializeDate(tag.creationTime || new Date()),
           serializeDate(tag.lastUpdated),
           tag.name,
           tag.color || "",
@@ -234,7 +234,7 @@ export const TABLE_NAME_MAPPINGS = {
         name: tag.name,
         color: tag.color,
         symbol: tag.symbol,
-        metaInfos: JSON.parse(tag.metaInfos as unknown as string || "null")
+        metaInfos: deserializeObject(tag.metaInfos as unknown as string || "null")
       };
     }
   },
@@ -249,7 +249,7 @@ export const TABLE_NAME_MAPPINGS = {
           territory.id,
           territory.congregationId,
           territory.prefix || "",
-          serializeDate(territory.creationTime),
+          serializeDate(territory.creationTime || new Date()),
           serializeDate(territory.lastUpdated),
           territory.name,
           territory.key,
@@ -273,9 +273,9 @@ export const TABLE_NAME_MAPPINGS = {
         name: territory.name,
         key: territory.key,
         populationCount: JSON.parse(territory.populationCount as unknown as string || "0"),
-        tags: JSON.parse(territory.tags as unknown as string || "[]"),
+        tags: deserializeArray(territory.tags as unknown as string || "[]"),
         territoryDrawingId: territory.territoryDrawingId,
-        boundaryNames: JSON.parse(territory.boundaryNames as unknown as string || "[]"),
+        boundaryNames: deserializeArray(territory.boundaryNames as unknown as string || "[]"),
         deactivated: JSON.parse(territory.deactivated as unknown as string || "false"),
         isCreation: JSON.parse(territory.isCreation as unknown as string || "false"),
         comment: territory.comment,
@@ -293,7 +293,7 @@ export const TABLE_NAME_MAPPINGS = {
           visitBan.id,
           visitBan.congregationId,
           visitBan.prefix || "",
-          serializeDate(visitBan.creationTime),
+          serializeDate(visitBan.creationTime || new Date()),
           serializeDate(visitBan.lastUpdated),
           visitBan.name || "",
           visitBan.street,
@@ -319,12 +319,12 @@ export const TABLE_NAME_MAPPINGS = {
         street: visitBan.street,
         streetSuffix: visitBan.streetSuffix,
         territoryId: visitBan.territoryId,
-        tags: JSON.parse(visitBan.tags as unknown as string || "[]"),
+        tags: deserializeArray(visitBan.tags as unknown as string || "[]"),
         city: visitBan.city,
         floor: JSON.parse(visitBan.floor as unknown as string || "null"),
         lastVisit: deserializeDate(visitBan.lastVisit as unknown as string),
         comment: visitBan.comment,
-        gpsPosition: JSON.parse(visitBan.gpsPosition as unknown as string || "null")
+        gpsPosition: deserializeObject(visitBan.gpsPosition as unknown as string || "null")
       };
     }
   },

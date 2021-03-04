@@ -101,7 +101,10 @@ export class MobileDatabaseService implements AbstractDatabase
   public async upsert(hashedTableName: string, entity: TimedEntity, excludeCongregationPrefix?: boolean): Promise<TimedEntity>
   {
     const congregationPrefix = excludeCongregationPrefix ? null : await this.getCurrentCongregationPrefix();
-    const statement = TABLE_NAME_MAPPINGS[hashedTableName].insertQuery([{...entity, congregationId: congregationPrefix}]);
+    const statement = TABLE_NAME_MAPPINGS[hashedTableName].insertQuery([{
+      ...entity,
+      congregationId: congregationPrefix
+    }]);
 
     await this.executeSet([statement]);
 
@@ -142,17 +145,15 @@ export class MobileDatabaseService implements AbstractDatabase
 
   public async clear()
   {
-    const statements = [
-      {statement: `DELETE * FROM ${ASSIGNMENT_TABLE_NAME};`, values: []},
-      {statement: `DELETE * FROM ${DRAWING_TABLE_NAME};`, values: []},
-      {statement: `DELETE * FROM ${LAST_DOING_TABLE_NAME};`, values: []},
-      {statement: `DELETE * FROM ${PUBLISHER_TABLE_NAME};`, values: []},
-      {statement: `DELETE * FROM ${TAG_TABLE_NAME};`, values: []},
-      {statement: `DELETE * FROM ${TERRITORY_TABLE_NAME};`, values: []},
-      {statement: `DELETE * FROM ${VISIT_BAN_TABLE_NAME};`, values: []}
-    ];
-
-    const result = await this.executeSet(statements);
+    const result = await this.execute(`
+      DELETE * FROM ${ASSIGNMENT_TABLE_NAME};
+      DELETE * FROM ${DRAWING_TABLE_NAME};
+      DELETE * FROM ${LAST_DOING_TABLE_NAME};
+      DELETE * FROM ${PUBLISHER_TABLE_NAME};
+      DELETE * FROM ${TAG_TABLE_NAME};
+      DELETE * FROM ${TERRITORY_TABLE_NAME};
+      DELETE * FROM ${VISIT_BAN_TABLE_NAME};
+    `);
     await this.settingsDatabase.clear();
 
     return {result: result.changes.changes > -1};
@@ -160,17 +161,15 @@ export class MobileDatabaseService implements AbstractDatabase
 
   public async clearAllWithPrefix(prefix: string)
   {
-    const statements = [
-      {statement: `DELETE * FROM ${ASSIGNMENT_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
-      {statement: `DELETE * FROM ${DRAWING_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
-      {statement: `DELETE * FROM ${LAST_DOING_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
-      {statement: `DELETE * FROM ${PUBLISHER_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
-      {statement: `DELETE * FROM ${TAG_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
-      {statement: `DELETE * FROM ${TERRITORY_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []},
-      {statement: `DELETE * FROM ${VISIT_BAN_TABLE_NAME} WHERE congregationId = '${prefix}:';`, values: []}
-    ];
-
-    await this.executeSet(statements);
+    const result = await this.execute(`
+      DELETE * FROM ${ASSIGNMENT_TABLE_NAME} WHERE congregationId = '${prefix}:';
+      DELETE * FROM ${DRAWING_TABLE_NAME} WHERE congregationId = '${prefix}:';
+      DELETE * FROM ${LAST_DOING_TABLE_NAME} WHERE congregationId = '${prefix}:';
+      DELETE * FROM ${PUBLISHER_TABLE_NAME} WHERE congregationId = '${prefix}:';
+      DELETE * FROM ${TAG_TABLE_NAME} WHERE congregationId = '${prefix}:';
+      DELETE * FROM ${TERRITORY_TABLE_NAME} WHERE congregationId = '${prefix}:';
+      DELETE * FROM ${VISIT_BAN_TABLE_NAME} WHERE congregationId = '${prefix}:';
+    `);
 
     return prefix;
   }

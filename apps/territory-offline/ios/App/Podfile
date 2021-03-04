@@ -12,8 +12,6 @@ def capacitor_pods
   pod 'CapacitorCordova', :path => '../../../../node_modules/@capacitor/ios'
   pod 'ByteowlsCapacitorFilesharer', :path => '../../../../node_modules/@byteowls/capacitor-filesharer'
   pod 'CapacitorCommunitySqlite', :path => '../../../../node_modules/@capacitor-community/sqlite'
-  pod 'CapacitorBiometricAuth', :path => '../../../../node_modules/capacitor-biometric-auth'
-  pod 'CapacitorFaceId', :path => '../../../../node_modules/capacitor-face-id'
   # Do not delete
 end
 

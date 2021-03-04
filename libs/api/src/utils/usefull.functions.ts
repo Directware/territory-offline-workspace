@@ -200,6 +200,16 @@ export function serializeObject(object): string
   return stringifiedObject;
 }
 
+export function deserializeObject(objectAsString: string): any
+{
+  if(!objectAsString || objectAsString === "null" || objectAsString === "NULL") // NULL is ios specific!
+  {
+    return {};
+  }
+
+  return JSON.parse(objectAsString);
+}
+
 export function serializeArray(data: any[]): string
 {
   if(!data || data.length === 0)
@@ -208,6 +218,16 @@ export function serializeArray(data: any[]): string
   }
 
   return JSON.stringify(data);
+}
+
+export function deserializeArray(arrayAsString: string): any[]
+{
+  if(!arrayAsString || arrayAsString === "null" || arrayAsString === "NULL") // NULL is ios specific!
+  {
+    return [];
+  }
+
+  return JSON.parse(arrayAsString);
 }
 
 export function serializeDate(date: Date): string
@@ -222,7 +242,7 @@ export function serializeDate(date: Date): string
 
 export function deserializeDate(isoDateString: string): Date
 {
-  if(!isoDateString || isoDateString === "null")
+  if(!isoDateString || isoDateString === "null" || isoDateString === "NULL") // NULL is ios specific!
   {
     return null;
   }
