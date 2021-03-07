@@ -62,10 +62,11 @@ export class LockScreenComponent implements OnInit
 
     this.passwordNeeded = this.dataSecurityService.mustUsePassword();
 
+    console.log("passwordNeeded=" + this.passwordNeeded);
+
     if (!this.passwordNeeded)
     {
-      const translation = this.translate.instant('lockScreen.unlock');
-      this.dataSecurityService.verify(translation).then(() => this.unlockApp());
+      this.dataSecurityService.verify().then(() => this.unlockApp());
     }
   }
 

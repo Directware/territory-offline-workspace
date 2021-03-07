@@ -84,6 +84,7 @@ import {OrphanVisitBanPipe} from "./core/pipes/visit-bans/orphan-visit-ban.pipe"
 import {MatSliderModule} from "@angular/material/slider";
 import { DateNotOlderThanPipe } from './core/pipes/date-not-older-than.pipe';
 import { ExportReportForGroupOverseerComponent } from './views/transfer/export-report-for-group-overseer/export-report-for-group-overseer.component';
+import {FingerprintAIO} from "@ionic-native/fingerprint-aio/ngx";
 
 const {Device} = Plugins;
 
@@ -172,13 +173,14 @@ declare const sourceMapSupport: any;
     TranslateModule.forRoot(),
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
-    StoreDevtoolsModule.instrument({logOnly: true, maxAge: 25}),
+    StoreDevtoolsModule.instrument({logOnly: true, maxAge: 25})
   ],
   providers: [
     DatePipe,
     {provide: APP_INITIALIZER, useFactory: startupServiceFactory, deps: [AppInitializerService], multi: true},
     {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
-    {provide: HAMMER_GESTURE_CONFIG, useClass: HammerConfig}
+    {provide: HAMMER_GESTURE_CONFIG, useClass: HammerConfig},
+    FingerprintAIO
   ],
   bootstrap: [AppComponent]
 })
