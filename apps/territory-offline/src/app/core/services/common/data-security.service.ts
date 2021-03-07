@@ -1,6 +1,8 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {Plugins} from '@capacitor/core';
 import {environment} from "../../../../environments/environment";
+import {FingerprintAIO} from '@ionic-native/fingerprint-aio/ngx';
+
 const {Device} = Plugins;
 
 @Injectable({
@@ -12,7 +14,7 @@ export class DataSecurityService
   private implicitEncryptionAvailable: boolean;
   private biometricAuthAvailable: boolean;
 
-  constructor()
+  constructor(private injector: Injector)
   {
   }
 
@@ -22,17 +24,38 @@ export class DataSecurityService
     this.platform = deviceInfo.platform;
     this.implicitEncryptionAvailable = deviceInfo.platform === 'ios' || deviceInfo.platform === 'android';
 
-    this.biometricAuthAvailable = false
+    if (this.implicitEncryptionAvailable)
+    {
+      // Plugin is not available in the browser
+      const fingerprintAIO = this.injector.get(FingerprintAIO);
+      try
+      {
+        const result = await fingerprintAIO.isAvailable();
+        // TODO ex. BIOMETRIC_PERMISSION_NOT_GRANTED
+
+        this.biometricAuthAvailable = result;
+      }
+      catch (e)
+      {
+        console.error(`[DataSecurityService]: code="${e.code}", message="${e.message}"`);
+        this.biometricAuthAvailable = false;
+      }
+    }
   }
 
   public mustUsePassword()
   {
-    if (environment.production)
+    if(!environment.production && this.platform === "web") // dev mode
     {
-      return this.platform === "electron" || this.platform === "web";
+      return false;
     }
 
-    return false;
+    if (this.platform === 'ios' || this.platform === 'android')
+    {
+      return !this.biometricAuthAvailable;
+    }
+
+    return true;
   }
 
   public platformBiometricAuthAvailable()
@@ -40,7 +63,19 @@ export class DataSecurityService
     return this.biometricAuthAvailable;
   }
 
-  public async verify(message: string)
+  public async verify()
   {
+    if (this.implicitEncryptionAvailable)
+    {
+      const fingerprintAIO = this.injector.get(FingerprintAIO);
+      return fingerprintAIO.show({})
+    }
+
+    if (!environment.production)
+    {
+      return true;
+    }
+
+    throw Error("Can not verify!");
   }
 }
