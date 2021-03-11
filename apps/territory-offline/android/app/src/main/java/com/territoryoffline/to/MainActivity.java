@@ -6,6 +6,7 @@ import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.community.database.sqlite.CapacitorSQLite;
 import java.util.ArrayList;
+import com.bkon.capacitor.fileselector.FileSelector;
 import com.byteowls.capacitor.filesharer.FileSharerPlugin;
 
 public class MainActivity extends BridgeActivity {
@@ -18,6 +19,7 @@ public class MainActivity extends BridgeActivity {
       // Additional plugins you've installed go here
       // Ex: add(TotallyAwesomePlugin.class);
       add(CapacitorSQLite.class);
+      add(FileSelector.class);
       add(FileSharerPlugin.class);
     }});
   }

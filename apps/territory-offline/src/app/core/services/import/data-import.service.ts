@@ -62,6 +62,13 @@ export class DataImportService
     }, 0);
   }
 
+  public async importBackupBinary(binary: any)
+  {
+    const unGzippedData = Pako.ungzip(binary, {to: "string"});
+    const json = JSON.parse(unGzippedData);
+    await this.importBackup(json)
+  }
+
   public async importBackup(data: any)
   {
     if (data && data.type === ExportableTypesEnum.ALL)
@@ -77,6 +84,7 @@ export class DataImportService
       const importProgressDialogRef = this.matDialog.open(BackupImportProgressComponent, dialogConfig);
       const start = new Date();
 
+      // TODO make macrotask to show waiting modal immediately
       const filteredImportData: any = await this.filterAlreadyExistingEntriesWithSameValues(data);
 
       progressMsg.next({label: `${filteredImportData.toBeImported.tags.length} ${translations["transfer.import.tags"]}`, icon: null})

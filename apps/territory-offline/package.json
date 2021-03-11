@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@byteowls/capacitor-filesharer": "^2.0.0",
+    "capacitor-file-selector": "0.0.4",
     "@capacitor/android": "^2.3.0",
     "@capacitor-community/sqlite": "^2.4.2-8",
     "@ionic-native/fingerprint-aio": "^5.31.1",

@@ -82,11 +82,12 @@ import {MatStepperModule} from "@angular/material/stepper";
 import {RedundantVisitBanPipe} from "./core/pipes/visit-bans/redundant-visit-ban.pipe";
 import {OrphanVisitBanPipe} from "./core/pipes/visit-bans/orphan-visit-ban.pipe";
 import {MatSliderModule} from "@angular/material/slider";
-import { DateNotOlderThanPipe } from './core/pipes/date-not-older-than.pipe';
-import { ExportReportForGroupOverseerComponent } from './views/transfer/export-report-for-group-overseer/export-report-for-group-overseer.component';
+import {DateNotOlderThanPipe} from './core/pipes/date-not-older-than.pipe';
+import {ExportReportForGroupOverseerComponent} from './views/transfer/export-report-for-group-overseer/export-report-for-group-overseer.component';
 import {FingerprintAIO} from "@ionic-native/fingerprint-aio/ngx";
+import {DataImportService} from "./core/services/import/data-import.service";
 
-const {Device} = Plugins;
+const {Device, App, Filesystem} = Plugins;
 
 declare const sourceMapSupport: any;
 
@@ -190,17 +191,19 @@ export class AppModule
               private actions$: Actions,
               private ngZone: NgZone,
               private router: Router,
+              private dataImportService: DataImportService,
               private languageService: TerritoryLanguageService,
               private translateService: TranslateService)
   {
-    if(!!window["Cypress"])
+    this.withOpenedData();
+    if (!!window["Cypress"])
     {
       window["store"] = this.store;
       window["actions"] = this.actions$;
       window["angularRouting"] = this.navigateByUrl.bind(this);
     }
 
-    if(sourceMapSupport && sourceMapSupport.install)
+    if (sourceMapSupport && sourceMapSupport.install)
     {
       sourceMapSupport.install();
       console.log("[AppModule] sourceMapSupport:", sourceMapSupport);
@@ -243,6 +246,26 @@ export class AppModule
   private navigateByUrl(url: string)
   {
     this.ngZone.run(() => this.router.navigateByUrl(url));
+  }
+
+  private withOpenedData()
+  {
+    App.addListener("appUrlOpen", async (appUrlOpen) =>
+    {
+      if (appUrlOpen.url.endsWith(".territoryoffline"))
+      {
+        let contents = await Filesystem.readFile({path: appUrlOpen.url});
+
+        const reader = new FileReader();
+        // TODO import should be done after authentication
+        // reader.onload = () => this.dataImportService.importBackupBinary(reader.result);
+        reader.readAsText(new Blob([atob(contents.data)]));
+      }
+      else
+      {
+        alert(`Wrong file type!`);
+      }
+    });
   }
 }
 

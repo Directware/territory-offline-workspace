@@ -1,10 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {DataImportService} from "../../../core/services/import/data-import.service";
 import {DataExportService} from "../../../core/services/import/data-export.service";
 import {Store} from "@ngrx/store";
 import {ApplicationState} from "../../../core/store/index.reducers";
 import * as Pako from 'pako';
 import {MatDialogRef} from "@angular/material/dialog";
+import {Plugins} from "@capacitor/core";
+import {TranslateService} from "@ngx-translate/core";
+
+const {FileSelector, Device} = Plugins;
 
 @Component({
   selector: 'app-sync-data',
@@ -13,8 +17,12 @@ import {MatDialogRef} from "@angular/material/dialog";
 })
 export class SyncDataComponent implements OnInit
 {
+  @ViewChild("syncFileChooser", {static: false})
+  public syncFileChooser: ElementRef;
+
   constructor(private store: Store<ApplicationState>,
               private matDialogRef: MatDialogRef<SyncDataComponent>,
+              private translateService: TranslateService,
               private dataImportService: DataImportService,
               private dataExportService: DataExportService)
   {
@@ -30,6 +38,59 @@ export class SyncDataComponent implements OnInit
     this.matDialogRef.close();
   }
 
+  public async getBackupFileConsideringPlatform()
+  {
+    const deviceInfo = await Device.getInfo();
+
+    switch (deviceInfo.platform)
+    {
+      case "ios":
+      {
+        this.selectBackup();
+        break;
+      }
+      case "android":
+      {
+        this.selectBackup();
+        break;
+      }
+      default:
+      {
+        this.syncFileChooser.nativeElement.click();
+      }
+    }
+  }
+
+  public async selectBackup()
+  {
+    const selectedFile = await FileSelector.fileSelector({
+      multiple_selection: false,
+      ext: ["*"]
+    });
+
+    const deviceInfo = await Device.getInfo();
+    let paths;
+
+    if (deviceInfo.platform === "ios")
+    {
+      paths = selectedFile.paths;
+    }
+    else if (deviceInfo.platform === "android")
+    {
+      paths = JSON.parse(selectedFile.paths)
+    }
+
+    if (selectedFile.extensions.includes("territoryoffline"))
+    {
+      const file = await fetch(paths[0]).then((r) => r.blob());
+      this.importFile({target: {files: [file]}});
+    }
+    else
+    {
+      alert(this.translateService.instant("territories.wrongFileType"));
+    }
+  }
+
   public importFile(event)
   {
     const jsonReader = new FileReader();
@@ -43,7 +104,7 @@ export class SyncDataComponent implements OnInit
         {
           console.log("Keine JSON Struktur.", e);
           const binaryFileReader = new FileReader();
-          binaryFileReader.onload = () => this.binarySyncFileOnload(binaryFileReader.result as any);
+          binaryFileReader.onload = () => this.dataImportService.importBackupBinary(binaryFileReader.result);
           binaryFileReader.readAsArrayBuffer(file);
         });
 
@@ -55,13 +116,6 @@ export class SyncDataComponent implements OnInit
   {
     const json = JSON.parse(data);
     await this.dataImportService.importBackup(json)
-    this.matDialogRef.close();
-  }
-
-  private async binarySyncFileOnload(data: any)
-  {
-    const unGzippedData = Pako.ungzip(data, {to: "string"});
-    await this.jsonSyncFileOnload(unGzippedData);
     this.matDialogRef.close();
   }
 }
