@@ -17,6 +17,7 @@ import {DataExportService} from "../../core/services/data-export.service";
 import {DataImportService} from "../../core/services/data-import.service";
 import {FormControl} from "@angular/forms";
 import {IosSelectorOptionSource} from "../../../../../../libs/ui-components/src/lib/form-controls/model/ios-selector-option-source.interface";
+import {FileExtensions} from "../../core/model/file-extensions.enum";
 
 const {Share, Browser} = Plugins;
 
@@ -67,7 +68,7 @@ export class SettingsComponent implements OnInit, OnDestroy
     {
       const [file] = event.target.files;
 
-      if (file.name.endsWith(".fieldcompanion"))
+      if (file.name.endsWith(`.${FileExtensions.BACKUP}`))
       {
         reader.onload = () => this.dataImportService.importBackup(reader.result as any);
         reader.readAsArrayBuffer(file);

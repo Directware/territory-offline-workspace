@@ -10,6 +10,7 @@ import {selectSettings} from "../store/settings/settings.selectors";
 import {TerritoryCard} from "@territory-offline-workspace/api";
 import {TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
+import {FileExtensions} from "../model/file-extensions.enum";
 
 @Injectable({providedIn: "root"})
 export class DataExportService
@@ -24,14 +25,14 @@ export class DataExportService
   {
     const today = new Date();
     const minutes = today.getMinutes().toString(10).padStart(2, "0");
-    return `field-companion backup ${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${today.getHours()}-${minutes}.fieldcompanion`;
+    return `field-companion backup ${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${today.getHours()}-${minutes}`;
   }
 
   public async giveBackTerritory(territoryCard: TerritoryCard)
   {
     const today = new Date();
     await Plugins.FileSharer.share({
-      filename: `${territoryCard.territory.key}-${territoryCard.territory.name}-${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}.territory`,
+      filename: `${territoryCard.territory.key}-${territoryCard.territory.name}-${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}.${FileExtensions.TERRITORY}`,
       base64Data: btoa(Pako.gzip(JSON.stringify(territoryCard), {to: "string"})),
       contentType: "text/plain;charset=utf-8",
       android: {
@@ -46,12 +47,9 @@ export class DataExportService
     const fileName = await this.getFileName();
 
     await Plugins.FileSharer.share({
-      filename: `${fileName}.territory`,
+      filename: `${fileName}.${FileExtensions.BACKUP}`,
       base64Data: btoa(data),
-      contentType: "text/plain;charset=utf-8",
-      android: {
-        chooserTitle: "Field Companion excel export"
-      }
+      contentType: "text/plain;charset=utf-8"
     }).catch(error => console.error("File sharing failed", error.message));
   }
 
