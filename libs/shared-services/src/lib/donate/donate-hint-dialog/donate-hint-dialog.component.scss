@@ -1,6 +1,5 @@
 :host {
 
-
   .app-panel {
     padding: 0;
     margin: 0 0 2rem 0;
@@ -18,6 +17,12 @@
         height: 20px;
       }
     }
+  }
+
+  .button {
+    background: transparent;
+    color: #bbbec4;
+    border: 1px solid #bbbec4;
   }
 }
 
