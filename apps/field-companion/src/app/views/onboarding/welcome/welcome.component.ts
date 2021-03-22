@@ -10,6 +10,7 @@ import {TerritoryLanguageService} from "@territory-offline-workspace/ui-componen
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Plugins} from "@capacitor/core";
 import {settingsCollectionName} from "../../../core/services/database/collection-names";
+import {DonateHintService} from "@territory-offline-workspace/shared-services";
 const {Device} = Plugins;
 
 @Component({
@@ -26,12 +27,14 @@ export class WelcomeComponent implements OnInit
               private languageService: TerritoryLanguageService,
               private actions$: Actions,
               private formBuilder: FormBuilder,
+              private donateHintService: DonateHintService,
               private router: Router)
   {
   }
 
   public ngOnInit(): void
   {
+    this.donateHintService.blockDonationHint();
     this.formGroup = this.formBuilder.group({
       userName: ["", Validators.required],
       userLanguage: [null, Validators.required],

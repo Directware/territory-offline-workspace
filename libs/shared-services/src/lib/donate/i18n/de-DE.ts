@@ -1,9 +1,10 @@
 export const donateTranslationDE = {
   donate: {
     ok: "OK",
-    didYouKnow: "Wusstest du es schon?",
-    youCanDonate: "Du kannst den Entwickler durch einen kleinen Beitrag unterstützen. Wie?",
-    justChooseSettings: "Wähle einfach die Einstellungen:",
+    title: "Information!",
+    title2: "Entwickler unterstützen",
+    youCanDonate: "Du kannst den Entwickler durch eine kleine Spende unterstützen.",
+    justChooseSettings: "Wähle dazu einfach die Einstellungen:",
     andClickOn: "Und klicke auf:"
   }
 };
