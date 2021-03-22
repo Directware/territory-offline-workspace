@@ -59,7 +59,7 @@ import * as _ from "lodash";
 import {TerritoryFeatureComponent} from './views/feature-confirmation-modals/territory-feature/territory-feature.component';
 import {TerritoryCardService} from "./core/services/territory-card.service";
 
-const {Device, App, Filesystem} = Plugins;
+const {Device, App, Filesystem, FileSelector} = Plugins;
 
 @NgModule({
   declarations: [
@@ -138,11 +138,13 @@ export class AppModule
   {
     App.addListener("appUrlOpen", async (appUrlOpen) =>
     {
-      let contents = await Filesystem.readFile({path: appUrlOpen.url});
-
-      const reader = new FileReader();
-      reader.onload = () => this.territoryCardService.importTerritoryFromFileSystem(reader.result as any);
-      reader.readAsText(new Blob([atob(contents.data)]));
+      Filesystem.readFile({path: appUrlOpen.url})
+        .then((contents) =>
+        {
+          const reader = new FileReader();
+          reader.onload = () => this.territoryCardService.importTerritoryFromFileSystem(reader.result as any);
+          reader.readAsText(new Blob([atob(contents.data)]));
+        }).catch(e => alert(e.errorMessage));
     });
 
     registerLocaleData(localeDe, 'de');
