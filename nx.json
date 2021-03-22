@@ -48,6 +48,12 @@
     "website-e2e": {
       "tags": [],
       "implicitDependencies": ["website"]
+    },
+    "shared-services": {
+      "tags": []
+    },
+    "shared-utils": {
+      "tags": []
     }
   }
 }

@@ -449,6 +449,70 @@
           }
         }
       }
+    },
+    "shared-services": {
+      "projectType": "library",
+      "root": "libs/shared-services",
+      "sourceRoot": "libs/shared-services/src",
+      "prefix": "territory-offline-workspace",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared-services/tsconfig.lib.json",
+              "libs/shared-services/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/shared-services/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared-services/jest.config.js",
+            "tsConfig": "libs/shared-services/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/shared-services/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-utils": {
+      "projectType": "library",
+      "root": "libs/shared-utils",
+      "sourceRoot": "libs/shared-utils/src",
+      "prefix": "territory-offline-workspace",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared-utils/tsconfig.lib.json",
+              "libs/shared-utils/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/shared-utils/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared-utils/jest.config.js",
+            "tsConfig": "libs/shared-utils/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/shared-utils/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {

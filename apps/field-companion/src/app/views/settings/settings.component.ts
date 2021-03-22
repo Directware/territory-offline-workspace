@@ -18,6 +18,7 @@ import {DataImportService} from "../../core/services/data-import.service";
 import {FormControl} from "@angular/forms";
 import {IosSelectorOptionSource} from "../../../../../../libs/ui-components/src/lib/form-controls/model/ios-selector-option-source.interface";
 import {FileExtensions} from "../../core/model/file-extensions.enum";
+import {DonateHintService} from "@territory-offline-workspace/shared-services";
 
 const {Share, Browser} = Plugins;
 
@@ -45,6 +46,7 @@ export class SettingsComponent implements OnInit, OnDestroy
               private dataImportService: DataImportService,
               private excelDataExportService: ExcelDataExportService,
               private localNotificationsService: LocalNotificationsService,
+              private donateHintService: DonateHintService,
               private translateService: TranslateService)
   {
   }
@@ -104,9 +106,9 @@ export class SettingsComponent implements OnInit, OnDestroy
     await Browser.open({url: 'https://territory-offline.com/'});
   }
 
-  public async openDonation()
+  public openDonation()
   {
-    await Browser.open({url: 'https://www.buymeacoffee.com/territoryoff'});
+    this.donateHintService.forwardToDonate();
   }
 
   public factoryReset()

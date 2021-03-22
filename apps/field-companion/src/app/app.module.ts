@@ -58,6 +58,7 @@ import {ReturnTerritoryCardComponent} from './views/territories/territory/return
 import * as _ from "lodash";
 import {TerritoryFeatureComponent} from './views/feature-confirmation-modals/territory-feature/territory-feature.component';
 import {TerritoryCardService} from "./core/services/territory-card.service";
+import {DonateModule} from "@territory-offline-workspace/shared-services";
 
 const {Device, App, Filesystem, FileSelector} = Plugins;
 
@@ -108,6 +109,7 @@ const {Device, App, Filesystem, FileSelector} = Plugins;
     HammerModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    DonateModule,
     UiSwitchModule.forRoot({
       size: 'medium',
       defaultBgColor: '#c8cacc',
@@ -159,9 +161,9 @@ export class AppModule
 
   private async initLanguage()
   {
-    this.translateService.setTranslation("de", deDE);
-    this.translateService.setTranslation("pl", plPL);
-    this.translateService.setTranslation("en", enUS);
+    this.translateService.setTranslation("de", deDE, true);
+    this.translateService.setTranslation("pl", plPL, true);
+    this.translateService.setTranslation("en", enUS, true);
 
     const info = await Device.getLanguageCode();
     const systemLanguage = info.value;

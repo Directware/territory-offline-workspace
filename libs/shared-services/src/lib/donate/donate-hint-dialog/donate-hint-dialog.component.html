@@ -1,0 +1,26 @@
+<h3>{{"donate.didYouKnow" | translate}}</h3>
+
+<p class="body-grey">{{"donate.youCanDonate" | translate}}</p>
+<br />
+<p class="body-grey">{{"donate.justChooseSettings" | translate}}</p>
+<br />
+<div style="transform: scale(0.85); background: rgba(235, 237, 239, 0.1); padding: 0.5rem; width: 1.5rem; height: 1.5rem;" class="settings-icon">
+  <i-feather class="i-feather" name="settings"></i-feather>
+</div>
+<br />
+<p class="body-grey">{{"donate.andClickOn" | translate}}</p>
+<br />
+<app-panel>
+  <div class="wrapper">
+    <app-list>
+      <app-list-item>
+        <p class="label">{{"settings.actions.donate" | translate}}</p>
+        <p class="info">
+          <i-feather class="i-feather donate-heart" name="heart"></i-feather>
+        </p>
+      </app-list-item>
+    </app-list>
+  </div>
+</app-panel>
+
+<button (click)="close()" class="button">{{"donate.ok" | translate}}</button>
