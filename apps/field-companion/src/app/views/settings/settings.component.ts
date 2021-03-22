@@ -117,6 +117,7 @@ export class SettingsComponent implements OnInit, OnDestroy
 
     if (reallyReset)
     {
+      localStorage.clear();
       this.databaseService.clearAll().then(() => document.location.href = 'index.html');
     }
   }
