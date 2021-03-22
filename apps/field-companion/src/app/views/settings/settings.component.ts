@@ -104,6 +104,11 @@ export class SettingsComponent implements OnInit, OnDestroy
     await Browser.open({url: 'https://territory-offline.com/'});
   }
 
+  public async openDonation()
+  {
+    await Browser.open({url: 'https://www.buymeacoffee.com/territoryoff'});
+  }
+
   public factoryReset()
   {
     const reallyReset = confirm(this.translateService.instant("settings.actions.reallyReset"));

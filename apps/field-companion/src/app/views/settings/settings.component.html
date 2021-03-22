@@ -18,6 +18,12 @@
           <p class="label">{{"settings.yourId" | translate}}</p>
           <p class="info">{{settings.userId | slice:0:12}}...</p>
         </app-list-item>
+        <app-list-item (click)="openDonation()">
+          <p class="label">{{"settings.actions.donate" | translate}}</p>
+          <p class="info">
+            <i-feather class="i-feather donate-heart" name="heart"></i-feather>
+          </p>
+        </app-list-item>
       </app-list>
     </div>
   </app-panel>
@@ -75,11 +81,6 @@
   <app-panel>
     <div class="wrapper actions">
       <app-list>
-        <app-list-item class="disabled"><p class="label">{{"settings.actions.donate" | translate}}</p>
-          <p class="info">
-            <i-feather class="i-feather" name="heart"></i-feather>
-          </p>
-        </app-list-item>
         <app-list-item (click)="bugReport()"><p class="label">{{"settings.actions.bugReport" | translate}}</p>
           <p class="info">
             <i-feather class="i-feather" name="message-square"></i-feather>

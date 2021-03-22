@@ -17,6 +17,8 @@ import {ChangelogModalComponent} from "./changelog-modal/changelog-modal.compone
 import {ToUpdatesService} from "../../core/services/common/to-updates.service";
 import {ToLanguage} from "@territory-offline-workspace/ui-components";
 import {AVAILABLE_LANGUAGES} from "../../core/i18n/all.i18n";
+import {Plugins} from "@capacitor/core";
+const {Browser} = Plugins;
 
 @Component({
   selector: 'app-settings',
@@ -115,6 +117,11 @@ export class SettingsComponent implements OnInit
   public openChangelogDialog()
   {
     this.dialog.open(ChangelogModalComponent, {maxWidth: "50vw", maxHeight: "50vh"});
+  }
+
+  public async openDonation()
+  {
+    await Browser.open({url: 'https://www.buymeacoffee.com/territoryoff'});
   }
 
   public async clearAllAppData()

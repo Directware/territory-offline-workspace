@@ -75,7 +75,7 @@
     </div>
     <div class="footer">
       <app-panel>
-        <app-list-item class="disabled">
+        <app-list-item (click)="openDonation()">
           <p class="label">{{ 'settings.support' | translate }}</p>
           <i-feather class="i-feather action" name="heart"></i-feather>
         </app-list-item>
