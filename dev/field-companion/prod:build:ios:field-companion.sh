@@ -1,6 +1,6 @@
 #!/bin/bash
 
-npm run build:field-companion || exit
+npm run build:field-companion:prod || exit
 
 cd ./../../apps/field-companion/ || exit
 

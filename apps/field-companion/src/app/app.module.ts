@@ -28,7 +28,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SettingsComponent} from './views/settings/settings.component';
 import {TerritoriesComponent} from './views/territories/territories.component';
 import {StackPanelComponent} from './views/shared/stack-panel/stack-panel.component';
-import {Plugins} from '@capacitor/core';
+import {FilesystemDirectory, Plugins} from '@capacitor/core';
 import {plPL} from "./core/i18n/pl-PL";
 import {selectUserLanguage} from "./core/store/settings/settings.selectors";
 import {tap} from "rxjs/operators";
@@ -58,7 +58,7 @@ import {ReturnTerritoryCardComponent} from './views/territories/territory/return
 import * as _ from "lodash";
 import {TerritoryFeatureComponent} from './views/feature-confirmation-modals/territory-feature/territory-feature.component';
 import {TerritoryCardService} from "./core/services/territory-card.service";
-import {DonateModule} from "@territory-offline-workspace/shared-services";
+import {AppUrlOpenService, DonateModule} from "@territory-offline-workspace/shared-services";
 
 const {Device, App, Filesystem, FileSelector} = Plugins;
 
@@ -135,19 +135,15 @@ const {Device, App, Filesystem, FileSelector} = Plugins;
 export class AppModule
 {
   constructor(private translateService: TranslateService,
+              private appUrlOpenService: AppUrlOpenService,
               private territoryCardService: TerritoryCardService,
               private store: Store<ApplicationState>)
   {
-    App.addListener("appUrlOpen", async (appUrlOpen) =>
-    {
-      Filesystem.readFile({path: appUrlOpen.url})
-        .then((contents) =>
-        {
-          const reader = new FileReader();
-          reader.onload = () => this.territoryCardService.importTerritoryFromFileSystem(reader.result as any);
-          reader.readAsText(new Blob([atob(contents.data)]));
-        }).catch(e => alert(e.errorMessage));
-    });
+
+    this.appUrlOpenService.init([{
+      extension: ".territory",
+      handler: (blob) => this.territoryCardService.importTerritoryFromFileSystem(blob)
+    }]);
 
     registerLocaleData(localeDe, 'de');
     registerLocaleData(localePl, 'pl');
