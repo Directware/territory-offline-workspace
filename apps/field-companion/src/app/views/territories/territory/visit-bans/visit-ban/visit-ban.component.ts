@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subject} from "rxjs";
-import {GeocodingResult, TerritoryCard} from "@territory-offline-workspace/api";
+import {GeocodingResult, TerritoryCard} from "@territory-offline-workspace/shared-interfaces";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../../../core/store/index.reducers";
 import {selectTerritoryCardById} from "../../../../../core/store/territory-card/territory-card.selectors";

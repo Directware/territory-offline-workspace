@@ -39,9 +39,6 @@
       "tags": [],
       "implicitDependencies": ["field-companion"]
     },
-    "api": {
-      "tags": []
-    },
     "website": {
       "tags": []
     },
@@ -53,6 +50,9 @@
       "tags": []
     },
     "shared-utils": {
+      "tags": []
+    },
+    "shared-interfaces": {
       "tags": []
     }
   }

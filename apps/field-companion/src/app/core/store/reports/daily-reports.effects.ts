@@ -14,13 +14,11 @@ import {
   UpsertDailyReport,
   UpsertDailyReportSuccess
 } from "./daily-reports.actions";
-import {DailyReport} from "./model/daily-report.model";
+import {DailyReport, dailyReportCollectionName, TimedEntity} from "@territory-offline-workspace/shared-interfaces";
 import {AppDatabaseService} from "../../services/database/app-database.service";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../index.reducers";
 import {selectDailyReportForStudy} from "./daily-reports.selectors";
-import {dailyReportCollectionName} from "../../services/database/collection-names";
-import {TimedEntity} from "@territory-offline-workspace/api";
 
 @Injectable({providedIn: 'root'})
 export class DailyReportsEffects

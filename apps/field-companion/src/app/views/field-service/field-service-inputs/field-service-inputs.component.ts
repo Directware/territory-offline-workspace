@@ -4,11 +4,11 @@ import {ApplicationState} from "../../../core/store/index.reducers";
 import {UpsertDailyReport} from "../../../core/store/reports/daily-reports.actions";
 import {selectCurrentDailyReport} from "../../../core/store/reports/daily-reports.selectors";
 import {Observable} from "rxjs";
-import {DailyReport} from "../../../core/store/reports/model/daily-report.model";
 import {FormControl} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {InputDurationComponent} from "../input-duration/input-duration.component";
 import {DurationService} from "../../../core/services/duration.service";
+import {DailyReport} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-field-service-inputs',

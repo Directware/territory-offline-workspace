@@ -22,12 +22,14 @@
       "@territory-offline-workspace/ui-components": [
         "libs/ui-components/src/index.ts"
       ],
-      "@territory-offline-workspace/api": ["libs/api/src/index.ts"],
       "@territory-offline-workspace/shared-services": [
         "libs/shared-services/src/index.ts"
       ],
       "@territory-offline-workspace/shared-utils": [
         "libs/shared-utils/src/index.ts"
+      ],
+      "@territory-offline-workspace/shared-interfaces": [
+        "libs/shared-interfaces/src/index.ts"
       ]
     }
   },

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {MergedDailyReport} from "../../../../core/store/reports/model/merged-daily-report.model";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../../core/store/index.reducers";
 import {
@@ -9,10 +8,10 @@ import {
   selectMergedCurrentDailyReports
 } from "../../../../core/store/reports/daily-reports.selectors";
 import {take, tap} from "rxjs/operators";
-import {DailyReport} from "../../../../core/store/reports/model/daily-report.model";
 import {UpsertDailyReport} from "../../../../core/store/reports/daily-reports.actions";
 import {ReportService} from "../../../../core/services/report.service";
 import {DurationService} from "../../../../core/services/duration.service";
+import {DailyReport, MergedDailyReport} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-edit-report-before-send',

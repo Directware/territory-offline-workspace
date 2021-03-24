@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {DailyReport} from "../store/reports/model/daily-report.model";
+import {DailyReport} from "@territory-offline-workspace/shared-interfaces";
 import {UpsertDailyReport} from "../store/reports/daily-reports.actions";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../store/index.reducers";

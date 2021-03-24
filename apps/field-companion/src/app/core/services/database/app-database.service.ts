@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Plugins} from "@capacitor/core";
 import * as CDSSPlugin from 'capacitor-data-storage-sqlite';
-import {TimedEntity} from "@territory-offline-workspace/api";
+import {TimedEntity} from "@territory-offline-workspace/shared-interfaces";
 
 const {CapacitorDataStorageSqlite, Device} = Plugins;
 

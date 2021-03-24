@@ -7,7 +7,7 @@ import {
   selectAllNotExpiredTerritoryCards
 } from "../../core/store/territory-card/territory-card.selectors";
 import {Observable} from "rxjs";
-import {TerritoryCard} from "@territory-offline-workspace/api";
+import {TerritoryCard} from "@territory-offline-workspace/shared-interfaces";
 import {TranslateService} from "@ngx-translate/core";
 import {Plugins} from '@capacitor/core';
 import {TerritoryCardService} from "../../core/services/territory-card.service";

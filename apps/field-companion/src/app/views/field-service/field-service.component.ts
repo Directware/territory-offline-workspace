@@ -10,10 +10,10 @@ import {
   selectMergedCurrentDailyReports
 } from "../../core/store/reports/daily-reports.selectors";
 import {CalendarCell} from "../shared/calendar/model/calendar-cell.model";
-import {MergedDailyReport} from "../../core/store/reports/model/merged-daily-report.model";
 import {ChooseCalendarCell, IncreaseStudies} from "../../core/store/reports/daily-reports.actions";
 import {Router} from "@angular/router";
 import {FeatureConfirmationService} from "../../core/services/feature-confirmation.service";
+import {MergedDailyReport} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-field-service',

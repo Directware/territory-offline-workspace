@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {MapService} from "../../../../../core/services/map/map.service";
 import {Observable} from "rxjs";
-import {TerritoryCard} from "@territory-offline-workspace/api";
+import {TerritoryCard} from "@territory-offline-workspace/shared-interfaces";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialogRef} from "@angular/material/dialog";
 

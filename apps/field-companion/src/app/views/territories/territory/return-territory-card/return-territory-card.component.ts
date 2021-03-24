@@ -7,7 +7,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {DataExportService} from "../../../../core/services/data-export.service";
 import {selectTerritoryCardById} from "../../../../core/store/territory-card/territory-card.selectors";
 import {Observable} from "rxjs";
-import {TerritoryCard} from "@territory-offline-workspace/api";
+import {TerritoryCard} from "@territory-offline-workspace/shared-interfaces";
 import {DeleteTerritoryCard} from "../../../../core/store/territory-card/territory-card.actions";
 
 @Component({

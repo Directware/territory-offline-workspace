@@ -5,8 +5,7 @@ import {map, switchMap} from 'rxjs/operators';
 import {from} from 'rxjs';
 import {SettingsState} from "./settings.reducer";
 import {AppDatabaseService} from "../../services/database/app-database.service";
-import {settingsCollectionName} from "../../services/database/collection-names";
-import {TimedEntity} from "@territory-offline-workspace/api";
+import {settingsCollectionName, TimedEntity} from "@territory-offline-workspace/shared-interfaces";
 
 @Injectable()
 export class SettingsEffects

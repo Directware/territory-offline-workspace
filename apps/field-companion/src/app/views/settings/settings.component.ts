@@ -17,8 +17,8 @@ import {DataExportService} from "../../core/services/data-export.service";
 import {DataImportService} from "../../core/services/data-import.service";
 import {FormControl} from "@angular/forms";
 import {IosSelectorOptionSource} from "../../../../../../libs/ui-components/src/lib/form-controls/model/ios-selector-option-source.interface";
-import {FileExtensions} from "../../core/model/file-extensions.enum";
 import {DonateHintService} from "@territory-offline-workspace/shared-services";
+import {FileExtensions} from "@territory-offline-workspace/shared-interfaces";
 
 const {Share, Browser} = Plugins;
 

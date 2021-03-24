@@ -3,7 +3,7 @@ import {Store} from '@ngrx/store';
 import {ApplicationState} from '../../store/index.reducers';
 import {Actions} from '@ngrx/effects';
 import {Plugins} from "@capacitor/core";
-import {TimedEntity} from "@territory-offline-workspace/api";
+import {TimedEntity} from "./../common/timed-entity.model";
 import {MobileDatabaseService} from "./mobile-database.service";
 import {WebDatabaseService} from "./web-database.service";
 import {ElectronDatabaseService} from "./electron-database.service";

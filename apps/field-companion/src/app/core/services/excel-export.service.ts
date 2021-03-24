@@ -5,7 +5,7 @@ import {take, tap} from "rxjs/operators";
 import {ApplicationState} from "../store/index.reducers";
 import {Plugins} from "@capacitor/core";
 import {selectAllDailyReports} from "../store/reports/daily-reports.selectors";
-import {DailyReport} from "../store/reports/model/daily-report.model";
+import {DailyReport} from "@territory-offline-workspace/shared-interfaces";
 import {TranslateService} from "@ngx-translate/core";
 
 @Injectable({

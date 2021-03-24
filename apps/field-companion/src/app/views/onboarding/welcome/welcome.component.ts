@@ -9,8 +9,8 @@ import {Actions, ofType} from "@ngrx/effects";
 import {TerritoryLanguageService} from "@territory-offline-workspace/ui-components";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Plugins} from "@capacitor/core";
-import {settingsCollectionName} from "../../../core/services/database/collection-names";
 import {DonateHintService} from "@territory-offline-workspace/shared-services";
+import {settingsCollectionName} from "@territory-offline-workspace/shared-interfaces";
 const {Device} = Plugins;
 
 @Component({

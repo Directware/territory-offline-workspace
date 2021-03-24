@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TerritoryCard} from "@territory-offline-workspace/api";
+import {TerritoryCard} from "@territory-offline-workspace/shared-interfaces";
 import {Store} from "@ngrx/store";
 import {ApplicationState} from "../../../../core/store/index.reducers";
 

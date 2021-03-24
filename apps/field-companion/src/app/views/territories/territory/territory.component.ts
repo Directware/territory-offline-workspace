@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../core/store/index.reducers";
 import {Observable} from "rxjs";
-import {TerritoryCard} from "@territory-offline-workspace/api";
+import {TerritoryCard} from "@territory-offline-workspace/shared-interfaces";
 import {selectTerritoryCardById} from "../../../core/store/territory-card/territory-card.selectors";
 import {ActivatedRoute, Router} from "@angular/router";
 import * as moment from "moment";

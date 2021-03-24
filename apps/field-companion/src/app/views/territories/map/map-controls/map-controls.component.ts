@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 import {MapService} from "../../../../core/services/map/map.service";
 import {selectAllTerritoryCards} from "../../../../core/store/territory-card/territory-card.selectors";
 import {first} from "rxjs/operators";
-import {VisitBan} from "@territory-offline-workspace/api";
+import {VisitBan} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'fc-map-controls',

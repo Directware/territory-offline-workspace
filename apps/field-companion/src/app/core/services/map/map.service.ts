@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Plugins} from '@capacitor/core';
 import * as MapBox from 'mapbox-gl';
-import {Drawing, GeocodingResult} from "@territory-offline-workspace/api";
+import {Drawing, GeocodingResult} from "@territory-offline-workspace/shared-interfaces";
 import * as Turf from '@turf/turf';
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/index.reducers";

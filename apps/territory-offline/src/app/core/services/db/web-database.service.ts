@@ -3,7 +3,7 @@ import {Plugins} from '@capacitor/core';
 import '@capacitor-community/sqlite';
 import * as CDSSPlugin from "capacitor-data-storage-sqlite";
 import {Dictionary} from "@ngrx/entity";
-import {TimedEntity} from "@territory-offline-workspace/api";
+import {TimedEntity} from "./../common/timed-entity.model";
 import {AbstractDatabase} from "./abstract-database.interface";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/index.reducers";

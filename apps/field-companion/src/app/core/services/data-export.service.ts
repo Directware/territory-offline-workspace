@@ -7,10 +7,9 @@ import {ApplicationState} from "../store/index.reducers";
 import {selectAllDailyReports} from "../store/reports/daily-reports.selectors";
 import {Plugins} from "@capacitor/core";
 import {selectSettings} from "../store/settings/settings.selectors";
-import {TerritoryCard} from "@territory-offline-workspace/api";
+import {FileExtensions, TerritoryCard} from "@territory-offline-workspace/shared-interfaces";
 import {TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
-import {FileExtensions} from "../model/file-extensions.enum";
 
 @Injectable({providedIn: "root"})
 export class DataExportService

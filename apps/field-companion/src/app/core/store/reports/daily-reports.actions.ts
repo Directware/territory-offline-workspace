@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {DailyReport} from "./model/daily-report.model";
+import {DailyReport} from "@territory-offline-workspace/shared-interfaces";
 import {CalendarCell} from "../../../views/shared/calendar/model/calendar-cell.model";
 import {CalendarDatasource} from "../../../views/shared/calendar/model/calendar-datasource.model";
 

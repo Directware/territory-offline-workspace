@@ -1,4 +1,4 @@
-import {Drawing} from "@territory-offline-workspace/api";
+import {Drawing} from "@territory-offline-workspace/shared-interfaces";
 
 export function mergeDrawings(drawings: Drawing[]): Drawing
 {

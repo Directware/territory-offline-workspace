@@ -15,8 +15,7 @@ import {
 import {AppDatabaseService} from "../../services/database/app-database.service";
 import {Store} from "@ngrx/store";
 import {ApplicationState} from "../index.reducers";
-import {territoryCardCollectionName} from "../../services/database/collection-names";
-import {TerritoryCard, TimedEntity} from "@territory-offline-workspace/api";
+import {TerritoryCard, territoryCardCollectionName, TimedEntity} from "@territory-offline-workspace/shared-interfaces";
 
 @Injectable({providedIn: 'root'})
 export class TerritoryCardEffects

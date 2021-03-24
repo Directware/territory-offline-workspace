@@ -1,9 +1,8 @@
 import {ApplicationState} from '../index.reducers';
 import {dailyReportsAdapter} from "./daily-reports.reducer";
 import {createSelector} from "@ngrx/store";
-import {emptyDailyReport} from "./model/daily-report.model";
-import {emptyMergedDailyReport} from "./model/merged-daily-report.model";
 import {selectSettingsFeature} from "../settings/settings.selectors";
+import {emptyDailyReport, emptyMergedDailyReport} from "@territory-offline-workspace/shared-interfaces";
 
 export const selectDailyReportsFeature = (state: ApplicationState) => state.dailyReports;
 

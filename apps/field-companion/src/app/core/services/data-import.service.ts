@@ -5,13 +5,13 @@ import {Observable, Subject} from 'rxjs';
 import {take, tap} from 'rxjs/operators';
 import * as Pako from 'pako';
 import {ApplicationState} from "../store/index.reducers";
-import {DailyReport} from "../store/reports/model/daily-report.model";
 import {BulkImportDailyReports, BulkImportDailyReportsSuccess} from "../store/reports/daily-reports.actions";
 import {TranslateService} from "@ngx-translate/core";
 import {MatDialog} from "@angular/material/dialog";
 import {BackupImportProgressComponent} from "../../views/shared/backup-import-progress/backup-import-progress.component";
 import {selectSettings} from "../store/settings/settings.selectors";
 import {UpsertSettings, UpsertSettingsSuccess} from "../store/settings/settings.actions";
+import {DailyReport} from "@territory-offline-workspace/shared-interfaces";
 
 @Injectable({
   providedIn: 'root'

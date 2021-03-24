@@ -3,7 +3,7 @@ import {UpsertTerritoryCard, UpsertTerritoryCardSuccess} from "../store/territor
 import * as Pako from 'pako';
 import {Store} from "@ngrx/store";
 import {ApplicationState} from "../store/index.reducers";
-import {TerritoryCard} from "@territory-offline-workspace/api";
+import {TerritoryCard} from "@territory-offline-workspace/shared-interfaces";
 import {Actions, ofType} from "@ngrx/effects";
 import {first, tap} from "rxjs/operators";
 import {Router} from "@angular/router";

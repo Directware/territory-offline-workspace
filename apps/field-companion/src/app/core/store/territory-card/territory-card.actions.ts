@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {TerritoryCard} from "@territory-offline-workspace/api";
+import {TerritoryCard} from "@territory-offline-workspace/shared-interfaces";
 
 export const LoadTerritoryCards = createAction('[TerritoryCard] load territory cards');
 export const LoadTerritoryCardsSuccess = createAction('[TerritoryCard] load territory cards success', props<{ territoryCards: TerritoryCard[] }>());

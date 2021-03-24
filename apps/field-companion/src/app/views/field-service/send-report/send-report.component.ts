@@ -3,7 +3,6 @@ import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../core/store/index.reducers";
 import {Router} from "@angular/router";
 import {combineLatest, Observable} from "rxjs";
-import {MergedDailyReport} from "../../../core/store/reports/model/merged-daily-report.model";
 import {
   selectCurrentDailyReports,
   selectCurrentDailyReportTime,
@@ -15,9 +14,9 @@ import {Plugins} from '@capacitor/core';
 import {TranslateService} from "@ngx-translate/core";
 import {take, tap} from "rxjs/operators";
 import {ReportService} from "../../../core/services/report.service";
-import {DailyReport} from "../../../core/store/reports/model/daily-report.model";
 import {UpsertDailyReport, UpsertDailyReportSuccess} from "../../../core/store/reports/daily-reports.actions";
 import {Actions, ofType} from "@ngrx/effects";
+import {DailyReport, MergedDailyReport} from "@territory-offline-workspace/shared-interfaces";
 
 const {Share} = Plugins;
 

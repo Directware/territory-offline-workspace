@@ -2,7 +2,7 @@ import {ApplicationState} from '../index.reducers';
 import {createSelector} from "@ngrx/store";
 import {territoryCardsAdapter} from "./territory-card.reducer";
 import * as moment from "moment";
-import {TerritoryCard} from "@territory-offline-workspace/api";
+import {TerritoryCard} from "@territory-offline-workspace/shared-interfaces";
 
 export const selectTerritoryCardsFeature = (state: ApplicationState) => state.territoryCards;
 

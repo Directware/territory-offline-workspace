@@ -5,10 +5,10 @@ import {ApplicationState} from "../store/index.reducers";
 import {selectSettings} from "../store/settings/settings.selectors";
 import {take, tap} from "rxjs/operators";
 import {UpsertSettings} from "../store/settings/settings.actions";
-import {convertGrapesReportsToDailyReports} from "../store/reports/model/daily-report.model";
 import {BulkImportDailyReports, BulkImportDailyReportsSuccess} from "../store/reports/daily-reports.actions";
 import {Actions, ofType} from "@ngrx/effects";
 import {TranslateService} from "@ngx-translate/core";
+import {convertGrapesReportsToDailyReports} from "@territory-offline-workspace/shared-interfaces";
 
 @Injectable({
   providedIn: 'root'

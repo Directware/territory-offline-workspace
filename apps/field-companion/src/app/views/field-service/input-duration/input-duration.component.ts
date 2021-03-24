@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Observable} from "rxjs";
-import {DailyReport} from "../../../core/store/reports/model/daily-report.model";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../core/store/index.reducers";
 import {selectCurrentDailyReport} from "../../../core/store/reports/daily-reports.selectors";
@@ -9,6 +8,7 @@ import {DurationService} from "../../../core/services/duration.service";
 import {FormControl} from "@angular/forms";
 import {tap} from "rxjs/operators";
 import {UpsertDailyReport} from "../../../core/store/reports/daily-reports.actions";
+import {DailyReport} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-input-duration',
