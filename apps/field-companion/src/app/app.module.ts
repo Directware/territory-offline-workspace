@@ -28,7 +28,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SettingsComponent} from './views/settings/settings.component';
 import {TerritoriesComponent} from './views/territories/territories.component';
 import {StackPanelComponent} from './views/shared/stack-panel/stack-panel.component';
-import {FilesystemDirectory, Plugins} from '@capacitor/core';
+import {Plugins} from '@capacitor/core';
 import {plPL} from "./core/i18n/pl-PL";
 import {selectUserLanguage} from "./core/store/settings/settings.selectors";
 import {tap} from "rxjs/operators";
