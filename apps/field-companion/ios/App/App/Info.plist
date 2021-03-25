@@ -55,6 +55,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>capacitor</string>
+				<string>ShareMedia</string>
 			</array>
 		</dict>
 	</array>
