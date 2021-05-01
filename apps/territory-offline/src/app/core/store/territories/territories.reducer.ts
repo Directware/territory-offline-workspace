@@ -7,7 +7,7 @@ import {
   LoadTerritoriesSuccess,
   UpsertTerritorySuccess
 } from './territories.actions';
-import {Territory} from "@territory-offline-workspace/api";
+import {Territory} from "@territory-offline-workspace/shared-interfaces";
 
 export const territoriesAdapter = createEntityAdapter<Territory>();
 

@@ -9,8 +9,8 @@ import {SettingsState} from '../store/settings/settings.reducer';
 import {DataSecurityService} from "./common/data-security.service";
 import {DatabaseService} from "./db/database.service";
 import {SettingsDatabaseService} from "./db/settings-database.service";
-import {logger} from "@territory-offline-workspace/api";
 import {environment} from "../../../environments/environment";
+import {logger} from "@territory-offline-workspace/shared-utils";
 
 @Injectable({providedIn: 'root'})
 export class AppInitializerService

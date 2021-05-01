@@ -3,7 +3,7 @@ import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../../core/store/index.reducers";
 import {Observable} from "rxjs";
 import {selectTagsByIds} from "../../../core/store/tags/tags.selectors";
-import {Tag} from "@territory-offline-workspace/api";
+import {Tag} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-tags-preview',

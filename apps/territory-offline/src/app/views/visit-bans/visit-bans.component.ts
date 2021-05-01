@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
 import {selectVisitBansByTerritoryId} from '../../core/store/visit-bans/visit-bans.selectors';
 import {take, tap} from "rxjs/operators";
 import {TerritoryMapsService} from "../../core/services/territory/territory-maps.service";
-import {VisitBan} from "@territory-offline-workspace/api";
+import {VisitBan} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-visit-bans',

@@ -7,7 +7,7 @@ import {
   LoadPublishersSuccess,
   UpsertPublisherSuccess
 } from './publishers.actions';
-import {Publisher} from "@territory-offline-workspace/api";
+import {Publisher} from "@territory-offline-workspace/shared-interfaces";
 
 export const publishersAdapter = createEntityAdapter<Publisher>();
 

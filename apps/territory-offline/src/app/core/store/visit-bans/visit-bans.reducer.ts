@@ -1,7 +1,7 @@
 import {Action, createReducer, on} from '@ngrx/store';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import {BulkImportVisitBansSuccess, DeleteVisitBanSuccess, LoadVisitBansSuccess, UpsertVisitBanSuccess} from './visit-bans.actions';
-import {VisitBan} from "@territory-offline-workspace/api";
+import {VisitBan} from "@territory-offline-workspace/shared-interfaces";
 
 export const visitBansAdapter = createEntityAdapter<VisitBan>();
 

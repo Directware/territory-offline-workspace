@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Tag} from "@territory-offline-workspace/api";
+import {Tag} from "@territory-offline-workspace/shared-interfaces";
 
 @Pipe({
   name: 'searchTag'

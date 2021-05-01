@@ -9,10 +9,10 @@ PODS:
     - SQLCipher
   - CapacitorFileSelector (0.0.4):
     - Capacitor
-  - SQLCipher (4.3.0):
-    - SQLCipher/standard (= 4.3.0)
-  - SQLCipher/common (4.3.0)
-  - SQLCipher/standard (4.3.0):
+  - SQLCipher (4.4.3):
+    - SQLCipher/standard (= 4.4.3)
+  - SQLCipher/common (4.4.3)
+  - SQLCipher/standard (4.4.3):
     - SQLCipher/common
 
 DEPENDENCIES:
@@ -44,7 +44,7 @@ SPEC CHECKSUMS:
   CapacitorCordova: 2c9d6e28d9d86c4da087fa2c3537c1841954bb12
   CapacitorDataStorageSqlite: 88f4b1d8c9fe202afeaeb4beecab3d76b6be0012
   CapacitorFileSelector: b2af1fd522ec9e4214e0b11f73171075cea79894
-  SQLCipher: d305a7bd9af4b64f095c79bdc1a1fa50f2a15116
+  SQLCipher: 155ffeafc9ac102e5c9b68e3e9a1297a98a27096
 
 PODFILE CHECKSUM: 050e8d080daf4314e8945863018f50aaa52a2bbe
 

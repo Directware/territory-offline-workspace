@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {Publisher} from "@territory-offline-workspace/api";
+import {Publisher} from "@territory-offline-workspace/shared-interfaces";
 
 export const LoadPublishers = createAction('[Publisher] load publishers');
 export const LoadPublishersSuccess = createAction('[Publisher] load publishers success', props<{publishers: Publisher[]}>());

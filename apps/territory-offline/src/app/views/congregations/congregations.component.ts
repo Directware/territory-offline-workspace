@@ -8,7 +8,7 @@ import {selectCurrentCongregationId} from '../../core/store/settings/settings.se
 import {selectTerritoriesCount, selectWholePopulationCount} from '../../core/store/territories/territories.selectors';
 import {selectPublishersCount} from '../../core/store/publishers/publishers.selectors';
 import {selectVisitBansCount} from '../../core/store/visit-bans/visit-bans.selectors';
-import {Congregation} from "@territory-offline-workspace/api";
+import {Congregation} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-congregations',

@@ -23,7 +23,7 @@ import {
   Publisher,
   Territory,
   TerritoryCard
-} from "@territory-offline-workspace/api";
+} from "@territory-offline-workspace/shared-interfaces";
 import {UpsertVisitBan} from "../../store/visit-bans/visit-bans.actions";
 import {selectLastAssignmentOfEachTerritory} from "../../store/assignments/assignments.selectors";
 const {Device} = Plugins;

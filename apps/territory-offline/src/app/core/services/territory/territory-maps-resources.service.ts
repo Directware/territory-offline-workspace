@@ -5,8 +5,7 @@ import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geoco
 import {FeatureCollection} from '@turf/turf';
 import {Plugins} from '@capacitor/core';
 import {environment} from '../../../../environments/environment';
-import {logger} from '../../../../../../../libs/api/src/utils/usefull.functions';
-import {ToMapBoxSources} from "@territory-offline-workspace/api";
+import {ToMapBoxSources} from "@territory-offline-workspace/shared-interfaces";
 import * as Turf from '@turf/turf';
 
 const {Network} = Plugins;
@@ -102,7 +101,6 @@ export class TerritoryMapsResourcesService
 
   public initDrawMode(featureCollection?: FeatureCollection, callback?: Function)
   {
-    logger("Init draw manager.");
     this.drawManager = new MapboxDraw({
       displayControlsDefault: false,
       controls: {
@@ -254,7 +252,6 @@ export class TerritoryMapsResourcesService
   {
     if (this.drawManager)
     {
-      logger("Destroy draw manager.");
       this.map.removeControl(this.drawManager);
       setTimeout(() => this.drawManager = null, 0);
     }

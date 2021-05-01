@@ -17,7 +17,7 @@ import {StoreModule} from "@ngrx/store";
 import {EffectsModule} from "@ngrx/effects";
 import {NoopAnimationsModule} from "@angular/platform-browser/animations";
 import {provideMockStore} from "@ngrx/store/testing";
-import {createVisitBan} from "@territory-offline-workspace/api";
+import {createVisitBan} from "@territory-offline-workspace/shared-interfaces";
 
 describe('ImportVisitBansFromExcelComponent', () =>
 {

@@ -17,7 +17,7 @@ import {BulkImportAssignments, BulkImportAssignmentsSuccess} from '../assignment
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../index.reducers";
 import {selectAssignmentsByTerritoryId} from "./assignments.selectors";
-import {Assignment, HASHED_ASSIGNMENT_TABLE_NAME, TimedEntity} from "@territory-offline-workspace/api";
+import {Assignment, HASHED_ASSIGNMENT_TABLE_NAME, TimedEntity} from "@territory-offline-workspace/shared-interfaces";
 
 @Injectable({providedIn: 'root'})
 export class AssignmentsEffects

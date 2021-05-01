@@ -24,7 +24,7 @@ import {FeatureCollection, Geometry} from '@turf/turf';
 import {DeleteAssignmentsByTerritory} from "../../../core/store/assignments/assignments.actions";
 import {selectAssignmentsByTerritoryId} from "../../../core/store/assignments/assignments.selectors";
 import {AssignmentsService} from "../../../core/services/assignment/assignments.service";
-import {Assignment, Drawing, LastDoingActionsEnum, Territory} from "@territory-offline-workspace/api";
+import {Assignment, Drawing, LastDoingActionsEnum, Territory} from "@territory-offline-workspace/shared-interfaces";
 import {PlatformAgnosticActionsService} from "../../../core/services/common/platform-agnostic-actions.service";
 import { kml } from "@tmcw/togeojson";
 

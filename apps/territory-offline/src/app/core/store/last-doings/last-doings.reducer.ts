@@ -1,7 +1,7 @@
 import {Action, createReducer, on} from '@ngrx/store';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import {DeleteLastDoingSuccess, LoadLastDoingsSuccess, UpsertLastDoingSuccess} from './last-doings.actions';
-import {LastDoing} from "@territory-offline-workspace/api";
+import {LastDoing} from "@territory-offline-workspace/shared-interfaces";
 
 export const lastDoingsAdapter = createEntityAdapter<LastDoing>();
 

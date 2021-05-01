@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Congregation} from "@territory-offline-workspace/api";
+import {Congregation} from "@territory-offline-workspace/shared-interfaces";
 
 @Pipe({
   name: 'searchCongregation'

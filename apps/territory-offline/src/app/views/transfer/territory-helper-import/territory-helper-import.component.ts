@@ -16,7 +16,7 @@ import {
   TagSymbol,
   Territory,
   VisitBan
-} from "@territory-offline-workspace/api";
+} from "@territory-offline-workspace/shared-interfaces";
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

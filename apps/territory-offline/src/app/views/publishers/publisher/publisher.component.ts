@@ -22,7 +22,7 @@ import {
 } from "../../../core/store/assignments/assignments.selectors";
 import {BulkUpsertAssignments} from "../../../core/store/assignments/assignments.actions";
 import {TerritoryMapsService} from "../../../core/services/territory/territory-maps.service";
-import {Assignment, LastDoingActionsEnum, Publisher, Territory} from "@territory-offline-workspace/api";
+import {Assignment, LastDoingActionsEnum, Publisher, Territory} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-create-publisher',

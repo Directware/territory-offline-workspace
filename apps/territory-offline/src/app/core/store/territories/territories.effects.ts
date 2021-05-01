@@ -19,7 +19,7 @@ import {
   LastDoingActionsEnum,
   Territory,
   TimedEntity
-} from "@territory-offline-workspace/api";
+} from "@territory-offline-workspace/shared-interfaces";
 
 @Injectable({providedIn: 'root'})
 export class TerritoriesEffects

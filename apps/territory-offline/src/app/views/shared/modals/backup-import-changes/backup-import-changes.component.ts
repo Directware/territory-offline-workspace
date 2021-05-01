@@ -18,7 +18,7 @@ import {
   Territory,
   ToBackup,
   VisitBan
-} from "@territory-offline-workspace/api";
+} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-backup-import-changes',

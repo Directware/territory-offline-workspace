@@ -29,7 +29,7 @@ import {
   LastDoingActionsEnum,
   Publisher, Tag,
   Territory, TimedEntity, ToBackup, ToBackupEntities, VisitBan
-} from "@territory-offline-workspace/api";
+} from "@territory-offline-workspace/shared-interfaces";
 
 @Injectable({
   providedIn: 'root'

@@ -7,19 +7,17 @@ import {ApplicationState} from "../../store/index.reducers";
 import {selectCurrentCongregation} from "../../store/congregation/congregations.selectors";
 import {first, take} from "rxjs/operators";
 import {
-  selectAllAssignments,
   selectAllAssignmentsOrderedByRelevantTags, selectCurrentlyOpenAssignments, selectLastAssignmentOfEachTerritory
 } from "../../store/assignments/assignments.selectors";
 import {
   Assignment,
-  groupOverseerFactory,
-  groupOverseerPdfMakeContentFactory,
   Publisher,
   VisitBan
-} from "@territory-offline-workspace/api";
+} from "@territory-offline-workspace/shared-interfaces";
 import {selectTagsByIds} from "../../store/tags/tags.selectors";
 import {selectPublishers} from "../../store/publishers/publishers.selectors";
 import {selectAllTerritories} from "../../store/territories/territories.selectors";
+import {groupOverseerFactory, groupOverseerPdfMakeContentFactory} from "@territory-offline-workspace/shared-utils";
 
 @Injectable({
   providedIn: 'root'

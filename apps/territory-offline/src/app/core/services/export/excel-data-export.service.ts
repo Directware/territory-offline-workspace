@@ -7,7 +7,7 @@ import {ApplicationState} from "../../store/index.reducers";
 import {selectPublishers} from "../../store/publishers/publishers.selectors";
 import {first, last, take, tap} from "rxjs/operators";
 import {selectAllVisitBans} from "../../store/visit-bans/visit-bans.selectors";
-import {Assignment, VisitBan} from "@territory-offline-workspace/api";
+import {Assignment, VisitBan} from "@territory-offline-workspace/shared-interfaces";
 import {selectAllTerritories} from "../../store/territories/territories.selectors";
 import {
   selectLastAssignmentOfEachTerritory,

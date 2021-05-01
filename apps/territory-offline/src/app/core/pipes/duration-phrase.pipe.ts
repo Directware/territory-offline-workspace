@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {createDurationPhrase} from "../../../../../../libs/api/src/utils/usefull.functions";
+import {createDurationPhrase} from "@territory-offline-workspace/shared-utils";
 
 @Pipe({
   name: 'durationPhrase'

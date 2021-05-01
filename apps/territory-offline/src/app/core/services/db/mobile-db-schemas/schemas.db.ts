@@ -2,7 +2,7 @@ import {
   Assignment,
   ASSIGNMENT_TABLE_NAME,
   Congregation,
-  CONGREGATION_TABLE_NAME, deserializeArray, deserializeDate, deserializeObject,
+  CONGREGATION_TABLE_NAME,
   Drawing,
   DRAWING_TABLE_NAME,
   HASHED_ASSIGNMENT_TABLE_NAME,
@@ -14,7 +14,7 @@ import {
   LAST_DOING_TABLE_NAME,
   LastDoing,
   Publisher,
-  PUBLISHER_TABLE_NAME, serializeArray, serializeBoolean, serializeDate, serializeObject,
+  PUBLISHER_TABLE_NAME,
   SQL_DELETE_ASSIGNMENT,
   SQL_DELETE_CONGREGATION,
   SQL_DELETE_DRAWING,
@@ -29,8 +29,16 @@ import {
   Territory, TERRITORY_TABLE_NAME,
   TimedEntity, VISIT_BAN_TABLE_NAME,
   VisitBan
-} from "@territory-offline-workspace/api";
+} from "@territory-offline-workspace/shared-interfaces";
 import {capSQLiteSet} from "@capacitor-community/sqlite";
+import {
+  deserializeArray,
+  deserializeDate, deserializeObject,
+  serializeArray,
+  serializeBoolean,
+  serializeDate,
+  serializeObject
+} from "@territory-offline-workspace/shared-utils";
 
 export const TABLE_NAME_MAPPINGS = {
   [HASHED_ASSIGNMENT_TABLE_NAME]: {

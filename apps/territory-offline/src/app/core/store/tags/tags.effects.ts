@@ -6,7 +6,7 @@ import {DatabaseService} from '../../services/db/database.service';
 import {DeleteTag, DeleteTagSuccess, LoadTags, LoadTagsSuccess, UpsertTag, UpsertTagSuccess} from './tags.actions';
 import {BulkImportTags, BulkImportTagsSuccess} from '../tags/tags.actions';
 import {LastDoingsService} from "../../services/common/last-doings.service";
-import {HASHED_TAG_TABLE_NAME, LastDoingActionsEnum, Tag, TimedEntity} from "@territory-offline-workspace/api";
+import {HASHED_TAG_TABLE_NAME, LastDoingActionsEnum, Tag, TimedEntity} from "@territory-offline-workspace/shared-interfaces";
 
 @Injectable({providedIn: 'root'})
 export class TagsEffects

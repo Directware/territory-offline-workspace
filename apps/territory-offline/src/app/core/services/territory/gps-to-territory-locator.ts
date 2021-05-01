@@ -1,4 +1,4 @@
-import {Drawing, Territory} from "@territory-offline-workspace/api";
+import {Drawing, Territory} from "@territory-offline-workspace/shared-interfaces";
 import * as Turf from "@turf/turf";
 
 export class GpsToTerritoryLocator

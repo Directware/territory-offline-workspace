@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {Territory} from "@territory-offline-workspace/api";
+import {Territory} from "@territory-offline-workspace/shared-interfaces";
 
 export const LoadTerritories = createAction('[Territories] load territories');
 export const LoadTerritoriesSuccess = createAction('[Territories] load territories success', props<{territories: Territory[]}>());

@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {Congregation} from "@territory-offline-workspace/api";
+import {Congregation} from "@territory-offline-workspace/shared-interfaces";
 
 export const LoadCongregations = createAction('[Congregations] load congregations');
 export const LoadCongregationsSuccess = createAction('[Congregations] load congregations success', props<{ congregations: Congregation[] }>());

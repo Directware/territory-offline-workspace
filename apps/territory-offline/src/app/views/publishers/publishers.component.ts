@@ -5,7 +5,7 @@ import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../core/store/index.reducers';
 import {selectPublishersByFirstNameLetter} from '../../core/store/publishers/publishers.selectors';
 import {map} from "rxjs/operators";
-import {Publisher} from "@territory-offline-workspace/api";
+import {Publisher} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-preachers',

@@ -5,11 +5,11 @@ import {Observable, Subject} from "rxjs";
 import {selectAllVisitBans} from "../../../core/store/visit-bans/visit-bans.selectors";
 import {map, takeUntil, tap} from "rxjs/operators";
 import {NavigationEnd, Router} from "@angular/router";
-import {VisitBan} from "@territory-offline-workspace/api";
+import {VisitBan} from "@territory-offline-workspace/shared-interfaces";
 import {TerritoryMapsService} from "../../../core/services/territory/territory-maps.service";
 import {TranslateService} from "@ngx-translate/core";
-import {isInLocationPath} from "@territory-offline-workspace/api";
 import {sortBy} from "lodash";
+import {isInLocationPath} from "@territory-offline-workspace/shared-utils";
 
 @Component({
   selector: 'app-whole-visit-bans',

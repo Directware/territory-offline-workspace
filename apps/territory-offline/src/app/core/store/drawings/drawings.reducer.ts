@@ -1,7 +1,7 @@
 import {Action, createReducer, on} from '@ngrx/store';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import {BulkImportDrawingsSuccess, DeleteDrawingSuccess, LoadDrawingsSuccess, UpsertDrawingSuccess} from './drawings.actions';
-import {Drawing} from "@territory-offline-workspace/api";
+import {Drawing} from "@territory-offline-workspace/shared-interfaces";
 
 export const drawingsAdapter = createEntityAdapter<Drawing>();
 

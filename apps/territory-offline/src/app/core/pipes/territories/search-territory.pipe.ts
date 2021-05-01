@@ -6,7 +6,7 @@ import {map, tap} from "rxjs/operators";
 import {Observable, of} from "rxjs";
 import {TerritoryMapsService} from "../../services/territory/territory-maps.service";
 import {Router} from "@angular/router";
-import {Tag, Territory} from "@territory-offline-workspace/api";
+import {Tag, Territory} from "@territory-offline-workspace/shared-interfaces";
 
 @Pipe({
   name: 'searchTerritory'

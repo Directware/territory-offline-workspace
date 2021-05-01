@@ -12,7 +12,7 @@ import {selectAllVisitBans} from "../../store/visit-bans/visit-bans.selectors";
 import * as Pako from 'pako';
 import {selectCurrentCongregation} from "../../store/congregation/congregations.selectors";
 import {PlatformAgnosticActionsService} from "../common/platform-agnostic-actions.service";
-import {ExportableTypesEnum} from "@territory-offline-workspace/api";
+import {ExportableTypesEnum} from "@territory-offline-workspace/shared-interfaces";
 
 @Injectable({providedIn: "root"})
 export class DataExportService

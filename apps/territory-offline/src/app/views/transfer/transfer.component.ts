@@ -17,13 +17,13 @@ import {ImportFromExcelModalComponent} from "./import-from-excel-modal/import-fr
 import {ExcelDataExportService} from "../../core/services/export/excel-data-export.service";
 import * as Pako from 'pako';
 import {AssignmentsService} from "../../core/services/assignment/assignments.service";
-import {TerritoryCard} from "@territory-offline-workspace/api";
+import {TerritoryCard} from "@territory-offline-workspace/shared-interfaces";
 import {TranslateService} from '@ngx-translate/core';
-import {TerritoryWebTerritories} from "../../../../../../libs/api/src/lib/territory-web/territory-web.territories";
 import {DataImportService} from "../../core/services/import/data-import.service";
 import {selectAllTerritories} from "../../core/store/territories/territories.selectors";
 import {GeoJsonParseService} from "../../core/services/territory/geo-json-parse.service";
 import {FileLoaderService} from "../../core/services/common/file/file-loader.service";
+import {TerritoryWebTerritories} from "../../../../../../libs/shared-interfaces/src/lib/territory-offline/territory-web/territory-web.territories";
 
 @Component({
   selector: 'app-transfer',

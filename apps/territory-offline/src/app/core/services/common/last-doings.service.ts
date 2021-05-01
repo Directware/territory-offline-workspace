@@ -6,7 +6,7 @@ import {map, take, tap} from "rxjs/operators";
 import {DeleteLastDoing, UpsertLastDoing} from "../../store/last-doings/last-doings.actions";
 import { v4 as uuid4 } from 'uuid';
 import {selectLastDoingsForTidyUp} from "../../store/last-doings/last-doings.selectors";
-import {LastDoing, LastDoingActionsEnum} from "@territory-offline-workspace/api";
+import {LastDoing, LastDoingActionsEnum} from "@territory-offline-workspace/shared-interfaces";
 
 @Injectable({
   providedIn: 'root'

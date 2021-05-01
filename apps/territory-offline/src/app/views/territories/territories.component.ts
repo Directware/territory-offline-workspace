@@ -7,7 +7,7 @@ import {selectAllTerritories} from '../../core/store/territories/territories.sel
 import {map, takeUntil, tap} from "rxjs/operators";
 import {TerritoryMapsService} from "../../core/services/territory/territory-maps.service";
 import {selectCurrentCongregation} from "../../core/store/congregation/congregations.selectors";
-import {Territory, TerritoryStatus} from "@territory-offline-workspace/api";
+import {Territory, TerritoryStatus} from "@territory-offline-workspace/shared-interfaces";
 import {Location} from "@angular/common";
 
 @Component({

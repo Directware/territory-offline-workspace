@@ -1,5 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {compareVisitBansWithNames, VisitBan} from "@territory-offline-workspace/api";
+import {VisitBan} from "@territory-offline-workspace/shared-interfaces";
+import {compareVisitBansWithNames} from "@territory-offline-workspace/shared-utils";
 
 @Pipe({
   name: 'isRedundantVisitBan'

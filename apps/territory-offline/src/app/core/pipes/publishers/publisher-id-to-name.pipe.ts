@@ -4,7 +4,7 @@ import {ApplicationState} from '../../store/index.reducers';
 import {selectPublisherById} from '../../store/publishers/publishers.selectors';
 import {map} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
-import {Publisher} from "@territory-offline-workspace/api";
+import {Publisher} from "@territory-offline-workspace/shared-interfaces";
 
 @Pipe({
   name: 'publisherIdToName'

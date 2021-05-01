@@ -1,6 +1,6 @@
 import {Action, createReducer, on} from '@ngrx/store';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {Congregation} from "@territory-offline-workspace/api";
+import {Congregation} from "@territory-offline-workspace/shared-interfaces";
 import {
   BulkImportCongregationsSuccess,
   DeleteCongregationSuccess,

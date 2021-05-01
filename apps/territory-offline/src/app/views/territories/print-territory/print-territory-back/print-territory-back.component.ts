@@ -4,7 +4,7 @@ import {ApplicationState} from "../../../../core/store/index.reducers";
 import {Observable} from "rxjs";
 import {selectVisitBansByTerritoryId} from "../../../../core/store/visit-bans/visit-bans.selectors";
 import {filter, map} from "rxjs/operators";
-import {Territory, TerritoryCardFormat, VisitBan} from "@territory-offline-workspace/api";
+import {Territory, TerritoryCardFormat, VisitBan} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-print-territory-back',

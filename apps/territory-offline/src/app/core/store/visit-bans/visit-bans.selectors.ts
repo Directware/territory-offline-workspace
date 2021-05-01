@@ -1,7 +1,7 @@
 import {ApplicationState} from '../index.reducers';
 import {createSelector} from '@ngrx/store';
 import {visitBansAdapter} from './visit-bans.reducer';
-import {createDurationPhrase, pastDateByMonths} from '../../../../../../../libs/api/src/utils/usefull.functions';
+import {createDurationPhrase, pastDateByMonths} from "@territory-offline-workspace/shared-utils";
 
 export const selectVisitBansFeature = (state: ApplicationState) => state.visitBans;
 

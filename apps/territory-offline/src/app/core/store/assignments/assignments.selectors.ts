@@ -3,11 +3,11 @@ import {createSelector} from '@ngrx/store';
 import {assignmentsAdapter} from './assignments.reducer';
 import {selectAllTerritories} from '../territories/territories.selectors';
 import {selectSettings} from '../settings/settings.selectors';
-import {Assignment, Territory} from "@territory-offline-workspace/api";
-import {createDurationPhrase, currentServiceYear, pastDateByMonths} from '../../../../../../../libs/api/src/utils/usefull.functions';
+import {Assignment, Territory} from "@territory-offline-workspace/shared-interfaces";
 import {selectPublisherEntities, selectPublishersFeature} from '../publishers/publishers.selectors';
 import {SettingsState} from '../settings/settings.reducer';
 import {selectTagsFeature} from "../tags/tags.selectors";
+import {createDurationPhrase, currentServiceYear, pastDateByMonths} from "@territory-offline-workspace/shared-utils";
 
 export const selectAssignmentsFeature = (state: ApplicationState) => state.assignments;
 

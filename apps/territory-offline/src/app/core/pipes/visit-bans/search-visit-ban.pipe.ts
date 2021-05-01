@@ -5,7 +5,7 @@ import {selectTags} from "../../store/tags/tags.selectors";
 import {map} from "rxjs/operators";
 import {Observable, of} from "rxjs";
 import {Router} from "@angular/router";
-import {Tag, VisitBan} from "@territory-offline-workspace/api";
+import {Tag, VisitBan} from "@territory-offline-workspace/shared-interfaces";
 
 @Pipe({
   name: 'searchVisitBan'

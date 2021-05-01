@@ -13,16 +13,18 @@ import {BulkImportVisitBans, BulkImportVisitBansSuccess} from "../../../../core/
 import {Actions, ofType} from "@ngrx/effects";
 import {WaitingModalComponent} from "../../../shared/modals/waiting-modal/waiting-modal.component";
 import {
-  compareVisitBans,
-  ExcelColumn,
-  ExcelToEntityMapper,
-  ExcelToEntityParser,
   VisitBan
-} from "@territory-offline-workspace/api";
+} from "@territory-offline-workspace/shared-interfaces";
 import {TranslateService} from '@ngx-translate/core';
 import {VisitBanImportMapperStepper} from "./visit-ban-import-mapper-stepper";
 import {MatStepper} from "@angular/material/stepper";
 import {GpsToTerritoryLocator} from "../../../../core/services/territory/gps-to-territory-locator";
+import {
+  compareVisitBans,
+  ExcelColumn,
+  ExcelToEntityMapper,
+  ExcelToEntityParser
+} from "@territory-offline-workspace/shared-utils";
 
 @Component({
   selector: 'app-import-visit-bans-from-excel',

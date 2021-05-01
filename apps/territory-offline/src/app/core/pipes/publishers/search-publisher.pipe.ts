@@ -4,7 +4,7 @@ import {ApplicationState} from "../../store/index.reducers";
 import {Observable, of} from "rxjs";
 import {selectTags} from "../../store/tags/tags.selectors";
 import {map} from "rxjs/operators";
-import {Publisher, Tag} from "@territory-offline-workspace/api";
+import {Publisher, Tag} from "@territory-offline-workspace/shared-interfaces";
 
 @Pipe({
   name: 'searchPublisher'

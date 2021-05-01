@@ -12,7 +12,7 @@ import {
   HASHED_PUBLISHER_TABLE_NAME,
   HASHED_TAG_TABLE_NAME, HASHED_TERRITORY_TABLE_NAME, HASHED_VISIT_BAN_TABLE_NAME,
   TimedEntity
-} from "@territory-offline-workspace/api";
+} from "@territory-offline-workspace/shared-interfaces";
 import {environment} from "../../../../environments/environment";
 
 describe("TO - MobileDatabaseService", () =>

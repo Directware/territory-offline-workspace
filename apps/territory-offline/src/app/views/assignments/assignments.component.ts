@@ -5,7 +5,7 @@ import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../core/store/index.reducers';
 import {selectAssignmentsByTerritoryId} from '../../core/store/assignments/assignments.selectors';
 import {AssignmentsService} from '../../core/services/assignment/assignments.service';
-import {Assignment} from "@territory-offline-workspace/api";
+import {Assignment} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-assignments',

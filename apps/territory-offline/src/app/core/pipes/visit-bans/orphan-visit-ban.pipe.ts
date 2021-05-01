@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {VisitBan} from "@territory-offline-workspace/api";
+import {VisitBan} from "@territory-offline-workspace/shared-interfaces";
 
 @Pipe({
   name: 'isOrphanVisitBan'

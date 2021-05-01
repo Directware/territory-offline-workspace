@@ -1,4 +1,4 @@
-import {TimedEntity} from "./../common/timed-entity.model";
+import {TimedEntity} from "@territory-offline-workspace/shared-interfaces";
 
 export interface AbstractDatabase
 {

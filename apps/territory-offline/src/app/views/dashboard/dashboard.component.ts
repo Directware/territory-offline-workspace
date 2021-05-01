@@ -9,7 +9,7 @@ import {
 } from '../../core/store/assignments/assignments.selectors';
 import {Observable, Subject} from 'rxjs';
 import {filter, map, takeUntil, tap} from 'rxjs/operators';
-import {Territory} from "@territory-offline-workspace/api";
+import {Territory} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-dashboard',

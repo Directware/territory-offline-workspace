@@ -19,7 +19,7 @@ import {
   LastDoingActionsEnum,
   TimedEntity,
   VisitBan
-} from "@territory-offline-workspace/api";
+} from "@territory-offline-workspace/shared-interfaces";
 
 @Injectable({providedIn: 'root'})
 export class VisitBansEffects

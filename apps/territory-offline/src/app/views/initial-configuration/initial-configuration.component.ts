@@ -17,7 +17,7 @@ import {LoadDrawings} from "../../core/store/drawings/drawings.actions";
 import {DataSecurityService} from "../../core/services/common/data-security.service";
 import {environment} from "../../../environments/environment";
 import {TerritoryLanguageService, ToLanguage} from "@territory-offline-workspace/ui-components";
-import {Congregation} from "@territory-offline-workspace/api";
+import {Congregation} from "@territory-offline-workspace/shared-interfaces";
 import {Plugins} from '@capacitor/core';
 import {TranslateService} from "@ngx-translate/core";
 const {Device} = Plugins;

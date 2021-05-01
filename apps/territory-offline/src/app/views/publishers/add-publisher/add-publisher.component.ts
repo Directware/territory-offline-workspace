@@ -5,7 +5,7 @@ import {ApplicationState} from '../../../core/store/index.reducers';
 import {selectPublishers} from '../../../core/store/publishers/publishers.selectors';
 import {FormControl} from '@angular/forms';
 import {debounceTime, takeUntil, tap, withLatestFrom} from 'rxjs/operators';
-import {Publisher} from "@territory-offline-workspace/api";
+import {Publisher} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-add-publisher',

@@ -1,4 +1,4 @@
-import {Drawing, Territory} from "@territory-offline-workspace/api";
+import {Drawing, Territory} from "@territory-offline-workspace/shared-interfaces";
 import { v4 as uuid4 } from 'uuid';
 import * as Turf from "@turf/turf";
 

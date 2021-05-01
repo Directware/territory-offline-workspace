@@ -6,7 +6,7 @@ import {
   LoadAssignmentsSuccess,
   UpsertAssignmentSuccess
 } from './assignments.actions';
-import {Assignment} from "@territory-offline-workspace/api";
+import {Assignment} from "@territory-offline-workspace/shared-interfaces";
 
 export const assignmentsAdapter = createEntityAdapter<Assignment>();
 

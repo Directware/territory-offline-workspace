@@ -10,7 +10,6 @@ import {ApplicationState} from '../../store/index.reducers';
 import {selectSettings} from '../../store/settings/settings.selectors';
 import {environment} from '../../../../environments/environment';
 import {selectAllDrawings} from '../../store/drawings/drawings.selectors';
-import {logger, mergeDrawings} from '../../../../../../../libs/api/src/utils/usefull.functions';
 import {SettingsState} from '../../store/settings/settings.reducer';
 import {UpsertDrawingSuccess} from '../../store/drawings/drawings.actions';
 import {Router} from "@angular/router";
@@ -20,7 +19,8 @@ import {
   Drawing,
   GeocodingResult, Territory,
   TerritoryDrawingPrintConfiguration, TerritoryStatus, ToMapBoxSources
-} from "@territory-offline-workspace/api";
+} from "@territory-offline-workspace/shared-interfaces";
+import {mergeDrawings} from "@territory-offline-workspace/shared-utils";
 
 @Injectable({providedIn: 'root'})
 export class TerritoryMapsService
@@ -55,7 +55,6 @@ export class TerritoryMapsService
 
   public initMapWithDrawings(config: any, onload?: Function)
   {
-    logger('Initialise map with drawings');
     this.getDrawingsSnapshot()
       .pipe(
         tap(([drawings, settings]) => this.cachedSettingsCenter = settings.territoryOrigin),

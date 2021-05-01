@@ -19,7 +19,7 @@ import {selectTerritoryById} from "../../../core/store/territories/territories.s
 import {DatePipe} from "@angular/common";
 import {TerritoryMapsService} from "../../../core/services/territory/territory-maps.service";
 import {AssignmentsService} from "../../../core/services/assignment/assignments.service";
-import {Assignment, LastDoingActionsEnum, Territory} from "@territory-offline-workspace/api";
+import {Assignment, LastDoingActionsEnum, Territory} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-assignment',

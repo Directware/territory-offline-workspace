@@ -12,7 +12,7 @@ import {
   UpsertLastDoingSuccess
 } from './last-doings.actions';
 import {LastDoingsService} from "../../services/common/last-doings.service";
-import {HASHED_LAST_DOING_TABLE_NAME, LastDoing, TimedEntity} from "@territory-offline-workspace/api";
+import {HASHED_LAST_DOING_TABLE_NAME, LastDoing, TimedEntity} from "@territory-offline-workspace/shared-interfaces";
 
 @Injectable({providedIn: 'root'})
 export class LastDoingsEffects

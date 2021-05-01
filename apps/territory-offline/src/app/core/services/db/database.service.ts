@@ -3,11 +3,11 @@ import {Store} from '@ngrx/store';
 import {ApplicationState} from '../../store/index.reducers';
 import {Actions} from '@ngrx/effects';
 import {Plugins} from "@capacitor/core";
-import {TimedEntity} from "./../common/timed-entity.model";
 import {MobileDatabaseService} from "./mobile-database.service";
 import {WebDatabaseService} from "./web-database.service";
 import {ElectronDatabaseService} from "./electron-database.service";
 import {environment} from "../../../../environments/environment";
+import {TimedEntity} from "@territory-offline-workspace/shared-interfaces";
 const {Device} = Plugins;
 
 @Injectable({providedIn: 'root'})

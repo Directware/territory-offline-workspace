@@ -11,7 +11,7 @@ import {selectPublishers} from "../../core/store/publishers/publishers.selectors
 import {take, tap} from "rxjs/operators";
 import {BulkUpsertPublisher} from "../../core/store/publishers/publishers.actions";
 import {BulkUpsertTerritory} from "../../core/store/territories/territories.actions";
-import {Tag} from "@territory-offline-workspace/api";
+import {Tag} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-tags',

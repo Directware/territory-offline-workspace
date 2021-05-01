@@ -8,9 +8,10 @@ import {first, map, take, takeUntil, tap} from 'rxjs/operators';
 import {AssignmentsService} from '../../../core/services/assignment/assignments.service';
 import {TerritoryMapsService} from "../../../core/services/territory/territory-maps.service";
 import {selectAllTerritories} from "../../../core/store/territories/territories.selectors";
-import {Assignment, createDurationPhrase} from "@territory-offline-workspace/api";
+import {Assignment} from "@territory-offline-workspace/shared-interfaces";
 import {PlatformAgnosticActionsService} from "../../../core/services/common/platform-agnostic-actions.service";
 import {TranslateService} from "@ngx-translate/core";
+import {createDurationPhrase} from "@territory-offline-workspace/shared-utils";
 
 @Component({
   selector: 'app-overdue-assignments',

@@ -18,7 +18,7 @@ import {
   TERRITORY_TABLE_NAME,
   TimedEntity,
   VISIT_BAN_TABLE_NAME
-} from "@territory-offline-workspace/api";
+} from "@territory-offline-workspace/shared-interfaces";
 import {AbstractDatabase} from "./abstract-database.interface";
 
 import {select, Store} from "@ngrx/store";

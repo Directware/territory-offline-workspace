@@ -6,7 +6,7 @@ import {Observable, Subject} from 'rxjs';
 import {selectTagEntities, selectTags} from '../../../core/store/tags/tags.selectors';
 import {debounceTime, takeUntil, tap, withLatestFrom} from 'rxjs/operators';
 import {Dictionary} from '@ngrx/entity';
-import {Tag} from "@territory-offline-workspace/api";
+import {Tag} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-assigned-tags',

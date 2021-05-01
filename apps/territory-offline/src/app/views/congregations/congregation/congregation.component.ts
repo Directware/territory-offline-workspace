@@ -22,7 +22,7 @@ import {ToLanguage} from "@territory-offline-workspace/ui-components";
 import { v4 as uuid4 } from 'uuid';
 import {DataExportService} from "../../../core/services/import/data-export.service";
 import {DataImportService} from "../../../core/services/import/data-import.service";
-import {Congregation, LastDoing, LastDoingActionsEnum} from "@territory-offline-workspace/api";
+import {Congregation, LastDoing, LastDoingActionsEnum} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-congregation',

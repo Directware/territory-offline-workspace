@@ -18,7 +18,7 @@ import {
   HASHED_CONGREGATION_TABLE_NAME,
   LastDoingActionsEnum,
   TimedEntity
-} from "@territory-offline-workspace/api";
+} from "@territory-offline-workspace/shared-interfaces";
 import {select, Store} from '@ngrx/store';
 import {selectSettings} from '../settings/settings.selectors';
 import {UpsertSettings, UpsertSettingsSuccess} from '../settings/settings.actions';

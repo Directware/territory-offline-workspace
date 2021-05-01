@@ -9,7 +9,7 @@ import {select, Store} from '@ngrx/store';
 import {selectSettings} from '../../store/settings/settings.selectors';
 import {UpsertSettings} from '../../store/settings/settings.actions';
 import {ApplicationState} from '../../store/index.reducers';
-import {OsNames, ReleaseInfo} from "@territory-offline-workspace/api";
+import {OsNames, ReleaseInfo} from "@territory-offline-workspace/shared-interfaces";
 
 @Injectable({
   providedIn: 'root'

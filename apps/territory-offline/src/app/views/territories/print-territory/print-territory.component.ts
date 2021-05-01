@@ -27,7 +27,7 @@ import {
   Territory,
   TerritoryCardFormat,
   TerritoryCardFormats
-} from "@territory-offline-workspace/api";
+} from "@territory-offline-workspace/shared-interfaces";
 import {environment} from "../../../../environments/environment";
 import {MatSliderChange} from "@angular/material/slider";
 

@@ -3,13 +3,13 @@ import {Plugins} from '@capacitor/core';
 import '@capacitor-community/sqlite';
 import * as CDSSPlugin from "capacitor-data-storage-sqlite";
 import {Dictionary} from "@ngrx/entity";
-import {TimedEntity} from "./../common/timed-entity.model";
 import {AbstractDatabase} from "./abstract-database.interface";
 import {select, Store} from "@ngrx/store";
 import {ApplicationState} from "../../store/index.reducers";
 import {selectCurrentCongregationId} from "../../store/settings/settings.selectors";
 import {take} from "rxjs/operators";
 import {SettingsDatabaseService} from "./settings-database.service";
+import {TimedEntity} from "@territory-offline-workspace/shared-interfaces";
 const {Device} = Plugins;
 
 @Injectable({providedIn: "root"})

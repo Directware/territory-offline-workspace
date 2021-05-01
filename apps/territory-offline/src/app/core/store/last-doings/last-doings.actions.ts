@@ -1,5 +1,5 @@
 import {createAction, props} from '@ngrx/store';
-import {LastDoing} from "@territory-offline-workspace/api";
+import {LastDoing} from "@territory-offline-workspace/shared-interfaces";
 
 export const LoadLastDoings = createAction('[LastDoing] load lastDoings');
 export const LoadLastDoingsSuccess = createAction('[LastDoing] load lastDoings success', props<{ lastDoings: LastDoing[] }>());
