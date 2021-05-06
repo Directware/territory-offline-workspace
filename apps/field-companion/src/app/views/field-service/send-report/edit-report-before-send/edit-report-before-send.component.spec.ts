@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { EditReportBeforeSendComponent } from './edit-report-before-send.component';
 
@@ -6,7 +6,7 @@ describe('EditReportBeforeSendComponent', () => {
   let component: EditReportBeforeSendComponent;
   let fixture: ComponentFixture<EditReportBeforeSendComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ EditReportBeforeSendComponent ]
     })

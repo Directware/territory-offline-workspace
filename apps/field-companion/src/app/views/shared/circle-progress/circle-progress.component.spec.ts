@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CircleProgressComponent } from './circle-progress.component';
 
@@ -6,7 +6,7 @@ describe('CircleProgressComponent', () => {
   let component: CircleProgressComponent;
   let fixture: ComponentFixture<CircleProgressComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CircleProgressComponent ]
     })

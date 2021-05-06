@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ImportVisitBansFromExcelComponent} from './import-visit-bans-from-excel.component';
 import {APP_BASE_HREF, CommonModule} from "@angular/common";
@@ -24,7 +24,7 @@ describe('ImportVisitBansFromExcelComponent', () =>
   let component: ImportVisitBansFromExcelComponent;
   let fixture: ComponentFixture<ImportVisitBansFromExcelComponent>;
 
-  beforeEach(async(() =>
+  beforeEach(waitForAsync(() =>
   {
     TestBed.configureTestingModule({
       imports: [

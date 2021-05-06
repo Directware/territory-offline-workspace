@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ExportReportForGroupOverseerComponent } from './export-report-for-group-overseer.component';
 import {APP_BASE_HREF, CommonModule} from "@angular/common";
@@ -24,7 +24,7 @@ describe('ExportReportForGroupOverseerComponent', () => {
   let component: ExportReportForGroupOverseerComponent;
   let fixture: ComponentFixture<ExportReportForGroupOverseerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,

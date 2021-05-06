@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BackupImportProgressComponent } from './backup-import-progress.component';
 
@@ -6,7 +6,7 @@ describe('BackupImportProgressComponent', () => {
   let component: BackupImportProgressComponent;
   let fixture: ComponentFixture<BackupImportProgressComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BackupImportProgressComponent ]
     })

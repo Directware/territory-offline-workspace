@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { HideablePanelComponent } from './hideable-panel.component';
 
@@ -6,7 +6,7 @@ describe('HideablePanelComponent', () => {
   let component: HideablePanelComponent;
   let fixture: ComponentFixture<HideablePanelComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ HideablePanelComponent ]
     })

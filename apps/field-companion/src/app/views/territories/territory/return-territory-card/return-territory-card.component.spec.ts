@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ReturnTerritoryCardComponent } from './return-territory-card.component';
 
@@ -6,7 +6,7 @@ describe('ReturnTerritoryCardComponent', () => {
   let component: ReturnTerritoryCardComponent;
   let fixture: ComponentFixture<ReturnTerritoryCardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ReturnTerritoryCardComponent ]
     })

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FieldServiceInputsComponent } from './field-service-inputs.component';
 
@@ -6,7 +6,7 @@ describe('FieldServiceInputsComponent', () => {
   let component: FieldServiceInputsComponent;
   let fixture: ComponentFixture<FieldServiceInputsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FieldServiceInputsComponent ]
     })

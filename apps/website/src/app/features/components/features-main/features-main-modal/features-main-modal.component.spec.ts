@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FeaturesMainModalComponent } from './features-main-modal.component';
 
@@ -6,7 +6,7 @@ describe('FeaturesMainModalComponent', () => {
   let component: FeaturesMainModalComponent;
   let fixture: ComponentFixture<FeaturesMainModalComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FeaturesMainModalComponent ]
     })
