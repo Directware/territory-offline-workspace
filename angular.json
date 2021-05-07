@@ -21,6 +21,16 @@
             "polyfills": "apps/territory-offline/src/polyfills.ts",
             "tsConfig": "apps/territory-offline/tsconfig.app.json",
             "aot": true,
+            "allowedCommonJsDependencies": [
+              "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw",
+              "xlsx",
+              "lodash",
+              "tokml",
+              "showdown/dist/showdown.min",
+              "pako",
+              "paper",
+              "tweetnacl"
+            ],
             "assets": [
               "apps/territory-offline/src/assets"
             ],
