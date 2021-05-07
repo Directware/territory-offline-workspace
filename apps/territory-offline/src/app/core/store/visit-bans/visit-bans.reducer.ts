@@ -13,7 +13,7 @@ const initialState: VisitBansState = visitBansAdapter.getInitialState();
 
 const visitBansReducer = createReducer(
   initialState,
-  on(LoadVisitBansSuccess, (state, action) => visitBansAdapter.addAll(action.visitBans, state)),
+  on(LoadVisitBansSuccess, (state, action) => visitBansAdapter.addMany(action.visitBans, state)),
   on(UpsertVisitBanSuccess, (state, action) => visitBansAdapter.upsertOne(action.visitBan, state)),
   on(BulkImportVisitBansSuccess, (state, action) => visitBansAdapter.upsertMany(action.visitBans, state)),
   on(DeleteVisitBanSuccess, (state, action) => visitBansAdapter.removeOne(action.visitBan.id, state))

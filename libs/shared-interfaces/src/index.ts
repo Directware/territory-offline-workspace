@@ -14,6 +14,7 @@ export * from './lib/territory-offline/assignment/assignment.db';
 export * from './lib/territory-offline/congregation/congregation.model';
 export * from './lib/territory-offline/congregation/congregation.db';
 export * from './lib/territory-offline/drawing/drawing.model';
+export * from './lib/territory-offline/drawing/create-drawing.util';
 export * from './lib/territory-offline/drawing/drawing.db';
 export * from './lib/territory-offline/drawing/feature.model';
 export * from './lib/territory-offline/drawing/print-configuration.model';

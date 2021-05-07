@@ -21,7 +21,7 @@ const initialState: CongregationsState = congregationsAdapter.getInitialState({
 
 const congregationsReducer = createReducer(
   initialState,
-  on(LoadCongregationsSuccess, (state, action) => congregationsAdapter.addAll(action.congregations, state)),
+  on(LoadCongregationsSuccess, (state, action) => congregationsAdapter.addMany(action.congregations, state)),
   on(UpsertCongregationSuccess, (state, action) => congregationsAdapter.upsertOne(action.congregation, state)),
   on(BulkImportCongregationsSuccess, (state, action) => congregationsAdapter.upsertMany(action.congregations, state)),
   on(DeleteCongregationSuccess, (state, action) => congregationsAdapter.removeOne(action.congregationId, state)),

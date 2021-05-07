@@ -1,4 +1,5 @@
-import {normalizeStreetName, normalizeStreetSuffix} from "./usefull.functions";
+import {mergeDrawings, normalizeStreetName, normalizeStreetSuffix} from "./usefull.functions";
+import {createDrawing} from "@territory-offline-workspace/shared-interfaces";
 
 describe("Testsuite for use full functions", () =>
 {
@@ -28,5 +29,14 @@ describe("Testsuite for use full functions", () =>
     expect(normalizeStreetSuffix(42 as any)).toBe("42")
     expect(normalizeStreetSuffix(null)).toBe("")
     expect(normalizeStreetSuffix("")).toBe("")
+  })
+
+  it("should merge drawing", () => {
+    const drawingsToBeMerged = [createDrawing(), createDrawing(), createDrawing(), createDrawing()];
+
+    const merged = mergeDrawings(drawingsToBeMerged)
+
+    expect(merged.featureCollection.features.length).toBe(4);
+    expect(merged.featureCollection.features[0].properties.drawingId).toBe(drawingsToBeMerged[0].id);
   })
 })

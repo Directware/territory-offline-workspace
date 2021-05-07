@@ -19,7 +19,7 @@ const initialState: PublishersState = publishersAdapter.getInitialState();
 
 const publishersReducer = createReducer(
   initialState,
-  on(LoadPublishersSuccess, (state, action) => publishersAdapter.addAll(action.publishers, state)),
+  on(LoadPublishersSuccess, (state, action) => publishersAdapter.addMany(action.publishers, state)),
   on(UpsertPublisherSuccess, (state, action) => publishersAdapter.upsertOne(action.publisher, state)),
   on(BulkUpsertPublisherSuccess, (state, action) => publishersAdapter.upsertMany(action.publisher, state)),
   on(BulkImportPublishersSuccess, (state, action) => publishersAdapter.upsertMany(action.publishers, state)),

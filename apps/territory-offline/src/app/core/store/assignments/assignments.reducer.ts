@@ -18,7 +18,7 @@ const initialState: AssignmentsState = assignmentsAdapter.getInitialState();
 
 const assignmentsReducer = createReducer(
   initialState,
-  on(LoadAssignmentsSuccess, (state, action) => assignmentsAdapter.addAll(action.assignments, state)),
+  on(LoadAssignmentsSuccess, (state, action) => assignmentsAdapter.addMany(action.assignments, state)),
   on(UpsertAssignmentSuccess, (state, action) => assignmentsAdapter.upsertOne(action.assignment, state)),
   on(BulkUpsertAssignmentsSuccess, (state, action) => assignmentsAdapter.upsertMany(action.assignments, state)),
   on(BulkImportAssignmentsSuccess, (state, action) => assignmentsAdapter.upsertMany(action.assignments, state)),

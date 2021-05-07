@@ -89,23 +89,31 @@ export function evaluateTerritoryStatus(assignment: Assignment, settings: any)
   }
 }
 
+/*
+ * Only merges Polygons!
+ */
 export function mergeDrawings(drawings: Drawing[]): Drawing
 {
   if (drawings && drawings.length > 0)
   {
-    const drawingsWithFeatures = drawings.filter((drawing) =>
+    const onlyDrawingPolygons = drawings.filter((drawing) =>
       drawing.featureCollection
       && drawing.featureCollection.features
       && drawing.featureCollection.features.filter(f => f.geometry && f.geometry.type === "Polygon").length > 0);
 
-    drawingsWithFeatures.forEach((drawing) => drawing.featureCollection
-      .features
-      .forEach(feature => feature.properties['drawingId'] = drawing.id)
-    );
+    const drawingsWithAssignedProperties = onlyDrawingPolygons.map((drawing) => ({
+      ...drawing,
+      featureCollection: {
+        ...drawing.featureCollection,
+        features: drawing.featureCollection
+          .features
+          .map(feature => ({...feature, properties: {...feature.properties, drawingId: drawing.id}}))
+      }
+    }));
 
-    if (drawingsWithFeatures.length > 0)
+    if (drawingsWithAssignedProperties.length > 0)
     {
-      return drawingsWithFeatures.reduce((result, current) => ({
+      return drawingsWithAssignedProperties.reduce((result, current) => ({
         ...result,
         featureCollection: {
           ...result.featureCollection,
@@ -146,7 +154,7 @@ export function normalizeStreetName(street: string): string
     return "";
   }
 
-  if(typeof street !== "string")
+  if (typeof street !== "string")
   {
     street = `${street}`;
   }
@@ -161,7 +169,7 @@ export function normalizeStreetSuffix(streetSuffix: string): string
     return "";
   }
 
-  if(typeof streetSuffix !== "string")
+  if (typeof streetSuffix !== "string")
   {
     streetSuffix = `${streetSuffix}`;
   }
@@ -169,7 +177,7 @@ export function normalizeStreetSuffix(streetSuffix: string): string
   if (streetSuffix.includes("/"))
   {
     const slashPosition = streetSuffix.trim().indexOf("/");
-    if(streetSuffix.charAt(slashPosition - 2) !== " ")
+    if (streetSuffix.charAt(slashPosition - 2) !== " ")
     {
       streetSuffix = [streetSuffix.slice(0, slashPosition - 1), " ", streetSuffix.slice(slashPosition - 1)].join('');
     }
@@ -180,16 +188,16 @@ export function normalizeStreetSuffix(streetSuffix: string): string
 
 export function serializeObject(object): string
 {
-  if(!object)
+  if (!object)
   {
     return "";
   }
   let stringifiedObject = "null";
 
-  try {
+  try
+  {
     stringifiedObject = JSON.stringify(object);
-  }
-  catch (e)
+  } catch (e)
   {
     console.error("[serializeObject()]:", JSON.stringify(e));
   }
@@ -199,7 +207,7 @@ export function serializeObject(object): string
 
 export function deserializeObject(objectAsString: string): any
 {
-  if(!objectAsString || objectAsString === "null" || objectAsString === "NULL") // NULL is ios specific!
+  if (!objectAsString || objectAsString === "null" || objectAsString === "NULL") // NULL is ios specific!
   {
     return {};
   }
@@ -209,7 +217,7 @@ export function deserializeObject(objectAsString: string): any
 
 export function serializeArray(data: any[]): string
 {
-  if(!data || data.length === 0)
+  if (!data || data.length === 0)
   {
     return "null";
   }
@@ -219,7 +227,7 @@ export function serializeArray(data: any[]): string
 
 export function deserializeArray(arrayAsString: string): any[]
 {
-  if(!arrayAsString || arrayAsString === "null" || arrayAsString === "NULL") // NULL is ios specific!
+  if (!arrayAsString || arrayAsString === "null" || arrayAsString === "NULL") // NULL is ios specific!
   {
     return [];
   }
@@ -229,7 +237,7 @@ export function deserializeArray(arrayAsString: string): any[]
 
 export function serializeDate(date: Date): string
 {
-  if(!date)
+  if (!date)
   {
     return "null";
   }
@@ -239,7 +247,7 @@ export function serializeDate(date: Date): string
 
 export function deserializeDate(isoDateString: string): Date
 {
-  if(!isoDateString || isoDateString === "null" || isoDateString === "NULL") // NULL is ios specific!
+  if (!isoDateString || isoDateString === "null" || isoDateString === "NULL") // NULL is ios specific!
   {
     return null;
   }
@@ -249,7 +257,7 @@ export function deserializeDate(isoDateString: string): Date
 
 export function serializeBoolean(value: boolean | string): string
 {
-  if(value === true || value === "true")
+  if (value === true || value === "true")
   {
     return "true";
   }

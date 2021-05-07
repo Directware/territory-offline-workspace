@@ -13,7 +13,7 @@ const initialState: DrawingsState = drawingsAdapter.getInitialState();
 
 const drawingsReducer = createReducer(
   initialState,
-  on(LoadDrawingsSuccess, (state, action) => drawingsAdapter.addAll(action.drawings, state)),
+  on(LoadDrawingsSuccess, (state, action) => drawingsAdapter.addMany(action.drawings, state)),
   on(UpsertDrawingSuccess, (state, action) => drawingsAdapter.upsertOne(action.drawing, state)),
   on(BulkImportDrawingsSuccess, (state, action) => drawingsAdapter.upsertMany(action.drawings, state)),
   on(DeleteDrawingSuccess, (state, action) => drawingsAdapter.removeOne(action.drawing.id, state))

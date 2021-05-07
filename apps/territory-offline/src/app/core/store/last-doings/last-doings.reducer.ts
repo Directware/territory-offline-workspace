@@ -13,7 +13,7 @@ const initialState: LastDoingsState = lastDoingsAdapter.getInitialState();
 
 const lastDoingsReducer = createReducer(
   initialState,
-  on(LoadLastDoingsSuccess, (state, action) => lastDoingsAdapter.addAll(action.lastDoings, state)),
+  on(LoadLastDoingsSuccess, (state, action) => lastDoingsAdapter.addMany(action.lastDoings, state)),
   on(UpsertLastDoingSuccess, (state, action) => lastDoingsAdapter.upsertOne(action.lastDoing, state)),
   on(DeleteLastDoingSuccess, (state, action) => lastDoingsAdapter.removeOne(action.lastDoing.id, state))
 );

@@ -34,13 +34,18 @@ export const selectAllDrawings = createSelector(
       const _assignment = lastAssignmentOfEachTerritory.filter(a => a.territoryId === territory.id)[0];
       const isAssigned = !!_assignment && !_assignment.endTime;
 
-      _drawings.forEach(d => d.featureCollection.features.forEach(f => f.properties = {
-        ...f.properties,
-        ...evaluateTerritoryStatus(_assignment, settings),
-        isAssigned: isAssigned,
-        description: territory.key,
-        durationPhrase: `${territory.key} (${_assignment ? createDurationPhrase(isAssigned ? _assignment.startTime : _assignment.endTime) : "-"})`
-      }))
+      if(_drawings)
+      {
+        /*
+        _drawings.forEach(d => d.featureCollection.features.forEach(f => f.properties = {
+          ...f.properties,
+          ...evaluateTerritoryStatus(_assignment, settings),
+          isAssigned: isAssigned,
+          description: territory.key,
+          durationPhrase: `${territory.key} (${_assignment ? createDurationPhrase(isAssigned ? _assignment.startTime : _assignment.endTime) : "-"})`
+        }))
+        */
+      }
     });
 
     return drawings;

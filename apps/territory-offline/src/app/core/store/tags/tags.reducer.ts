@@ -13,7 +13,7 @@ const initialState: TagsState = tagsAdapter.getInitialState();
 
 const tagsReducer = createReducer(
   initialState,
-  on(LoadTagsSuccess, (state, action) => tagsAdapter.addAll(action.tags, state)),
+  on(LoadTagsSuccess, (state, action) => tagsAdapter.addMany(action.tags, state)),
   on(UpsertTagSuccess, (state, action) => tagsAdapter.upsertOne(action.tag, state)),
   on(BulkImportTagsSuccess, (state, action) => tagsAdapter.upsertMany(action.tags, state)),
   on(DeleteTagSuccess, (state, action) => tagsAdapter.removeOne(action.tag.id, state))

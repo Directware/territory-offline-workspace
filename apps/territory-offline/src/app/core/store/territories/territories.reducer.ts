@@ -19,7 +19,7 @@ const initialState: TerritoriesState = territoriesAdapter.getInitialState();
 
 const territoriesReducer = createReducer(
   initialState,
-  on(LoadTerritoriesSuccess, (state, action) => territoriesAdapter.addAll(action.territories, state)),
+  on(LoadTerritoriesSuccess, (state, action) => territoriesAdapter.addMany(action.territories, state)),
   on(UpsertTerritorySuccess, (state, action) => territoriesAdapter.upsertOne(action.territory, state)),
   on(BulkUpsertTerritorySuccess, (state, action) => territoriesAdapter.upsertMany(action.territories, state)),
   on(BulkImportTerritoriesSuccess, (state, action) => territoriesAdapter.upsertMany(action.territories, state)),
