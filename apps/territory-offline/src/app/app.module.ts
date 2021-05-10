@@ -172,7 +172,12 @@ declare const sourceMapSupport: any;
     MatStepperModule,
     MatSliderModule,
     TranslateModule.forRoot(),
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers,{
+      runtimeChecks: {
+        strictStateImmutability: false,
+        strictActionImmutability: false
+      },
+    }),
     EffectsModule.forRoot(effects),
     StoreDevtoolsModule.instrument({logOnly: true, maxAge: 25})
   ],

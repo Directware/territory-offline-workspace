@@ -96,7 +96,7 @@ export class InitialConfigurationComponent implements OnInit
       systemLang = this.languageService.getLanguageByCode("en");
     }
 
-    const createdSettings: SettingsState = {
+    let createdSettings: SettingsState = {
       id: tmp.id,
       currentCongregationId: currentCongregationId,
       territoryOrigin: center,

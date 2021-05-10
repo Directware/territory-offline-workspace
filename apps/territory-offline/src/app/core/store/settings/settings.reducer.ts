@@ -1,5 +1,12 @@
 import {Action, createReducer, on} from '@ngrx/store';
-import {LoadSettingsSuccess, LockApp, UnlockApp, UnlockSecretKey, UpsertSettingsSuccess} from './settings.actions';
+import {
+  LoadSettingsSuccess,
+  LockApp,
+  UnlockApp,
+  UnlockSecretKey,
+  UpsertSettings,
+  UpsertSettingsSuccess
+} from './settings.actions';
 import {ToLanguage} from "@territory-offline-workspace/ui-components";
 
 export interface SettingsState
