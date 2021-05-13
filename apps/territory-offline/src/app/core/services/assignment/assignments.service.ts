@@ -26,6 +26,7 @@ import {
 } from "@territory-offline-workspace/shared-interfaces";
 import {UpsertVisitBan} from "../../store/visit-bans/visit-bans.actions";
 import {selectLastAssignmentOfEachTerritory} from "../../store/assignments/assignments.selectors";
+import {PlatformAgnosticActionsService} from "../common/platform-agnostic-actions.service";
 const {Device} = Plugins;
 
 @Injectable({
@@ -37,6 +38,7 @@ export class AssignmentsService
               private lastDoingsService: LastDoingsService,
               private territoryMapsService: TerritoryMapsService,
               private actions$: Actions,
+              private platformAgnosticActionsService: PlatformAgnosticActionsService,
               private translate: TranslateService)
   {
   }
@@ -66,14 +68,7 @@ export class AssignmentsService
 
     const gzippedData = Pako.gzip(JSON.stringify(digitalTerritoryCard), {to: "string"});
 
-    await Plugins.FileSharer.share({
-      filename: `${territory.key} ${territory.name}.territory`,
-      base64Data: btoa(gzippedData),
-      contentType: "text/plain;charset=utf-8",
-      android: {
-        chooserTitle: translations['assignments.digitalTerritory']
-      }
-    }).catch(error => console.error(translations['assignments.sharingFailed'], error.message));
+    this.platformAgnosticActionsService.share(gzippedData,`${territory.key} ${territory.name}.territory`, "territory-cards");
 
     if (deviceInfo.platform !== "ios" && deviceInfo.platform !== "android")
     {

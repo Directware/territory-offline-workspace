@@ -4,7 +4,7 @@ import {catchError, map, tap} from 'rxjs/operators';
 
 import {version as currentVersion} from './../../../../../package.json';
 import {environment} from '../../../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {OsNames, ReleaseInfo} from "@territory-offline-workspace/shared-interfaces";
 import {compareVersions} from "@territory-offline-workspace/shared-utils";
 
@@ -35,14 +35,16 @@ export class ToUpdatesService
 
   private getReleaseInfoFromServer(): Observable<ReleaseInfo>
   {
+    const headers = new HttpHeaders({
+      'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    });
+
     return this.httpClient
-      .get<ReleaseInfo>(`${environment.releasesHost}/current-release.json`)
+      .get<ReleaseInfo>(`${environment.releasesHost}/current-release.json`, {headers})
       .pipe(
-        catchError(error =>
-        {
-          console.warn(`Could not get current release info.`, error);
-          return of({...error, hasError: true});
-        })
+        catchError(error => of({...error, hasError: true}))
       );
   }
 
