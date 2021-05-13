@@ -143,7 +143,7 @@ export const selectOverdueAssignmentsByPreacher = createSelector(
 
     if (filteredDto)
     {
-      return filteredDto.assignments;
+      return filteredDto.assignments || [];
     }
 
     return [];
