@@ -104,7 +104,6 @@ export class InitialConfigurationComponent implements OnInit
       passwordHash: null,
       encryptedSecretKey: null,
       publicKey: null,
-      secretKey: null,
       isAppLocked: true,
       processingPeriodInMonths: 4,
       processingBreakInMonths: 4,
@@ -129,9 +128,6 @@ export class InitialConfigurationComponent implements OnInit
       createdSettings.passwordHash = encryptionConfig.hash;
       createdSettings.encryptedSecretKey = encryptionConfig.encryptedSecretKey;
       createdSettings.publicKey = new Uint8Array(Object.values(encryptionConfig.publicKey));
-      createdSettings.secretKey = new Uint8Array(Object.values(encryptionConfig.secretKey));
-
-      console.log(createdSettings);
     }
 
     this.firstOpenSequence(congregation);

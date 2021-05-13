@@ -3,8 +3,6 @@ import {
   LoadSettingsSuccess,
   LockApp,
   UnlockApp,
-  UnlockSecretKey,
-  UpsertSettings,
   UpsertSettingsSuccess
 } from './settings.actions';
 import {ToLanguage} from "@territory-offline-workspace/ui-components";
@@ -18,7 +16,6 @@ export interface SettingsState
   passwordHash: string;
   encryptedSecretKey: string | null;
   publicKey: Uint8Array | null;
-  secretKey: Uint8Array | null;
   isAppLocked: boolean;
   processingPeriodInMonths: number; // Bearbeitung Fällig nach
   processingBreakInMonths: number; // Kann zugeteilt werden nach
@@ -36,7 +33,6 @@ const initialState = {
   passwordHash: '',
   encryptedSecretKey: null,
   publicKey: null,
-  secretKey: null,
   isAppLocked: false,
   processingPeriodInMonths: 4,
   processingBreakInMonths: 4,
@@ -50,12 +46,7 @@ const settingsReducer = createReducer(
   initialState,
   on(LockApp, state => ({
     ...state,
-    isAppLocked: true,
-    secretKey: null
-  })),
-  on(UnlockSecretKey, (state: SettingsState, action) => ({
-    ...state,
-    secretKey: action.secretKey
+    isAppLocked: true
   })),
   on(UnlockApp, (state) => ({
     ...state,
@@ -63,13 +54,11 @@ const settingsReducer = createReducer(
   })),
   on(UpsertSettingsSuccess, (state, action) => ({
     ...action.settings,
-    publicKey: action.settings && action.settings.publicKey ? new Uint8Array(Object.values(action.settings.publicKey)) : null,
-    secretKey: action.settings && action.settings.secretKey ? new Uint8Array(Object.values(action.settings.secretKey)) : null
+    publicKey: action.settings && action.settings.publicKey ? new Uint8Array(Object.values(action.settings.publicKey)) : null
   })),
   on(LoadSettingsSuccess, (state, action) => ({
     ...action.settings,
-    publicKey: action.settings && action.settings.publicKey ? new Uint8Array(Object.values(action.settings.publicKey)) : null,
-    secretKey: action.settings && action.settings.secretKey ? new Uint8Array(Object.values(action.settings.secretKey)) : null
+    publicKey: action.settings && action.settings.publicKey ? new Uint8Array(Object.values(action.settings.publicKey)) : null
   }))
 );
 

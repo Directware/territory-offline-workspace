@@ -2,7 +2,6 @@ import {createAction, props} from '@ngrx/store';
 import {SettingsState} from './settings.reducer';
 
 export const LockApp = createAction('[Settings] lock app');
-export const UnlockSecretKey = createAction('[Settings] unlock secret key', props<{ secretKey: Uint8Array }>());
 export const UnlockApp = createAction('[Settings] unlock app');
 
 export const LoadSettings = createAction('[Settings] load settings');

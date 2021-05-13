@@ -4,8 +4,8 @@ import {environment} from '../../../environments/environment';
 import {select, Store} from '@ngrx/store';
 import {ApplicationState} from '../../core/store/index.reducers';
 import {selectSettings} from '../../core/store/settings/settings.selectors';
-import {catchError, concatMap, map, take, tap, withLatestFrom} from 'rxjs/operators';
-import {UnlockApp, UnlockSecretKey} from '../../core/store/settings/settings.actions';
+import {catchError, concatMap, first, map, take, tap, withLatestFrom} from 'rxjs/operators';
+import {UnlockApp} from '../../core/store/settings/settings.actions';
 import {Router} from '@angular/router';
 import {CryptoService} from '../../core/services/encryption/crypto.service';
 import {Actions, ofType} from '@ngrx/effects';
@@ -110,26 +110,13 @@ export class LockScreenComponent implements OnInit
 
     if (!!password)
     {
-      this.actions$.pipe(
-        ofType(UnlockSecretKey),
-        take(1),
-        tap(() => this.encryptingNow = this.translate.instant('lockScreen.decryptTags')),
-        tap(() => this.store.dispatch(LoadTags()))
-      ).subscribe();
-
       this.store
         .pipe(
           select(selectSettings),
-          take(1),
-          map(settings => this.cryptoService.decryptSecretKey(password, settings.encryptedSecretKey)),
-          tap(decryptedSecretKey => this.store.dispatch(UnlockSecretKey({secretKey: decryptedSecretKey}))),
-          tap(() =>
-          {
-            if (!environment.production)
-            {
-              localStorage.setItem(this.devPasswordKey, JSON.stringify(password));
-            }
-          })
+          first(),
+          map(settings => this.cryptoService.decryptSecretKey(password, settings.publicKey, settings.encryptedSecretKey)),
+          tap(() => this.encryptingNow = this.translate.instant('lockScreen.decryptTags')),
+          tap(() => this.store.dispatch(LoadTags()))
         ).subscribe();
     }
     else

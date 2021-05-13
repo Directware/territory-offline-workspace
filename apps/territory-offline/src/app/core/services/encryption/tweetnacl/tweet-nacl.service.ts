@@ -18,6 +18,12 @@ export class TweetNaclService
     this.CACHED_SECRET_KEY = secKey;
   }
 
+  public invalidateCaches()
+  {
+    this.CACHED_PUBLIC_KEY = null;
+    this.CACHED_SECRET_KEY = null;
+  }
+
   public checkPassword(passwordFromUserInput: string, savedPasswordHash: string): boolean
   {
     const passwordWithPadding = this.padToSecretBoxKeyLength(passwordFromUserInput);

@@ -4,7 +4,7 @@ import {first, map} from 'rxjs/operators';
 import {box, hash} from 'tweetnacl';
 import {encodeBase64} from 'tweetnacl-util';
 import {ApplicationState} from '../../store/index.reducers';
-import {selectPasswordHash, selectSettings} from '../../store/settings/settings.selectors';
+import {selectPasswordHash} from '../../store/settings/settings.selectors';
 import {Observable} from 'rxjs';
 import {TweetNaclService} from "./tweetnacl/tweet-nacl.service";
 import {TimedEntity} from "@territory-offline-workspace/shared-interfaces";
@@ -16,9 +16,6 @@ export class CryptoService
   constructor(private store: Store<ApplicationState>,
               private tweetNaclService: TweetNaclService)
   {
-    this.store
-      .pipe(select(selectSettings), first())
-      .subscribe((settings) => this.tweetNaclService.setCaches(settings.publicKey, settings.secretKey));
   }
 
   public isPasswordCorrect(passwordFromUserInput): Observable<boolean>
@@ -30,17 +27,20 @@ export class CryptoService
     );
   }
 
-  public decryptSecretKey(password: string, encryptedSecretKey: any): Uint8Array
+  public decryptSecretKey(password: string, publicKey: any, encryptedSecretKey: any): Uint8Array
   {
     const passwordAsUint8 = this.tweetNaclService.padToSecretBoxKeyLength(password);
     const decryptedSecretKey = this.tweetNaclService.sDecrypt(encryptedSecretKey, passwordAsUint8);
-    return stringToUint8Array(decryptedSecretKey);
+    const secretKey = stringToUint8Array(decryptedSecretKey);
+    this.tweetNaclService.setCaches(publicKey, secretKey);
+    return secretKey;
   }
 
   public generateInitialConfig(password: string)
   {
     const passwordAsUint8 = this.tweetNaclService.padToSecretBoxKeyLength(password);
     const keyPair = box.keyPair();
+    this.tweetNaclService.setCaches(keyPair.publicKey, keyPair.secretKey);
     return {
       hash: encodeBase64(hash(passwordAsUint8)),
       encryptedSecretKey: this.tweetNaclService.sEncrypt(keyPair.secretKey.toString(), passwordAsUint8),
