@@ -1,10 +1,12 @@
-const { app, BrowserWindow, shell } = require('electron');
-const { CapacitorSplashScreen, configCapacitor } = require('@capacitor/electron');
-const {ipcMain} = require('electron');
+const {app, BrowserWindow, shell} = require('electron');
+const {CapacitorSplashScreen, configCapacitor} = require('@capacitor/electron');
+const {ipcMain, dialog} = require('electron');
+const fs = require('fs');
 const path = require('path');
 
 /* App configs */
 app.allowRendererProcessReuse = true;
+const APP_DIR_PATH = `${app.getPath('home')}/territory-offline`;
 
 // Place holders for our windows so they don't get garbage collected.
 let mainWindow = null;
@@ -15,7 +17,7 @@ let splashScreen = null;
 //Change this if you do not wish to have a splash screen
 let useSplashScreen = true;
 
-async function createWindow () {
+async function createWindow() {
   // Define our main window size
   mainWindow = new BrowserWindow({
     height: 920,
@@ -32,13 +34,18 @@ async function createWindow () {
 
   configCapacitor(mainWindow);
 
-  if(useSplashScreen) {
+  if (useSplashScreen) {
     splashScreen = new CapacitorSplashScreen(mainWindow, {imageFileName: "splash.jpeg"});
     splashScreen.init(false);
   } else {
     mainWindow.loadURL(`file://${__dirname}/app/index.html`);
     mainWindow.webContents.on('dom-ready', () => {
       mainWindow.show();
+    });
+  }
+
+  if (!fs.existsSync(path)) {
+    fs.mkdir(APP_DIR_PATH, () => {
     });
   }
 
@@ -70,26 +77,50 @@ app.on('activate', function () {
 });
 
 // Define any IPC or other custom functionality below here
-function ipcMainListeners()
-{
+function ipcMainListeners() {
   console.log("init ipc main listeners");
   ipcMain.on('getSystemInfo', (e) => mainWindow.webContents.send('systemInfo', {
     baseDir: __dirname
   }));
 
-  ipcMain.on('print', (e) =>
-  {
+  ipcMain.on('print', (e) => {
     mainWindow.webContents.print();
   });
 
-  ipcMain.on('downloadNewAppVersion', (e, msg) =>
-  {
+  ipcMain.on('save-file', (e, msg) => {
+    const path = msg.data.subPath ? `${APP_DIR_PATH}/${msg.data.subPath}` : APP_DIR_PATH;
+    const filePath = `${path}/${msg.data.fileName}`;
+
+    const createFile = () => {
+      fs.writeFile(filePath, Buffer.from(msg.data.file, 'base64'), (error) => {
+        if (error) {
+          dialog.showErrorBox("Error", `${msg.data.fileName} could not be saved!`)
+        } else {
+          shell.showItemInFolder(filePath);
+        }
+      });
+    }
+
+    if (!fs.existsSync(path)) {
+      fs.mkdir(path, (error) => {
+        if (error) {
+          dialog.showErrorBox("Error", `${msg.data.fileName} could not be saved!`)
+        } else {
+          createFile();
+        }
+      });
+      return;
+    }
+
+    createFile();
+  });
+
+  ipcMain.on('downloadNewAppVersion', (e, msg) => {
     shell.openExternal(msg.data.currentOsDownloadUrl).catch(() => alert(`Fehler beim Herunterladen von Version ${info.version}`));
   });
 
-  ipcMain.on('restartTerritoryOffline', (e, info) =>
-  {
-    app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
+  ipcMain.on('restartTerritoryOffline', (e, info) => {
+    app.relaunch({args: process.argv.slice(1).concat(['--relaunch'])})
     app.exit(0)
   });
 }

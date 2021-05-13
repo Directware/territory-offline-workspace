@@ -32,3 +32,13 @@ Daten werden beim Start bzw. entsperren der App komplett aus der DB geladen und 
 ## Mobile
 
 TODO
+
+Use cases beschreiben
+- z.B. Backup exportieren, Verkündiger anlegen, Gebiet zuweisen, etc
+
+Wie sieht die Architektur aus?
+- Es reicht ein Bild auf Papier 
+
+Welche Daten werden verarbeitet?
+- Feingranular
+

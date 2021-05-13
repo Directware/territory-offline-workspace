@@ -24,4 +24,13 @@ export class IpcService
 
     return true;
   }
+
+  public async sendFileSave(data: {fileName: string, subPath: string, data: any})
+  {
+    window.postMessage({
+      isIpcMessage: true,
+      channel: "file-save",
+      data
+    }, "*");
+  }
 }

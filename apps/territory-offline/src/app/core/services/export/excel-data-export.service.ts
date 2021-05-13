@@ -21,7 +21,9 @@ import * as moment from "moment";
 })
 export class ExcelDataExportService
 {
-  constructor(private store: Store<ApplicationState>, private platformAgnosticActionsService: PlatformAgnosticActionsService, private translate: TranslateService)
+  constructor(private store: Store<ApplicationState>,
+              private platformAgnosticActionsService: PlatformAgnosticActionsService,
+              private translate: TranslateService)
   {
   }
 

@@ -59,6 +59,6 @@ export class DataExportService
   {
     const data = await this.exportAll();
     const fileName = await this.getFileName();
-    await this.platformAgnosticActionsService.share(data, fileName);
+    await this.platformAgnosticActionsService.share(data, fileName, "backup");
   }
 }
