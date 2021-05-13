@@ -13,11 +13,14 @@
         </span>
       </p>
 
-      <div *ngIf="settings.releaseInfo && settings.releaseInfo.newReleaseExists" class="new-version body-white"
-           (click)="downloadNewRelease(settings.releaseInfo)">
-        {{ 'settings.versionAvailable' | translate:{ version: settings.releaseInfo.version } }}
-        <i-feather name="download"></i-feather>
-      </div>
+      <ng-container *ngIf="(releaseInfo$ | async) as releaseInfo">
+        <div *ngIf="releaseInfo.shouldUpdate" class="new-version body-white"
+             (click)="downloadNewRelease(releaseInfo)">
+          {{ 'settings.versionAvailable' | translate:{ version: releaseInfo.version } }}
+          <i-feather name="download"></i-feather>
+        </div>
+      </ng-container>
+
     </div>
   </app-panel>
   <div class="scrollable-wrapper">

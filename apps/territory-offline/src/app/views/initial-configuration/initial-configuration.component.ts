@@ -109,7 +109,6 @@ export class InitialConfigurationComponent implements OnInit
       processingBreakInMonths: 4,
       overdueBreakInMonths: 8,
       autoAppLockingInMinutes: 0,
-      releaseInfo: null,
       appLanguage: systemLang
     };
 

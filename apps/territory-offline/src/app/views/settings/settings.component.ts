@@ -18,6 +18,7 @@ import {ToUpdatesService} from "../../core/services/common/to-updates.service";
 import {ToLanguage} from "@territory-offline-workspace/ui-components";
 import {AVAILABLE_LANGUAGES} from "../../core/i18n/all.i18n";
 import {Plugins} from "@capacitor/core";
+import {ReleaseInfo} from "@territory-offline-workspace/shared-interfaces";
 const {Browser} = Plugins;
 
 @Component({
@@ -29,6 +30,7 @@ export class SettingsComponent implements OnInit
 {
   public settings$: Observable<SettingsState>;
   public version: string = version;
+  public releaseInfo$: Observable<ReleaseInfo>
   public initialLangList: string[];
 
   constructor(private router: Router,
@@ -44,6 +46,7 @@ export class SettingsComponent implements OnInit
 
   public ngOnInit(): void
   {
+    this.releaseInfo$ = this.toUpdatesService.getReleaseInfo();
     this.settings$ = this.store.pipe(select(selectSettings));
     this.initialLangList = AVAILABLE_LANGUAGES.map(lang => lang.key);
     this.router.navigate([{outlets: {'second-thread': null}}]);
@@ -66,7 +69,7 @@ export class SettingsComponent implements OnInit
 
   public async checkUpdates()
   {
-    const releaseInfo = await this.toUpdatesService.considerToGetReleaseInfos();
+    const releaseInfo = await this.toUpdatesService.getReleaseInfo().toPromise();
 
     if (releaseInfo.hasError)
     {
@@ -74,7 +77,7 @@ export class SettingsComponent implements OnInit
       return;
     }
 
-    if (!releaseInfo.newReleaseExists)
+    if (!releaseInfo.shouldUpdate)
     {
       this.translate.get("settings.alreadyLatestVersion").pipe(take(1)).subscribe((translation: string) => alert(translation))
     }
@@ -99,19 +102,6 @@ export class SettingsComponent implements OnInit
   public downloadNewRelease(release)
   {
     this.ipcService.send('downloadNewAppVersion', {...release});
-    this.store.pipe(
-      select(selectSettings),
-      take(1),
-      tap((settings) =>
-      {
-        this.store.dispatch(UpsertSettings({
-          settings: {
-            ...settings,
-            releaseInfo: null
-          }
-        }));
-      })
-    ).subscribe();
   }
 
   public openChangelogDialog()

@@ -21,7 +21,6 @@ export interface SettingsState
   processingBreakInMonths: number; // Kann zugeteilt werden nach
   overdueBreakInMonths: number; // Zuteilung überfällig nach
   autoAppLockingInMinutes: number;
-  releaseInfo: any;
   appLanguage: ToLanguage;
 }
 
@@ -38,7 +37,6 @@ const initialState = {
   processingBreakInMonths: 4,
   overdueBreakInMonths: 4,
   autoAppLockingInMinutes: 0,
-  releaseInfo: null,
   appLanguage: null
 };
 

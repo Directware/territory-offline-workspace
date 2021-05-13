@@ -5,6 +5,7 @@ export interface ReleaseInfo
   macFileName: string;
   linuxFileName: string;
   creation: string;
+  shouldUpdate?: boolean;
   currentOsDownloadUrl?: string;
   hasError?: boolean;
 }

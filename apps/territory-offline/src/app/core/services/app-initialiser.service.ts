@@ -4,8 +4,6 @@ import {Store} from '@ngrx/store';
 import {take, tap} from 'rxjs/operators';
 import {ApplicationState} from '../store/index.reducers';
 import {LoadSettings, LoadSettingsSuccess} from '../store/settings/settings.actions';
-import {ToUpdatesService} from './common/to-updates.service';
-import {SettingsState} from '../store/settings/settings.reducer';
 import {DataSecurityService} from "./common/data-security.service";
 import {DatabaseService} from "./db/database.service";
 import {SettingsDatabaseService} from "./db/settings-database.service";
@@ -16,7 +14,6 @@ import {logger} from "@territory-offline-workspace/shared-utils";
 export class AppInitializerService
 {
   constructor(private store: Store<ApplicationState>,
-              private toUpdatesService: ToUpdatesService,
               private dataSecurityService: DataSecurityService,
               private settingsDatabaseService: SettingsDatabaseService,
               private databaseService: DatabaseService,
@@ -59,21 +56,11 @@ export class AppInitializerService
 
   private logNgrxActions()
   {
-    if(environment.consoleLogNgrxActions)
+    if (environment.consoleLogNgrxActions)
     {
       this.actions$.pipe(
         tap((action) => console.log(`[NGRX - ${action.type}]: ${JSON.stringify(action)}`))
       ).subscribe();
-    }
-  }
-
-  private considerToGetReleaseInfos(settings: SettingsState)
-  {
-    // FIXME wenn man es hier aufruft ist unter umständen die App gelockt obwohl sie gerade unlocked wurde
-
-    if (settings && settings.initialConfigurationDone)
-    {
-      this.toUpdatesService.considerToGetReleaseInfos();
     }
   }
 }

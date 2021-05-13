@@ -23,11 +23,6 @@ export const selectPasswordHash = createSelector(
   (settings) => settings.passwordHash
 );
 
-export const newReleaseAvailable = createSelector(
-  selectSettings,
-  (settings) => !!settings.releaseInfo && settings.releaseInfo.newReleaseExists
-);
-
 export const selectCurrentCongregationId = createSelector(
   selectSettings,
   (settings) => settings.currentCongregationId

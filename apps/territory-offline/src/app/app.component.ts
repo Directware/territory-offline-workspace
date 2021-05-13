@@ -5,16 +5,13 @@ import {LockApp} from './core/store/settings/settings.actions';
 import {RouterOutlet} from '@angular/router';
 import {lockScreenAnimations} from './core/animations/lock-screen-route-animation';
 import {Observable} from 'rxjs';
-import {
-  newReleaseAvailable,
-  selectInitialConfigurationDone,
-  selectIsAppLocked
-} from './core/store/settings/settings.selectors';
+import {selectInitialConfigurationDone, selectIsAppLocked} from './core/store/settings/settings.selectors';
 import {map, tap} from 'rxjs/operators';
 import {Actions, ofType} from '@ngrx/effects';
 import {TerritoryMapsService} from './core/services/territory/territory-maps.service';
 import {BulkImportDrawingsSuccess, LoadDrawingsSuccess} from './core/store/drawings/drawings.actions';
 import {DataImportService} from './core/services/import/data-import.service';
+import {ToUpdatesService} from "./core/services/common/to-updates.service";
 
 @Component({
   selector: 'territory-offline-workspace-root',
@@ -33,6 +30,7 @@ export class AppComponent implements OnInit, AfterViewInit
 
   constructor(private store: Store<ApplicationState>,
               private dataImportService: DataImportService,
+              private toUpdatesService: ToUpdatesService,
               private actions$: Actions,
               private territoryMapsService: TerritoryMapsService)
   {
@@ -40,7 +38,7 @@ export class AppComponent implements OnInit, AfterViewInit
 
   public ngOnInit(): void
   {
-    this.newRelease$ = this.store.pipe(select(newReleaseAvailable));
+    this.newRelease$ = this.toUpdatesService.getReleaseInfo().pipe(map(ri => ri.shouldUpdate));
 
     this.appAlreadyConfigured$ = this.store.pipe(
       select(selectInitialConfigurationDone),

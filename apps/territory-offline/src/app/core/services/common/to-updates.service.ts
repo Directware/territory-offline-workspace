@@ -1,70 +1,43 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {catchError, map, take, tap} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 
 import {version as currentVersion} from './../../../../../package.json';
 import {environment} from '../../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {select, Store} from '@ngrx/store';
-import {selectSettings} from '../../store/settings/settings.selectors';
-import {UpsertSettings} from '../../store/settings/settings.actions';
-import {ApplicationState} from '../../store/index.reducers';
 import {OsNames, ReleaseInfo} from "@territory-offline-workspace/shared-interfaces";
+import {compareVersions} from "@territory-offline-workspace/shared-utils";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToUpdatesService
 {
-  constructor(private httpClient: HttpClient,
-              private store: Store<ApplicationState>)
+  private releaseInfo: ReleaseInfo;
+
+  constructor(private httpClient: HttpClient)
   {
-    // const isNewer = this.isVersionAGreater("2.1.10", "2.1.9");
-    // const isNewer = this.isVersionAGreater("2.1.9", "2.1.8");
-    // const isNewer = this.isVersionAGreater("2.2.9", "2.1.10");
-    // console.log("ToUpdatesService", isNewer);
   }
 
-  public async considerToGetReleaseInfos(): Promise<{newReleaseExists: boolean, version: string, hasError: boolean}>
+  public getReleaseInfo(): Observable<ReleaseInfo>
   {
-    const releaseInfo = await this.getCurrentReleaseInfos()
-      .pipe(
-        take(1),
-        map(resp => ({
-            newReleaseExists: this.isVersionAGreater(resp.version, currentVersion),
-            version: resp.version,
-            currentOsDownloadUrl: resp.currentOsDownloadUrl,
-            hasError: resp.hasError
-          })
-        )
-      ).toPromise();
+    if (!this.releaseInfo)
+    {
+      return this.getReleaseInfoFromServer()
+        .pipe(
+          map(ri => this.enrichReleaseInfo(ri)),
+          tap(ri => this.releaseInfo = ri)
+        );
+    }
 
-    this.updateStore(releaseInfo);
-    return releaseInfo;
+    return of(this.releaseInfo);
   }
 
-  private getCurrentReleaseInfos(): Observable<ReleaseInfo>
+  private getReleaseInfoFromServer(): Observable<ReleaseInfo>
   {
     return this.httpClient
       .get<ReleaseInfo>(`${environment.releasesHost}/current-release.json`)
       .pipe(
-        map((resp) =>
-        {
-          switch (this.getOS())
-          {
-            case OsNames.MACOS:
-              resp.currentOsDownloadUrl = `${environment.releasesHost}/${resp.macFileName}`;
-              break;
-            case OsNames.WIN64:
-              resp.currentOsDownloadUrl = `${environment.releasesHost}/${resp.winFileName}`;
-              break;
-            case OsNames.LINUX:
-              resp.currentOsDownloadUrl = `${environment.releasesHost}/${resp.linuxFileName}`;
-              break;
-          }
-
-          return resp;
-        }),
         catchError(error =>
         {
           console.warn(`Could not get current release info.`, error);
@@ -73,80 +46,26 @@ export class ToUpdatesService
       );
   }
 
-  private isVersionAGreater(version_a, version_b)
+  private enrichReleaseInfo(releaseInfo: ReleaseInfo): ReleaseInfo
   {
-    if (!version_a || !version_b)
+    let currentOsDownloadUrl;
+    switch (this.getOS())
     {
-      return false;
-    }
-    // compares version_a as it relates to version_b
-    // a = b => "same"
-    // a > b => "larger"
-    // a < b => "smaller"
-    // NaN   => "invalid"
-
-    const arr_a = version_a.split('.');
-    const arr_b = version_b.split('.');
-
-    let result = 'same'; // initialize to same // loop tries to disprove
-
-    // loop through a and check each number against the same position in b
-    for (let i = 0; i < arr_a.length; i++)
-    {
-      let a = parseInt(arr_a[i], 10);
-      let b = parseInt(arr_b[i], 10);
-
-      // same up to this point so if a is not there, a is smaller
-      if (typeof a === 'undefined')
-      {
-        result = 'smaller';
+      case OsNames.MACOS:
+        currentOsDownloadUrl = `${environment.releasesHost}/${releaseInfo.macFileName}`;
         break;
-
-        // same up to this point so if b is not there, a is larger
-      }
-      else if (typeof b === 'undefined')
-      {
-        result = 'larger';
+      case OsNames.WIN64:
+        currentOsDownloadUrl = `${environment.releasesHost}/${releaseInfo.winFileName}`;
         break;
-
-        // otherwise, compare the two numbers
-      }
-      else
-      {
-        // non-positive numbers are invalid
-        if (a >= 0 && b >= 0)
-        {
-          if (a < b)
-          {
-            result = 'smaller';
-            break;
-          }
-          else if (a > b)
-          {
-            result = 'larger';
-            break;
-          }
-        }
-        else
-        {
-          result = 'invalid';
-          break;
-        }
-      }
+      case OsNames.LINUX:
+        currentOsDownloadUrl = `${environment.releasesHost}/${releaseInfo.linuxFileName}`;
+        break;
     }
 
-    // account for the case where the loop ended but there was still a position in b to evaluate
-    if (result === 'same' && arr_b.length > arr_a.length)
-    {
-      result = 'smaller';
-    }
-
-    switch (result)
-    {
-      case "larger":
-        return true;
-      default:
-        return false;
+    return {
+      ...releaseInfo,
+      shouldUpdate: compareVersions(releaseInfo.version, currentVersion),
+      currentOsDownloadUrl
     }
   }
 
@@ -182,23 +101,5 @@ export class ToUpdatesService
     }
 
     return os;
-  }
-
-  private updateStore(releaseInfo)
-  {
-    console.log("ja?");
-    this.store.pipe(
-      select(selectSettings),
-      take(1),
-      tap((settings) =>
-      {
-        this.store.dispatch(UpsertSettings({
-          settings: {
-            ...settings,
-            releaseInfo: releaseInfo
-          }
-        }));
-      })
-    ).subscribe();
   }
 }
