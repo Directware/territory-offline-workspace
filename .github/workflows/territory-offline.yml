@@ -27,7 +27,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           npm ci
-          npm run test:territory-offline:prod
+          # npm run test:territory-offline:prod
           npm run build:territory-offline:prod
 
       - name: Archive production artifacts
@@ -42,13 +42,14 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - name: Download Oerritory Offline artifact
+      - name: Download Territory Offline artifact
         uses: actions/download-artifact@v2
         with:
           name: territory-offline-dist
           path: dist
 
       - name: Build release
+        uses: actions/checkout@v2
         run: |
           cd ./apps/territory-offline/
           npm run capacitor:copy
