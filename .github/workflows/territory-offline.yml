@@ -27,7 +27,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           npm ci
-          # npm run test:territory-offline:prod
+          npm run test:territory-offline:prod
           npm run build:territory-offline:prod
 
       - name: Archive production artifacts
