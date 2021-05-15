@@ -42,6 +42,7 @@ jobs:
     runs-on: macos-latest
 
     steps:
+      - uses: actions/checkout@v2
       - name: Download Territory Offline artifact
         uses: actions/download-artifact@v2
         with:
@@ -49,7 +50,6 @@ jobs:
           path: dist
 
       - name: Build release
-        uses: actions/checkout@v2
         run: |
           cd ./apps/territory-offline/
           npm run capacitor:copy
