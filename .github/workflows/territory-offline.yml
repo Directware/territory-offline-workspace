@@ -51,7 +51,9 @@ jobs:
 
       - name: Build release
         run: |
+          npm install @capacitor/cli
           cd ./apps/territory-offline/
           npm run capacitor:copy
           cd ./electron
+          npm run ci
           npm run dist:all
