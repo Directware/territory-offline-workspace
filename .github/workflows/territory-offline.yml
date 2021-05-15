@@ -1,0 +1,56 @@
+name: CI - Territory Offline
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ release/territory-offline ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-node@v2
+        with:
+         node-version: '12'
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Run a multi-line script
+        run: |
+          npm ci
+          npm run test:territory-offline:prod
+          npm run build:territory-offline:prod
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: territory-offline-dist
+          path: apps/territory-offline/dist/territory-offline/
+          if-no-files-found: error
+
+  deploy:
+    needs: build
+    runs-on: macos-latest
+
+    steps:
+      - name: Download Oerritory Offline artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: territory-offline-dist
+          path: dist
+
+      - name: Build release
+        run: |
+          cd ./apps/territory-offline/
+          npm run capacitor:copy
+          cd ./electron
+          npm run dist:all
