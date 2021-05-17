@@ -2,9 +2,9 @@ name: CI - Territory Offline
 
 on:
   push:
-    branches: [ develop ]
+    #branches: [ develop ]
   pull_request:
-    branches: [ release/territory-offline ]
+    #branches: [ release/territory-offline ]
 
   workflow_dispatch:
 
