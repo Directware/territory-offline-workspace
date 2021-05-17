@@ -1,8 +1,6 @@
 name: CI - Territory Offline
 
 on:
-  push:
-    branches: [ disabled ]
   pull_request:
     branches: [ release/territory-offline ]
 
