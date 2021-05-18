@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {concatMap, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
+import {concatMap, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {from, of} from 'rxjs';
 import {DatabaseService} from '../../services/db/database.service';
 import {
@@ -28,7 +28,6 @@ import {
 import {selectTerritoryById} from "../territories/territories.selectors";
 import {LastDoingsService} from "../../services/common/last-doings.service";
 import {UpdateStatusOfDrawings} from "../drawings/drawings.actions";
-import {TerritoryMapsService} from "../../services/territory/territory-maps.service";
 
 @Injectable({providedIn: 'root'})
 export class AssignmentsEffects
@@ -92,7 +91,7 @@ export class AssignmentsEffects
 
   /* Others */
 
-  public test = createEffect(() => this.actions$.pipe(
+  public onUpsertAssignmentSuccess = createEffect(() => this.actions$.pipe(
     ofType(UpsertAssignmentSuccess),
     concatMap((action) => of(action).pipe(
       withLatestFrom(this.store.pipe(select(selectTerritoryById, action.assignment.territoryId)))
@@ -101,17 +100,18 @@ export class AssignmentsEffects
     {
       const lastDoingAction = action.assignment.endTime ? LastDoingActionsEnum.ASSIGN_RETURN : LastDoingActionsEnum.ASSIGN;
       this.lastDoingsService.createLastDoing(lastDoingAction, `${territory.key} ${territory.name}`);
-      this.territoryMapsService.focusOnDrawingIds(null);
-      this.territoryMapsService.focusOnDrawingIds(null);
-
       return UpdateStatusOfDrawings();
     })
+  ))
+
+  public onDeleteAssignmentSuccess = createEffect(() => this.actions$.pipe(
+    ofType(DeleteAssignmentSuccess),
+    map(() => UpdateStatusOfDrawings())
   ))
 
   constructor(private actions$: Actions,
               private store: Store<ApplicationState>,
               private lastDoingsService: LastDoingsService,
-              private territoryMapsService: TerritoryMapsService,
               private database: DatabaseService)
   {
   }

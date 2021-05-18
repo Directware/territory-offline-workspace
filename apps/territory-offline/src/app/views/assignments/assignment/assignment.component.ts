@@ -1,4 +1,3 @@
-import {TranslateService} from '@ngx-translate/core';
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
@@ -16,7 +15,6 @@ import {
 import {Actions, ofType} from '@ngrx/effects';
 import {LastDoingsService} from "../../../core/services/common/last-doings.service";
 import {DatePipe} from "@angular/common";
-import {TerritoryMapsService} from "../../../core/services/territory/territory-maps.service";
 import {AssignmentsService} from "../../../core/services/assignment/assignments.service";
 import {Assignment} from "@territory-offline-workspace/shared-interfaces";
 
@@ -41,10 +39,8 @@ export class AssignmentComponent implements OnInit
               private router: Router,
               private datePipe: DatePipe,
               private lastDoingsService: LastDoingsService,
-              private territoryMapsService: TerritoryMapsService,
               private assignmentService: AssignmentsService,
-              private activatedRoute: ActivatedRoute,
-              private translate: TranslateService)
+              private activatedRoute: ActivatedRoute)
   {
   }
 
