@@ -14,3 +14,7 @@ export const DeleteDrawing = createAction('[Drawings] delete drawing', props<{ d
 export const DeleteDrawingSuccess = createAction('[Drawings] delete drawing success', props<{ drawing: Drawing }>());
 
 export const SaveDrawingPrintAlignmentConfiguration = createAction('[Drawings] save drawing print alignment configuration', props<{ drawingId: string, config: TerritoryDrawingPrintConfiguration }>());
+
+/* Others */
+
+export const UpdateStatusOfDrawings = createAction('[Drawings] update status of drawings');

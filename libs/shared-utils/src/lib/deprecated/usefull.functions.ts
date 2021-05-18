@@ -1,5 +1,5 @@
 import * as moment from "moment";
-import {Assignment, Drawing, TerritoryStatus} from "@territory-offline-workspace/shared-interfaces";
+import {Assignment, Drawing, Territory, TerritoryStatus} from "@territory-offline-workspace/shared-interfaces";
 
 export function logger(message: string, ...args: any)
 {
@@ -43,6 +43,26 @@ export function createDurationPhrase(startDate: Date)
     return durationPhrase;
   }
   return "-";
+}
+
+export function evaluateDrawingProperties(props, drawing: Drawing, territories: Territory[], lastAssignments: Assignment[], settings): { [name: string]: any } | any
+{
+  const territory = territories.filter(t => t.territoryDrawingId === drawing.id)[0];
+  const assignment = lastAssignments.filter(a => a.territoryId === territory.id)[0];
+  const isAssigned = assignment && !assignment.endTime;
+
+  if(territory)
+  {
+    return {
+      ...props,
+      ...evaluateTerritoryStatus(assignment, settings),
+      isAssigned,
+      description: territory.key,
+      durationPhrase: `${territory.key} (${assignment ? createDurationPhrase(isAssigned ? assignment.startTime : assignment.endTime) : "-"})`
+    }
+  }
+
+  return {...props};
 }
 
 export function evaluateTerritoryStatus(assignment: Assignment, settings: any)

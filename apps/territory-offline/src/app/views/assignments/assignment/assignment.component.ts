@@ -1,4 +1,4 @@
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
@@ -15,11 +15,10 @@ import {
 } from '../../../core/store/assignments/assignments.actions';
 import {Actions, ofType} from '@ngrx/effects';
 import {LastDoingsService} from "../../../core/services/common/last-doings.service";
-import {selectTerritoryById} from "../../../core/store/territories/territories.selectors";
 import {DatePipe} from "@angular/common";
 import {TerritoryMapsService} from "../../../core/services/territory/territory-maps.service";
 import {AssignmentsService} from "../../../core/services/assignment/assignments.service";
-import {Assignment, LastDoingActionsEnum, Territory} from "@territory-offline-workspace/shared-interfaces";
+import {Assignment} from "@territory-offline-workspace/shared-interfaces";
 
 @Component({
   selector: 'app-assignment',
@@ -66,7 +65,6 @@ export class AssignmentComponent implements OnInit
     this.actions$.pipe(
       ofType(UpsertAssignmentSuccess),
       take(1),
-      tap((action) => this.createLastDoing(action.assignment)),
       tap((action) =>
       {
         if (this.sendToPublisher)
@@ -74,7 +72,6 @@ export class AssignmentComponent implements OnInit
           this.assignmentService.sendToPublisher(action.assignment);
         }
       }),
-      tap((action) => this.territoryMapsService.updateDrawingStatus()),
       tap(() => this.back())
     ).subscribe();
 
@@ -131,33 +128,5 @@ export class AssignmentComponent implements OnInit
       statusColor: [a ? a.statusColor : ''],
       creationTime: [a && a.creationTime ? a.creationTime : new Date()]
     });
-  }
-
-  private createLastDoing(assignment: Assignment)
-  {
-    this.store
-      .pipe(
-        select(selectTerritoryById, this.activatedRoute.snapshot.params.territoryId),
-        take(1),
-        tap((territory: Territory) =>
-        {
-          if (this.isCreation)
-          {
-            this.lastDoingsService.createLastDoing(LastDoingActionsEnum.ASSIGN, territory.key + " " + territory.name);
-          }
-          else if (!this.isCreation && this.existsButNotReturned)
-          {
-            this.lastDoingsService.createLastDoing(LastDoingActionsEnum.ASSIGN_RETURN, territory.key + " " + territory.name);
-          }
-          else
-          {
-            this.translate.get('assignments.title').pipe(take(1)).subscribe((translation: string) => {
-              const date = this.datePipe.transform(assignment.startTime, "dd.MM.yyyy");
-              const label = `${translation} (${date}) ${territory.key} ${territory.name}`;
-              this.lastDoingsService.createLastDoing(LastDoingActionsEnum.UPDATE, label);
-            });
-          }
-        })
-      ).subscribe();
   }
 }

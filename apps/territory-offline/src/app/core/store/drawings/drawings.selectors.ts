@@ -2,10 +2,16 @@ import {ApplicationState} from '../index.reducers';
 import {createSelector} from '@ngrx/store';
 import {drawingsAdapter} from './drawings.reducer';
 import {selectLastAssignmentOfEachTerritory} from "../assignments/assignments.selectors";
-import {selectAllTerritories} from "../territories/territories.selectors";
+import {selectAllTerritories, selectAllTerritoryEntities} from "../territories/territories.selectors";
 import {selectSettings} from "../settings/settings.selectors";
 import {selectCurrentCongregation} from "../congregation/congregations.selectors";
-import {createDurationPhrase, evaluateTerritoryStatus, mergeDrawings} from "@territory-offline-workspace/shared-utils";
+import {
+  createDurationPhrase,
+  evaluateDrawingProperties,
+  evaluateTerritoryStatus,
+  mergeDrawings
+} from "@territory-offline-workspace/shared-utils";
+import {Drawing} from "@territory-offline-workspace/shared-interfaces";
 
 export const selectDrawingsFeature = (state: ApplicationState) => state.drawings;
 
@@ -26,29 +32,39 @@ export const selectAllDrawings = createSelector(
   selectLastAssignmentOfEachTerritory,
   selectAllTerritories,
   selectSettings,
-  (drawings, lastAssignmentOfEachTerritory, territories, settings) =>
+  (drawings, lastAssignmentOfEachTerritory, territories, settings): Drawing[] =>
   {
-    territories.forEach((territory) =>
+    if (drawings)
     {
-      const _drawings = drawings.filter(d => d.id === territory.territoryDrawingId);
-      const _assignment = lastAssignmentOfEachTerritory.filter(a => a.territoryId === territory.id)[0];
-      const isAssigned = !!_assignment && !_assignment.endTime;
+      return drawings
+        .filter(d =>
+        {
+          const isNotNull = !!d;
+          const hasFeatureCollection = !!d?.featureCollection;
+          const hasFeatures = !!d?.featureCollection?.features && d?.featureCollection?.features.length > 0;
+          const hasReferenceToTerritory = !!territories.filter(t => t.territoryDrawingId === d?.id)[0]
 
-      if(_drawings)
-      {
-        /*
-        _drawings.forEach(d => d.featureCollection.features.forEach(f => f.properties = {
-          ...f.properties,
-          ...evaluateTerritoryStatus(_assignment, settings),
-          isAssigned: isAssigned,
-          description: territory.key,
-          durationPhrase: `${territory.key} (${_assignment ? createDurationPhrase(isAssigned ? _assignment.startTime : _assignment.endTime) : "-"})`
-        }))
-        */
-      }
-    });
+          return isNotNull && hasFeatureCollection && hasFeatures && hasReferenceToTerritory;
+        })
+        .map(drawing => ({
+          ...drawing,
+          featureCollection: {
+            ...drawing.featureCollection,
+            features: drawing.featureCollection.features.map(f => ({
+              ...f,
+              properties: evaluateDrawingProperties(
+                f.properties,
+                drawing,
+                territories,
+                lastAssignmentOfEachTerritory,
+                settings
+              )
+            }))
+          }
+        }));
+    }
 
-    return drawings;
+    return [];
   }
 );
 

@@ -5,9 +5,7 @@ import {UpsertAssignment, UpsertAssignmentSuccess} from './../../../core/store/a
 import {v4 as uuid} from 'uuid';
 import {Actions, ofType} from '@ngrx/effects';
 import {first, take, tap} from 'rxjs/operators';
-import {LastDoingsService} from "../common/last-doings.service";
 import {selectTerritoryById} from "../../store/territories/territories.selectors";
-import {TerritoryMapsService} from "../territory/territory-maps.service";
 import {ApplicationState} from "../../store/index.reducers";
 import {selectPublisherById} from "../../store/publishers/publishers.selectors";
 import {Plugins} from '@capacitor/core';
@@ -19,7 +17,6 @@ import {SettingsState} from "../../store/settings/settings.reducer";
 import {
   Assignment,
   ExportableTypesEnum,
-  LastDoingActionsEnum,
   Publisher,
   Territory,
   TerritoryCard
@@ -27,6 +24,8 @@ import {
 import {UpsertVisitBan} from "../../store/visit-bans/visit-bans.actions";
 import {selectLastAssignmentOfEachTerritory} from "../../store/assignments/assignments.selectors";
 import {PlatformAgnosticActionsService} from "../common/platform-agnostic-actions.service";
+import {TerritoryMapsService} from "../territory/territory-maps.service";
+
 const {Device} = Plugins;
 
 @Injectable({
@@ -35,9 +34,8 @@ const {Device} = Plugins;
 export class AssignmentsService
 {
   constructor(private store: Store<ApplicationState>,
-              private lastDoingsService: LastDoingsService,
-              private territoryMapsService: TerritoryMapsService,
               private actions$: Actions,
+              private territoryMapsService: TerritoryMapsService,
               private platformAgnosticActionsService: PlatformAgnosticActionsService,
               private translate: TranslateService)
   {
@@ -68,7 +66,7 @@ export class AssignmentsService
 
     const gzippedData = Pako.gzip(JSON.stringify(digitalTerritoryCard), {to: "string"});
 
-    this.platformAgnosticActionsService.share(gzippedData,`${territory.key} ${territory.name}.territory`, "territory-cards");
+    this.platformAgnosticActionsService.share(gzippedData, `${territory.key} ${territory.name}.territory`, "territory-cards");
 
     if (deviceInfo.platform !== "ios" && deviceInfo.platform !== "android")
     {
@@ -81,16 +79,12 @@ export class AssignmentsService
 
   public giveBackNow(assignment: Assignment)
   {
-    this.translate.get('assignments.return').pipe(take(1)).subscribe((translation: string) =>
-    {
-      const resp = confirm(translation);
+    const resp = confirm(this.translate.instant('assignments.return'));
 
-      if (resp)
-      {
-        this.createLastDoingAndUpdateStatus(assignment, LastDoingActionsEnum.ASSIGN_RETURN);
-        this.giveBack(assignment);
-      }
-    })
+    if (resp)
+    {
+      this.giveBack(assignment);
+    }
   }
 
   public async giveBackFromFieldCompanion(territoryCard: TerritoryCard)
@@ -100,50 +94,53 @@ export class AssignmentsService
       name: territoryCard.territory.name
     }).pipe(first()).toPromise();
 
-    const resp = confirm(translation);
-    if (resp)
+    this.territoryMapsService.focusOnDrawingIds([territoryCard.territory.territoryDrawingId], async () =>
     {
-      const assignments = await this.store.pipe(select(selectLastAssignmentOfEachTerritory), first()).toPromise();
-      const assignment = assignments.filter((a: Assignment) => a.territoryId === territoryCard.territory.id)[0];
-
-      if (territoryCard.assignment.publisherId === assignment.publisherId)
+      const resp = confirm(translation);
+      if (resp)
       {
-        this.createLastDoingAndUpdateStatus(assignment, LastDoingActionsEnum.ASSIGN_RETURN);
-        this.giveBack(assignment);
-        territoryCard.visitBans.forEach(visitBan => this.store.dispatch(UpsertVisitBan({visitBan})));
+        const assignments = await this.store.pipe(select(selectLastAssignmentOfEachTerritory), first()).toPromise();
+        const assignment = assignments.filter((a: Assignment) => a.territoryId === territoryCard.territory.id)[0];
+
+        if (territoryCard.assignment.publisherId === assignment.publisherId)
+        {
+          this.giveBack(assignment);
+          territoryCard.visitBans.forEach(visitBan => this.store.dispatch(UpsertVisitBan({visitBan})));
+          this.territoryMapsService.focusOnDrawingIds(null);
+        }
+        else
+        {
+          alert(`Fehler!`);
+        }
       }
       else
       {
-          alert(`Fehler!`);
-      }
-    }
-  }
-
-  public giveBackAndAssign(assignment: Assignment)
-  {
-    this.translate.get('assignments.proceed').pipe(take(1)).subscribe((translation: string) =>
-    {
-      const resp = confirm(translation);
-
-      if (resp)
-      {
-        this.actions$.pipe(
-          ofType(UpsertAssignmentSuccess),
-          take(1),
-          tap(() => this.createLastDoingAndUpdateStatus(assignment, LastDoingActionsEnum.REASSIGN)),
-          tap(() => this.store.dispatch(UpsertAssignment({
-            assignment: {
-              ...assignment,
-              id: uuid(),
-              startTime: new Date(),
-              endTime: null
-            }
-          })))
-        ).subscribe();
-
-        this.giveBack(assignment);
+        this.territoryMapsService.focusOnDrawingIds(null);
       }
     });
+  }
+
+  public async giveBackAndAssign(assignment: Assignment)
+  {
+    const resp = confirm(this.translate.instant('assignments.proceed'));
+
+    if (resp)
+    {
+      this.actions$.pipe(
+        ofType(UpsertAssignmentSuccess),
+        take(1),
+        tap(() => this.store.dispatch(UpsertAssignment({
+          assignment: {
+            ...assignment,
+            id: uuid(),
+            startTime: new Date(),
+            endTime: null
+          }
+        })))
+      ).subscribe();
+
+      this.giveBack(assignment);
+    }
   }
 
   private giveBack(assignment: Assignment)
@@ -154,17 +151,5 @@ export class AssignmentsService
         endTime: new Date()
       }
     }));
-  }
-
-  private createLastDoingAndUpdateStatus(assignment: Assignment, action: LastDoingActionsEnum)
-  {
-    this.store
-      .pipe(
-        select(selectTerritoryById, assignment.territoryId),
-        take(1),
-        tap((action) => this.territoryMapsService.updateDrawingStatus()),
-        tap((territory: Territory) => this.lastDoingsService
-          .createLastDoingAfter(UpsertAssignmentSuccess, action, territory.key + " " + territory.name))
-      ).subscribe();
   }
 }

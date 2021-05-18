@@ -2,7 +2,7 @@ import {ElementRef, Injectable} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import * as Turf from '@turf/turf';
 import {Observable, of} from 'rxjs';
-import {concatMap, mergeMap, take, tap, withLatestFrom} from 'rxjs/operators';
+import {concatMap, first, mergeMap, take, tap, withLatestFrom} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {TerritoryMapsResourcesService} from './territory-maps-resources.service';
 import {Actions, ofType} from '@ngrx/effects';
@@ -76,20 +76,11 @@ export class TerritoryMapsService
       ).subscribe();
   }
 
-  public updateDrawingStatus()
+  public async updateDrawingStatus()
   {
-    setTimeout(() =>
-    {
-      this.store.pipe(
-        select(selectAllDrawings),
-        take(1),
-        tap((drawings) =>
-        {
-          this.cachedDrawings = drawings;
-          this.showDrawingsOnTheMap(this.cachedDrawings)
-        })
-      ).subscribe();
-    }, 150);
+    const drawings = await this.store.pipe(select(selectAllDrawings), first()).toPromise();
+    this.cachedDrawings = drawings;
+    this.showDrawingsOnTheMap(this.cachedDrawings)
   }
 
   public geocode(search: string, territoryProximity?: string): Observable<GeocodingResult>
@@ -305,7 +296,7 @@ export class TerritoryMapsService
     }
   }
 
-  public focusOnDrawingIds(drawingIds?: string[])
+  public focusOnDrawingIds(drawingIds?: string[], callback?: Function)
   {
     try
     {
@@ -314,6 +305,11 @@ export class TerritoryMapsService
 
       if (mergedDrawings && mergedDrawings.featureCollection.features.length > 0)
       {
+        if (callback)
+        {
+          this.mapsResources.map.once('idle', () => callback());
+        }
+
         this.mapsResources.map.fitBounds(Turf.bbox(mergedDrawings.featureCollection), {padding: this.cachedPadding});
 
         this.setPropsOnFeatures(this.cachedDrawings, this.activeFeaturesProps, {
@@ -358,90 +354,6 @@ export class TerritoryMapsService
     this.getMap().setFilter('to-map-boundary', ['in', ['get', 'status'], ['literal', this.visibleTerritoryStatus]]);
   }
 
-  /*
-    public changeColorForAll(config: any)
-    {
-      this._currentFeatureCollection.features.forEach((feature) => feature.properties.color = config[feature.properties.drawingId]);
-      this.mapsResources.setDataForSourceId(ToMapBoxSources.MAPS, this._currentFeatureCollection);
-    }
-
-    public focusTerritories(config: any)
-    {
-      this._currentFeatureCollection.features.forEach((feature) =>
-      {
-        if (config[feature.properties.drawingId])
-        {
-          feature.properties.opacity = this.config.fillMaxOpacity;
-          feature.properties.visibility = 1;
-        }
-      });
-      this.mapsResources.setDataForSourceId(ToMapBoxSources.MAPS, this._currentFeatureCollection);
-    }
-
-    public hideTerritories(config: any)
-    {
-      this._currentFeatureCollection.features.forEach((feature) =>
-      {
-        if (config[feature.properties.drawingId])
-        {
-          feature.properties.opacity = 0;
-          feature.properties.visibility = 0;
-        }
-      });
-      this.mapsResources.setDataForSourceId(ToMapBoxSources.MAPS, this._currentFeatureCollection);
-    }
-
-    public hideAllButNot(featuresToBeDisplayed: any = {})
-    {
-      this._currentFeatureCollection
-        .features
-        .filter((feature) => !featuresToBeDisplayed[feature.properties.drawingId])
-        .forEach((feature) =>
-        {
-          feature.properties.opacity = 0;
-          feature.properties.visibility = 0;
-        });
-
-      this.mapsResources.setDataForSourceId(ToMapBoxSources.MAPS, this._currentFeatureCollection);
-    }
-
-    public showAllButNot(featuresToBeDisplayed: any = {})
-    {
-      this._currentFeatureCollection
-        .features
-        .filter((feature) => !featuresToBeDisplayed[feature.properties.drawingId])
-        .forEach((feature) =>
-        {
-          feature.properties.opacity = this.config.fillMaxOpacity;
-          feature.properties.visibility = 1;
-        });
-      this.mapsResources.setDataForSourceId(ToMapBoxSources.MAPS, this._currentFeatureCollection);
-    }
-
-    public fitByTerritories(featuresToBeDisplayed: any, config: any = {animate: true})
-    {
-      let featureCollection = this._currentFeatureCollection;
-
-      if (featuresToBeDisplayed)
-      {
-        featureCollection = {
-          ...featureCollection,
-          features: this._currentFeatureCollection.features.filter(f => !!featuresToBeDisplayed[f.properties.drawingId])
-        };
-      }
-
-      this.mapsResources.map.fitBounds(Turf.bbox(featureCollection), config);
-    }
-
-    public hideTerritoryLabel()
-    {
-      this._currentFeatureCollection.features.forEach(f => f.properties.visibility = 0);
-      this.mapsResources.setDataForSourceId(ToMapBoxSources.MAPS, this._currentFeatureCollection);
-      // const drawingIdsToBeHidden = territories.map(t => t.territoryDrawingId);
-      // this.changeFeatureCollectionProperties(drawingIdsToBeHidden, {visibility: 0});
-    }
-
-   */
   private getDrawingsSnapshot()
   {
     return this.store

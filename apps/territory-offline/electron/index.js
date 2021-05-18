@@ -3,6 +3,7 @@ const {CapacitorSplashScreen, configCapacitor} = require('@capacitor/electron');
 const {ipcMain, dialog} = require('electron');
 const fs = require('fs');
 const path = require('path');
+const {Base64} = require('js-base64');
 
 /* App configs */
 app.allowRendererProcessReuse = true;
@@ -92,7 +93,15 @@ function ipcMainListeners() {
     const filePath = `${path}/${msg.data.fileName}`;
 
     const createFile = () => {
-      fs.writeFile(filePath, Buffer.from(msg.data.file, 'base64'), (error) => {
+      let data;
+
+      if (Base64.isValid(msg.data.file)) {
+        data = Buffer.from(msg.data.file, "base64");
+      } else {
+        data = Buffer.from(Base64.btoa(msg.data.file), "base64");
+      }
+
+      fs.writeFile(filePath, data, (error) => {
         if (error) {
           dialog.showErrorBox("Error", `${msg.data.fileName} could not be saved!`)
         } else {

@@ -19,9 +19,10 @@ export class PlatformAgnosticActionsService
     document.location.href = 'index.html';
   }
 
+  // TODO handle Mobile and Web
   public async share(file: any, fileName: string, subPath = "")
   {
-    await this.ipcService.send("save-file", {file: btoa(file), subPath, fileName});
+    await this.ipcService.send("save-file", {file, subPath, fileName});
     /*
     await Plugins.FileSharer.share({
       filename: fileName,

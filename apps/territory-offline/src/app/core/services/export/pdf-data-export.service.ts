@@ -7,24 +7,24 @@ import {ApplicationState} from "../../store/index.reducers";
 import {selectCurrentCongregation} from "../../store/congregation/congregations.selectors";
 import {first, take} from "rxjs/operators";
 import {
-  selectAllAssignmentsOrderedByRelevantTags, selectCurrentlyOpenAssignments, selectLastAssignmentOfEachTerritory
+  selectAllAssignmentsOrderedByRelevantTags,
+  selectCurrentlyOpenAssignments
 } from "../../store/assignments/assignments.selectors";
-import {
-  Assignment,
-  Publisher,
-  VisitBan
-} from "@territory-offline-workspace/shared-interfaces";
+import {Assignment, Publisher, VisitBan} from "@territory-offline-workspace/shared-interfaces";
 import {selectTagsByIds} from "../../store/tags/tags.selectors";
 import {selectPublishers} from "../../store/publishers/publishers.selectors";
 import {selectAllTerritories} from "../../store/territories/territories.selectors";
 import {groupOverseerFactory, groupOverseerPdfMakeContentFactory} from "@territory-offline-workspace/shared-utils";
+import {PlatformAgnosticActionsService} from "../common/platform-agnostic-actions.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PdfDataExportService
 {
-  constructor(private store: Store<ApplicationState>, private translate: TranslateService)
+  constructor(private store: Store<ApplicationState>,
+              private platformAgnosticActionsService: PlatformAgnosticActionsService,
+              private translate: TranslateService)
   {
     /* Die Fonts werden in der vfs_fonts.js nicht an die richtige Stelle gebunden(durch webpack)
        daher dieser Workaround
@@ -58,7 +58,8 @@ export class PdfDataExportService
         content: table
       };
 
-      pdfMake.createPdf(docDefinition).download("to-publisher");
+      const createdPdf = pdfMake.createPdf(docDefinition);
+      this.save(createdPdf, "to-publishers");
     });
   }
 
@@ -89,7 +90,8 @@ export class PdfDataExportService
         content: table
       };
 
-      pdfMake.createPdf(docDefinition).download("to-visit-bans");
+      const createdPdf = pdfMake.createPdf(docDefinition);
+      this.save(createdPdf, "to-visit-bans");
     });
   }
 
@@ -111,9 +113,8 @@ export class PdfDataExportService
       })
     };
 
-    const congregation = await this.store.pipe(select(selectCurrentCongregation), take(1)).toPromise();
     const createdPdf = pdfMake.createPdf(docDefinition);
-    createdPdf.download(`${congregation.name} - group overseers`);
+    this.save(createdPdf, "group overseets");
   }
 
   public async exportS13()
@@ -230,12 +231,9 @@ export class PdfDataExportService
       content: content
     };
 
-    const congregation = await this.store.pipe(select(selectCurrentCongregation), take(1)).toPromise();
     const createdPdf = pdfMake.createPdf(docDefinition);
-    createdPdf.download(`${congregation.name} - S13`, () =>
-    {
-      // DONE
-    });
+
+    this.save(createdPdf, "S-13");
   }
 
   private assignmentS13DateEntry(assignment: Assignment)
@@ -267,5 +265,11 @@ export class PdfDataExportService
         text: `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`
       }
     ];
+  }
+
+  private async save(createdPdf, name: string)
+  {
+    const congregation = await this.store.pipe(select(selectCurrentCongregation), first()).toPromise();
+    createdPdf.getBase64((data) => this.platformAgnosticActionsService.share(data, `${congregation.name} - ${name}`));
   }
 }
