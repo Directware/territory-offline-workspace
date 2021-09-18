@@ -33,7 +33,7 @@
       <p class="label blue">{{ 'visitBan.reset' | translate }}</p>
       <i-feather class="i-feather info blue" name="refresh-cw"></i-feather>
     </app-list-item>
-    <app-list-item (click)="setVisitBanManually()" *ngIf="geoCodingResults && geoCodingResults.length === 0 && !isManuallyPositioning">
+    <app-list-item (click)="setVisitBanManually()" *ngIf="geoCodingResults && geoCodingForm.value && !isManuallyPositioning">
       <p class="label blue">{{ 'visitBan.setManually' | translate }}</p>
       <i-feather class="i-feather info blue" name="map-pin"></i-feather>
     </app-list-item>
