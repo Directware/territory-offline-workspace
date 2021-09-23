@@ -311,8 +311,8 @@ export class VisitBanComponent implements OnInit, OnDestroy
         {
           return territories.filter(t => applicableDrawings.map(d => d.id).includes(t.territoryDrawingId));
         }
-        console.log("keine zeichnung");
-        return null;
+
+        return [];
       })).toPromise()
 
     return applicableTerritories;

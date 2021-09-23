@@ -114,7 +114,7 @@ export class PdfDataExportService
     };
 
     const createdPdf = pdfMake.createPdf(docDefinition);
-    this.save(createdPdf, "group overseets");
+    this.save(createdPdf, "group overseers.pdf");
   }
 
   public async exportS13()
@@ -233,7 +233,7 @@ export class PdfDataExportService
 
     const createdPdf = pdfMake.createPdf(docDefinition);
 
-    this.save(createdPdf, "S-13");
+    this.save(createdPdf, "S-13.pdf");
   }
 
   private assignmentS13DateEntry(assignment: Assignment)
