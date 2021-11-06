@@ -47,7 +47,9 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "i18n:init": "ngx-translate-extract --input ./apps/territory-offline/src --output ./apps/territory-offline/src/assets/i18n/template.json --key-as-default-value --replace --format json",
-    "i18n:extract": "ngx-translate-extract --input ./apps/territory-offline/src --output ./apps/territory-offline/src/assets/i18n/{en,da,de,fi,nb,nl,sv}.json --clean --format json"
+    "i18n:extract": "ngx-translate-extract --input ./apps/territory-offline/src --output ./apps/territory-offline/src/assets/i18n/{en,da,de,fi,nb,nl,sv}.json --clean --format json",
+    "eslint:error:affected": "nx affected:lint --base=origin/develop --head=HEAD --skip-nx-cache --quiet",
+    "eslint:error:all": "nx run-many --target=lint --all --skip-nx-cache --quiet"
   },
   "private": true,
   "browser": {
