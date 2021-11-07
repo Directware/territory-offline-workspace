@@ -1,18 +1,12 @@
-import {Action, createReducer, on} from '@ngrx/store';
-import {
-  LoadSettingsSuccess,
-  LockApp,
-  UnlockApp,
-  UpsertSettingsSuccess
-} from './settings.actions';
-import {ToLanguage} from "@territory-offline-workspace/ui-components";
+import { Action, createReducer, on } from '@ngrx/store';
+import { LoadSettingsSuccess, LockApp, UnlockApp, UpsertSettingsSuccess } from './settings.actions';
+import { ToLanguage } from '@territory-offline-workspace/ui-components';
 
-export interface SettingsState
-{
+export interface SettingsState {
   id: string;
   initialConfigurationDone: boolean;
   currentCongregationId: string;
-  territoryOrigin: { lat: number, lng: number };
+  territoryOrigin: { lat: number; lng: number };
   passwordHash: string;
   encryptedSecretKey: string | null;
   publicKey: Uint8Array | null;
@@ -28,7 +22,7 @@ const initialState = {
   id: '',
   initialConfigurationDone: false,
   currentCongregationId: '',
-  territoryOrigin: {lat: 10.860600, lng: 48.355340},
+  territoryOrigin: { lat: 10.8606, lng: 48.35534 },
   passwordHash: '',
   encryptedSecretKey: null,
   publicKey: null,
@@ -37,30 +31,35 @@ const initialState = {
   processingBreakInMonths: 4,
   overdueBreakInMonths: 4,
   autoAppLockingInMinutes: 0,
-  appLanguage: null
+  appLanguage: null,
 };
 
 const settingsReducer = createReducer(
   initialState,
-  on(LockApp, state => ({
+  on(LockApp, (state) => ({
     ...state,
-    isAppLocked: true
+    isAppLocked: true,
   })),
   on(UnlockApp, (state) => ({
     ...state,
-    isAppLocked: false
+    isAppLocked: false,
   })),
   on(UpsertSettingsSuccess, (state, action) => ({
     ...action.settings,
-    publicKey: action.settings && action.settings.publicKey ? new Uint8Array(Object.values(action.settings.publicKey)) : null
+    publicKey:
+      action.settings && action.settings.publicKey
+        ? new Uint8Array(Object.values(action.settings.publicKey))
+        : null,
   })),
   on(LoadSettingsSuccess, (state, action) => ({
     ...action.settings,
-    publicKey: action.settings && action.settings.publicKey ? new Uint8Array(Object.values(action.settings.publicKey)) : null
+    publicKey:
+      action.settings && action.settings.publicKey
+        ? new Uint8Array(Object.values(action.settings.publicKey))
+        : null,
   }))
 );
 
-export function settingsReducerFunction(state: SettingsState | undefined, action: Action)
-{
+export function settingsReducerFunction(state: SettingsState | undefined, action: Action) {
   return settingsReducer(state, action);
 }

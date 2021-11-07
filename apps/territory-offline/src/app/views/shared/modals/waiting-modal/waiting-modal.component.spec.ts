@@ -1,9 +1,7 @@
-import {WaitingModalComponent} from './waiting-modal.component';
+import { WaitingModalComponent } from './waiting-modal.component';
 
-describe('WaitingModalComponent', () =>
-{
-  it('...', () =>
-  {
+describe('WaitingModalComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

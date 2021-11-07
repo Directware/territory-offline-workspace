@@ -1,9 +1,8 @@
 import { v4 as uuid4 } from 'uuid';
-import {TimedEntity} from "./../../common/timed-entity.model";
-import {dailyReportCollectionName} from "../database/collection-names";
+import { TimedEntity } from './../../common/timed-entity.model';
+import { dailyReportCollectionName } from '../database/collection-names';
 
-export interface DailyReport extends TimedEntity
-{
+export interface DailyReport extends TimedEntity {
   videos: number;
   returnVisits: number;
   duration: number;
@@ -11,8 +10,7 @@ export interface DailyReport extends TimedEntity
   studies: number;
 }
 
-export function emptyDailyReport(year: number, month: number, day: number): DailyReport
-{
+export function emptyDailyReport(year: number, month: number, day: number): DailyReport {
   return {
     id: uuid4(),
     creationTime: new Date(year, month, day),
@@ -21,12 +19,11 @@ export function emptyDailyReport(year: number, month: number, day: number): Dail
     duration: 0,
     deliveries: 0,
     studies: 0,
-    prefix: dailyReportCollectionName
+    prefix: dailyReportCollectionName,
   };
 }
 
-export function convertGrapesReportsToDailyReports(grapesReports: any[]): DailyReport[]
-{
+export function convertGrapesReportsToDailyReports(grapesReports: any[]): DailyReport[] {
   return grapesReports.map((report) => ({
     id: uuid4(),
     creationTime: fixCreationDate(new Date(report.creationTime)),
@@ -35,11 +32,10 @@ export function convertGrapesReportsToDailyReports(grapesReports: any[]): DailyR
     returnVisits: report.return_visits,
     studies: report.studies,
     duration: report.duration,
-    prefix: dailyReportCollectionName
+    prefix: dailyReportCollectionName,
   }));
 }
 
-function fixCreationDate(creationDate: Date)
-{
+function fixCreationDate(creationDate: Date) {
   return new Date(creationDate.getFullYear(), creationDate.getMonth(), creationDate.getDate());
 }

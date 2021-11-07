@@ -1,20 +1,19 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {select, Store} from '@ngrx/store';
-import {ApplicationState} from '../../../core/store/index.reducers';
-import {Observable, Subject} from 'rxjs';
-import {selectTagEntities, selectTags} from '../../../core/store/tags/tags.selectors';
-import {debounceTime, takeUntil, tap, withLatestFrom} from 'rxjs/operators';
-import {Dictionary} from '@ngrx/entity';
-import {Tag} from "@territory-offline-workspace/shared-interfaces";
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { select, Store } from '@ngrx/store';
+import { ApplicationState } from '../../../core/store/index.reducers';
+import { Observable, Subject } from 'rxjs';
+import { selectTagEntities, selectTags } from '../../../core/store/tags/tags.selectors';
+import { debounceTime, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
+import { Dictionary } from '@ngrx/entity';
+import { Tag } from '@territory-offline-workspace/shared-interfaces';
 
 @Component({
   selector: 'app-assigned-tags',
   templateUrl: './assigned-tags.component.html',
-  styleUrls: ['./assigned-tags.component.scss']
+  styleUrls: ['./assigned-tags.component.scss'],
 })
-export class AssignedTagsComponent implements OnInit, OnDestroy
-{
+export class AssignedTagsComponent implements OnInit, OnDestroy {
   @Input()
   public assignedTags: FormControl;
 
@@ -28,58 +27,49 @@ export class AssignedTagsComponent implements OnInit, OnDestroy
   public tagToBeDeleted: string;
   private destroyer = new Subject();
 
-  constructor(private store: Store<ApplicationState>)
-  {
-  }
+  constructor(private store: Store<ApplicationState>) {}
 
-  public ngOnInit(): void
-  {
+  public ngOnInit(): void {
     this.allTags$ = this.store.pipe(select(selectTags));
     this.allTagsEntities$ = this.store.pipe(select(selectTagEntities));
 
-    this.newTagName
-      .valueChanges
+    this.newTagName.valueChanges
       .pipe(
         takeUntil(this.destroyer),
         withLatestFrom(this.allTags$),
         debounceTime(400),
-        tap(([value, tags]: [string, Tag[]]) =>
-        {
-          if (value && value.length > 0)
-          {
-            this.searchResults = tags.filter(t => t.name.toLowerCase().startsWith(value.trim().toLowerCase()));
-          } else
-          {
+        tap(([value, tags]: [string, Tag[]]) => {
+          if (value && value.length > 0) {
+            this.searchResults = tags.filter((t) =>
+              t.name.toLowerCase().startsWith(value.trim().toLowerCase())
+            );
+          } else {
             this.searchResults = [];
           }
         })
-      ).subscribe();
+      )
+      .subscribe();
   }
 
-  public ngOnDestroy(): void
-  {
+  public ngOnDestroy(): void {
     this.destroyer.next();
     this.destroyer.complete();
   }
 
-  public removeTag(tagId: string)
-  {
-    if (!this.tagToBeDeleted || this.tagToBeDeleted !== tagId)
-    {
+  public removeTag(tagId: string) {
+    if (!this.tagToBeDeleted || this.tagToBeDeleted !== tagId) {
       this.tagToBeDeleted = tagId;
-      setTimeout(() => this.tagToBeDeleted = null, 1500);
+      setTimeout(() => (this.tagToBeDeleted = null), 1500);
       return;
     }
 
     const currentTagIds = this.assignedTags.value as string[];
-    this.assignedTags.setValue([...currentTagIds.filter(id => id !== tagId)]);
+    this.assignedTags.setValue([...currentTagIds.filter((id) => id !== tagId)]);
     this.assignedTags.markAsDirty();
   }
 
-  public addTag(tag: Tag)
-  {
-    if(tag)
-    {
+  public addTag(tag: Tag) {
+    if (tag) {
       const alreadyAddedTags = this.assignedTags.value;
       this.assignedTags.setValue([...alreadyAddedTags, tag.id]);
       this.newTagName.setValue('');

@@ -1,40 +1,34 @@
-import {Component, OnInit} from '@angular/core';
-import {Plugins} from "@capacitor/core";
-import {FIELD_COMPANION_VERSION} from "../../../app.version";
+import { Component, OnInit } from '@angular/core';
+import { Plugins } from '@capacitor/core';
+import { FIELD_COMPANION_VERSION } from '../../../app.version';
 
-const {Share} = Plugins;
+const { Share } = Plugins;
 
 @Component({
   selector: 'app-about-app',
   templateUrl: './about-app.component.html',
-  styleUrls: ['./about-app.component.scss']
+  styleUrls: ['./about-app.component.scss'],
 })
-export class AboutAppComponent implements OnInit
-{
+export class AboutAppComponent implements OnInit {
   public hideMainNavigation = true;
   public version: string;
   public currentYear = new Date().getFullYear();
 
-  constructor()
-  {
-  }
+  constructor() {}
 
-  public ngOnInit(): void
-  {
+  public ngOnInit(): void {
     this.version = FIELD_COMPANION_VERSION;
   }
 
-  public done()
-  {
+  public done() {
     window.history.back();
   }
 
-  public shareApp()
-  {
+  public shareApp() {
     Share.share({
-      dialogTitle: "Field Companion",
-      title: "Field Companion",
-      text: "https://apps.apple.com/de/app/field-companion/id1513900519",
+      dialogTitle: 'Field Companion',
+      title: 'Field Companion',
+      text: 'https://apps.apple.com/de/app/field-companion/id1513900519',
     });
   }
 }

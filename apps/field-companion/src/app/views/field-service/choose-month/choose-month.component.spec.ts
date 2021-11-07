@@ -6,12 +6,13 @@ describe('ChooseMonthComponent', () => {
   let component: ChooseMonthComponent;
   let fixture: ComponentFixture<ChooseMonthComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ChooseMonthComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ChooseMonthComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ChooseMonthComponent);

@@ -1,9 +1,7 @@
-import {CongregationsComponent} from './congregations.component';
+import { CongregationsComponent } from './congregations.component';
 
-describe('CongregationsComponent', () =>
-{
-  it('...', () =>
-  {
+describe('CongregationsComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

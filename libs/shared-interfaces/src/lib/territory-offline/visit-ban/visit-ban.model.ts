@@ -1,7 +1,6 @@
-import {TimedEntity} from "./../../common/timed-entity.model";
+import { TimedEntity } from './../../common/timed-entity.model';
 
-export interface VisitBan extends TimedEntity
-{
+export interface VisitBan extends TimedEntity {
   name: string;
   street: string;
   streetSuffix: string;
@@ -11,5 +10,5 @@ export interface VisitBan extends TimedEntity
   floor?: number;
   lastVisit?: Date;
   comment?: string;
-  gpsPosition?: { lat: number, lng: number };
+  gpsPosition?: { lat: number; lng: number };
 }

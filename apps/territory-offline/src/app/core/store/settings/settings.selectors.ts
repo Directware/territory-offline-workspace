@@ -1,12 +1,9 @@
-import {createSelector} from '@ngrx/store';
-import {ApplicationState} from '../index.reducers';
+import { createSelector } from '@ngrx/store';
+import { ApplicationState } from '../index.reducers';
 
 export const selectSettingsFeature = (state: ApplicationState) => state.settings;
 
-export const selectSettings = createSelector(
-  selectSettingsFeature,
-  (settings) => settings
-);
+export const selectSettings = createSelector(selectSettingsFeature, (settings) => settings);
 
 export const selectInitialConfigurationDone = createSelector(
   selectSettingsFeature,

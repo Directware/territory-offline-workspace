@@ -1,9 +1,7 @@
-import {ProcessingDueAfterComponent} from './processing-due-after.component';
+import { ProcessingDueAfterComponent } from './processing-due-after.component';
 
-describe('ProcessingDueAfterComponent', () =>
-{
-  it('...', () =>
-  {
+describe('ProcessingDueAfterComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

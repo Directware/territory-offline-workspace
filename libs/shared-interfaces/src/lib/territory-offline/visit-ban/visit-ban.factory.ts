@@ -1,18 +1,17 @@
-import {VisitBan} from "./visit-ban.model";
-import {v4 as uuid} from 'uuid';
+import { VisitBan } from './visit-ban.model';
+import { v4 as uuid } from 'uuid';
 
-export function createVisitBan(visitBanProperties: Partial<VisitBan> = {}): VisitBan
-{
+export function createVisitBan(visitBanProperties: Partial<VisitBan> = {}): VisitBan {
   return {
     id: uuid(),
     creationTime: new Date(),
-    name: "",
-    street: "",
-    streetSuffix: "",
+    name: '',
+    street: '',
+    streetSuffix: '',
     territoryId: null,
     tags: [],
-    city: "",
-    comment: "",
-    ...visitBanProperties
+    city: '',
+    comment: '',
+    ...visitBanProperties,
   };
 }

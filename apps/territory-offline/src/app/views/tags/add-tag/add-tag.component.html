@@ -1,2 +1,11 @@
-<input [placeholder]="'tag.add' | translate" [(ngModel)]="newTagName" (keypress)="keyPressHandler($event)" data-cy="input-tag-name">
-<i-feather class="i-feather" (click)="addNewTag()" name="plus" data-cy="icon-add" data-cy="icon-add"></i-feather>
+<input
+  [placeholder]="'tag.add' | translate"
+  [(ngModel)]="newTagName"
+  (keypress)="keyPressHandler($event)"
+  data-cy="input-tag-name" />
+<i-feather
+  class="i-feather"
+  (click)="addNewTag()"
+  name="plus"
+  data-cy="icon-add"
+  data-cy="icon-add"></i-feather>

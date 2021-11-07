@@ -1,9 +1,18 @@
-<app-panel *ngIf="(allPublishers$ | async) as publishers">
+<app-panel *ngIf="allPublishers$ | async as publishers">
   <app-list-item>
-    <input class="input" [placeholder]="'publisher.title' | translate" [formControl]="searchPublisherControl" data-cy="input-add-publisher">
+    <input
+      class="input"
+      [placeholder]="'publisher.title' | translate"
+      [formControl]="searchPublisherControl"
+      data-cy="input-add-publisher" />
   </app-list-item>
-  <app-list-item *ngFor="let result of searchResults" (click)="addPublisher(result)" class="search-result">
-    <p class="label" data-cy="search-result-publisher-list">{{result.name}} {{result.firstName}}</p>
+  <app-list-item
+    *ngFor="let result of searchResults"
+    (click)="addPublisher(result)"
+    class="search-result">
+    <p class="label" data-cy="search-result-publisher-list">
+      {{ result.name }} {{ result.firstName }}
+    </p>
     <i-feather class="i-feather action" (click)="addPublisher(result)" name="plus"></i-feather>
   </app-list-item>
 </app-panel>

@@ -1,36 +1,40 @@
 import { TranslateService } from '@ngx-translate/core';
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Observable, Subject} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Actions, ofType} from '@ngrx/effects';
-import {select, Store} from '@ngrx/store';
-import {ApplicationState} from '../../../core/store/index.reducers';
-import {map, take, takeUntil, tap} from 'rxjs/operators';
-import {selectCongregationById} from '../../../core/store/congregation/congregations.selectors';
-import {v4 as uuid} from 'uuid';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable, Subject } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Actions, ofType } from '@ngrx/effects';
+import { select, Store } from '@ngrx/store';
+import { ApplicationState } from '../../../core/store/index.reducers';
+import { map, take, takeUntil, tap } from 'rxjs/operators';
+import { selectCongregationById } from '../../../core/store/congregation/congregations.selectors';
+import { v4 as uuid } from 'uuid';
 import {
   DeleteCongregation,
   DeleteCongregationSuccess,
   UpsertCongregation,
-  UpsertCongregationSuccess, UseCongregation
+  UpsertCongregationSuccess,
+  UseCongregation,
 } from '../../../core/store/congregation/congregations.actions';
-import {selectCurrentCongregationId} from '../../../core/store/settings/settings.selectors';
-import {LastDoingsService} from "../../../core/services/common/last-doings.service";
-import {selectLastDoings} from "../../../core/store/last-doings/last-doings.selectors";
-import {ToLanguage} from "@territory-offline-workspace/ui-components";
+import { selectCurrentCongregationId } from '../../../core/store/settings/settings.selectors';
+import { LastDoingsService } from '../../../core/services/common/last-doings.service';
+import { selectLastDoings } from '../../../core/store/last-doings/last-doings.selectors';
+import { ToLanguage } from '@territory-offline-workspace/ui-components';
 import { v4 as uuid4 } from 'uuid';
-import {DataExportService} from "../../../core/services/import/data-export.service";
-import {DataImportService} from "../../../core/services/import/data-import.service";
-import {Congregation, LastDoing, LastDoingActionsEnum} from "@territory-offline-workspace/shared-interfaces";
+import { DataExportService } from '../../../core/services/import/data-export.service';
+import { DataImportService } from '../../../core/services/import/data-import.service';
+import {
+  Congregation,
+  LastDoing,
+  LastDoingActionsEnum,
+} from '@territory-offline-workspace/shared-interfaces';
 
 @Component({
   selector: 'app-congregation',
   templateUrl: './congregation.component.html',
-  styleUrls: ['./congregation.component.scss']
+  styleUrls: ['./congregation.component.scss'],
 })
-export class CongregationComponent implements OnInit
-{
+export class CongregationComponent implements OnInit {
   public currentCongregationId$: Observable<string>;
   public lastDoings$: Observable<LastDoing[]>;
   public readOnly: boolean;
@@ -38,114 +42,116 @@ export class CongregationComponent implements OnInit
   public isCreation: boolean;
   private destroyer = new Subject();
 
-  constructor(private fb: FormBuilder,
-              private router: Router,
-              private lastDoingsService: LastDoingsService,
-              private activatedRoute: ActivatedRoute,
-              private actions$: Actions,
-              private dataExportService: DataExportService,
-              private store: Store<ApplicationState>,
-              private translate: TranslateService)
-  {
-  }
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private lastDoingsService: LastDoingsService,
+    private activatedRoute: ActivatedRoute,
+    private actions$: Actions,
+    private dataExportService: DataExportService,
+    private store: Store<ApplicationState>,
+    private translate: TranslateService
+  ) {}
 
-  public ngOnInit(): void
-  {
+  public ngOnInit(): void {
     this.currentCongregationId$ = this.store.pipe(select(selectCurrentCongregationId));
-    this.lastDoings$ = this.store.pipe(select(selectLastDoings), map(lastDoings => lastDoings.length > 0 ? lastDoings.slice(0, 12) : null));
+    this.lastDoings$ = this.store.pipe(
+      select(selectLastDoings),
+      map((lastDoings) => (lastDoings.length > 0 ? lastDoings.slice(0, 12) : null))
+    );
     this.activatedRoute.params
       .pipe(
         takeUntil(this.destroyer),
         tap((params) => this.considerInitialisingFormCongregation(params.id))
-      ).subscribe();
+      )
+      .subscribe();
   }
 
-  public back()
-  {
-    this.router.navigate([{outlets: {'second-thread': null}}]);
+  public back() {
+    this.router.navigate([{ outlets: { 'second-thread': null } }]);
   }
 
-  public cancel()
-  {
-    if (this.isCreation)
-    {
+  public cancel() {
+    if (this.isCreation) {
       this.back();
-    }
-    else
-    {
+    } else {
       this.considerInitialisingFormCongregation();
     }
   }
 
-  public useCongregation()
-  {
-    this.store.dispatch(UseCongregation({congregationId: this.congregation.get("id").value}));
+  public useCongregation() {
+    this.store.dispatch(UseCongregation({ congregationId: this.congregation.get('id').value }));
   }
 
-  public duplicateCongregation()
-  {
-    this.translate.get('congregation.reallyDuplicate').pipe(take(1)).subscribe((translation: string) => {
-      const confirmation = confirm(translation);
+  public duplicateCongregation() {
+    this.translate
+      .get('congregation.reallyDuplicate')
+      .pipe(take(1))
+      .subscribe((translation: string) => {
+        const confirmation = confirm(translation);
 
-      if (!confirmation)
-      {
-        return;
-      }
+        if (!confirmation) {
+          return;
+        }
 
-      const newUuid = uuid4();
-      this.actions$
-        .pipe(
-          ofType(UpsertCongregationSuccess),
-          take(1),
-          tap(() => this.store.dispatch(UseCongregation({congregationId: newUuid})))
-        ).subscribe();
+        const newUuid = uuid4();
+        this.actions$
+          .pipe(
+            ofType(UpsertCongregationSuccess),
+            take(1),
+            tap(() => this.store.dispatch(UseCongregation({ congregationId: newUuid })))
+          )
+          .subscribe();
 
-      this.dataExportService
-        .exportAll()
-        .then(dataPackage =>
-        {
+        this.dataExportService.exportAll().then((dataPackage) => {
           localStorage.setItem(DataImportService.CONGREGATION_COPY_KEY, dataPackage);
 
           this.store
             .pipe(
               select(selectCongregationById, this.activatedRoute.snapshot.params.id),
               take(1),
-              tap(congregation =>
-              {
-                this.store.dispatch(UpsertCongregation({
-                  congregation: {
-                    ...congregation,
-                    name: congregation.name + " copy",
-                    hashedName: btoa(congregation.name),
-                    id: newUuid,
-                  }
-                }));
+              tap((congregation) => {
+                this.store.dispatch(
+                  UpsertCongregation({
+                    congregation: {
+                      ...congregation,
+                      name: congregation.name + ' copy',
+                      hashedName: btoa(congregation.name),
+                      id: newUuid,
+                    },
+                  })
+                );
               })
-            ).subscribe();
+            )
+            .subscribe();
         });
-    });
+      });
   }
 
-  public deleteCongregation()
-  {
-    this.translate.get('congregation.reallyDelete').pipe(take(1)).subscribe((translation: string) => {
-      const canDelete = confirm(translation);
+  public deleteCongregation() {
+    this.translate
+      .get('congregation.reallyDelete')
+      .pipe(take(1))
+      .subscribe((translation: string) => {
+        const canDelete = confirm(translation);
 
-      if (canDelete)
-      {
-        this.actions$.pipe(
-          ofType(DeleteCongregationSuccess),
-          take(1),
-          tap(() => this.back())
-        ).subscribe();
+        if (canDelete) {
+          this.actions$
+            .pipe(
+              ofType(DeleteCongregationSuccess),
+              take(1),
+              tap(() => this.back())
+            )
+            .subscribe();
 
-        this.store.dispatch(DeleteCongregation({congregation: this.congregation.getRawValue()}));
-      }
-    });
+          this.store.dispatch(
+            DeleteCongregation({ congregation: this.congregation.getRawValue() })
+          );
+        }
+      });
   }
 
-  public setLanguage(language: ToLanguage)
-  {
+  public setLanguage(language: ToLanguage) {
     this.congregation.patchValue({
       language: language ? language.nativeName : null,
       languageCode: language ? language.languageCode : null,
@@ -153,58 +159,61 @@ export class CongregationComponent implements OnInit
     this.congregation.markAsDirty();
   }
 
-  public createCongregation()
-  {
+  public createCongregation() {
     const rawValue = this.congregation.getRawValue();
-    const lastDoingAction = this.isCreation ? LastDoingActionsEnum.CREATE : LastDoingActionsEnum.UPDATE;
+    const lastDoingAction = this.isCreation
+      ? LastDoingActionsEnum.CREATE
+      : LastDoingActionsEnum.UPDATE;
 
-    this.actions$.pipe(
-      ofType(UpsertCongregationSuccess),
-      take(1),
-      tap((action) => this.lastDoingsService.createLastDoing(lastDoingAction, action.congregation.name)),
-      tap(() => this.isCreation ? this.back() : this.considerInitialisingFormCongregation())
-    ).subscribe();
+    this.actions$
+      .pipe(
+        ofType(UpsertCongregationSuccess),
+        take(1),
+        tap((action) =>
+          this.lastDoingsService.createLastDoing(lastDoingAction, action.congregation.name)
+        ),
+        tap(() => (this.isCreation ? this.back() : this.considerInitialisingFormCongregation()))
+      )
+      .subscribe();
 
-    this.store.dispatch(UpsertCongregation({
-      congregation: {
-        ...rawValue,
-        hashedName: btoa(rawValue.name)
-      }
-    }));
+    this.store.dispatch(
+      UpsertCongregation({
+        congregation: {
+          ...rawValue,
+          hashedName: btoa(rawValue.name),
+        },
+      })
+    );
   }
 
-  private considerInitialisingFormCongregation(id?: string)
-  {
+  private considerInitialisingFormCongregation(id?: string) {
     const snapshotId = id || this.activatedRoute.snapshot.params.id;
 
-    if (snapshotId)
-    {
+    if (snapshotId) {
       this.readOnly = true;
       this.isCreation = false;
       this.store
         .pipe(
           select(selectCongregationById, snapshotId),
           take(1),
-          tap(congregation => this.initFormGroup(congregation))
-        ).subscribe();
-    }
-    else
-    {
+          tap((congregation) => this.initFormGroup(congregation))
+        )
+        .subscribe();
+    } else {
       this.readOnly = false;
       this.isCreation = true;
       this.initFormGroup(null);
     }
   }
 
-  private initFormGroup(c: Congregation)
-  {
+  private initFormGroup(c: Congregation) {
     this.congregation = this.fb.group({
       id: [c ? c.id : uuid(), Validators.required],
       name: [c ? c.name : '', Validators.required],
       language: [c ? c.language : '', Validators.required],
       languageCode: [c ? c.languageCode : '', Validators.required],
       hashedName: [c ? c.hashedName : ''],
-      creationTime: [c && c.creationTime ? c.creationTime : new Date()]
+      creationTime: [c && c.creationTime ? c.creationTime : new Date()],
     });
   }
 }

@@ -1,7 +1,6 @@
-import {Feature} from "./../../drawing/feature.model";
+import { Feature } from './../../drawing/feature.model';
 
-export interface GeocodingResult
-{
+export interface GeocodingResult {
   type: string;
   query: string[];
   features: Feature[];

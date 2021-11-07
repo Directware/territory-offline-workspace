@@ -1,4 +1,4 @@
-<app-main-search (onSearch)="search= {value: $event}">
+<app-main-search (onSearch)="search = { value: $event }">
   <div class="action-link" (click)="createVisitBan()">
     <i-feather class="i-feather" name="plus"></i-feather>
     {{ 'visitBan.title' | translate }}
@@ -10,61 +10,96 @@
     <h2 class="h2-white">{{ 'visitBan.sort' | translate }}</h2>
     <app-list-item (click)="changeSorting('alphabetic')">
       <p class="label">{{ 'visitBan.sortAlphabetical' | translate }}</p>
-      <i-feather *ngIf="sort === 'alphabetic'" class="i-feather icon checked" name="check-circle"></i-feather>
+      <i-feather
+        *ngIf="sort === 'alphabetic'"
+        class="i-feather icon checked"
+        name="check-circle"></i-feather>
     </app-list-item>
     <app-list-item (click)="changeSorting('lastVisit')">
       <p class="label">{{ 'visitBan.lastVisit' | translate }}</p>
-      <i-feather *ngIf="sort === 'lastVisit'" class="i-feather icon checked" name="check-circle"></i-feather>
+      <i-feather
+        *ngIf="sort === 'lastVisit'"
+        class="i-feather icon checked"
+        name="check-circle"></i-feather>
     </app-list-item>
   </div>
 </app-panel>
 
 <div class="scrollable-wrapper">
-  <ng-container *ngIf="(visitBans$ | async) as visitBans; else infoBlock">
+  <ng-container *ngIf="visitBans$ | async as visitBans; else infoBlock">
     <app-list *ngIf="visibleVisitBans(visitBans) as filteredVisitBans">
-      <app-list-item-with-description *ngFor="let visitBan of filteredVisitBans | searchVisitBan:search | async"
-                                      [class.active]="currentVisitBanId === visitBan.id"
-                                      [class.redundant]="visitBan | isRedundantVisitBan:visitBans"
-                                      [class.orphan]="visitBan | isOrphanVisitBan"
-                                      (click)="editVisitBan(visitBan)">
+      <app-list-item-with-description
+        *ngFor="let visitBan of filteredVisitBans | searchVisitBan: search | async"
+        [class.active]="currentVisitBanId === visitBan.id"
+        [class.redundant]="visitBan | isRedundantVisitBan: visitBans"
+        [class.orphan]="visitBan | isOrphanVisitBan"
+        (click)="editVisitBan(visitBan)">
         <p class="label">
-          {{visitBan.name || "visitBan.noName" | translate}}
+          {{ visitBan.name || 'visitBan.noName' | translate }}
         </p>
         <p class="description">
-          {{visitBan.street.length <= sliceAddressLength ? visitBan.street : visitBan.street | slice:0:sliceAddressLength }}{{visitBan.street.length > sliceAddressLength ? "..." : ""}} {{visitBan.streetSuffix}}
+          {{
+            visitBan.street.length <= sliceAddressLength
+              ? visitBan.street
+              : (visitBan.street | slice: 0:sliceAddressLength)
+          }}{{ visitBan.street.length > sliceAddressLength ? '...' : '' }}
+          {{ visitBan.streetSuffix }}
         </p>
         <p class="info" (click)="$event.stopPropagation()">
-          {{visitBan | visitBanLastVisit}}
-          <i-feather *ngIf="!visibleVisitBanMarkers[visitBan.id]" class="i-feather hidden" (click)="showVisitBanMarker($event, visitBan)" name="eye-off"></i-feather>
-          <i-feather *ngIf="visibleVisitBanMarkers[visitBan.id]" class="i-feather visible" (click)="removeVisitBanMarker($event, visitBan)" name="eye"></i-feather>
+          {{ visitBan | visitBanLastVisit }}
+          <i-feather
+            *ngIf="!visibleVisitBanMarkers[visitBan.id]"
+            class="i-feather hidden"
+            (click)="showVisitBanMarker($event, visitBan)"
+            name="eye-off"></i-feather>
+          <i-feather
+            *ngIf="visibleVisitBanMarkers[visitBan.id]"
+            class="i-feather visible"
+            (click)="removeVisitBanMarker($event, visitBan)"
+            name="eye"></i-feather>
         </p>
       </app-list-item-with-description>
     </app-list>
 
     <app-list>
-      <app-list-item-with-description *ngFor="let visitBan of notVisibleVisitBans(visitBans) | searchVisitBan:search | async"
-                                      [class.active]="currentVisitBanId === visitBan.id"
-                                      [class.redundant]="visitBan | isRedundantVisitBan:visitBans"
-                                      [class.orphan]="visitBan | isOrphanVisitBan"
-                                      (click)="editVisitBan(visitBan)">
+      <app-list-item-with-description
+        *ngFor="let visitBan of notVisibleVisitBans(visitBans) | searchVisitBan: search | async"
+        [class.active]="currentVisitBanId === visitBan.id"
+        [class.redundant]="visitBan | isRedundantVisitBan: visitBans"
+        [class.orphan]="visitBan | isOrphanVisitBan"
+        (click)="editVisitBan(visitBan)">
         <p class="label">
-          {{visitBan.name || "visitBan.noName" | translate}}
+          {{ visitBan.name || 'visitBan.noName' | translate }}
         </p>
         <p class="description">
-          {{visitBan.street.length <= sliceAddressLength ? visitBan.street : visitBan.street | slice:0:sliceAddressLength }}{{visitBan.street.length > sliceAddressLength ? "..." : ""}} {{visitBan.streetSuffix}}
+          {{
+            visitBan.street.length <= sliceAddressLength
+              ? visitBan.street
+              : (visitBan.street | slice: 0:sliceAddressLength)
+          }}{{ visitBan.street.length > sliceAddressLength ? '...' : '' }}
+          {{ visitBan.streetSuffix }}
         </p>
         <p class="info" (click)="$event.stopPropagation()">
-          {{visitBan | visitBanLastVisit}}
-          <i-feather *ngIf="!visibleVisitBanMarkers[visitBan.id]" class="i-feather hidden" (click)="showVisitBanMarker($event, visitBan)" name="eye-off"></i-feather>
-          <i-feather *ngIf="visibleVisitBanMarkers[visitBan.id]" class="i-feather visible" (click)="removeVisitBanMarker($event, visitBan)" name="eye"></i-feather>
+          {{ visitBan | visitBanLastVisit }}
+          <i-feather
+            *ngIf="!visibleVisitBanMarkers[visitBan.id]"
+            class="i-feather hidden"
+            (click)="showVisitBanMarker($event, visitBan)"
+            name="eye-off"></i-feather>
+          <i-feather
+            *ngIf="visibleVisitBanMarkers[visitBan.id]"
+            class="i-feather visible"
+            (click)="removeVisitBanMarker($event, visitBan)"
+            name="eye"></i-feather>
         </p>
       </app-list-item-with-description>
     </app-list>
   </ng-container>
 
   <ng-template #infoBlock>
-    <app-info-block [title]="'visitBan.noAdressesHint' | translate"
-                    [image]="'assets/images/territories.svg'"
-                    [description]="'visitBan.noAdressesHintDescription' | translate"></app-info-block>
+    <app-info-block
+      [title]="'visitBan.noAdressesHint' | translate"
+      [image]="'assets/images/territories.svg'"
+      [description]="'visitBan.noAdressesHintDescription' | translate"></app-info-block>
   </ng-template>
 </div>

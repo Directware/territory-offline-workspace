@@ -1,5 +1,4 @@
-export interface Feature
-{
+export interface Feature {
   id: string;
   type: string;
   place_type: string[];
@@ -11,7 +10,7 @@ export interface Feature
   center: number[];
   geometry: {
     type: string;
-    coordinates: number[][][]
+    coordinates: number[][][];
   };
   context: {
     id: string;

@@ -6,12 +6,13 @@ describe('ReportUpToTheMinuteComponent', () => {
   let component: ReportUpToTheMinuteComponent;
   let fixture: ComponentFixture<ReportUpToTheMinuteComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ReportUpToTheMinuteComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ReportUpToTheMinuteComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ReportUpToTheMinuteComponent);

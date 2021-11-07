@@ -1,13 +1,24 @@
-<app-second-thread-header (onCancel)="goBack()" (onSave)="print()" [positiveActionName]="'Drucken'"
-                          [valid]="true"></app-second-thread-header>
+<app-second-thread-header
+  (onCancel)="goBack()"
+  (onSave)="print()"
+  [positiveActionName]="'Drucken'"
+  [valid]="true"></app-second-thread-header>
 
 <div class="scrollable-wrapper">
   <app-panel class="preferences">
     <div class="wrapper">
       <h2 class="h2-white">{{ 'territory.print.format' | translate }}</h2>
-      <app-list-item *ngFor="let format of territoryCardFormats" (click)="changeFormat(format)" [ngClass]="'card-format-'+format.id" data-cy="list-card-format-second-thread">
-        <p class="label" data-cy="label-card-format-second-thread">{{format.label}}</p>
-        <i-feather *ngIf="tcf && format.id === tcf.id" class="i-feather icon checked" name="check-circle" data-cy="icon-format-checked"></i-feather>
+      <app-list-item
+        *ngFor="let format of territoryCardFormats"
+        (click)="changeFormat(format)"
+        [ngClass]="'card-format-' + format.id"
+        data-cy="list-card-format-second-thread">
+        <p class="label" data-cy="label-card-format-second-thread">{{ format.label }}</p>
+        <i-feather
+          *ngIf="tcf && format.id === tcf.id"
+          class="i-feather icon checked"
+          name="check-circle"
+          data-cy="icon-format-checked"></i-feather>
       </app-list-item>
     </div>
   </app-panel>
@@ -16,8 +27,14 @@
     <div class="wrapper">
       <h2 class="h2-white">
         <span>Gebiet wechseln</span>
-        <i-feather (click)="moveBackward(territory.id)" name="chevron-left" class="i-feather"></i-feather>
-        <i-feather (click)="moveForward(territory.id)" name="chevron-right" class="i-feather"></i-feather>
+        <i-feather
+          (click)="moveBackward(territory.id)"
+          name="chevron-left"
+          class="i-feather"></i-feather>
+        <i-feather
+          (click)="moveForward(territory.id)"
+          name="chevron-right"
+          class="i-feather"></i-feather>
       </h2>
     </div>
   </app-panel>
@@ -28,56 +45,123 @@
 
       <app-list-item (click)="toggleProp('showTerritoryName')">
         <p class="label">{{ 'territory.print.name' | translate }}</p>
-        <i-feather *ngIf="printedMapConfiguration.showTerritoryName" class="i-feather icon checked"
-                   name="check-circle"></i-feather>
-        <i-feather *ngIf="!printedMapConfiguration.showTerritoryName" class="i-feather icon" name="x"></i-feather>
+        <i-feather
+          *ngIf="printedMapConfiguration.showTerritoryName"
+          class="i-feather icon checked"
+          name="check-circle"></i-feather>
+        <i-feather
+          *ngIf="!printedMapConfiguration.showTerritoryName"
+          class="i-feather icon"
+          name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('showTerritoryKey')">
         <p class="label">{{ 'territory.print.number' | translate }}</p>
-        <i-feather *ngIf="printedMapConfiguration.showTerritoryKey" class="i-feather icon checked"
-                   name="check-circle"></i-feather>
-        <i-feather *ngIf="!printedMapConfiguration.showTerritoryKey" class="i-feather icon" name="x"></i-feather>
+        <i-feather
+          *ngIf="printedMapConfiguration.showTerritoryKey"
+          class="i-feather icon checked"
+          name="check-circle"></i-feather>
+        <i-feather
+          *ngIf="!printedMapConfiguration.showTerritoryKey"
+          class="i-feather icon"
+          name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('showPopulationCount')">
         <p class="label">{{ 'territory.print.units' | translate }}</p>
-        <i-feather *ngIf="printedMapConfiguration.showPopulationCount" class="i-feather icon checked"
-                   name="check-circle"></i-feather>
-        <i-feather *ngIf="!printedMapConfiguration.showPopulationCount" class="i-feather icon" name="x"></i-feather>
+        <i-feather
+          *ngIf="printedMapConfiguration.showPopulationCount"
+          class="i-feather icon checked"
+          name="check-circle"></i-feather>
+        <i-feather
+          *ngIf="!printedMapConfiguration.showPopulationCount"
+          class="i-feather icon"
+          name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('showNorth')">
         <p class="label">{{ 'territory.print.compass' | translate }}</p>
-        <i-feather *ngIf="printedMapConfiguration.showNorth" class="i-feather icon checked" name="check-circle"></i-feather>
-        <i-feather *ngIf="!printedMapConfiguration.showNorth" class="i-feather icon" name="x"></i-feather>
+        <i-feather
+          *ngIf="printedMapConfiguration.showNorth"
+          class="i-feather icon checked"
+          name="check-circle"></i-feather>
+        <i-feather
+          *ngIf="!printedMapConfiguration.showNorth"
+          class="i-feather icon"
+          name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('showComment')">
         <p class="label">{{ 'territory.print.comment' | translate }}</p>
-        <i-feather *ngIf="printedMapConfiguration.showComment" class="i-feather icon checked" name="check-circle"></i-feather>
-        <i-feather *ngIf="!printedMapConfiguration.showComment" class="i-feather icon" name="x"></i-feather>
+        <i-feather
+          *ngIf="printedMapConfiguration.showComment"
+          class="i-feather icon checked"
+          name="check-circle"></i-feather>
+        <i-feather
+          *ngIf="!printedMapConfiguration.showComment"
+          class="i-feather icon"
+          name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('bleedEdges')">
         <p class="label">{{ 'territory.print.cuttingMarks' | translate }}</p>
-        <i-feather *ngIf="printedMapConfiguration.bleedEdges" class="i-feather icon checked" name="check-circle"></i-feather>
-        <i-feather *ngIf="!printedMapConfiguration.bleedEdges" class="i-feather icon" name="x"></i-feather>
+        <i-feather
+          *ngIf="printedMapConfiguration.bleedEdges"
+          class="i-feather icon checked"
+          name="check-circle"></i-feather>
+        <i-feather
+          *ngIf="!printedMapConfiguration.bleedEdges"
+          class="i-feather icon"
+          name="x"></i-feather>
       </app-list-item>
       <app-list-item (click)="toggleProp('showBoundaryNames')">
         <p class="label">{{ 'territory.print.streets' | translate }}</p>
-        <i-feather *ngIf="printedMapConfiguration.showBoundaryNames" class="i-feather icon checked" name="check-circle"></i-feather>
-        <i-feather *ngIf="!printedMapConfiguration.showBoundaryNames" class="i-feather icon" name="x"></i-feather>
+        <i-feather
+          *ngIf="printedMapConfiguration.showBoundaryNames"
+          class="i-feather icon checked"
+          name="check-circle"></i-feather>
+        <i-feather
+          *ngIf="!printedMapConfiguration.showBoundaryNames"
+          class="i-feather icon"
+          name="x"></i-feather>
       </app-list-item>
       <app-list-item>
         <p class="label">{{ 'common.color' | translate }}</p>
         <div class="info">
-          <div class="territory-color" [class.active]="printedMapConfiguration['territoryColor'] === '#15C880'" (click)="setColor('#15C880')" style="background: #15C880;"></div>
-          <div class="territory-color" [class.active]="printedMapConfiguration['territoryColor'] === '#2079C2'" (click)="setColor('#2079C2')" style="background: #2079C2;"></div>
-          <div class="territory-color" [class.active]="printedMapConfiguration['territoryColor'] === '#FF9F1B'" (click)="setColor('#FF9F1B')" style="background: #FF9F1B;"></div>
-          <div class="territory-color" [class.active]="printedMapConfiguration['territoryColor'] === '#FF5F1B'" (click)="setColor('#FF5F1B')" style="background: #FF5F1B;"></div>
-          <div class="territory-color" [class.active]="printedMapConfiguration['territoryColor'] === '#721ed0'" (click)="setColor('#721ed0')" style="background: #721ed0;"></div>
+          <div
+            class="territory-color"
+            [class.active]="printedMapConfiguration['territoryColor'] === '#15C880'"
+            (click)="setColor('#15C880')"
+            style="background: #15c880"></div>
+          <div
+            class="territory-color"
+            [class.active]="printedMapConfiguration['territoryColor'] === '#2079C2'"
+            (click)="setColor('#2079C2')"
+            style="background: #2079c2"></div>
+          <div
+            class="territory-color"
+            [class.active]="printedMapConfiguration['territoryColor'] === '#FF9F1B'"
+            (click)="setColor('#FF9F1B')"
+            style="background: #ff9f1b"></div>
+          <div
+            class="territory-color"
+            [class.active]="printedMapConfiguration['territoryColor'] === '#FF5F1B'"
+            (click)="setColor('#FF5F1B')"
+            style="background: #ff5f1b"></div>
+          <div
+            class="territory-color"
+            [class.active]="printedMapConfiguration['territoryColor'] === '#721ed0'"
+            (click)="setColor('#721ed0')"
+            style="background: #721ed0"></div>
         </div>
       </app-list-item>
       <app-list-item>
-        <p class="label">{{ 'common.opacity' | translate }} <span class="opacity">({{printedMapConfiguration['opacity']}})</span></p>
+        <p class="label">
+          {{ 'common.opacity' | translate }}
+          <span class="opacity">({{ printedMapConfiguration['opacity'] }})</span>
+        </p>
         <div class="info">
-          <mat-slider min="0.1" max="1" step="0.05" [value]="printedMapConfiguration['opacity']" (input)="setOpacity($event)"></mat-slider>
+          <mat-slider
+            min="0.1"
+            max="1"
+            step="0.05"
+            [value]="printedMapConfiguration['opacity']"
+            (input)="setOpacity($event)"></mat-slider>
         </div>
       </app-list-item>
     </div>

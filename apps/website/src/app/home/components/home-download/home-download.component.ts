@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {ReleaseInfo} from "../../../models/release-info.interface";
-import {OsNames} from "../../../models/os-name.enum";
-import {environment} from "../../../../environments/environment";
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ReleaseInfo } from '../../../models/release-info.interface';
+import { OsNames } from '../../../models/os-name.enum';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-home-download',
   templateUrl: './home-download.component.html',
-  styleUrls: ['./home-download.component.scss']
+  styleUrls: ['./home-download.component.scss'],
 })
 export class HomeDownloadComponent implements OnInit {
   public osNames = OsNames;
@@ -15,8 +15,7 @@ export class HomeDownloadComponent implements OnInit {
   public releaseInfo: ReleaseInfo;
   public errorGettingReleaseInfo;
 
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient) {}
 
   public ngOnInit() {
     this.os = this.getOS();
@@ -24,14 +23,13 @@ export class HomeDownloadComponent implements OnInit {
   }
 
   private getReleaseInfo() {
-    this.httpClient
-      .get(`${environment.releasesHost}/current-release.json`)
-      .subscribe(
-        (resp: ReleaseInfo) => this.releaseInfo = resp,
-        (error) => {
-          console.warn(error);
-          this.errorGettingReleaseInfo = error;
-        });
+    this.httpClient.get(`${environment.releasesHost}/current-release.json`).subscribe(
+      (resp: ReleaseInfo) => (this.releaseInfo = resp),
+      (error) => {
+        console.warn(error);
+        this.errorGettingReleaseInfo = error;
+      }
+    );
   }
 
   private getOS() {

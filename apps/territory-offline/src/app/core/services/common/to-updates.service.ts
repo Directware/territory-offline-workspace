@@ -1,58 +1,47 @@
-import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
-import {version as currentVersion} from './../../../../../package.json';
-import {environment} from '../../../../environments/environment';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {OsNames, ReleaseInfo} from "@territory-offline-workspace/shared-interfaces";
-import {compareVersions} from "@territory-offline-workspace/shared-utils";
+import { version as currentVersion } from './../../../../../package.json';
+import { environment } from '../../../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { OsNames, ReleaseInfo } from '@territory-offline-workspace/shared-interfaces';
+import { compareVersions } from '@territory-offline-workspace/shared-utils';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class ToUpdatesService
-{
+export class ToUpdatesService {
   private releaseInfo: ReleaseInfo;
 
-  constructor(private httpClient: HttpClient)
-  {
-  }
+  constructor(private httpClient: HttpClient) {}
 
-  public getReleaseInfo(): Observable<ReleaseInfo>
-  {
-    if (!this.releaseInfo)
-    {
-      return this.getReleaseInfoFromServer()
-        .pipe(
-          map(ri => this.enrichReleaseInfo(ri)),
-          tap(ri => this.releaseInfo = ri)
-        );
+  public getReleaseInfo(): Observable<ReleaseInfo> {
+    if (!this.releaseInfo) {
+      return this.getReleaseInfoFromServer().pipe(
+        map((ri) => this.enrichReleaseInfo(ri)),
+        tap((ri) => (this.releaseInfo = ri))
+      );
     }
 
     return of(this.releaseInfo);
   }
 
-  private getReleaseInfoFromServer(): Observable<ReleaseInfo>
-  {
+  private getReleaseInfoFromServer(): Observable<ReleaseInfo> {
     const headers = new HttpHeaders({
       'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
-      'Pragma': 'no-cache',
-      'Expires': '0'
+      Pragma: 'no-cache',
+      Expires: '0',
     });
 
     return this.httpClient
-      .get<ReleaseInfo>(`${environment.releasesHost}/current-release.json`, {headers})
-      .pipe(
-        catchError(error => of({...error, hasError: true}))
-      );
+      .get<ReleaseInfo>(`${environment.releasesHost}/current-release.json`, { headers })
+      .pipe(catchError((error) => of({ ...error, hasError: true })));
   }
 
-  private enrichReleaseInfo(releaseInfo: ReleaseInfo): ReleaseInfo
-  {
+  private enrichReleaseInfo(releaseInfo: ReleaseInfo): ReleaseInfo {
     let currentOsDownloadUrl;
-    switch (this.getOS())
-    {
+    switch (this.getOS()) {
       case OsNames.MACOS:
         currentOsDownloadUrl = `${environment.releasesHost}/${releaseInfo.macFileName}`;
         break;
@@ -67,12 +56,11 @@ export class ToUpdatesService
     return {
       ...releaseInfo,
       shouldUpdate: compareVersions(releaseInfo.version, currentVersion),
-      currentOsDownloadUrl
-    }
+      currentOsDownloadUrl,
+    };
   }
 
-  private getOS(): OsNames
-  {
+  private getOS(): OsNames {
     const userAgent = window.navigator.userAgent;
     const platform = window.navigator.platform;
     // const platform = "Win64";
@@ -81,24 +69,15 @@ export class ToUpdatesService
     const iosPlatforms = ['iPhone', 'iPad', 'iPod'];
     let os = null;
 
-    if (macosPlatforms.indexOf(platform) !== -1)
-    {
+    if (macosPlatforms.indexOf(platform) !== -1) {
       os = OsNames.MACOS;
-    }
-    else if (iosPlatforms.indexOf(platform) !== -1)
-    {
+    } else if (iosPlatforms.indexOf(platform) !== -1) {
       os = OsNames.IOS;
-    }
-    else if (windowsPlatforms.indexOf(platform) !== -1)
-    {
+    } else if (windowsPlatforms.indexOf(platform) !== -1) {
       os = OsNames.WIN64;
-    }
-    else if (/Android/.test(userAgent))
-    {
+    } else if (/Android/.test(userAgent)) {
       os = OsNames.ANDROID;
-    }
-    else if (!os && /Linux/.test(platform))
-    {
+    } else if (!os && /Linux/.test(platform)) {
       os = OsNames.LINUX;
     }
 

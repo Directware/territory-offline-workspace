@@ -1,9 +1,7 @@
-import {BackupImportProgressComponent} from './backup-import-progress.component';
+import { BackupImportProgressComponent } from './backup-import-progress.component';
 
-describe('BackupImportProgressComponent', () =>
-{
-  it('...', () =>
-  {
+describe('BackupImportProgressComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

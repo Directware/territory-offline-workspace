@@ -1,7 +1,5 @@
-describe('PreachersComponent', () =>
-{
-  it('...', () =>
-  {
+describe('PreachersComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

@@ -1,7 +1,6 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
-
   .app-panel.sort-wrapper {
     padding: 0;
 
@@ -48,13 +47,13 @@
           }
         }
 
-        &.active{
+        &.active {
           position: relative;
           background: rgba(235, 237, 239, 0.1);
           border-color: transparent;
 
-          &:before{
-            content: "";
+          &:before {
+            content: '';
             position: absolute;
             left: -1.5rem;
             top: -1px;
@@ -65,34 +64,32 @@
         }
 
         &.redundant {
-
           ::after {
-            content: "";
+            content: '';
             position: absolute;
             z-index: -2;
             left: -2rem;
             top: 0.25rem;
             width: calc(100% + 2rem);
-            height: calc(100% - .5rem);
+            height: calc(100% - 0.5rem);
             border-radius: 0.35rem;
-            opacity: .3;
+            opacity: 0.3;
 
             background: $yellowish-orange-20;
           }
         }
 
         &.orphan {
-
           ::after {
-            content: "";
+            content: '';
             position: absolute;
             z-index: -1;
             left: -2rem;
             top: 0.25rem;
             width: calc(100% + 2rem);
-            height: calc(100% - .5rem);
+            height: calc(100% - 0.5rem);
             border-radius: 0.35rem;
-            opacity: .3;
+            opacity: 0.3;
 
             background: $reddish-orange-20;
           }

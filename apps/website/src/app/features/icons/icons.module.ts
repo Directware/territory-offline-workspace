@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import {
   Heart,
   Lock,
@@ -19,36 +19,37 @@ import {
   Maximize2,
   ChevronRight,
   Mail,
-  Tag, Printer
+  Tag,
+  Printer,
 } from 'angular-feather/icons';
-import {FeatherModule} from "angular-feather";
+import { FeatherModule } from 'angular-feather';
 
 @NgModule({
-  imports: [FeatherModule.pick({
-    Heart,
-    Lock,
-    Award,
-    Globe,
-    Package,
-    Monitor,
-    ArrowRight,
-    Menu,
-    X,
-    Home,
-    Zap,
-    Share2,
-    Layers,
-    Users,
-    BellOff,
-    Share,
-    Maximize2,
-    ChevronRight,
-    Mail,
-    Tag,
-    Printer
-  })],
-  exports: [FeatherModule]
+  imports: [
+    FeatherModule.pick({
+      Heart,
+      Lock,
+      Award,
+      Globe,
+      Package,
+      Monitor,
+      ArrowRight,
+      Menu,
+      X,
+      Home,
+      Zap,
+      Share2,
+      Layers,
+      Users,
+      BellOff,
+      Share,
+      Maximize2,
+      ChevronRight,
+      Mail,
+      Tag,
+      Printer,
+    }),
+  ],
+  exports: [FeatherModule],
 })
-export class IconsModule
-{
-}
+export class IconsModule {}

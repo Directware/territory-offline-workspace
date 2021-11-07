@@ -1,20 +1,17 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
-
   .delete-congregation {
     cursor: pointer;
     background: $reddish-orange-20;
 
     .app-list-item,
     .app-list-item .label {
-
       color: $reddish-orange;
     }
   }
 
   .last-doings {
-
     .wrapper {
       padding: 1rem 1rem 0 0;
 

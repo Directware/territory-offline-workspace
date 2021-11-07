@@ -10,7 +10,9 @@ import {
   HASHED_DRAWING_TABLE_NAME,
   HASHED_LAST_DOING_TABLE_NAME,
   HASHED_PUBLISHER_TABLE_NAME,
-  HASHED_TAG_TABLE_NAME, HASHED_TERRITORY_TABLE_NAME, HASHED_VISIT_BAN_TABLE_NAME,
+  HASHED_TAG_TABLE_NAME,
+  HASHED_TERRITORY_TABLE_NAME,
+  HASHED_VISIT_BAN_TABLE_NAME,
   LAST_DOING_TABLE_NAME,
   LastDoing,
   Publisher,
@@ -19,52 +21,60 @@ import {
   SQL_DELETE_CONGREGATION,
   SQL_DELETE_DRAWING,
   SQL_DELETE_LAST_DOING,
-  SQL_DELETE_PUBLISHER, SQL_DELETE_TAG, SQL_DELETE_TERRITORY, SQL_DELETE_VISIT_BAN,
+  SQL_DELETE_PUBLISHER,
+  SQL_DELETE_TAG,
+  SQL_DELETE_TERRITORY,
+  SQL_DELETE_VISIT_BAN,
   SQL_INSERT_ASSIGNMENT,
   SQL_INSERT_CONGREGATION,
   SQL_INSERT_DRAWING,
   SQL_INSERT_LAST_DOING,
-  SQL_INSERT_PUBLISHER, SQL_INSERT_TAG, SQL_INSERT_TERRITORY, SQL_INSERT_VISIT_BAN,
-  Tag, TAG_TABLE_NAME,
-  Territory, TERRITORY_TABLE_NAME,
-  TimedEntity, VISIT_BAN_TABLE_NAME,
-  VisitBan
-} from "@territory-offline-workspace/shared-interfaces";
-import {capSQLiteSet} from "@capacitor-community/sqlite";
+  SQL_INSERT_PUBLISHER,
+  SQL_INSERT_TAG,
+  SQL_INSERT_TERRITORY,
+  SQL_INSERT_VISIT_BAN,
+  Tag,
+  TAG_TABLE_NAME,
+  Territory,
+  TERRITORY_TABLE_NAME,
+  TimedEntity,
+  VISIT_BAN_TABLE_NAME,
+  VisitBan,
+} from '@territory-offline-workspace/shared-interfaces';
+import { capSQLiteSet } from '@capacitor-community/sqlite';
 import {
   deserializeArray,
-  deserializeDate, deserializeObject,
+  deserializeDate,
+  deserializeObject,
   serializeArray,
   serializeBoolean,
   serializeDate,
-  serializeObject
-} from "@territory-offline-workspace/shared-utils";
+  serializeObject,
+} from '@territory-offline-workspace/shared-utils';
 
 export const TABLE_NAME_MAPPINGS = {
   [HASHED_ASSIGNMENT_TABLE_NAME]: {
     tableName: ASSIGNMENT_TABLE_NAME,
-    deleteByIdQuery: (entityId: string): string => SQL_DELETE_ASSIGNMENT.replace("{id}", entityId),
-    insertQuery: (entities: TimedEntity[]): capSQLiteSet =>
-    {
+    deleteByIdQuery: (entityId: string): string => SQL_DELETE_ASSIGNMENT.replace('{id}', entityId),
+    insertQuery: (entities: TimedEntity[]): capSQLiteSet => {
       return {
         statement: SQL_INSERT_ASSIGNMENT,
-        values: entities.map((assignment: Assignment) => ([
+        values: entities.map((assignment: Assignment) => [
           assignment.id,
           assignment.congregationId,
-          assignment.prefix || "",
+          assignment.prefix || '',
           serializeDate(assignment.creationTime || assignment.startTime),
           serializeDate(assignment.lastUpdated),
           assignment.publisherId,
           assignment.territoryId,
           serializeDate(assignment.startTime),
           serializeDate(assignment.endTime),
-          assignment.statusColor || "",
-          assignment.removedPublisherLabel || ""
-        ]))
+          assignment.statusColor || '',
+          assignment.removedPublisherLabel || '',
+        ]),
       };
     },
-    parseEntity: (assignment: Assignment) =>
-    {
+    parseEntity: (assignment: Assignment) => {
       return {
         id: assignment.id,
         congregationId: assignment.congregationId,
@@ -75,31 +85,30 @@ export const TABLE_NAME_MAPPINGS = {
         startTime: deserializeDate(assignment.startTime as unknown as string),
         endTime: deserializeDate(assignment.endTime as unknown as string),
         statusColor: assignment.statusColor,
-        removedPublisherLabel: assignment.removedPublisherLabel
+        removedPublisherLabel: assignment.removedPublisherLabel,
       };
-    }
+    },
   },
   [HASHED_CONGREGATION_TABLE_NAME]: {
     tableName: CONGREGATION_TABLE_NAME,
-    deleteByIdQuery: (entityId: string): string => SQL_DELETE_CONGREGATION.replace("{id}", entityId),
-    insertQuery: (entities: TimedEntity[]): capSQLiteSet =>
-    {
+    deleteByIdQuery: (entityId: string): string =>
+      SQL_DELETE_CONGREGATION.replace('{id}', entityId),
+    insertQuery: (entities: TimedEntity[]): capSQLiteSet => {
       return {
         statement: SQL_INSERT_CONGREGATION,
-        values: entities.map((congregation: Congregation) => ([
+        values: entities.map((congregation: Congregation) => [
           congregation.id,
-          congregation.prefix || "",
+          congregation.prefix || '',
           serializeDate(congregation.creationTime),
           serializeDate(congregation.lastUpdated),
           congregation.name,
           congregation.languageCode,
           congregation.language,
-          congregation.hashedName
-        ]))
+          congregation.hashedName,
+        ]),
       };
     },
-    parseEntity: (congregation: Congregation) =>
-    {
+    parseEntity: (congregation: Congregation) => {
       return {
         id: congregation.id,
         congregationId: congregation.congregationId,
@@ -108,81 +117,80 @@ export const TABLE_NAME_MAPPINGS = {
         name: congregation.name,
         languageCode: congregation.languageCode,
         language: congregation.language,
-        hashedName: congregation.hashedName
+        hashedName: congregation.hashedName,
       };
-    }
+    },
   },
   [HASHED_DRAWING_TABLE_NAME]: {
     tableName: DRAWING_TABLE_NAME,
-    deleteByIdQuery: (entityId: string): string => SQL_DELETE_DRAWING.replace("{id}", entityId),
-    insertQuery: (entities: TimedEntity[]): capSQLiteSet =>
-    {
+    deleteByIdQuery: (entityId: string): string => SQL_DELETE_DRAWING.replace('{id}', entityId),
+    insertQuery: (entities: TimedEntity[]): capSQLiteSet => {
       return {
         statement: SQL_INSERT_DRAWING,
-        values: entities.map((drawing: Drawing) => ([
+        values: entities.map((drawing: Drawing) => [
           drawing.id,
           drawing.congregationId,
-          drawing.prefix || "",
+          drawing.prefix || '',
           serializeDate(drawing.creationTime || new Date()),
           serializeDate(drawing.lastUpdated),
           serializeObject(drawing.featureCollection),
-          serializeObject(drawing.printConfiguration)
-        ]))
+          serializeObject(drawing.printConfiguration),
+        ]),
       };
     },
-    parseEntity: (drawing: Drawing) =>
-    {
+    parseEntity: (drawing: Drawing) => {
       return {
         id: drawing.id,
         congregationId: drawing.congregationId,
         creationTime: deserializeDate(drawing.creationTime as unknown as string),
         lastUpdated: deserializeDate(drawing.lastUpdated as unknown as string),
-        featureCollection: deserializeObject(drawing.featureCollection as unknown as string || "null"),
-        printConfiguration: deserializeObject(drawing.printConfiguration as unknown as string || "{}")
+        featureCollection: deserializeObject(
+          (drawing.featureCollection as unknown as string) || 'null'
+        ),
+        printConfiguration: deserializeObject(
+          (drawing.printConfiguration as unknown as string) || '{}'
+        ),
       };
-    }
+    },
   },
   [HASHED_LAST_DOING_TABLE_NAME]: {
     tableName: LAST_DOING_TABLE_NAME,
-    deleteByIdQuery: (entityId: string): string => SQL_DELETE_LAST_DOING.replace("{id}", entityId),
-    insertQuery: (entities: TimedEntity[]): capSQLiteSet =>
-    {
+    deleteByIdQuery: (entityId: string): string => SQL_DELETE_LAST_DOING.replace('{id}', entityId),
+    insertQuery: (entities: TimedEntity[]): capSQLiteSet => {
       return {
         statement: SQL_INSERT_LAST_DOING,
-        values: entities.map((lastDoing: LastDoing) => ([
+        values: entities.map((lastDoing: LastDoing) => [
           lastDoing.id,
           lastDoing.congregationId,
-          lastDoing.prefix || "",
+          lastDoing.prefix || '',
           serializeDate(lastDoing.creationTime),
           serializeDate(lastDoing.lastUpdated),
           lastDoing.action,
-          lastDoing.label
-        ]))
+          lastDoing.label,
+        ]),
       };
     },
-    parseEntity: (lastDoing: LastDoing) =>
-    {
+    parseEntity: (lastDoing: LastDoing) => {
       return {
         id: lastDoing.id,
         congregationId: lastDoing.congregationId,
         creationTime: deserializeDate(lastDoing.creationTime as unknown as string),
         lastUpdated: deserializeDate(lastDoing.lastUpdated as unknown as string),
         action: lastDoing.action,
-        label: lastDoing.label
+        label: lastDoing.label,
       };
-    }
+    },
   },
   [HASHED_PUBLISHER_TABLE_NAME]: {
     tableName: PUBLISHER_TABLE_NAME,
-    deleteByIdQuery: (entityId: string): string => SQL_DELETE_PUBLISHER.replace("{id}", entityId),
-    insertQuery: (entities: TimedEntity[]): capSQLiteSet =>
-    {
+    deleteByIdQuery: (entityId: string): string => SQL_DELETE_PUBLISHER.replace('{id}', entityId),
+    insertQuery: (entities: TimedEntity[]): capSQLiteSet => {
       return {
         statement: SQL_INSERT_PUBLISHER,
-        values: entities.map((publisher: Publisher) => ([
+        values: entities.map((publisher: Publisher) => [
           publisher.id,
           publisher.congregationId,
-          publisher.prefix || "",
+          publisher.prefix || '',
           serializeDate(publisher.creationTime || new Date()),
           serializeDate(publisher.lastUpdated),
           publisher.name,
@@ -190,13 +198,12 @@ export const TABLE_NAME_MAPPINGS = {
           publisher.email,
           publisher.phone,
           serializeArray(publisher.tags),
-          publisher.dsgvoSignature || "",
-          serializeBoolean(publisher.isDeactivated)
-        ]))
+          publisher.dsgvoSignature || '',
+          serializeBoolean(publisher.isDeactivated),
+        ]),
       };
     },
-    parseEntity: (publisher: Publisher) =>
-    {
+    parseEntity: (publisher: Publisher) => {
       return {
         id: publisher.id,
         congregationId: publisher.congregationId,
@@ -206,34 +213,32 @@ export const TABLE_NAME_MAPPINGS = {
         firstName: publisher.firstName,
         email: publisher.email,
         phone: publisher.phone,
-        tags: deserializeArray(publisher.tags as unknown as string || "[]"),
+        tags: deserializeArray((publisher.tags as unknown as string) || '[]'),
         dsgvoSignature: publisher.dsgvoSignature,
-        isDeactivated: JSON.parse(publisher.isDeactivated as unknown as string || "false"),
+        isDeactivated: JSON.parse((publisher.isDeactivated as unknown as string) || 'false'),
       };
-    }
+    },
   },
   [HASHED_TAG_TABLE_NAME]: {
     tableName: TAG_TABLE_NAME,
-    deleteByIdQuery: (entityId: string): string => SQL_DELETE_TAG.replace("{id}", entityId),
-    insertQuery: (entities: TimedEntity[]): capSQLiteSet =>
-    {
+    deleteByIdQuery: (entityId: string): string => SQL_DELETE_TAG.replace('{id}', entityId),
+    insertQuery: (entities: TimedEntity[]): capSQLiteSet => {
       return {
         statement: SQL_INSERT_TAG,
-        values: entities.map((tag: Tag) => ([
+        values: entities.map((tag: Tag) => [
           tag.id,
           tag.congregationId,
-          tag.prefix || "",
+          tag.prefix || '',
           serializeDate(tag.creationTime || new Date()),
           serializeDate(tag.lastUpdated),
           tag.name,
-          tag.color || "",
-          tag.symbol || "",
-          serializeObject(tag.metaInfos)
-        ]))
+          tag.color || '',
+          tag.symbol || '',
+          serializeObject(tag.metaInfos),
+        ]),
       };
     },
-    parseEntity: (tag: Tag) =>
-    {
+    parseEntity: (tag: Tag) => {
       return {
         id: tag.id,
         congregationId: tag.congregationId,
@@ -242,21 +247,20 @@ export const TABLE_NAME_MAPPINGS = {
         name: tag.name,
         color: tag.color,
         symbol: tag.symbol,
-        metaInfos: deserializeObject(tag.metaInfos as unknown as string || "null")
+        metaInfos: deserializeObject((tag.metaInfos as unknown as string) || 'null'),
       };
-    }
+    },
   },
   [HASHED_TERRITORY_TABLE_NAME]: {
     tableName: TERRITORY_TABLE_NAME,
-    deleteByIdQuery: (entityId: string): string => SQL_DELETE_TERRITORY.replace("{id}", entityId),
-    insertQuery: (entities: TimedEntity[]): capSQLiteSet =>
-    {
+    deleteByIdQuery: (entityId: string): string => SQL_DELETE_TERRITORY.replace('{id}', entityId),
+    insertQuery: (entities: TimedEntity[]): capSQLiteSet => {
       return {
         statement: SQL_INSERT_TERRITORY,
-        values: entities.map((territory: Territory) => ([
+        values: entities.map((territory: Territory) => [
           territory.id,
           territory.congregationId,
-          territory.prefix || "",
+          territory.prefix || '',
           serializeDate(territory.creationTime || new Date()),
           serializeDate(territory.lastUpdated),
           territory.name,
@@ -267,12 +271,11 @@ export const TABLE_NAME_MAPPINGS = {
           serializeArray(territory.boundaryNames),
           serializeBoolean(territory.deactivated),
           serializeBoolean(territory.isCreation),
-          territory.comment || ""
-        ]))
+          territory.comment || '',
+        ]),
       };
     },
-    parseEntity: (territory: Territory) =>
-    {
+    parseEntity: (territory: Territory) => {
       return {
         id: territory.id,
         congregationId: territory.congregationId,
@@ -280,44 +283,42 @@ export const TABLE_NAME_MAPPINGS = {
         lastUpdated: deserializeDate(territory.lastUpdated as unknown as string),
         name: territory.name,
         key: territory.key,
-        populationCount: JSON.parse(territory.populationCount as unknown as string || "0"),
-        tags: deserializeArray(territory.tags as unknown as string || "[]"),
+        populationCount: JSON.parse((territory.populationCount as unknown as string) || '0'),
+        tags: deserializeArray((territory.tags as unknown as string) || '[]'),
         territoryDrawingId: territory.territoryDrawingId,
-        boundaryNames: deserializeArray(territory.boundaryNames as unknown as string || "[]"),
-        deactivated: JSON.parse(territory.deactivated as unknown as string || "false"),
-        isCreation: JSON.parse(territory.isCreation as unknown as string || "false"),
+        boundaryNames: deserializeArray((territory.boundaryNames as unknown as string) || '[]'),
+        deactivated: JSON.parse((territory.deactivated as unknown as string) || 'false'),
+        isCreation: JSON.parse((territory.isCreation as unknown as string) || 'false'),
         comment: territory.comment,
       };
-    }
+    },
   },
   [HASHED_VISIT_BAN_TABLE_NAME]: {
     tableName: VISIT_BAN_TABLE_NAME,
-    deleteByIdQuery: (entityId: string): string => SQL_DELETE_VISIT_BAN.replace("{id}", entityId),
-    insertQuery: (entities: TimedEntity[]): capSQLiteSet =>
-    {
+    deleteByIdQuery: (entityId: string): string => SQL_DELETE_VISIT_BAN.replace('{id}', entityId),
+    insertQuery: (entities: TimedEntity[]): capSQLiteSet => {
       return {
         statement: SQL_INSERT_VISIT_BAN,
-        values: entities.map((visitBan: VisitBan) => ([
+        values: entities.map((visitBan: VisitBan) => [
           visitBan.id,
           visitBan.congregationId,
-          visitBan.prefix || "",
+          visitBan.prefix || '',
           serializeDate(visitBan.creationTime || new Date()),
           serializeDate(visitBan.lastUpdated),
-          visitBan.name || "",
+          visitBan.name || '',
           visitBan.street,
           visitBan.streetSuffix,
           visitBan.territoryId,
           serializeArray(visitBan.tags),
-          visitBan.city || "",
-          visitBan.floor || "",
+          visitBan.city || '',
+          visitBan.floor || '',
           serializeDate(visitBan.lastVisit),
-          visitBan.comment || "",
-          serializeObject(visitBan.gpsPosition)
-        ]))
+          visitBan.comment || '',
+          serializeObject(visitBan.gpsPosition),
+        ]),
       };
     },
-    parseEntity: (visitBan: VisitBan) =>
-    {
+    parseEntity: (visitBan: VisitBan) => {
       return {
         id: visitBan.id,
         congregationId: visitBan.congregationId,
@@ -327,13 +328,13 @@ export const TABLE_NAME_MAPPINGS = {
         street: visitBan.street,
         streetSuffix: visitBan.streetSuffix,
         territoryId: visitBan.territoryId,
-        tags: deserializeArray(visitBan.tags as unknown as string || "[]"),
+        tags: deserializeArray((visitBan.tags as unknown as string) || '[]'),
         city: visitBan.city,
-        floor: JSON.parse(visitBan.floor as unknown as string || "null"),
+        floor: JSON.parse((visitBan.floor as unknown as string) || 'null'),
         lastVisit: deserializeDate(visitBan.lastVisit as unknown as string),
         comment: visitBan.comment,
-        gpsPosition: deserializeObject(visitBan.gpsPosition as unknown as string || "null")
+        gpsPosition: deserializeObject((visitBan.gpsPosition as unknown as string) || 'null'),
       };
-    }
+    },
   },
 };

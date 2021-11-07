@@ -6,12 +6,13 @@ describe('BackupImportProgressComponent', () => {
   let component: BackupImportProgressComponent;
   let fixture: ComponentFixture<BackupImportProgressComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ BackupImportProgressComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [BackupImportProgressComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BackupImportProgressComponent);

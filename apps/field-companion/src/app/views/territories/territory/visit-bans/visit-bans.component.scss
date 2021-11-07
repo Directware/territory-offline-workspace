@@ -1,4 +1,4 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
   padding-right: 1rem;
@@ -14,10 +14,10 @@
     ::ng-deep .wrapper {
       padding: 1rem 0 0 1rem;
 
-     .app-list {
+      .app-list {
         padding: 1rem 0 0 0;
 
-       .app-list-item {
+        .app-list-item {
           padding: 0 0 0 0;
 
           .label {
@@ -29,7 +29,6 @@
           }
 
           &.no-visit-bans {
-
             .label {
               color: $white-03;
             }
@@ -37,6 +36,5 @@
         }
       }
     }
-
   }
 }

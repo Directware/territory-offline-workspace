@@ -1,9 +1,7 @@
-import {AssignmentComponent} from './assignment.component';
+import { AssignmentComponent } from './assignment.component';
 
-describe('AssignmentComponent', () =>
-{
-  it('...', () =>
-  {
+describe('AssignmentComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

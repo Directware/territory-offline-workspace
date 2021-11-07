@@ -1,9 +1,7 @@
-import {SearchPublisherPipe} from './search-publisher.pipe';
+import { SearchPublisherPipe } from './search-publisher.pipe';
 
-describe('SearchPublisherPipe', () =>
-{
-  it('...', () =>
-  {
+describe('SearchPublisherPipe', () => {
+  it('...', () => {
     // TODO
   });
 });

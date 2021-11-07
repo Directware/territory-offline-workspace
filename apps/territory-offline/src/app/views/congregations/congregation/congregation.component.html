@@ -1,49 +1,54 @@
-<app-second-thread-header [readonly]="readOnly"
-                          [valid]="congregation.valid && !congregation.pristine"
-                          (onEdit)="readOnly=false"
-                          (onBack)="back()"
-                          (onCancel)="cancel()"
-                          (onSave)="createCongregation()"></app-second-thread-header>
+<app-second-thread-header
+  [readonly]="readOnly"
+  [valid]="congregation.valid && !congregation.pristine"
+  (onEdit)="readOnly = false"
+  (onBack)="back()"
+  (onCancel)="cancel()"
+  (onSave)="createCongregation()"></app-second-thread-header>
 
 <div class="scrollable-wrapper" *ngIf="readOnly">
   <app-panel>
     <app-list-item>
       <p class="label">{{ 'congregation.name' | translate }}</p>
-      <p class="info">{{congregation.get('name').value}}</p>
+      <p class="info">{{ congregation.get('name').value }}</p>
     </app-list-item>
     <app-list-item>
       <p class="label">{{ 'congregation.language' | translate }}</p>
-      <p class="info">{{congregation.get('language').value}}</p>
+      <p class="info">{{ congregation.get('language').value }}</p>
     </app-list-item>
   </app-panel>
 
-  <ng-container *ngIf="(currentCongregationId$ | async) as currentCongregationId">
+  <ng-container *ngIf="currentCongregationId$ | async as currentCongregationId">
     <app-panel>
-      <app-list-item [class.disabled]="currentCongregationId===congregation.get('id').value"
-                     (click)="useCongregation()">
+      <app-list-item
+        [class.disabled]="currentCongregationId === congregation.get('id').value"
+        (click)="useCongregation()">
         <p class="label blue">{{ 'congregation.use' | translate }}</p>
         <i-feather name="check" class="i-feather action blue"></i-feather>
       </app-list-item>
-      <app-list-item [class.disabled]="currentCongregationId!==congregation.get('id').value"
-                     (click)="duplicateCongregation()">
+      <app-list-item
+        [class.disabled]="currentCongregationId !== congregation.get('id').value"
+        (click)="duplicateCongregation()">
         <p class="label blue">{{ 'congregation.duplicate' | translate }}</p>
         <i-feather name="copy" class="i-feather action blue"></i-feather>
       </app-list-item>
     </app-panel>
 
     <app-panel *ngIf="!isCreation" class="delete-congregation animate-color-and-transform">
-      <app-list-item [class.disabled]="currentCongregationId===congregation.get('id').value" (click)="deleteCongregation()">
+      <app-list-item
+        [class.disabled]="currentCongregationId === congregation.get('id').value"
+        (click)="deleteCongregation()">
         <p class="label">{{ 'congregation.delete' | translate }}</p>
         <i-feather class="i-feather action" name="trash"></i-feather>
       </app-list-item>
     </app-panel>
 
-    <app-panel *ngIf="currentCongregationId===congregation.get('id').value" class="last-doings">
+    <app-panel *ngIf="currentCongregationId === congregation.get('id').value" class="last-doings">
       <div class="wrapper">
         <h3 class="h3-white">{{ 'congregation.lastDoing' | translate }}</h3>
-        <app-list *ngIf="(lastDoings$ | async) as lastDoings; else noLastDoings">
+        <app-list *ngIf="lastDoings$ | async as lastDoings; else noLastDoings">
           <app-list-item *ngFor="let lastDoing of lastDoings">
-            <p class="label">{{lastDoing.label}} {{lastDoing.action | translate}}</p>
+            <p class="label">{{ lastDoing.label }} {{ lastDoing.action | translate }}</p>
           </app-list-item>
         </app-list>
         <ng-template #noLastDoings>
@@ -57,12 +62,18 @@
 <form *ngIf="!readOnly" [formGroup]="congregation">
   <app-panel>
     <app-list-item>
-      <input [placeholder]="('congregation.name' | translate) + '*'" class="input" formControlName="name" name="name">
+      <input
+        [placeholder]="('congregation.name' | translate) + '*'"
+        class="input"
+        formControlName="name"
+        name="name" />
     </app-list-item>
     <app-list-item>
-      <app-language-search class="app-language-search label"
-                           [initLanguageCode]="congregation.get('languageCode').value"
-                           (onChoose)="setLanguage($event)" (onValueReset)="setLanguage(null)"></app-language-search>
+      <app-language-search
+        class="app-language-search label"
+        [initLanguageCode]="congregation.get('languageCode').value"
+        (onChoose)="setLanguage($event)"
+        (onValueReset)="setLanguage(null)"></app-language-search>
     </app-list-item>
   </app-panel>
 </form>

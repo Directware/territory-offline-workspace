@@ -6,12 +6,13 @@ describe('DonateHintDialogComponent', () => {
   let component: DonateHintDialogComponent;
   let fixture: ComponentFixture<DonateHintDialogComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ DonateHintDialogComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [DonateHintDialogComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DonateHintDialogComponent);

@@ -1,4 +1,4 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
   padding: 0.5rem 0;
@@ -7,7 +7,8 @@
   margin: 1rem;
   box-sizing: border-box;
 
-  h4, p {
+  h4,
+  p {
     padding: 0 0.5rem;
   }
 

@@ -1,7 +1,6 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
-
   .app-panel {
     padding: 0;
     box-shadow: 0 8px 16px 0 rgba(24, 30, 37, 0.3);
@@ -110,13 +109,13 @@
     .app-list {
       padding: 0;
 
-      .active{
+      .active {
         position: relative;
         background: rgba(235, 237, 239, 0.1);
         border-color: transparent;
 
-        &:before{
-          content: "";
+        &:before {
+          content: '';
           position: absolute;
           left: -1.5rem;
           top: -1px;

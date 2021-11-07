@@ -3,27 +3,51 @@
 <div class="taps">
   <div class="title">
     <div class="icon-wrapper">
-      <i-feather name="zap" class="icon" [class.active]="active === 0" (click)="click(0, 'dashboard')"></i-feather>
+      <i-feather
+        name="zap"
+        class="icon"
+        [class.active]="active === 0"
+        (click)="click(0, 'dashboard')"></i-feather>
       <div class="name">{{ 'features.main.dashboard.title' | translate }}</div>
     </div>
     <div class="icon-wrapper">
-      <i-feather name="share-2" class="icon" [class.active]="active === 1" (click)="click(1, 'assignments')"></i-feather>
+      <i-feather
+        name="share-2"
+        class="icon"
+        [class.active]="active === 1"
+        (click)="click(1, 'assignments')"></i-feather>
       <div class="name">{{ 'features.main.assignments.title' | translate }}</div>
     </div>
     <div class="icon-wrapper">
-      <i-feather name="layers" class="icon" [class.active]="active === 2" (click)="click(2, 'territories')"></i-feather>
+      <i-feather
+        name="layers"
+        class="icon"
+        [class.active]="active === 2"
+        (click)="click(2, 'territories')"></i-feather>
       <div class="name">{{ 'features.main.territories.title' | translate }}</div>
     </div>
     <div class="icon-wrapper">
-      <i-feather name="users" class="icon" [class.active]="active === 3" (click)="click(3, 'publisher')"></i-feather>
+      <i-feather
+        name="users"
+        class="icon"
+        [class.active]="active === 3"
+        (click)="click(3, 'publisher')"></i-feather>
       <div class="name">{{ 'features.main.publisher.title' | translate }}</div>
     </div>
     <div class="icon-wrapper">
-      <i-feather name="bell-off" class="icon" [class.active]="active === 4" (click)="click(4, 'notVisit')"></i-feather>
+      <i-feather
+        name="bell-off"
+        class="icon"
+        [class.active]="active === 4"
+        (click)="click(4, 'notVisit')"></i-feather>
       <div class="name">{{ 'features.main.notVisit.title' | translate }}</div>
     </div>
     <div class="icon-wrapper">
-      <i-feather name="printer" class="icon" [class.active]="active === 5" (click)="click(5, 'print')"></i-feather>
+      <i-feather
+        name="printer"
+        class="icon"
+        [class.active]="active === 5"
+        (click)="click(5, 'print')"></i-feather>
       <div class="name">{{ 'features.main.print.title' | translate }}</div>
     </div>
     <!--
@@ -33,7 +57,11 @@
     </div>
     -->
     <div class="icon-wrapper">
-      <i-feather name="tag" class="icon" [class.active]="active === 6" (click)="click(6, 'tags')"></i-feather>
+      <i-feather
+        name="tag"
+        class="icon"
+        [class.active]="active === 6"
+        (click)="click(6, 'tags')"></i-feather>
       <div class="name">{{ 'features.main.tags.title' | translate }}</div>
     </div>
   </div>
@@ -72,8 +100,7 @@
       pattern="features-pattern-gebiete.svg"
       [showNext]="true"
       (next)="active = 3"
-      [class.active]="active === 2"
-    >
+      [class.active]="active === 2">
       <i-feather name="layers" class="head-icon"></i-feather>
     </app-features-main-item>
 
@@ -102,7 +129,7 @@
       [last]="true">
       <i-feather name="bell-off" class="head-icon"></i-feather>
     </app-features-main-item>
-<!--
+    <!--
     <app-features-main-item
       id="export"
       [@fade]

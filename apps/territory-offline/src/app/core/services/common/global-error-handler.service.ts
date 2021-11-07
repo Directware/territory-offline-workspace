@@ -1,29 +1,22 @@
-import {ErrorHandler, Injectable} from '@angular/core';
-import {environment} from "../../../../environments/environment";
+import { ErrorHandler, Injectable } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
-export class GlobalErrorHandlerService implements ErrorHandler
-{
-  constructor()
-  {
-  }
+export class GlobalErrorHandlerService implements ErrorHandler {
+  constructor() {}
 
-  public handleError(error: Error)
-  {
-    if (environment.production)
-    {
-      console.error("[GLOBAL_ERROR_HANDLER]:")
+  public handleError(error: Error) {
+    if (environment.production) {
+      console.error('[GLOBAL_ERROR_HANDLER]:');
       console.error(error);
 
-      if (document.body)
-      {
-        document.body.classList.add("with-error");
+      if (document.body) {
+        document.body.classList.add('with-error');
       }
 
-      const errorText = document.getElementById("global-error-text");
+      const errorText = document.getElementById('global-error-text');
 
-      if (errorText)
-      {
+      if (errorText) {
         errorText.innerHTML = error.stack;
       }
       return;

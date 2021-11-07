@@ -1,4 +1,9 @@
-<ng-container class="tags" *ngIf="(tags$ | async) as tags">
-  <div class="tag" *ngFor="let tag of tags" [ngStyle]="{color: tag.color, background: hexToRgbA(tag.color)}">{{tag.name}}</div>
+<ng-container class="tags" *ngIf="tags$ | async as tags">
+  <div
+    class="tag"
+    *ngFor="let tag of tags"
+    [ngStyle]="{ color: tag.color, background: hexToRgbA(tag.color) }">
+    {{ tag.name }}
+  </div>
   <p class="body-grey" *ngIf="tags.length === 0">{{ 'tag.previewNone' | translate }}</p>
 </ng-container>

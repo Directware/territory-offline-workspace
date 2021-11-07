@@ -1,5 +1,4 @@
-export interface CalendarCell
-{
+export interface CalendarCell {
   text: string;
   dayIndex: number;
   date: Date;

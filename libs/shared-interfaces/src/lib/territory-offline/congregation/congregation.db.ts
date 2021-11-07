@@ -1,5 +1,5 @@
-export const CONGREGATION_TABLE_NAME = "congregations";
-export const HASHED_CONGREGATION_TABLE_NAME = btoa("congregations");
+export const CONGREGATION_TABLE_NAME = 'congregations';
+export const HASHED_CONGREGATION_TABLE_NAME = btoa('congregations');
 export const SQL_CREATE_CONGREGATION = `
   CREATE TABLE IF NOT EXISTS ${CONGREGATION_TABLE_NAME} (
     id TEXT PRIMARY KEY NOT NULL,

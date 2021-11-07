@@ -1,60 +1,68 @@
-<ng-container *ngIf="(settings$ | async) as settings">
+<ng-container *ngIf="settings$ | async as settings">
   <app-panel>
     <div class="wrapper info-wrapper">
       <i-feather name="info" class="changelog grey" (click)="openChangelogDialog()"></i-feather>
 
-      <img alt="image" class="to-icon" src="assets/images/icon-to-transparent.png"/>
+      <img alt="image" class="to-icon" src="assets/images/icon-to-transparent.png" />
 
       <h2 class="h2-white">{{ 'title' | translate }}</h2>
       <p class="body-grey check-updates-wrapper">
         <span>
-          {{ 'settings.version' | translate }}: {{version}}
+          {{ 'settings.version' | translate }}: {{ version }}
           <i-feather (click)="checkUpdates()" name="refresh-cw" class="check-updates"></i-feather>
         </span>
       </p>
 
-      <ng-container *ngIf="(releaseInfo$ | async) as releaseInfo">
-        <div *ngIf="releaseInfo.shouldUpdate" class="new-version body-white"
-             (click)="downloadNewRelease(releaseInfo)">
-          {{ 'settings.versionAvailable' | translate:{ version: releaseInfo.version } }}
+      <ng-container *ngIf="releaseInfo$ | async as releaseInfo">
+        <div
+          *ngIf="releaseInfo.shouldUpdate"
+          class="new-version body-white"
+          (click)="downloadNewRelease(releaseInfo)">
+          {{ 'settings.versionAvailable' | translate: { version: releaseInfo.version } }}
           <i-feather name="download"></i-feather>
         </div>
       </ng-container>
-
     </div>
   </app-panel>
   <div class="scrollable-wrapper">
     <div class="settings-wrapper">
       <h2 class="h2-white">{{ 'settings.general' | translate }}</h2>
       <app-list-item>
-        <p class="label">{{"language" | translate}}</p>
+        <p class="label">{{ 'language' | translate }}</p>
         <p class="info">
-          <app-language-search class="app-language-search"
-                               [allowedLangList]="initialLangList"
-                               [initLanguageCode]="settings.appLanguage?.languageCode"
-                               (onChoose)="chooseLanguage($event)"></app-language-search>
+          <app-language-search
+            class="app-language-search"
+            [allowedLangList]="initialLangList"
+            [initLanguageCode]="settings.appLanguage?.languageCode"
+            (onChoose)="chooseLanguage($event)"></app-language-search>
         </p>
       </app-list-item>
 
       <h2 class="h2-white">{{ 'settings.territories' | translate }}</h2>
       <app-list-item (click)="navigateInSecondThread('processing-due-after')">
         <p class="label">{{ 'settings.processingDueAfter' | translate }}</p>
-        <p class="info">{{ 'settings.dueMonth' | translate:{ count: settings.processingPeriodInMonths } }}</p>
+        <p class="info">
+          {{ 'settings.dueMonth' | translate: { count: settings.processingPeriodInMonths } }}
+        </p>
       </app-list-item>
       <app-list-item (click)="navigateInSecondThread('reassign-after')">
         <p class="label">{{ 'settings.reassignAfter' | translate }}</p>
-        <p class="info">{{ 'settings.dueMonth' | translate:{ count: settings.processingBreakInMonths } }}</p>
+        <p class="info">
+          {{ 'settings.dueMonth' | translate: { count: settings.processingBreakInMonths } }}
+        </p>
       </app-list-item>
       <app-list-item (click)="navigateInSecondThread('reassign-due-after')">
         <p class="label">{{ 'settings.reassignDueAfter' | translate }}</p>
-        <p class="info">{{ 'settings.dueMonth' | translate:{ count: settings.overdueBreakInMonths } }}</p>
+        <p class="info">
+          {{ 'settings.dueMonth' | translate: { count: settings.overdueBreakInMonths } }}
+        </p>
       </app-list-item>
       <app-list-item (click)="navigateInGlobalThread('choose-origin')" class="blue">
         <p class="label">{{ 'settings.alignMap' | translate }}</p>
       </app-list-item>
 
       <h2 class="h2-white">{{ 'settings.security' | translate }}</h2>
-      <app-list-item style="opacity: 0.4;">
+      <app-list-item style="opacity: 0.4">
         <p class="label">{{ 'settings.changePassword' | translate }}</p>
         <p class="info password-bullet-wrapper">
           <span class="password-bullet"></span>
@@ -64,9 +72,15 @@
           <span class="password-bullet"></span>
         </p>
       </app-list-item>
-      <app-list-item style="opacity: 0.4;">
+      <app-list-item style="opacity: 0.4">
         <p class="label">{{ 'settings.autoLock' | translate }}</p>
-        <p class="info">{{settings.autoAppLockingInMinutes > 0 ? ('settings.lockMinutes' | translate:{ count: settings.autoAppLockingInMinutes}) : ('settings.lockNever' | translate) }}</p>
+        <p class="info">
+          {{
+            settings.autoAppLockingInMinutes > 0
+              ? ('settings.lockMinutes' | translate: { count: settings.autoAppLockingInMinutes })
+              : ('settings.lockNever' | translate)
+          }}
+        </p>
       </app-list-item>
       <app-list-item (click)="lockApp()">
         <p class="label blue">{{ 'settings.lockApp' | translate }}</p>

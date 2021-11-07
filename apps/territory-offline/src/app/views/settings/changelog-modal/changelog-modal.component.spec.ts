@@ -1,9 +1,7 @@
-import {ChangelogModalComponent} from './changelog-modal.component';
+import { ChangelogModalComponent } from './changelog-modal.component';
 
-describe('ChangelogModalComponent', () =>
-{
-  it('...', () =>
-  {
+describe('ChangelogModalComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

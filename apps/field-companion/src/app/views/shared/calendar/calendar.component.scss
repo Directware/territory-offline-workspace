@@ -34,9 +34,8 @@
     margin: 0.5rem;
 
     &.chosen {
-
       &:before {
-        content: "";
+        content: '';
         position: absolute;
         width: 38px;
         height: 38px;
@@ -53,7 +52,7 @@
       color: #15c880;
 
       &:after {
-        content: "";
+        content: '';
         position: absolute;
         width: 32px;
         height: 32px;
@@ -67,7 +66,7 @@
     }
 
     .has-dot {
-      content: "";
+      content: '';
       position: absolute;
       width: 4px;
       height: 4px;

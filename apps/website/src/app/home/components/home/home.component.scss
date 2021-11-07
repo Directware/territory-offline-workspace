@@ -6,7 +6,7 @@
   &.main {
     margin-top: 352px;
 
-    >.title {
+    > .title {
       font-family: $font-family;
       font-size: 50px;
       font-weight: 900;
@@ -247,7 +247,7 @@
 
     .text {
       padding: 0 32px;
-      background-image: url("/assets/Map.png");
+      background-image: url('/assets/Map.png');
       background-size: cover;
       height: 265px;
       font-family: $font-family;
@@ -317,7 +317,7 @@
       letter-spacing: normal;
       text-align: center;
       color: $cool-grey;
-      display: block
+      display: block;
     }
   }
 }

@@ -1,12 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-info-block',
   templateUrl: './info-block.component.html',
-  styleUrls: ['./info-block.component.scss']
+  styleUrls: ['./info-block.component.scss'],
 })
-export class InfoBlockComponent implements OnInit
-{
+export class InfoBlockComponent implements OnInit {
   @Input()
   public image: string;
 
@@ -16,11 +15,7 @@ export class InfoBlockComponent implements OnInit
   @Input()
   public description: string;
 
-  constructor()
-  {
-  }
+  constructor() {}
 
-  public ngOnInit(): void
-  {
-  }
+  public ngOnInit(): void {}
 }

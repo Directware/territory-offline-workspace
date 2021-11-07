@@ -1,4 +1,4 @@
-@import "../../assets/styles/colors";
+@import '../../assets/styles/colors';
 
 :host {
   position: relative;
@@ -18,7 +18,7 @@
     padding: 0.5rem 0;
     border-radius: 8px;
     box-sizing: border-box;
-    transition: background-color .3s;
+    transition: background-color 0.3s;
 
     &::placeholder {
       margin: 0 0 0 0.5rem;
@@ -43,7 +43,7 @@
       position: absolute;
       padding: 0 0 0 0.5rem;
       max-height: 12rem;
-      overfloW: auto;
+      overflow: auto;
       box-sizing: border-box;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);

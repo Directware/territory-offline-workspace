@@ -1,5 +1,4 @@
-export enum ToMapBoxSources
-{
-  MAPS = "to-maps",
-  OTHER_MAPS = "to-other-maps"
+export enum ToMapBoxSources {
+  MAPS = 'to-maps',
+  OTHER_MAPS = 'to-other-maps',
 }

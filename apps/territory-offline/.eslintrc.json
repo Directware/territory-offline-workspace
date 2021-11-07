@@ -1,18 +1,14 @@
 {
   "extends": "../../.eslintrc.json",
-  "ignorePatterns": [
-    "!**/*"
-  ],
+  "ignorePatterns": ["!**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
         "project": [
           "apps/territory-offline/tsconfig.app.json",
           "apps/territory-offline/tsconfig.spec.json",
-          "apps/territory-offline/e2e/tsconfig.json"
+          "apps/territory-offline/tsconfig.json"
         ],
         "createDefaultProgram": true
       },
@@ -47,9 +43,7 @@
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
+      "files": ["*.html"],
       "rules": {}
     }
   ]

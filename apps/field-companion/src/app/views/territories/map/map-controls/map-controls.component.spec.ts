@@ -6,12 +6,13 @@ describe('MapControlsComponent', () => {
   let component: MapControlsComponent;
   let fixture: ComponentFixture<MapControlsComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ MapControlsComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [MapControlsComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MapControlsComponent);

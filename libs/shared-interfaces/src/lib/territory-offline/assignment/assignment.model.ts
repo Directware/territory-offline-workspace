@@ -1,7 +1,6 @@
-import {TimedEntity} from "./../../common/timed-entity.model";
+import { TimedEntity } from './../../common/timed-entity.model';
 
-export interface Assignment extends TimedEntity
-{
+export interface Assignment extends TimedEntity {
   publisherId: string;
   territoryId: string;
   startTime: Date;

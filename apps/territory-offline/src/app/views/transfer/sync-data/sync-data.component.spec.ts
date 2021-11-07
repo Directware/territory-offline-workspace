@@ -1,9 +1,7 @@
-import {SyncDataComponent} from './sync-data.component';
+import { SyncDataComponent } from './sync-data.component';
 
-describe('SyncDataComponent', () =>
-{
-  it('...', () =>
-  {
+describe('SyncDataComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

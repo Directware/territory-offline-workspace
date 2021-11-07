@@ -1,17 +1,25 @@
 <div #durationPickerWrapper class="duration-picker-wrapper">
-  <h3 class="header">{{"service.duration" | translate}}</h3>
-  <ng-container *ngIf="(currentDailyReport$ | async) as currentDailyReport">
-    <app-duration-picker *ngIf="durationFormControl" (selected)="add($event, currentDailyReport)"
-                         [durationFormControl]="durationFormControl"></app-duration-picker>
+  <h3 class="header">{{ 'service.duration' | translate }}</h3>
+  <ng-container *ngIf="currentDailyReport$ | async as currentDailyReport">
+    <app-duration-picker
+      *ngIf="durationFormControl"
+      (selected)="add($event, currentDailyReport)"
+      [durationFormControl]="durationFormControl"></app-duration-picker>
   </ng-container>
 </div>
 
 <div #durationInputWrapper class="body">
-  <app-panel *ngIf="(currentDailyReport$ | async) as currentDailyReport">
+  <app-panel *ngIf="currentDailyReport$ | async as currentDailyReport">
     <div class="wrapper">
-      <i-feather class="i-feather" (click)="increaseDuration(currentDailyReport)" name="plus"></i-feather>
-      <span class="value">{{padDuration(currentDailyReport.duration)}}</span>
-      <i-feather class="i-feather" (click)="decreaseDuration(currentDailyReport)" name="minus"></i-feather>
+      <i-feather
+        class="i-feather"
+        (click)="increaseDuration(currentDailyReport)"
+        name="plus"></i-feather>
+      <span class="value">{{ padDuration(currentDailyReport.duration) }}</span>
+      <i-feather
+        class="i-feather"
+        (click)="decreaseDuration(currentDailyReport)"
+        name="minus"></i-feather>
     </div>
   </app-panel>
 </div>

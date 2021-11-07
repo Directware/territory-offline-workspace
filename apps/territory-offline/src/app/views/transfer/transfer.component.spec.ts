@@ -1,9 +1,7 @@
-import {TransferComponent} from './transfer.component';
+import { TransferComponent } from './transfer.component';
 
-describe('TransferComponent', () =>
-{
-  it('...', () =>
-  {
+describe('TransferComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

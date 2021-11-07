@@ -1,35 +1,36 @@
-import {Injectable} from '@angular/core';
-import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {map, switchMap, tap} from 'rxjs/operators';
-import {from} from 'rxjs';
-import {DatabaseService} from '../../services/db/database.service';
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { from } from 'rxjs';
+import { DatabaseService } from '../../services/db/database.service';
 import {
   BulkImportTerritories,
-  BulkImportTerritoriesSuccess, BulkUpsertTerritory, BulkUpsertTerritorySuccess,
+  BulkImportTerritoriesSuccess,
+  BulkUpsertTerritory,
+  BulkUpsertTerritorySuccess,
   DeleteTerritory,
   DeleteTerritorySuccess,
   LoadTerritories,
   LoadTerritoriesSuccess,
   UpsertTerritory,
-  UpsertTerritorySuccess
+  UpsertTerritorySuccess,
 } from './territories.actions';
-import {LastDoingsService} from "../../services/common/last-doings.service";
+import { LastDoingsService } from '../../services/common/last-doings.service';
 import {
   HASHED_TERRITORY_TABLE_NAME,
   LastDoingActionsEnum,
   Territory,
-  TimedEntity
-} from "@territory-offline-workspace/shared-interfaces";
+  TimedEntity,
+} from '@territory-offline-workspace/shared-interfaces';
 
-@Injectable({providedIn: 'root'})
-export class TerritoriesEffects
-{
+@Injectable({ providedIn: 'root' })
+export class TerritoriesEffects {
   private loadTerritories$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LoadTerritories),
       map((action) => this.database.load(HASHED_TERRITORY_TABLE_NAME)),
       switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
-      map((territories: Territory[]) => LoadTerritoriesSuccess({territories: territories}))
+      map((territories: Territory[]) => LoadTerritoriesSuccess({ territories: territories }))
     )
   );
 
@@ -38,7 +39,7 @@ export class TerritoriesEffects
       ofType(UpsertTerritory),
       map((action) => this.database.upsert(HASHED_TERRITORY_TABLE_NAME, action.territory)),
       switchMap((promise: Promise<TimedEntity>) => from(promise)),
-      map((territory: Territory) => UpsertTerritorySuccess({territory: territory}))
+      map((territory: Territory) => UpsertTerritorySuccess({ territory: territory }))
     )
   );
 
@@ -47,7 +48,7 @@ export class TerritoriesEffects
       ofType(BulkUpsertTerritory),
       map((action) => this.database.bulkUpsert(HASHED_TERRITORY_TABLE_NAME, action.territories)),
       switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
-      map((territories: Territory[]) => BulkUpsertTerritorySuccess({territories: territories}))
+      map((territories: Territory[]) => BulkUpsertTerritorySuccess({ territories: territories }))
     )
   );
 
@@ -56,7 +57,7 @@ export class TerritoriesEffects
       ofType(BulkImportTerritories),
       map((action) => this.database.bulkUpsert(HASHED_TERRITORY_TABLE_NAME, action.territories)),
       switchMap((promise: Promise<TimedEntity[]>) => from(promise)),
-      map((territories: Territory[]) => BulkImportTerritoriesSuccess({territories: territories}))
+      map((territories: Territory[]) => BulkImportTerritoriesSuccess({ territories: territories }))
     )
   );
 
@@ -65,14 +66,19 @@ export class TerritoriesEffects
       ofType(DeleteTerritory),
       map((action) => this.database.delete(HASHED_TERRITORY_TABLE_NAME, action.territory)),
       switchMap((promise: Promise<TimedEntity>) => from(promise)),
-      tap((territory: Territory) => this.lastDoingsService.createLastDoing(LastDoingActionsEnum.DELETE, territory.key + " " + territory.name)),
-      map((territory: Territory) => DeleteTerritorySuccess({territory: territory}))
+      tap((territory: Territory) =>
+        this.lastDoingsService.createLastDoing(
+          LastDoingActionsEnum.DELETE,
+          territory.key + ' ' + territory.name
+        )
+      ),
+      map((territory: Territory) => DeleteTerritorySuccess({ territory: territory }))
     )
   );
 
-  constructor(private actions$: Actions,
-              private database: DatabaseService,
-              private lastDoingsService: LastDoingsService)
-  {
-  }
+  constructor(
+    private actions$: Actions,
+    private database: DatabaseService,
+    private lastDoingsService: LastDoingsService
+  ) {}
 }

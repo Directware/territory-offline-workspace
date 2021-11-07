@@ -1,4 +1,4 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
   position: fixed;
@@ -15,14 +15,13 @@
   align-items: center;
 
   &.app-lock-screen {
-
-    background: url("./../../../assets/images/background-lock-screen.png");
+    background: url('./../../../assets/images/background-lock-screen.png');
     background-size: cover;
   }
 }
 
 .lock-icon {
-  background: url("./../../../assets/images/Locked.svg");
+  background: url('./../../../assets/images/Locked.svg');
   background-size: cover;
   width: 80px;
   height: 80px;
@@ -44,7 +43,6 @@
     top: 13px;
     right: 13px;
     color: #fff;
-
 
     &.disabled {
       cursor: not-allowed;

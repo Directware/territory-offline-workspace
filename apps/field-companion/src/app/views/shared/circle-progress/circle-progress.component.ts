@@ -1,13 +1,12 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-circle-progress',
   templateUrl: './circle-progress.component.html',
-  styleUrls: ['./circle-progress.component.scss']
+  styleUrls: ['./circle-progress.component.scss'],
 })
-export class CircleProgressComponent implements OnInit
-{
-  @ViewChild("progressValue", {static: false})
+export class CircleProgressComponent implements OnInit {
+  @ViewChild('progressValue', { static: false })
   public progressValue: ElementRef;
 
   @Input()
@@ -30,31 +29,24 @@ export class CircleProgressComponent implements OnInit
 
   public CIRCUMFERENCE;
 
-  constructor()
-  {
-  }
+  constructor() {}
 
-  public ngOnInit(): void
-  {
+  public ngOnInit(): void {
     this.CIRCUMFERENCE = 2 * Math.PI * this.radius;
   }
 
-  public calculateStrokeDashoffset()
-  {
-    if (this.progress >= 100)
-    {
+  public calculateStrokeDashoffset() {
+    if (this.progress >= 100) {
       return 1;
     }
 
-    return (this.CIRCUMFERENCE * (1 - (this.progress / 100)));
+    return this.CIRCUMFERENCE * (1 - this.progress / 100);
   }
 
-  public padTimeNumber(value: number): string
-  {
-    if (!value)
-    {
-      return "00";
+  public padTimeNumber(value: number): string {
+    if (!value) {
+      return '00';
     }
-    return `${value}`.padStart(2, "0");
+    return `${value}`.padStart(2, '0');
   }
 }

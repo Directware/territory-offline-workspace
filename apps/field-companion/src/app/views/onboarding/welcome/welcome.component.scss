@@ -1,4 +1,4 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
   width: 100%;
@@ -10,7 +10,8 @@
   height: 100vh;
   overflow: auto;
 
-  .h1-white, .h3-grey {
+  .h1-white,
+  .h3-grey {
     margin: 0;
     text-align: center;
   }
@@ -50,7 +51,6 @@
       margin: 1rem 0;
 
       .icon-wrapper {
-
         .icon {
           width: 1.5rem;
           height: 1.5rem;

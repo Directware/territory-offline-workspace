@@ -8,18 +8,16 @@ module.exports = {
     'jest-preset-angular/build/HTMLCommentSerializer.js',
   ],
   globals: {
-    "ts-jest": {
-      tsconfig: "./tsconfig.spec.json",
-      stringifyContentPathRegex: "\\.html$",
+    'ts-jest': {
+      tsconfig: './tsconfig.spec.json',
+      stringifyContentPathRegex: '\\.html$',
       astTransformers: {
-        "before": [
-          "jest-preset-angular/build/InlineFilesTransformer",
-          "jest-preset-angular/build/StripStylesTransformer"
-        ]
-      }
-    }
+        before: [
+          'jest-preset-angular/build/InlineFilesTransformer',
+          'jest-preset-angular/build/StripStylesTransformer',
+        ],
+      },
+    },
   },
-  setupFilesAfterEnv: [
-    "./src/test-setup.ts"
-  ]
+  setupFilesAfterEnv: ['./src/test-setup.ts'],
 };

@@ -6,12 +6,13 @@ describe('HideablePanelComponent', () => {
   let component: HideablePanelComponent;
   let fixture: ComponentFixture<HideablePanelComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HideablePanelComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [HideablePanelComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HideablePanelComponent);

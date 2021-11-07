@@ -6,12 +6,13 @@ describe('HomeFeatureItemComponent', () => {
   let component: HomeFeatureItemComponent;
   let fixture: ComponentFixture<HomeFeatureItemComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HomeFeatureItemComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [HomeFeatureItemComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeFeatureItemComponent);

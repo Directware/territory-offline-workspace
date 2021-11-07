@@ -1,14 +1,13 @@
-export interface TerritoryCardFormat
-{
+export interface TerritoryCardFormat {
   id: string;
   label: string;
   visitBansRows: {
-    blank: number,
+    blank: number;
     withComment: number;
-  },
+  };
   dimensions: {
-    w: number,
-    h: number,
-    dim: string
+    w: number;
+    h: number;
+    dim: string;
   };
 }

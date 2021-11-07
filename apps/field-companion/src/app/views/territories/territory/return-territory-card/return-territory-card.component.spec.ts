@@ -6,12 +6,13 @@ describe('ReturnTerritoryCardComponent', () => {
   let component: ReturnTerritoryCardComponent;
   let fixture: ComponentFixture<ReturnTerritoryCardComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ReturnTerritoryCardComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ReturnTerritoryCardComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ReturnTerritoryCardComponent);

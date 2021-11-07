@@ -1,28 +1,23 @@
-import {TranslateService} from '@ngx-translate/core';
-import {Injectable} from '@angular/core';
-import {Plugins} from "@capacitor/core";
-import {IpcService} from "./ipc.service";
+import { TranslateService } from '@ngx-translate/core';
+import { Injectable } from '@angular/core';
+import { Plugins } from '@capacitor/core';
+import { IpcService } from './ipc.service';
 
-const {Share, Clipboard} = Plugins;
+const { Share, Clipboard } = Plugins;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class PlatformAgnosticActionsService
-{
-  constructor(private translate: TranslateService, private ipcService: IpcService)
-  {
-  }
+export class PlatformAgnosticActionsService {
+  constructor(private translate: TranslateService, private ipcService: IpcService) {}
 
-  public restartApp()
-  {
+  public restartApp() {
     document.location.href = 'index.html';
   }
 
   // TODO handle Mobile and Web
-  public async share(file: any, fileName: string, subPath = "")
-  {
-    await this.ipcService.send("save-file", {file, subPath, fileName});
+  public async share(file: any, fileName: string, subPath = '') {
+    await this.ipcService.send('save-file', { file, subPath, fileName });
     /*
     await Plugins.FileSharer.share({
       filename: fileName,
@@ -35,14 +30,12 @@ export class PlatformAgnosticActionsService
     */
   }
 
-  public async shareText(text: string)
-  {
+  public async shareText(text: string) {
     await Share.share({
-      text: text
-    }).catch(async () =>
-    {
-      await Clipboard.write({string: text});
-      alert(this.translate.instant("common.shareNotAvailable"));
+      text: text,
+    }).catch(async () => {
+      await Clipboard.write({ string: text });
+      alert(this.translate.instant('common.shareNotAvailable'));
     });
   }
 }

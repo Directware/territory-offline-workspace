@@ -1,26 +1,59 @@
 <div *ngIf="currentStep === 0" class="step">
   <div class="to-icon"></div>
-  <h1 class="h1-white">{{ 'configuration.welcomeLine1' | translate }} <br/>{{ 'configuration.welcomeLine2' | translate }}</h1>
+  <h1 class="h1-white">
+    {{ 'configuration.welcomeLine1' | translate }} <br />{{
+      'configuration.welcomeLine2' | translate
+    }}
+  </h1>
   <p class="password-text">
-    {{ 'configuration.passwordLine1' | translate }} <br/>
-    {{ 'configuration.passwordLine2' | translate }} <br/>
+    {{ 'configuration.passwordLine1' | translate }} <br />
+    {{ 'configuration.passwordLine2' | translate }} <br />
     {{ 'configuration.passwordLine3' | translate }}
   </p>
 
-
   <form class="password-wrapper" [formGroup]="initialConfigFormGroup">
-    <input autofocus type="text" [placeholder]="'configuration.congregation' | translate" autocomplete="off" formControlName="congregation" data-cy="input-congregation-name" required/>
-    <app-language-search class="app-language-search" (onChoose)="setLanguage($event)" (onValueReset)="setLanguage(null)"></app-language-search>
+    <input
+      autofocus
+      type="text"
+      [placeholder]="'configuration.congregation' | translate"
+      autocomplete="off"
+      formControlName="congregation"
+      data-cy="input-congregation-name"
+      required />
+    <app-language-search
+      class="app-language-search"
+      (onChoose)="setLanguage($event)"
+      (onValueReset)="setLanguage(null)"></app-language-search>
     <ng-container *ngIf="isPasswordNeeded">
-      <input id="new-password-text-field" type="password" [placeholder]="'configuration.password' | translate" autocomplete="off" formControlName="lockPassword" data-cy="input-password" required/>
-      <input id="confirm-password-text-field" type="password" [placeholder]="'configuration.repeatPassword' | translate" autocomplete="off" formControlName="lockPasswordRepetition" data-cy="input-password-confirm" required/>
+      <input
+        id="new-password-text-field"
+        type="password"
+        [placeholder]="'configuration.password' | translate"
+        autocomplete="off"
+        formControlName="lockPassword"
+        data-cy="input-password"
+        required />
+      <input
+        id="confirm-password-text-field"
+        type="password"
+        [placeholder]="'configuration.repeatPassword' | translate"
+        autocomplete="off"
+        formControlName="lockPasswordRepetition"
+        data-cy="input-password-confirm"
+        required />
     </ng-container>
-    <span *ngIf="initialConfigFormGroup.hasError('notSame')" class="error">{{ 'configuration.passwordNotSame' | translate }}</span>
+    <span *ngIf="initialConfigFormGroup.hasError('notSame')" class="error">{{
+      'configuration.passwordNotSame' | translate
+    }}</span>
   </form>
 
-  <button class="main-button"
-          (click)="currentStep=currentStep+1"
-          [disabled]="!initialConfigFormGroup.valid" data-cy="button-next">{{ 'action.next' | translate }}</button>
+  <button
+    class="main-button"
+    (click)="currentStep = currentStep + 1"
+    [disabled]="!initialConfigFormGroup.valid"
+    data-cy="button-next">
+    {{ 'action.next' | translate }}
+  </button>
 </div>
 <div *ngIf="currentStep === 1" class="step">
   <div class="to-icon"></div>
@@ -28,5 +61,7 @@
   <h1 class="h1-white">{{ 'configuration.territoryLocation' | translate }}</h1>
   <p class="password-text">{{ 'configuration.moveMap' | translate }}</p>
 
-  <app-choose-origin [initialConfiguration]="true" (onChoose)="createInitialConfiguration($event)"></app-choose-origin>
+  <app-choose-origin
+    [initialConfiguration]="true"
+    (onChoose)="createInitialConfiguration($event)"></app-choose-origin>
 </div>

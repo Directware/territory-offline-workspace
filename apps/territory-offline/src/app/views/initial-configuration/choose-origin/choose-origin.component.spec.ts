@@ -1,9 +1,7 @@
-import {ChooseOriginComponent} from './choose-origin.component';
+import { ChooseOriginComponent } from './choose-origin.component';
 
-describe('ChooseOriginComponent', () =>
-{
-  it('...', () =>
-  {
+describe('ChooseOriginComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

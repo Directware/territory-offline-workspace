@@ -2,54 +2,100 @@
   <ng-container *ngIf="appIsNotLocked$ | async">
     <div class="menu" [class.full-map]="fullMap">
       <div class="top">
-        <i-feather name="inbox" class="i-feather icon congregation" routerLink="congregations" routerLinkActive="active-link" data-cy="icon-menu-inbox"></i-feather>
-        <i-feather name="zap" class="i-feather icon" routerLink="dashboard" routerLinkActive="active-link" data-cy="icon-menu-zap"></i-feather>
-        <i-feather name="layers" class="i-feather icon" routerLink="territories" routerLinkActive="active-link" data-cy="icon-menu-layers"></i-feather>
-        <i-feather name="users" class="i-feather icon" routerLink="publishers" routerLinkActive="active-link" data-cy="icon-menu-users"></i-feather>
-        <i-feather name="tag" class="i-feather icon" routerLink="tags" routerLinkActive="active-link" data-cy="icon-menu-tags"></i-feather>
-        <i-feather name="bell-off" class="i-feather icon" routerLink="all-visit-bans" routerLinkActive="active-link" data-cy="icon-menu-bell-off"></i-feather>
+        <i-feather
+          name="inbox"
+          class="i-feather icon congregation"
+          routerLink="congregations"
+          routerLinkActive="active-link"
+          data-cy="icon-menu-inbox"></i-feather>
+        <i-feather
+          name="zap"
+          class="i-feather icon"
+          routerLink="dashboard"
+          routerLinkActive="active-link"
+          data-cy="icon-menu-zap"></i-feather>
+        <i-feather
+          name="layers"
+          class="i-feather icon"
+          routerLink="territories"
+          routerLinkActive="active-link"
+          data-cy="icon-menu-layers"></i-feather>
+        <i-feather
+          name="users"
+          class="i-feather icon"
+          routerLink="publishers"
+          routerLinkActive="active-link"
+          data-cy="icon-menu-users"></i-feather>
+        <i-feather
+          name="tag"
+          class="i-feather icon"
+          routerLink="tags"
+          routerLinkActive="active-link"
+          data-cy="icon-menu-tags"></i-feather>
+        <i-feather
+          name="bell-off"
+          class="i-feather icon"
+          routerLink="all-visit-bans"
+          routerLinkActive="active-link"
+          data-cy="icon-menu-bell-off"></i-feather>
       </div>
       <div class="down">
-        <i-feather name="refresh-cw" routerLink="transfer" routerLinkActive="active-link"></i-feather>
-        <i-feather [class.new-release]="(newRelease$ | async)" name="settings"
-                   class="i-feather icon settings"
-                   routerLink="settings"
-                   routerLinkActive="active-link"></i-feather>
+        <i-feather
+          name="refresh-cw"
+          routerLink="transfer"
+          routerLinkActive="active-link"></i-feather>
+        <i-feather
+          [class.new-release]="newRelease$ | async"
+          name="settings"
+          class="i-feather icon settings"
+          routerLink="settings"
+          routerLinkActive="active-link"></i-feather>
         <i-feather name="maximize-2" class="i-feather icon" (click)="toggleFullMap()"></i-feather>
       </div>
     </div>
 
-    <i-feather name="sidebar" class="i-feather icon exit-full-map" [class.full-map]="fullMap"
-               (click)="toggleFullMap()"></i-feather>
+    <i-feather
+      name="sidebar"
+      class="i-feather icon exit-full-map"
+      [class.full-map]="fullMap"
+      (click)="toggleFullMap()"></i-feather>
 
     <div class="main-thread" [class.full-map]="fullMap">
       <router-outlet></router-outlet>
     </div>
 
-    <div class="second-thread" [class.second-thread-opened]="showSecondThread" [class.full-map]="fullMap">
-      <router-outlet name="second-thread" (activate)="showSecondThread=true"
-                     (deactivate)="onSecondThreadOutletDeactivation()"></router-outlet>
+    <div
+      class="second-thread"
+      [class.second-thread-opened]="showSecondThread"
+      [class.full-map]="fullMap">
+      <router-outlet
+        name="second-thread"
+        (activate)="showSecondThread = true"
+        (deactivate)="onSecondThreadOutletDeactivation()"></router-outlet>
     </div>
   </ng-container>
 
   <!-- Diese Struktur ist sehr wichtig wegem Drucken !!! -->
-  <div id="perspective-3d" class="perspective-3d" fitMap><div class="print-padding-left"></div><div id="map" class="map">
-    <div class="bleed-edge-shadow top"></div>
-    <div class="bleed-edge-shadow right"></div>
-    <div class="bleed-edge-shadow bottom"></div>
-    <div class="bleed-edge-shadow left"></div>
+  <div id="perspective-3d" class="perspective-3d" fitMap>
+    <div class="print-padding-left"></div>
+    <div id="map" class="map">
+      <div class="bleed-edge-shadow top"></div>
+      <div class="bleed-edge-shadow right"></div>
+      <div class="bleed-edge-shadow bottom"></div>
+      <div class="bleed-edge-shadow left"></div>
 
-    <div class="for-printing">
-      <div class="line top left horizontal"></div>
-      <div class="line top left vertical"></div>
-      <div class="line top right horizontal"></div>
-      <div class="line top right vertical"></div>
-      <div class="line bottom left horizontal"></div>
-      <div class="line bottom left vertical"></div>
-      <div class="line bottom right horizontal"></div>
-      <div class="line bottom right vertical"></div>
+      <div class="for-printing">
+        <div class="line top left horizontal"></div>
+        <div class="line top left vertical"></div>
+        <div class="line top right horizontal"></div>
+        <div class="line top right vertical"></div>
+        <div class="line bottom left horizontal"></div>
+        <div class="line bottom left vertical"></div>
+        <div class="line bottom right horizontal"></div>
+        <div class="line bottom right vertical"></div>
+      </div>
     </div>
-  </div></div>
+  </div>
 </div>
 
 <div [@routeAnimations]="prepareRoute(globalOutlet)">

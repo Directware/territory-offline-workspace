@@ -1,4 +1,4 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
   width: 100%;
@@ -57,7 +57,7 @@
       padding: 0;
       width: 100%;
 
-     .app-list-item {
+      .app-list-item {
         padding: 0;
 
         .label {

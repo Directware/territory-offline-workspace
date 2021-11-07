@@ -6,12 +6,13 @@ describe('InfoBlockComponent', () => {
   let component: InfoBlockComponent;
   let fixture: ComponentFixture<InfoBlockComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ InfoBlockComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [InfoBlockComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(InfoBlockComponent);

@@ -1,7 +1,6 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
-
   .app-panel .wrapper {
     padding: 0 1rem 0 0;
   }
@@ -12,7 +11,6 @@
 
     .app-list-item,
     .app-list-item .label {
-
       color: $reddish-orange;
     }
   }

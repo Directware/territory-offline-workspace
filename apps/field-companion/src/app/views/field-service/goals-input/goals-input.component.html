@@ -1,31 +1,39 @@
-<h1 class="header">{{"service.goals" | translate}} <span (click)="done()"
-                                                         class="done">{{"common.done" | translate}}</span></h1>
+<h1 class="header">
+  {{ 'service.goals' | translate }}
+  <span (click)="done()" class="done">{{ 'common.done' | translate }}</span>
+</h1>
 <div class="scrollable-wrapper" [class.without-main-navigation]="hideMainNavigation">
+  <p class="description">{{ 'service.goalsDesc' | translate }}</p>
 
-  <p class="description">{{"service.goalsDesc" | translate}}</p>
-
-  <div class="input-wrapper" *ngIf="(durationGoals$ | async) as durationGoals">
-
+  <div class="input-wrapper" *ngIf="durationGoals$ | async as durationGoals">
     <app-panel>
       <app-list-item (click)="initMonthly(durationGoals.monthly)">
-        <p class="label">{{"service.monthly" | translate}}</p>
-        <p class="info">{{durationGoals.monthly}}</p>
+        <p class="label">{{ 'service.monthly' | translate }}</p>
+        <p class="info">{{ durationGoals.monthly }}</p>
       </app-list-item>
       <app-list-item *ngIf="monthly">
-        <ui-single-option class="ui-single-option"  type="normal" [vFormControl]="monthly" [optionSource]="monthlyOptions"></ui-single-option>
+        <ui-single-option
+          class="ui-single-option"
+          type="normal"
+          [vFormControl]="monthly"
+          [optionSource]="monthlyOptions"></ui-single-option>
       </app-list-item>
       <app-list-item (click)="initYearly(durationGoals.yearly)">
-        <p class="label">{{"service.yearly" | translate}}</p>
-        <p class="info">{{durationGoals.yearly}}</p>
+        <p class="label">{{ 'service.yearly' | translate }}</p>
+        <p class="info">{{ durationGoals.yearly }}</p>
       </app-list-item>
       <app-list-item *ngIf="yearly">
-        <ui-single-option class="ui-single-option"  type="normal" [vFormControl]="yearly" [optionSource]="yearlyOptions"></ui-single-option>
+        <ui-single-option
+          class="ui-single-option"
+          type="normal"
+          [vFormControl]="yearly"
+          [optionSource]="yearlyOptions"></ui-single-option>
       </app-list-item>
     </app-panel>
   </div>
 
   <div class="tip-wrapper">
-    <p class="title">{{"common.info" | translate}}</p>
-    <p class="info">{{"service.goalsInfo" | translate}}</p>
+    <p class="title">{{ 'common.info' | translate }}</p>
+    <p class="info">{{ 'service.goalsInfo' | translate }}</p>
   </div>
 </div>

@@ -1,12 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-second-thread-header',
   templateUrl: './second-thread-header.component.html',
-  styleUrls: ['./second-thread-header.component.scss']
+  styleUrls: ['./second-thread-header.component.scss'],
 })
-export class SecondThreadHeaderComponent implements OnInit
-{
+export class SecondThreadHeaderComponent implements OnInit {
   @Input()
   public valid: boolean;
 
@@ -31,34 +30,25 @@ export class SecondThreadHeaderComponent implements OnInit
   @Output()
   public onBack = new EventEmitter();
 
-  constructor()
-  {
-  }
+  constructor() {}
 
-  public ngOnInit(): void
-  {
-  }
+  public ngOnInit(): void {}
 
-  public cancel()
-  {
+  public cancel() {
     this.onCancel.emit();
   }
 
-  public save()
-  {
-    if (this.valid)
-    {
+  public save() {
+    if (this.valid) {
       this.onSave.emit();
     }
   }
 
-  public back()
-  {
+  public back() {
     this.onBack.emit();
   }
 
-  public edit()
-  {
+  public edit() {
     this.onEdit.emit();
   }
 }

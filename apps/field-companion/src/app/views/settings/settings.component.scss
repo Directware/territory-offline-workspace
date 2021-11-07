@@ -1,4 +1,4 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
   width: 100%;
@@ -51,8 +51,8 @@
         padding: 0;
 
         &.actions {
-
-          .label, .info {
+          .label,
+          .info {
             color: $dark-sky-blue;
           }
         }
@@ -62,14 +62,14 @@
           height: 20px;
         }
 
-       .app-list {
+        .app-list {
           padding: 0 0 0 1rem;
-          transition: transform .15s;
+          transition: transform 0.15s;
 
-         .app-list-item {
-
+          .app-list-item {
             &.danger {
-              .label, .info {
+              .label,
+              .info {
                 color: $reddish-orange;
               }
 
@@ -78,7 +78,8 @@
                 transform: scale(1.05);
                 background: $reddish-orange;
 
-                .label, .info {
+                .label,
+                .info {
                   color: #fff;
                 }
               }

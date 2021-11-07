@@ -1,25 +1,27 @@
-<h1 class="header">{{"settings.title" | translate}}</h1>
+<h1 class="header">{{ 'settings.title' | translate }}</h1>
 
-<div class="scrollable-wrapper" *ngIf="(settings$ | async) as settings">
-  <h3>{{"settings.general" | translate}}</h3>
+<div class="scrollable-wrapper" *ngIf="settings$ | async as settings">
+  <h3>{{ 'settings.general' | translate }}</h3>
 
   <app-panel>
     <div class="wrapper">
       <app-list>
         <app-list-item *ngIf="false">
-          <p class="label">{{"settings.yourName" | translate}}</p>
-          <p class="info">{{settings.userName}}</p>
+          <p class="label">{{ 'settings.yourName' | translate }}</p>
+          <p class="info">{{ settings.userName }}</p>
         </app-list-item>
         <app-list-item routerLink="/change-language">
-          <p class="label">{{"settings.yourLanguage" | translate}}</p>
-          <p class="info">{{settings.userLanguage?.nativeName}} ({{settings.userLanguage?.name}})</p>
+          <p class="label">{{ 'settings.yourLanguage' | translate }}</p>
+          <p class="info">
+            {{ settings.userLanguage?.nativeName }} ({{ settings.userLanguage?.name }})
+          </p>
         </app-list-item>
         <app-list-item (click)="shareUserId(settings.userId, settings.userName)">
-          <p class="label">{{"settings.yourId" | translate}}</p>
-          <p class="info">{{settings.userId | slice:0:12}}...</p>
+          <p class="label">{{ 'settings.yourId' | translate }}</p>
+          <p class="info">{{ settings.userId | slice: 0:12 }}...</p>
         </app-list-item>
         <app-list-item (click)="openDonation()">
-          <p class="label">{{"settings.actions.donate" | translate}}</p>
+          <p class="label">{{ 'settings.actions.donate' | translate }}</p>
           <p class="info">
             <i-feather class="i-feather donate-heart" name="heart"></i-feather>
           </p>
@@ -28,47 +30,63 @@
     </div>
   </app-panel>
 
-  <h3>{{"settings.report" | translate}}</h3>
+  <h3>{{ 'settings.report' | translate }}</h3>
   <app-panel>
     <div class="wrapper">
       <app-list>
         <app-list-item (click)="toggleDurationStepSetting(settings.durationStep || 30)">
-          <p class="label">{{"settings.changeDurationStep" | translate}}</p>
-          <p class="info">{{settings.durationStep || 30}} min</p>
+          <p class="label">{{ 'settings.changeDurationStep' | translate }}</p>
+          <p class="info">{{ settings.durationStep || 30 }} min</p>
         </app-list-item>
         <app-list-item *ngIf="duration" class="no-padding">
-          <ui-single-option class="ui-single-option"  type="normal" [vFormControl]="duration" [optionSource]="durationOptions"></ui-single-option>
+          <ui-single-option
+            class="ui-single-option"
+            type="normal"
+            [vFormControl]="duration"
+            [optionSource]="durationOptions"></ui-single-option>
         </app-list-item>
         <app-list-item>
-          <p class="label">{{"settings.monthlyReminder" | translate}}</p>
-          <p class="info"><ui-switch class="ui-switch" [checked]="settings.monthlyReminder" (change)="requestLocalNotificationPermission($event)"></ui-switch></p>
+          <p class="label">{{ 'settings.monthlyReminder' | translate }}</p>
+          <p class="info">
+            <ui-switch
+              class="ui-switch"
+              [checked]="settings.monthlyReminder"
+              (change)="requestLocalNotificationPermission($event)"></ui-switch>
+          </p>
         </app-list-item>
       </app-list>
     </div>
   </app-panel>
 
-  <h3>{{"settings.data" | translate}}</h3>
+  <h3>{{ 'settings.data' | translate }}</h3>
   <app-panel>
     <div class="wrapper actions">
       <app-list>
-        <app-list-item (click)="exportToExcel()"><p class="label">{{"settings.actions.exportReports" | translate}}</p>
+        <app-list-item (click)="exportToExcel()"
+          ><p class="label">{{ 'settings.actions.exportReports' | translate }}</p>
           <p class="info">
             <i-feather class="i-feather" name="share"></i-feather>
           </p>
         </app-list-item>
-        <app-list-item (click)="exportBackup()"><p class="label">{{"settings.actions.exportBackup" | translate}}</p>
+        <app-list-item (click)="exportBackup()"
+          ><p class="label">{{ 'settings.actions.exportBackup' | translate }}</p>
           <p class="info">
             <i-feather class="i-feather" name="share"></i-feather>
           </p>
         </app-list-item>
-        <app-list-item (click)="backupFileChooser.click()"><p class="label">{{"settings.actions.importBackup" | translate}}</p>
+        <app-list-item (click)="backupFileChooser.click()"
+          ><p class="label">{{ 'settings.actions.importBackup' | translate }}</p>
           <p class="info">
-            <input #backupFileChooser style="display: none;" type="file" (change)="importBackup($event)"/>
+            <input
+              #backupFileChooser
+              style="display: none"
+              type="file"
+              (change)="importBackup($event)" />
             <i-feather class="i-feather" name="download"></i-feather>
           </p>
         </app-list-item>
         <app-list-item class="danger" (click)="factoryReset()">
-          <p class="label">{{"settings.actions.resetApp" | translate}}</p>
+          <p class="label">{{ 'settings.actions.resetApp' | translate }}</p>
           <p class="info">
             <i-feather class="i-feather" name="trash"></i-feather>
           </p>
@@ -77,21 +95,24 @@
     </div>
   </app-panel>
 
-  <h3>{{"settings.app" | translate}}</h3>
+  <h3>{{ 'settings.app' | translate }}</h3>
   <app-panel>
     <div class="wrapper actions">
       <app-list>
-        <app-list-item (click)="bugReport()"><p class="label">{{"settings.actions.bugReport" | translate}}</p>
+        <app-list-item (click)="bugReport()"
+          ><p class="label">{{ 'settings.actions.bugReport' | translate }}</p>
           <p class="info">
             <i-feather class="i-feather" name="message-square"></i-feather>
           </p>
         </app-list-item>
-        <app-list-item (click)="openTerritoryOfflineWebsite()"><p class="label">{{"settings.actions.territoryOffline" | translate}}</p>
+        <app-list-item (click)="openTerritoryOfflineWebsite()"
+          ><p class="label">{{ 'settings.actions.territoryOffline' | translate }}</p>
           <p class="info">
             <i-feather class="i-feather" name="external-link"></i-feather>
           </p>
         </app-list-item>
-        <app-list-item routerLink="/about-app"><p class="label">{{"settings.actions.about" | translate}}</p>
+        <app-list-item routerLink="/about-app"
+          ><p class="label">{{ 'settings.actions.about' | translate }}</p>
           <p class="info">
             <i-feather class="i-feather" name="info"></i-feather>
           </p>

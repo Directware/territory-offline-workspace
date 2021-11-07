@@ -6,7 +6,6 @@
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
 
-
   .wrapper {
     width: 3rem;
     height: 3rem;
@@ -18,7 +17,6 @@
     }
 
     &.active {
-
       .i-feather {
         color: #ff5f1b;
 
@@ -34,7 +32,7 @@
       transition: background 0.2s;
 
       &:before {
-        content: "";
+        content: '';
         position: absolute;
         width: 2rem;
         height: 2rem;

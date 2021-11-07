@@ -6,12 +6,13 @@ describe('NavigationTriggerComponent', () => {
   let component: NavigationTriggerComponent;
   let fixture: ComponentFixture<NavigationTriggerComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ NavigationTriggerComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [NavigationTriggerComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NavigationTriggerComponent);

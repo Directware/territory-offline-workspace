@@ -1,9 +1,7 @@
-import {ReassignAfterComponent} from './reassign-after.component';
+import { ReassignAfterComponent } from './reassign-after.component';
 
-describe('ReassignAfterComponent', () =>
-{
-  it('...', () =>
-  {
+describe('ReassignAfterComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

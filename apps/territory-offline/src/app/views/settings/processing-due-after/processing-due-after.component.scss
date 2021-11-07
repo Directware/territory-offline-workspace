@@ -1,16 +1,14 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
-
   .app-panel {
-    padding: 0 0 0 .5rem;
+    padding: 0 0 0 0.5rem;
 
     ::ng-deep .wrapper {
       padding: 1rem 1rem 0 1rem;
 
-
       .app-list {
-        padding: .5rem 0 0 0;
+        padding: 0.5rem 0 0 0;
 
         .info {
           width: 20px;

@@ -1,9 +1,7 @@
-import {ReassignDueAfterComponent} from './reassign-due-after.component';
+import { ReassignDueAfterComponent } from './reassign-due-after.component';
 
-describe('ReassignDueAfterComponent', () =>
-{
-  it('...', () =>
-  {
+describe('ReassignDueAfterComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

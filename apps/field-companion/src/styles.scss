@@ -19,7 +19,11 @@ $field-companion-accent: mat-palette($mat-pink, A200, A100, A400);
 $field-companion-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$field-companion-theme: mat-light-theme($field-companion-primary, $field-companion-accent, $field-companion-warn);
+$field-companion-theme: mat-light-theme(
+  $field-companion-primary,
+  $field-companion-accent,
+  $field-companion-warn
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -27,15 +31,15 @@ $field-companion-theme: mat-light-theme($field-companion-primary, $field-compani
 @include angular-material-theme($field-companion-theme);
 
 /* 3rd party libs styles */
-@import "node_modules/ngx-ui-switch/ui-switch.component.scss";
+@import 'node_modules/ngx-ui-switch/ui-switch.component.scss';
 
 /* You can add global styles to this file, and also import other style files */
-@import "libs/ui-components/src/lib/assets/styles/typography";
-@import "libs/ui-components/src/lib/assets/styles/colors";
-@import "libs/ui-components/src/lib/assets/styles/to-base-styles";
+@import 'libs/ui-components/src/lib/assets/styles/typography';
+@import 'libs/ui-components/src/lib/assets/styles/colors';
+@import 'libs/ui-components/src/lib/assets/styles/to-base-styles';
 
-@include heebo-regular("libs/ui-components/src/lib/assets/fonts/");
-@include heebo-medium("libs/ui-components/src/lib/assets/fonts/");
+@include heebo-regular('libs/ui-components/src/lib/assets/fonts/');
+@include heebo-medium('libs/ui-components/src/lib/assets/fonts/');
 
 html {
   overflow: hidden;
@@ -49,8 +53,16 @@ body {
   color: #ffffff;
   font-family: Heebo-Regular, sans-serif;
   background-color: rgba(173, 177, 184, 0.08);
-  background-image: linear-gradient(to bottom, #080c11 5%, rgba(13, 19, 28, 0.8) 55%, rgba(18, 27, 38, 0.8) 67%, rgba(28, 41, 59, 0.6) 91%, rgba(12, 17, 24, 0.1));
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background-image: linear-gradient(
+    to bottom,
+    #080c11 5%,
+    rgba(13, 19, 28, 0.8) 55%,
+    rgba(18, 27, 38, 0.8) 67%,
+    rgba(28, 41, 59, 0.6) 91%,
+    rgba(12, 17, 24, 0.1)
+  );
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
   box-sizing: border-box;
 }
 
@@ -313,5 +325,4 @@ body {
   max-width: none !important;
   width: 100vw;
   height: 100vh;
-
 }

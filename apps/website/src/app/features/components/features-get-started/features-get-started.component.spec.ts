@@ -6,12 +6,13 @@ describe('FeaturesGetStartedComponent', () => {
   let component: FeaturesGetStartedComponent;
   let fixture: ComponentFixture<FeaturesGetStartedComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FeaturesGetStartedComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [FeaturesGetStartedComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FeaturesGetStartedComponent);

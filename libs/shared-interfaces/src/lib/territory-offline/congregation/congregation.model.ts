@@ -1,7 +1,6 @@
-import {TimedEntity} from "./../../common/timed-entity.model";
+import { TimedEntity } from './../../common/timed-entity.model';
 
-export interface Congregation extends TimedEntity
-{
+export interface Congregation extends TimedEntity {
   name: string;
   languageCode: string;
   language: string;

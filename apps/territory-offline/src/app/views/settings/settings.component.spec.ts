@@ -1,9 +1,7 @@
-import {SettingsComponent} from './settings.component';
+import { SettingsComponent } from './settings.component';
 
-describe('SettingsComponent', () =>
-{
-  it('...', () =>
-  {
+describe('SettingsComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

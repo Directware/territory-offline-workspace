@@ -2,10 +2,16 @@
   <i-feather name="x" class="close" (click)="closeMenu()"></i-feather>
 
   <div class="navigation-list">
-    <div class="navigation-item main home" [class.active]="active === 'home'" (click)="navigate('/home', 'top')">
+    <div
+      class="navigation-item main home"
+      [class.active]="active === 'home'"
+      (click)="navigate('/home', 'top')">
       {{ 'navigation.home2' | translate }}
     </div>
-    <div class="navigation-item main" [class.active]="active === 'features'" (click)="navigate('/features', 'top')">
+    <div
+      class="navigation-item main"
+      [class.active]="active === 'features'"
+      (click)="navigate('/features', 'top')">
       {{ 'navigation.features' | translate }}
     </div>
     <div class="navigation-item" (click)="navigate('/features/0', 'main')">
@@ -32,6 +38,8 @@
     <button class="release" (click)="navigate('/home', 'get-started')">
       {{ 'navigation.release' | translate }}
     </button>
-    <a class="legal-notice" (click)="navigate('/imprint', 'top')">{{ 'navigation.legalNotice' | translate }}</a>
+    <a class="legal-notice" (click)="navigate('/imprint', 'top')">{{
+      'navigation.legalNotice' | translate
+    }}</a>
   </div>
 </div>

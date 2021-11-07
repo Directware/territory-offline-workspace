@@ -6,12 +6,13 @@ describe('DownloadWrapperComponent', () => {
   let component: DownloadWrapperComponent;
   let fixture: ComponentFixture<DownloadWrapperComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ DownloadWrapperComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [DownloadWrapperComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DownloadWrapperComponent);

@@ -4,8 +4,12 @@
       <i-feather class="i-feather" name="refresh-cw"></i-feather>
     </div>
     <h2 class="h2-white">{{ 'transfer.sync.title' | translate }}</h2>
-    <p *ngIf="(congregationName$ | async) as congregationName" class="body-grey">{{congregationName}}</p>
-    <button (click)="openSyncDialog()" class="button primary">{{ 'transfer.sync.title' | translate }}</button>
+    <p *ngIf="congregationName$ | async as congregationName" class="body-grey">
+      {{ congregationName }}
+    </p>
+    <button (click)="openSyncDialog()" class="button primary">
+      {{ 'transfer.sync.title' | translate }}
+    </button>
   </div>
 </app-panel>
 
@@ -16,7 +20,11 @@
       <app-list-item (click)="importTerritoryFromFC.click()">
         <p class="label">{{ 'transfer.returnTerritoryFromFieldCompanion' | translate }}</p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
-        <input #importTerritoryFromFC style="display: none;" type="file" (change)="importTerritoryFromFieldCompanion($event)" />
+        <input
+          #importTerritoryFromFC
+          style="display: none"
+          type="file"
+          (change)="importTerritoryFromFieldCompanion($event)" />
       </app-list-item>
     </app-list>
   </div>
@@ -64,7 +72,11 @@
       <app-list-item (click)="importGeoJsonInput.click()">
         <p class="label">{{ 'transfer.import.geoJson' | translate }}</p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
-        <input #importGeoJsonInput style="display: none;" type="file" (change)="importGeoJson($event)" />
+        <input
+          #importGeoJsonInput
+          style="display: none"
+          type="file"
+          (change)="importGeoJson($event)" />
       </app-list-item>
     </app-list>
   </div>

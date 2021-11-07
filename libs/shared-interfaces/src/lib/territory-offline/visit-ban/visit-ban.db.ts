@@ -1,5 +1,5 @@
-export const VISIT_BAN_TABLE_NAME = "visitBans";
-export const HASHED_VISIT_BAN_TABLE_NAME = btoa("visitBans");
+export const VISIT_BAN_TABLE_NAME = 'visitBans';
+export const HASHED_VISIT_BAN_TABLE_NAME = btoa('visitBans');
 export const SQL_CREATE_VISIT_BAN = `
   CREATE TABLE IF NOT EXISTS ${VISIT_BAN_TABLE_NAME} (
     id TEXT PRIMARY KEY NOT NULL,

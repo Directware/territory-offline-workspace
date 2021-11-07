@@ -6,12 +6,13 @@ describe('StackPanelComponent', () => {
   let component: StackPanelComponent;
   let fixture: ComponentFixture<StackPanelComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ StackPanelComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [StackPanelComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(StackPanelComponent);

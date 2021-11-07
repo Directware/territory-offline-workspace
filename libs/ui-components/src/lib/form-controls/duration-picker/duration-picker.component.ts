@@ -1,18 +1,26 @@
-import {AfterViewInit, Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {v4 as uuid} from 'uuid';
-import {FormControl} from '@angular/forms';
-import {IosSelector} from "../common/ios-date-selector.class";
-import {Subject} from "rxjs";
-import {takeUntil, tap} from "rxjs/operators";
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  HostBinding,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { v4 as uuid } from 'uuid';
+import { FormControl } from '@angular/forms';
+import { IosSelector } from '../common/ios-date-selector.class';
+import { Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-duration-picker',
   templateUrl: './duration-picker.component.html',
-  styleUrls: ['./duration-picker.component.scss']
+  styleUrls: ['./duration-picker.component.scss'],
 })
-export class DurationPickerComponent implements OnInit, AfterViewInit, OnDestroy
-{
-  @HostBinding("class.app-duration-picker")
+export class DurationPickerComponent implements OnInit, AfterViewInit, OnDestroy {
+  @HostBinding('class.app-duration-picker')
   public appDurationPickerClass = true;
 
   @Input()
@@ -30,20 +38,15 @@ export class DurationPickerComponent implements OnInit, AfterViewInit, OnDestroy
   private isInitialising = true;
   private destroyer = new Subject();
 
-  constructor()
-  {
-  }
+  constructor() {}
 
-  public ngOnInit(): void
-  {
-    if (!this.durationFormControl)
-    {
-      console.warn("[DurationPickerComponent] please input a form control!")
+  public ngOnInit(): void {
+    if (!this.durationFormControl) {
+      console.warn('[DurationPickerComponent] please input a form control!');
     }
   }
 
-  public ngAfterViewInit(): void
-  {
+  public ngAfterViewInit(): void {
     const hoursSource = this.hoursSource();
 
     this.hourSelector = new IosSelector({
@@ -51,15 +54,15 @@ export class DurationPickerComponent implements OnInit, AfterViewInit, OnDestroy
       type: 'infinite',
       source: hoursSource,
       count: hoursSource.length,
-      onChange: selected =>
-      {
-        if (this.isInitialising)
-        {
+      onChange: (selected) => {
+        if (this.isInitialising) {
           return;
         }
-        const minutes = this.durationFormControl.value ? this.durationFormControl.value.split(":")[1] : 0;
+        const minutes = this.durationFormControl.value
+          ? this.durationFormControl.value.split(':')[1]
+          : 0;
         this.setFormValue(selected.value, minutes || 0);
-      }
+      },
     });
 
     const minutesSource = this.minutesSource();
@@ -68,83 +71,71 @@ export class DurationPickerComponent implements OnInit, AfterViewInit, OnDestroy
       type: 'infinite',
       source: minutesSource,
       count: minutesSource.length,
-      onChange: selected =>
-      {
-        if (this.isInitialising)
-        {
+      onChange: (selected) => {
+        if (this.isInitialising) {
           return;
         }
-        const hours = this.durationFormControl.value ? this.durationFormControl.value.split(":")[0] : 0;
+        const hours = this.durationFormControl.value
+          ? this.durationFormControl.value.split(':')[0]
+          : 0;
         this.setFormValue(hours || 0, selected.value);
-      }
+      },
     });
-
 
     setTimeout(() => this.setInitialValueListener(), 0);
   }
 
-  public ngOnDestroy(): void
-  {
+  public ngOnDestroy(): void {
     this.hourSelector.destroy();
     this.minutesSelector.destroy();
     this.destroyer.next();
     this.destroyer.complete();
   }
 
-  private setFormValue(hours: number, minutes: number)
-  {
+  private setFormValue(hours: number, minutes: number) {
     const newValue = `${hours}:${minutes}`;
     this.selected.emit(newValue);
   }
 
-  private hoursSource(): number[]
-  {
+  private hoursSource(): number[] {
     const tmp = [];
-    for (let i = 0; i < 24; i++)
-    {
-      tmp.push({text: `${i}`.padStart(2, "0"), value: i});
+    for (let i = 0; i < 24; i++) {
+      tmp.push({ text: `${i}`.padStart(2, '0'), value: i });
     }
     return tmp;
   }
 
-  private minutesSource(): number[]
-  {
+  private minutesSource(): number[] {
     const tmp = [];
-    for (let i = 0; i < 60; i++)
-    {
-      tmp.push({text: `${i}`.padStart(2, "0"), value: i});
+    for (let i = 0; i < 60; i++) {
+      tmp.push({ text: `${i}`.padStart(2, '0'), value: i });
     }
     return tmp;
   }
 
-  private setInitialValueListener()
-  {
+  private setInitialValueListener() {
     this.selectProgrammatically(this.durationFormControl.value);
 
-    this.durationFormControl
-      .valueChanges
+    this.durationFormControl.valueChanges
       .pipe(
         takeUntil(this.destroyer),
         tap((value) => this.selectProgrammatically(value))
-      ).subscribe();
+      )
+      .subscribe();
 
-    setTimeout(() => this.isInitialising = false, 0);
+    setTimeout(() => (this.isInitialising = false), 0);
   }
 
-  private selectProgrammatically(value: string)
-  {
-    if (value)
-    {
-      const split = value.split(":");
+  private selectProgrammatically(value: string) {
+    if (value) {
+      const split = value.split(':');
       const hours = parseInt(split[0], 10);
       const minutes = parseInt(split[1], 10);
 
-      if (this.hourSelector.value !== hours)
-      {
+      if (this.hourSelector.value !== hours) {
         this.hourSelector.select(hours);
       }
-      if (this.minutesSelector.value !== minutes)
-      {
+      if (this.minutesSelector.value !== minutes) {
         this.minutesSelector.select(minutes);
       }
     }

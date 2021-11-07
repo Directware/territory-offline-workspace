@@ -1,23 +1,29 @@
-<h1 class="header">{{"service.studies" | translate}} <span (click)="done()" class="done">{{"common.done" | translate}}</span></h1>
+<h1 class="header">
+  {{ 'service.studies' | translate }}
+  <span (click)="done()" class="done">{{ 'common.done' | translate }}</span>
+</h1>
 
 <div class="scrollable-wrapper" [class.without-main-navigation]="hideMainNavigation">
+  <p class="description">{{ 'service.studiesDesc' | translate }}</p>
 
-  <p class="description">{{"service.studiesDesc" | translate}}</p>
-
-  <div class="input-wrapper" *ngIf="(currentStudies$ | async) as currentStudies">
+  <div class="input-wrapper" *ngIf="currentStudies$ | async as currentStudies">
     <app-panel>
-        <app-list-item>
-          <p class="label">{{"service.studies" | translate}}</p>
-          <p class="info">{{currentStudies.value}}</p>
-        </app-list-item>
-        <app-list-item *ngIf="studies">
-          <ui-single-option class="ui-single-option"  type="normal" [vFormControl]="studies" [optionSource]="studiesOptions"></ui-single-option>
-        </app-list-item>
+      <app-list-item>
+        <p class="label">{{ 'service.studies' | translate }}</p>
+        <p class="info">{{ currentStudies.value }}</p>
+      </app-list-item>
+      <app-list-item *ngIf="studies">
+        <ui-single-option
+          class="ui-single-option"
+          type="normal"
+          [vFormControl]="studies"
+          [optionSource]="studiesOptions"></ui-single-option>
+      </app-list-item>
     </app-panel>
   </div>
 
   <div class="tip-wrapper">
-    <p class="title">{{"common.info" | translate}}</p>
-    <p class="info">{{"service.studiesInfo" | translate}}</p>
+    <p class="title">{{ 'common.info' | translate }}</p>
+    <p class="info">{{ 'service.studiesInfo' | translate }}</p>
   </div>
 </div>

@@ -6,12 +6,13 @@ describe('TerritoryFeatureComponent', () => {
   let component: TerritoryFeatureComponent;
   let fixture: ComponentFixture<TerritoryFeatureComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TerritoryFeatureComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [TerritoryFeatureComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TerritoryFeatureComponent);

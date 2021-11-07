@@ -1,6 +1,6 @@
-export const ASSIGNMENT_TABLE_NAME = "assignments";
+export const ASSIGNMENT_TABLE_NAME = 'assignments';
 
-export const HASHED_ASSIGNMENT_TABLE_NAME = btoa("assignments");
+export const HASHED_ASSIGNMENT_TABLE_NAME = btoa('assignments');
 
 export const SQL_CREATE_ASSIGNMENTS = `
   CREATE TABLE IF NOT EXISTS ${ASSIGNMENT_TABLE_NAME} (

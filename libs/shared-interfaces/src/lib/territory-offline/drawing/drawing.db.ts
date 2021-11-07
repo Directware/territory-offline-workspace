@@ -1,5 +1,5 @@
-export const DRAWING_TABLE_NAME = "drawings";
-export const HASHED_DRAWING_TABLE_NAME = btoa("drawings");
+export const DRAWING_TABLE_NAME = 'drawings';
+export const HASHED_DRAWING_TABLE_NAME = btoa('drawings');
 export const SQL_CREATE_DRAWING = `
   CREATE TABLE IF NOT EXISTS ${DRAWING_TABLE_NAME} (
     id TEXT PRIMARY KEY NOT NULL,

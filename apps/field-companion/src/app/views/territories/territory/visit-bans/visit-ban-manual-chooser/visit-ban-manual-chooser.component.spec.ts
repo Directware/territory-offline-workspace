@@ -6,12 +6,13 @@ describe('VisitBanManualChooserComponent', () => {
   let component: VisitBanManualChooserComponent;
   let fixture: ComponentFixture<VisitBanManualChooserComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ VisitBanManualChooserComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [VisitBanManualChooserComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(VisitBanManualChooserComponent);

@@ -1,4 +1,4 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
   display: flex;
@@ -8,7 +8,7 @@
 }
 
 .import-icon {
-  background: url("./../../../../assets/images/import.svg");
+  background: url('./../../../../assets/images/import.svg');
   background-size: cover;
   width: 99px;
   height: 111px;
@@ -41,7 +41,7 @@
     letter-spacing: 0.4px;
     cursor: pointer;
 
-    &.data-available{
+    &.data-available {
       background: rgba(21, 200, 128, 0.1);
       color: #15c880;
     }

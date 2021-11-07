@@ -1,38 +1,45 @@
-<app-second-thread-header [readonly]="readOnly"
-                          [valid]="publisher.valid && !publisher.pristine"
-                          (onEdit)="readOnly=false"
-                          (onBack)="back()"
-                          (onCancel)="cancel()"
-                          (onSave)="createPublisher()"></app-second-thread-header>
+<app-second-thread-header
+  [readonly]="readOnly"
+  [valid]="publisher.valid && !publisher.pristine"
+  (onEdit)="readOnly = false"
+  (onBack)="back()"
+  (onCancel)="cancel()"
+  (onSave)="createPublisher()"></app-second-thread-header>
 
 <div class="scrollable-wrapper" *ngIf="readOnly">
   <app-panel>
     <app-list-item>
       <p class="label">{{ 'publisher.name' | translate }}</p>
-      <p class="info">{{publisher.get('name').value}}</p>
+      <p class="info">{{ publisher.get('name').value }}</p>
     </app-list-item>
     <app-list-item>
       <p class="label">{{ 'publisher.firstName' | translate }}</p>
-      <p class="info">{{publisher.get('firstName').value}}</p>
+      <p class="info">{{ publisher.get('firstName').value }}</p>
     </app-list-item>
   </app-panel>
 
   <app-panel>
     <app-list-item>
       <p class="label">{{ 'publisher.mail' | translate }}</p>
-      <p class="info">{{publisher.get('email').value}}</p>
+      <p class="info">{{ publisher.get('email').value }}</p>
     </app-list-item>
     <app-list-item>
       <p class="label">{{ 'publisher.phone' | translate }}</p>
-      <p class="info">{{publisher.get('phone').value}}</p>
+      <p class="info">{{ publisher.get('phone').value }}</p>
     </app-list-item>
   </app-panel>
 
   <app-panel>
     <app-list-item>
       <p class="label">{{ 'publisher.dsgvo' | translate }}</p>
-      <i-feather *ngIf="!!publisher.get('dsgvoSignature').value" class="i-feather action yes-dsgvo" name="check"></i-feather>
-      <i-feather *ngIf="!publisher.get('dsgvoSignature').value" class="i-feather action no-dsgvo" name="x"></i-feather>
+      <i-feather
+        *ngIf="!!publisher.get('dsgvoSignature').value"
+        class="i-feather action yes-dsgvo"
+        name="check"></i-feather>
+      <i-feather
+        *ngIf="!publisher.get('dsgvoSignature').value"
+        class="i-feather action no-dsgvo"
+        name="x"></i-feather>
     </app-list-item>
   </app-panel>
 
@@ -43,15 +50,17 @@
     </div>
   </app-panel>
 
-  <app-panel *ngIf="(publisherTerritories$ | async) as publisherTerritories">
+  <app-panel *ngIf="publisherTerritories$ | async as publisherTerritories">
     <app-list-item>
       <p class="label bold">{{ 'publisher.assignments' | translate }}</p>
     </app-list-item>
     <app-list-item *ngFor="let dto of publisherTerritories" (click)="navigateToTerritory(dto.t)">
       <p class="label grey">
         <span class="territory-with-duration">
-          <span>{{dto.t.key}} {{dto.t.name | slice:0:21}}{{dto.t.name.length > 21 ? "..." : ""}} </span>
-          <span class="duration">({{dto.durationPhrase}})</span>
+          <span
+            >{{ dto.t.key }} {{ dto.t.name | slice: 0:21 }}{{ dto.t.name.length > 21 ? '...' : '' }}
+          </span>
+          <span class="duration">({{ dto.durationPhrase }})</span>
         </span>
 
         <app-tags-preview class="tags-margin" [tagIds]="dto.t.tags"></app-tags-preview>
@@ -64,23 +73,42 @@
   </app-panel>
 </div>
 
-
 <form *ngIf="!readOnly" [formGroup]="publisher">
   <app-panel>
     <app-list-item>
-      <input [placeholder]="('publisher.firstName' | translate) + '*'" class="input" formControlName="firstName" name="firstName" data-cy="input-firstName">
+      <input
+        [placeholder]="('publisher.firstName' | translate) + '*'"
+        class="input"
+        formControlName="firstName"
+        name="firstName"
+        data-cy="input-firstName" />
     </app-list-item>
     <app-list-item>
-      <input [placeholder]="('publisher.name' | translate) + '*'" class="input" formControlName="name" name="name" data-cy="input-name">
+      <input
+        [placeholder]="('publisher.name' | translate) + '*'"
+        class="input"
+        formControlName="name"
+        name="name"
+        data-cy="input-name" />
     </app-list-item>
   </app-panel>
 
   <app-panel>
     <app-list-item>
-      <input [placeholder]="('publisher.mail' | translate) + '*'" class="input" formControlName="email" name="email" data-cy="input-email">
+      <input
+        [placeholder]="('publisher.mail' | translate) + '*'"
+        class="input"
+        formControlName="email"
+        name="email"
+        data-cy="input-email" />
     </app-list-item>
     <app-list-item>
-      <input [placeholder]="('publisher.phone' | translate) + '*'" class="input" formControlName="phone" name="phone" data-cy="input-phone">
+      <input
+        [placeholder]="('publisher.phone' | translate) + '*'"
+        class="input"
+        formControlName="phone"
+        name="phone"
+        data-cy="input-phone" />
     </app-list-item>
   </app-panel>
 
@@ -88,11 +116,14 @@
 
   <app-publisher-signature [signature]="publisher.get('dsgvoSignature')"></app-publisher-signature>
 
-  <app-panel *ngIf="!isCreation" class="delete-publisher animate-color-and-transform" (click)="tryToDeletePublisher()" data-cy="button-delete-publisher">
+  <app-panel
+    *ngIf="!isCreation"
+    class="delete-publisher animate-color-and-transform"
+    (click)="tryToDeletePublisher()"
+    data-cy="button-delete-publisher">
     <app-list-item>
       <p class="label">{{ 'publisher.delete' | translate }}</p>
       <i-feather class="i-feather action" name="trash"></i-feather>
     </app-list-item>
   </app-panel>
 </form>
-

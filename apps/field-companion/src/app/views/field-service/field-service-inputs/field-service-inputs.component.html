@@ -1,32 +1,83 @@
 <div class="header">
-  <div class="header-item"><i-feather class="i-feather" name="clock"></i-feather>{{"service.duration" | translate}}</div>
-  <div class="header-item"><i-feather class="i-feather" name="book-open"></i-feather>{{"service.deliveries" | translate}}</div>
-  <div class="header-item"><i-feather class="i-feather" name="play-circle"></i-feather>{{"service.videos" | translate}}</div>
-  <div class="header-item"><i-feather class="i-feather" name="refresh-cw"></i-feather>{{"service.returnVisits" | translate}}</div>
-
+  <div class="header-item">
+    <i-feather class="i-feather" name="clock"></i-feather>{{ 'service.duration' | translate }}
+  </div>
+  <div class="header-item">
+    <i-feather class="i-feather" name="book-open"></i-feather>{{ 'service.deliveries' | translate }}
+  </div>
+  <div class="header-item">
+    <i-feather class="i-feather" name="play-circle"></i-feather>{{ 'service.videos' | translate }}
+  </div>
+  <div class="header-item">
+    <i-feather class="i-feather" name="refresh-cw"></i-feather
+    >{{ 'service.returnVisits' | translate }}
+  </div>
 </div>
-<div *ngIf="(currentDailyReport$ | async) as currentDailyReport" class="body">
-  <app-panel id="duration-input"><div class="wrapper">
-    <i-feather class="i-feather" (click)="increaseDuration(currentDailyReport)" name="plus" data-cy="icon-duration-plus-main-input"></i-feather>
-    <span (press)="showDurationInput()" class="value" data-cy="value-duration-main-input">{{padDuration(currentDailyReport.duration)}}</span>
-    <i-feather class="i-feather" (click)="decreaseDuration(currentDailyReport)" name="minus" data-cy="icon-duration-minus-main-input"></i-feather>
-  </div></app-panel>
+<div *ngIf="currentDailyReport$ | async as currentDailyReport" class="body">
+  <app-panel id="duration-input"
+    ><div class="wrapper">
+      <i-feather
+        class="i-feather"
+        (click)="increaseDuration(currentDailyReport)"
+        name="plus"
+        data-cy="icon-duration-plus-main-input"></i-feather>
+      <span (press)="showDurationInput()" class="value" data-cy="value-duration-main-input">{{
+        padDuration(currentDailyReport.duration)
+      }}</span>
+      <i-feather
+        class="i-feather"
+        (click)="decreaseDuration(currentDailyReport)"
+        name="minus"
+        data-cy="icon-duration-minus-main-input"></i-feather></div
+  ></app-panel>
 
-  <app-panel><div class="wrapper">
-    <i-feather class="i-feather" class="i-feather" (click)="increase('deliveries', currentDailyReport, 1)" name="plus" data-cy="icon-deliveries-plus-main-input"></i-feather>
-    <span class="value" data-cy="value-deliveries-main-input">{{currentDailyReport.deliveries}}</span>
-    <i-feather class="i-feather" (click)="decrease('deliveries', currentDailyReport, 1)" name="minus" data-cy="icon-deliveries-minus-main-input"></i-feather>
-  </div></app-panel>
+  <app-panel
+    ><div class="wrapper">
+      <i-feather
+        class="i-feather"
+        class="i-feather"
+        (click)="increase('deliveries', currentDailyReport, 1)"
+        name="plus"
+        data-cy="icon-deliveries-plus-main-input"></i-feather>
+      <span class="value" data-cy="value-deliveries-main-input">{{
+        currentDailyReport.deliveries
+      }}</span>
+      <i-feather
+        class="i-feather"
+        (click)="decrease('deliveries', currentDailyReport, 1)"
+        name="minus"
+        data-cy="icon-deliveries-minus-main-input"></i-feather></div
+  ></app-panel>
 
-  <app-panel><div class="wrapper">
-    <i-feather class="i-feather" (click)="increase('videos', currentDailyReport, 1)" name="plus" data-cy="icon-videos-plus-main-input"></i-feather>
-    <span class="value" data-cy="value-videos-main-input">{{currentDailyReport.videos}}</span>
-    <i-feather class="i-feather" (click)="decrease('videos', currentDailyReport, 1)" name="minus" data-cy="icon-videos-minus-main-input"></i-feather>
-  </div></app-panel>
+  <app-panel
+    ><div class="wrapper">
+      <i-feather
+        class="i-feather"
+        (click)="increase('videos', currentDailyReport, 1)"
+        name="plus"
+        data-cy="icon-videos-plus-main-input"></i-feather>
+      <span class="value" data-cy="value-videos-main-input">{{ currentDailyReport.videos }}</span>
+      <i-feather
+        class="i-feather"
+        (click)="decrease('videos', currentDailyReport, 1)"
+        name="minus"
+        data-cy="icon-videos-minus-main-input"></i-feather></div
+  ></app-panel>
 
-  <app-panel><div class="wrapper">
-    <i-feather class="i-feather" (click)="increase('returnVisits', currentDailyReport, 1)" name="plus" data-cy="icon-return-visits-plus-main-input"></i-feather>
-    <span class="value" data-cy="value-return-visits-main-input">{{currentDailyReport.returnVisits}}</span>
-    <i-feather class="i-feather" (click)="decrease('returnVisits', currentDailyReport, 1)" name="minus" data-cy="icon-return-visits-minus-main-input"></i-feather>
-  </div></app-panel>
+  <app-panel
+    ><div class="wrapper">
+      <i-feather
+        class="i-feather"
+        (click)="increase('returnVisits', currentDailyReport, 1)"
+        name="plus"
+        data-cy="icon-return-visits-plus-main-input"></i-feather>
+      <span class="value" data-cy="value-return-visits-main-input">{{
+        currentDailyReport.returnVisits
+      }}</span>
+      <i-feather
+        class="i-feather"
+        (click)="decrease('returnVisits', currentDailyReport, 1)"
+        name="minus"
+        data-cy="icon-return-visits-minus-main-input"></i-feather></div
+  ></app-panel>
 </div>

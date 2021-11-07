@@ -1,5 +1,4 @@
-export interface PrintedMapConfiguration
-{
+export interface PrintedMapConfiguration {
   showTerritoryName: boolean;
   showTerritoryKey: boolean;
   showNorth: boolean;

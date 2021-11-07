@@ -1,5 +1,5 @@
-@import "./../data-uri.images";
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import './../data-uri.images';
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 $appMenuWidth: 5rem;
 $appMenuItemMargin: 1rem;
@@ -39,7 +39,7 @@ $secondThreadWidth: 25.5rem;
       width: 100vw;
       max-width: 100vw;
       overflow: auto;
-      transition: left .25s, bottom .25s;
+      transition: left 0.25s, bottom 0.25s;
 
       @media (min-width: 568px) {
         flex-direction: column;
@@ -73,7 +73,7 @@ $secondThreadWidth: 25.5rem;
 
           &.active-link {
             color: #fff !important;
-            transition: color .1s, background .1s;
+            transition: color 0.1s, background 0.1s;
 
             &.congregation {
               background: #fff !important;
@@ -100,7 +100,7 @@ $secondThreadWidth: 25.5rem;
         position: relative;
 
         &:after {
-          content: "";
+          content: '';
           position: absolute;
           top: -6px;
           right: -6px;
@@ -124,7 +124,7 @@ $secondThreadWidth: 25.5rem;
       background-color: $almost-black-80;
       box-sizing: border-box;
       width: 100%;
-      transition: left .3s;
+      transition: left 0.3s;
 
       @media (min-width: 568px) {
         width: $mainThreadWidth;
@@ -146,7 +146,7 @@ $secondThreadWidth: 25.5rem;
       width: 100%;
       opacity: 1;
       z-index: 100;
-      transition: left .3s, opacity .25s;
+      transition: left 0.3s, opacity 0.25s;
 
       &:not(.second-thread-opened) {
         opacity: 0;
@@ -214,9 +214,7 @@ $secondThreadWidth: 25.5rem;
         }
 
         &.has-bleeding-edges {
-
           .bleed-edge-shadow {
-
             @media print {
               display: none;
             }
@@ -303,12 +301,11 @@ $secondThreadWidth: 25.5rem;
       color: #fff !important;
       background: $almost-black !important;
       border-radius: 50%;
-      transition: bottom .7s;
+      transition: bottom 0.7s;
       cursor: pointer;
     }
 
     .full-map {
-
       &.menu {
         left: -1px; // important for map fit detection
         bottom: -$appMenuWidth;

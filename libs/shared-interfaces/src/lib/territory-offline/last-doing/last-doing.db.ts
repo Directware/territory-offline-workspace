@@ -1,5 +1,5 @@
-export const LAST_DOING_TABLE_NAME = "lastDoings";
-export const HASHED_LAST_DOING_TABLE_NAME = btoa("lastDoings");
+export const LAST_DOING_TABLE_NAME = 'lastDoings';
+export const HASHED_LAST_DOING_TABLE_NAME = btoa('lastDoings');
 export const SQL_CREATE_LAST_DOING = `
   CREATE TABLE IF NOT EXISTS ${LAST_DOING_TABLE_NAME} (
     id TEXT PRIMARY KEY NOT NULL,

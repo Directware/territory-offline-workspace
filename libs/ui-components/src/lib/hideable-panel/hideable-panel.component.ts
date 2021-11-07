@@ -1,43 +1,34 @@
-import {Component, HostBinding, HostListener, Input, OnInit} from '@angular/core';
+import { Component, HostBinding, HostListener, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ui-hideable-panel',
   templateUrl: './hideable-panel.component.html',
-  styleUrls: ['./hideable-panel.component.scss']
+  styleUrls: ['./hideable-panel.component.scss'],
 })
-export class HideablePanelComponent implements OnInit
-{
+export class HideablePanelComponent implements OnInit {
   @Input()
   public header: string;
 
-  @HostBinding("class.open")
+  @HostBinding('class.open')
   public isOpen: boolean;
 
-  public show()
-  {
+  public show() {
     this.isOpen = true;
   }
 
-  public hide()
-  {
+  public hide() {
     this.isOpen = false;
   }
 
-  public constructor()
-  {
-  }
+  public constructor() {}
 
-  public ngOnInit(): void
-  {
-  }
+  public ngOnInit(): void {}
 
-  public toggle()
-  {
+  public toggle() {
     this.isOpen = !this.isOpen;
   }
 
-  public close()
-  {
+  public close() {
     this.isOpen = false;
   }
 }

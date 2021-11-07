@@ -6,12 +6,13 @@ describe('LanguageSearchComponent', () => {
   let component: LanguageSearchComponent;
   let fixture: ComponentFixture<LanguageSearchComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ LanguageSearchComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [LanguageSearchComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LanguageSearchComponent);

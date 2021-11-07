@@ -1,9 +1,7 @@
-import {DashboardComponent} from './dashboard.component';
+import { DashboardComponent } from './dashboard.component';
 
-describe('DashboardComponent', () =>
-{
-  it('...', () =>
-  {
+describe('DashboardComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

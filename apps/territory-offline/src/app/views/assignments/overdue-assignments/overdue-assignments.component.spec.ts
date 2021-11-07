@@ -1,9 +1,7 @@
-import {OverdueAssignmentsComponent} from './overdue-assignments.component';
+import { OverdueAssignmentsComponent } from './overdue-assignments.component';
 
-describe('OverdueAssignmentsComponent', () =>
-{
-  it('...', () =>
-  {
+describe('OverdueAssignmentsComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

@@ -1,9 +1,7 @@
-import {TerritoriesComponent} from './territories.component';
+import { TerritoriesComponent } from './territories.component';
 
-describe('TerritoriesComponent', () =>
-{
-  it('...', () =>
-  {
+describe('TerritoriesComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

@@ -1,12 +1,11 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
-
   ::ng-deep .app-list-item .label {
     color: #ffffff;
   }
 
-  .app-panel .wrapper.boundary-names{
+  .app-panel .wrapper.boundary-names {
     padding-left: 0;
     padding-bottom: 0;
   }
@@ -17,7 +16,6 @@
 
     .app-list-item,
     .app-list-item .label {
-
       color: $reddish-orange;
     }
   }
@@ -31,7 +29,6 @@
 
     .app-list-item,
     .app-list-item .label {
-
       color: $yellowish-orange;
     }
   }

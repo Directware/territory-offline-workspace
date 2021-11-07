@@ -1,9 +1,7 @@
-import {LockScreenComponent} from './lock-screen.component';
+import { LockScreenComponent } from './lock-screen.component';
 
-describe('LockScreenComponent', () =>
-{
-  it('...', () =>
-  {
+describe('LockScreenComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

@@ -1,10 +1,18 @@
-import {Component, OnInit, Output, EventEmitter, HostListener, ElementRef, HostBinding} from '@angular/core';
-import {Router, NavigationEnd} from '@angular/router';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  HostListener,
+  ElementRef,
+  HostBinding,
+} from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+  styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnInit {
   @Output() close = new EventEmitter();
@@ -14,7 +22,11 @@ export class NavigationComponent implements OnInit {
   constructor(private router: Router, private eRef: ElementRef) {}
 
   public ngOnInit() {
-    this.active = this.router.url.startsWith('/features') ? 'features' : this.router.url.startsWith('/home') ? 'home' : 'imprint';
+    this.active = this.router.url.startsWith('/features')
+      ? 'features'
+      : this.router.url.startsWith('/home')
+      ? 'home'
+      : 'imprint';
   }
 
   @HostListener('click', ['$event.target'])
@@ -32,7 +44,7 @@ export class NavigationComponent implements OnInit {
   }
 
   public navigate(link: string, fragment?: string) {
-    this.router.navigate([link], {fragment: fragment});
+    this.router.navigate([link], { fragment: fragment });
     this.closeMenu();
     setTimeout(() => {
       this.router.navigate([link]);

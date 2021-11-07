@@ -1,42 +1,48 @@
-<h1 class="header">{{"service.sendReport" | translate}} <span (click)="done()" class="done">{{"common.done" | translate}}</span></h1>
+<h1 class="header">
+  {{ 'service.sendReport' | translate }}
+  <span (click)="done()" class="done">{{ 'common.done' | translate }}</span>
+</h1>
 
 <div class="scrollable-wrapper" [class.without-main-navigation]="hideMainNavigation">
-  <app-panel *ngIf="(monthlyReport$ | async) as monthlyReport">
-    <div class="wrapper" *ngIf="(chosenTime$ | async) as chosenTime">
-      <h4 class="h4-white">{{"month." + chosenTime.month | translate}} {{chosenTime.year}}</h4>
+  <app-panel *ngIf="monthlyReport$ | async as monthlyReport">
+    <div class="wrapper" *ngIf="chosenTime$ | async as chosenTime">
+      <h4 class="h4-white">{{ 'month.' + chosenTime.month | translate }} {{ chosenTime.year }}</h4>
       <app-list style="padding: 1rem 0 0 1.5rem">
         <app-list-item>
           <p class="label">
-            {{"service.duration" | translate}}
-            <i-feather (click)="explainDurationTrimmer()" class="duration-trimmer-icon" name="info"></i-feather>
+            {{ 'service.duration' | translate }}
+            <i-feather
+              (click)="explainDurationTrimmer()"
+              class="duration-trimmer-icon"
+              name="info"></i-feather>
           </p>
-          <p class="info">{{trimMonthlyDuration(monthlyReport.duration)}}</p>
+          <p class="info">{{ trimMonthlyDuration(monthlyReport.duration) }}</p>
         </app-list-item>
         <app-list-item>
-          <p class="label">{{"service.deliveries" | translate}}</p>
-          <p class="info">{{monthlyReport.deliveries}}</p>
+          <p class="label">{{ 'service.deliveries' | translate }}</p>
+          <p class="info">{{ monthlyReport.deliveries }}</p>
         </app-list-item>
         <app-list-item>
-          <p class="label">{{"service.videos" | translate}}</p>
-          <p class="info">{{monthlyReport.videos}}</p>
+          <p class="label">{{ 'service.videos' | translate }}</p>
+          <p class="info">{{ monthlyReport.videos }}</p>
         </app-list-item>
         <app-list-item>
-          <p class="label">{{"service.returnVisits" | translate}}</p>
-          <p class="info">{{monthlyReport.returnVisits}}</p>
+          <p class="label">{{ 'service.returnVisits' | translate }}</p>
+          <p class="info">{{ monthlyReport.returnVisits }}</p>
         </app-list-item>
         <app-list-item>
-          <p class="label">{{"service.studies" | translate}}</p>
-          <p class="info">{{monthlyReport.studies}}</p>
+          <p class="label">{{ 'service.studies' | translate }}</p>
+          <p class="info">{{ monthlyReport.studies }}</p>
         </app-list-item>
         <app-list-item routerLink="/edit-report">
-          <p class="label blue edit-report">{{"service.editReport" | translate}}</p>
+          <p class="label blue edit-report">{{ 'service.editReport' | translate }}</p>
         </app-list-item>
         <app-list-item routerLink="/choose-month-from-modal">
-          <p class="label blue edit-report">{{"service.chooseMonth" | translate}}</p>
+          <p class="label blue edit-report">{{ 'service.chooseMonth' | translate }}</p>
         </app-list-item>
       </app-list>
     </div>
   </app-panel>
 
-  <button (click)="send()" class="button primary">{{"actions.send" | translate}}</button>
+  <button (click)="send()" class="button primary">{{ 'actions.send' | translate }}</button>
 </div>

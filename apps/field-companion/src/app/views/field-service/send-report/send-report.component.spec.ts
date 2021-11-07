@@ -6,12 +6,13 @@ describe('SendReportComponent', () => {
   let component: SendReportComponent;
   let fixture: ComponentFixture<SendReportComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ SendReportComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [SendReportComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SendReportComponent);

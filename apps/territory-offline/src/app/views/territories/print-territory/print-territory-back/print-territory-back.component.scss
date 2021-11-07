@@ -1,4 +1,4 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
   position: absolute;
@@ -177,7 +177,7 @@
     left: 50%;
     transform: translateX(-50%);
 
-  > .i-feather {
+    > .i-feather {
       width: 18px;
       height: 18px;
     }

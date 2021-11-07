@@ -1,9 +1,7 @@
-import {InitialConfigurationComponent} from './initial-configuration.component';
+import { InitialConfigurationComponent } from './initial-configuration.component';
 
-describe('InitialConfigurationComponent', () =>
-{
-  it('...', () =>
-  {
+describe('InitialConfigurationComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

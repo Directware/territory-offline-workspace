@@ -1,9 +1,7 @@
-import {SecondThreadHeaderComponent} from './second-thread-header.component';
+import { SecondThreadHeaderComponent } from './second-thread-header.component';
 
-describe('SecondThreadHeaderComponent', () =>
-{
-  it('...', () =>
-  {
+describe('SecondThreadHeaderComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

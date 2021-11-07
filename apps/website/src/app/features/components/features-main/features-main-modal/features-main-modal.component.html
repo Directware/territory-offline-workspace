@@ -1,4 +1,9 @@
 <i-feather name="x" class="close" (click)="emitClose()"></i-feather>
-<div class="image"
-  [ngStyle]="{'background': 'url(/assets/images/' + image + ')', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': '50% 50%'}">
-</div>
+<div
+  class="image"
+  [ngStyle]="{
+    background: 'url(/assets/images/' + image + ')',
+    'background-size': 'contain',
+    'background-repeat': 'no-repeat',
+    'background-position': '50% 50%'
+  }"></div>

@@ -1,24 +1,26 @@
-<ng-container *ngIf="(territoryCard$ | async) as territoryCard">
+<ng-container *ngIf="territoryCard$ | async as territoryCard">
   <h1 class="header">
     <div class="back" (click)="done()">
       <i-feather class="i-feather" name="chevron-left"></i-feather>
-      {{territoryCard.territory.name}} {{territoryCard.territory.key}}
+      {{ territoryCard.territory.name }} {{ territoryCard.territory.key }}
     </div>
   </h1>
 
-  <h1 class="title">{{"territories.returnTerritory" | translate}}</h1>
+  <h1 class="title">{{ 'territories.returnTerritory' | translate }}</h1>
 
   <div class="scrollable-wrapper">
     <div class="tip-wrapper">
-      <p class="info">{{"territories.returnInfoText" | translate}}</p>
+      <p class="info">{{ 'territories.returnInfoText' | translate }}</p>
     </div>
-    <br/>
+    <br />
     <div (click)="sendTerritoryCard()" class="send">
       <i-feather class="i-feather" name="share"></i-feather>
-      <span>{{"territories.sendToServant" | translate}}</span>
+      <span>{{ 'territories.sendToServant' | translate }}</span>
     </div>
-    <br/>
-    <br/>
-    <button (click)="deleteTerritoryCard()" class="remove-territory button">{{"common.complete" | translate}}</button>
+    <br />
+    <br />
+    <button (click)="deleteTerritoryCard()" class="remove-territory button">
+      {{ 'common.complete' | translate }}
+    </button>
   </div>
 </ng-container>

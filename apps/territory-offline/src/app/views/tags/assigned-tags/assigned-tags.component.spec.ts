@@ -1,9 +1,7 @@
-import {AssignedTagsComponent} from './assigned-tags.component';
+import { AssignedTagsComponent } from './assigned-tags.component';
 
-describe('AssignedTagsComponent', () =>
-{
-  it('...', () =>
-  {
+describe('AssignedTagsComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

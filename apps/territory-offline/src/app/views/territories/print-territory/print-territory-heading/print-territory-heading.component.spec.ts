@@ -1,9 +1,7 @@
-import {PrintTerritoryHeadingComponent} from './print-territory-heading.component';
+import { PrintTerritoryHeadingComponent } from './print-territory-heading.component';
 
-describe('PrintTerritoryHeadingComponent', () =>
-{
-  it('...', () =>
-  {
+describe('PrintTerritoryHeadingComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

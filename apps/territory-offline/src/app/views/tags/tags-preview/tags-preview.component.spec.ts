@@ -1,9 +1,7 @@
-import {TagsPreviewComponent} from './tags-preview.component';
+import { TagsPreviewComponent } from './tags-preview.component';
 
-describe('TagsPreviewComponent', () =>
-{
-  it('...', () =>
-  {
+describe('TagsPreviewComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

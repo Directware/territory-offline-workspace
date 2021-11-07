@@ -1,5 +1,4 @@
-export interface TerritoryDrawingPrintConfiguration
-{
+export interface TerritoryDrawingPrintConfiguration {
   bearing?: number;
   zoom?: number;
   pitch?: number;

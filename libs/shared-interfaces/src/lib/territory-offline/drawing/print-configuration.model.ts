@@ -1,5 +1,4 @@
-export interface PrintConfiguration
-{
+export interface PrintConfiguration {
   bearing?: number;
   zoom?: number;
   pitch?: number;

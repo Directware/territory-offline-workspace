@@ -1,4 +1,3 @@
-
 /* Common */
 export * from './lib/common/database-entity.model';
 export * from './lib/common/timed-entity.model';

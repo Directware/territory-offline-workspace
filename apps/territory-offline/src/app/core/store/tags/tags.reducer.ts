@@ -1,13 +1,16 @@
-import {Action, createReducer, on} from '@ngrx/store';
-import {createEntityAdapter, EntityState} from '@ngrx/entity';
-import {UpsertTagSuccess, DeleteTagSuccess, LoadTagsSuccess, BulkImportTagsSuccess} from './tags.actions';
-import {Tag} from "@territory-offline-workspace/shared-interfaces";
+import { Action, createReducer, on } from '@ngrx/store';
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
+import {
+  UpsertTagSuccess,
+  DeleteTagSuccess,
+  LoadTagsSuccess,
+  BulkImportTagsSuccess,
+} from './tags.actions';
+import { Tag } from '@territory-offline-workspace/shared-interfaces';
 
 export const tagsAdapter = createEntityAdapter<Tag>();
 
-export interface TagsState extends EntityState<Tag>
-{
-}
+export interface TagsState extends EntityState<Tag> {}
 
 const initialState: TagsState = tagsAdapter.getInitialState();
 
@@ -19,7 +22,6 @@ const tagsReducer = createReducer(
   on(DeleteTagSuccess, (state, action) => tagsAdapter.removeOne(action.tag.id, state))
 );
 
-export function tagsReducerFunction(state: TagsState | undefined, action: Action)
-{
+export function tagsReducerFunction(state: TagsState | undefined, action: Action) {
   return tagsReducer(state, action);
 }

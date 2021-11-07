@@ -1,5 +1,4 @@
-export interface ReleaseInfo
-{
+export interface ReleaseInfo {
   version: string;
   winFileName: string;
   macFileName: string;

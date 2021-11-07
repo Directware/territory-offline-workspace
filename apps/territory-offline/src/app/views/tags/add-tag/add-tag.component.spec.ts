@@ -1,9 +1,7 @@
-import {AddTagComponent} from './add-tag.component';
+import { AddTagComponent } from './add-tag.component';
 
-describe('AddTagComponent', () =>
-{
-  it('...', () =>
-  {
+describe('AddTagComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

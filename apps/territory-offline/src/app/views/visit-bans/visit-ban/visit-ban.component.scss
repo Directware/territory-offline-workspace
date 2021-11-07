@@ -1,14 +1,12 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
-
   .delete-visit-ban {
     cursor: pointer;
     background: $reddish-orange-20;
 
     .app-list-item,
     .app-list-item .label {
-
       color: $reddish-orange;
     }
   }
@@ -18,7 +16,6 @@
 
     .app-list-item,
     .app-list-item .label {
-
       color: $yellowish-orange;
     }
   }

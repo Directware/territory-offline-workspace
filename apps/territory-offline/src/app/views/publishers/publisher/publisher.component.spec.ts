@@ -1,7 +1,5 @@
-describe('CreatePublisherComponent', () =>
-{
-  it('...', () =>
-  {
+describe('CreatePublisherComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

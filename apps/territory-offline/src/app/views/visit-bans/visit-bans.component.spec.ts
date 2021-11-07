@@ -1,9 +1,7 @@
-import {VisitBansComponent} from './visit-bans.component';
+import { VisitBansComponent } from './visit-bans.component';
 
-describe('VisitBansComponent', () =>
-{
-  it('...', () =>
-  {
+describe('VisitBansComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

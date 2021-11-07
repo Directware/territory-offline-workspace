@@ -1,5 +1,5 @@
-export const TERRITORY_TABLE_NAME = "territories";
-export const HASHED_TERRITORY_TABLE_NAME = btoa("territories");
+export const TERRITORY_TABLE_NAME = 'territories';
+export const HASHED_TERRITORY_TABLE_NAME = btoa('territories');
 export const SQL_CREATE_TERRITORY = `
   CREATE TABLE IF NOT EXISTS ${TERRITORY_TABLE_NAME} (
     id TEXT PRIMARY KEY NOT NULL,

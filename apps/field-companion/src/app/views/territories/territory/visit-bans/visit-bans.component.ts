@@ -1,24 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {TerritoryCard} from "@territory-offline-workspace/shared-interfaces";
-import {Store} from "@ngrx/store";
-import {ApplicationState} from "../../../../core/store/index.reducers";
+import { Component, Input, OnInit } from '@angular/core';
+import { TerritoryCard } from '@territory-offline-workspace/shared-interfaces';
+import { Store } from '@ngrx/store';
+import { ApplicationState } from '../../../../core/store/index.reducers';
 
 @Component({
   selector: 'fc-visit-bans',
   templateUrl: './visit-bans.component.html',
-  styleUrls: ['./visit-bans.component.scss']
+  styleUrls: ['./visit-bans.component.scss'],
 })
-export class VisitBansComponent implements OnInit
-{
+export class VisitBansComponent implements OnInit {
   @Input()
   public territoryCard: TerritoryCard;
 
-  public constructor(private store: Store<ApplicationState>)
-  {
-  }
+  public constructor(private store: Store<ApplicationState>) {}
 
-  public ngOnInit(): void
-  {
-  }
-
+  public ngOnInit(): void {}
 }

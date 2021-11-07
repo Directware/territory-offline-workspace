@@ -31,9 +31,7 @@
               "paper",
               "tweetnacl"
             ],
-            "assets": [
-              "apps/territory-offline/src/assets"
-            ],
+            "assets": ["apps/territory-offline/src/assets"],
             "styles": [
               "apps/territory-offline/src/styles.scss",
               "node_modules/mapbox-gl/dist/mapbox-gl.css",
@@ -157,10 +155,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "libs/ui-components/**/*.ts",
-              "libs/ui-components/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/ui-components/**/*.ts", "libs/ui-components/**/*.html"]
           }
         },
         "test": {
@@ -199,17 +194,13 @@
             "polyfills": "apps/field-companion/src/polyfills.ts",
             "tsConfig": "apps/field-companion/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/field-companion/src/assets"
-            ],
+            "assets": ["apps/field-companion/src/assets"],
             "styles": [
               "apps/field-companion/src/styles.scss",
               "node_modules/mapbox-gl/dist/mapbox-gl.css",
               "node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css"
             ],
-            "scripts": [
-              "node_modules/hammerjs/hammer.min.js"
-            ]
+            "scripts": ["node_modules/hammerjs/hammer.min.js"]
           },
           "configurations": {
             "production": {
@@ -261,10 +252,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "apps/field-companion/**/*.ts",
-              "apps/field-companion/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/field-companion/**/*.ts", "apps/field-companion/**/*.html"]
           }
         },
         "test": {
@@ -327,13 +315,8 @@
             "polyfills": "apps/website/src/polyfills.ts",
             "tsConfig": "apps/website/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/website/src/favicon.ico",
-              "apps/website/src/assets"
-            ],
-            "styles": [
-              "apps/website/src/styles.scss"
-            ],
+            "assets": ["apps/website/src/favicon.ico", "apps/website/src/assets"],
+            "styles": ["apps/website/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -386,10 +369,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "apps/website/**/*.ts",
-              "apps/website/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/website/**/*.ts", "apps/website/**/*.html"]
           }
         },
         "test": {
@@ -424,10 +404,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "apps/website-e2e/**/*.ts",
-              "apps/website-e2e/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/website-e2e/**/*.ts", "apps/website-e2e/**/*.html"]
           }
         }
       }
@@ -441,10 +418,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared-services/**/*.ts",
-              "libs/shared-services/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/shared-services/**/*.ts", "libs/shared-services/**/*.html"]
           }
         },
         "test": {
@@ -472,10 +446,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared-utils/**/*.ts",
-              "libs/shared-utils/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/shared-utils/**/*.ts", "libs/shared-utils/**/*.html"]
           }
         },
         "test": {

@@ -1,9 +1,7 @@
-import {TerritoryHelperImportComponent} from './territory-helper-import.component';
+import { TerritoryHelperImportComponent } from './territory-helper-import.component';
 
-describe('TerritoryHelperImportComponent', () =>
-{
-  it('...', () =>
-  {
+describe('TerritoryHelperImportComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

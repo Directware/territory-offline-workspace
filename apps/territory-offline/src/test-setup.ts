@@ -1,12 +1,13 @@
 import 'jest-preset-angular';
-import "jest-canvas-mock";
+import 'jest-canvas-mock';
 
-Object.defineProperty(window.URL, "createObjectURL", {
+Object.defineProperty(window.URL, 'createObjectURL', {
   writable: true,
-  value: (param) => {return "";}
+  value: (param) => {
+    return '';
+  },
 });
 
 Object.defineProperty(window, 'crypto', {
-  value: () => {}
+  value: () => {},
 });
-

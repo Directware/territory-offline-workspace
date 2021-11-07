@@ -1,18 +1,14 @@
 {
   "extends": "../../.eslintrc.json",
-  "ignorePatterns": [
-    "!**/*"
-  ],
+  "ignorePatterns": ["!**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
         "project": [
           "apps/field-companion/tsconfig.app.json",
           "apps/field-companion/tsconfig.spec.json",
-          "apps/field-companion/e2e/tsconfig.json"
+          "apps/field-companion/tsconfig.json"
         ],
         "createDefaultProgram": true
       },
@@ -21,7 +17,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "territory-offline-workspace",
+            "prefix": "app",
             "style": "kebab-case"
           }
         ],
@@ -29,7 +25,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "territoryOfflineWorkspace",
+            "prefix": "app",
             "style": "camelCase"
           }
         ],
@@ -47,9 +43,7 @@
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
+      "files": ["*.html"],
       "rules": {}
     }
   ]

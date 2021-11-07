@@ -1,9 +1,7 @@
-import {PublisherSignatureComponent} from './publisher-signature.component';
+import { PublisherSignatureComponent } from './publisher-signature.component';
 
-describe('PublisherSignatureComponent', () =>
-{
-  it('...', () =>
-  {
+describe('PublisherSignatureComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

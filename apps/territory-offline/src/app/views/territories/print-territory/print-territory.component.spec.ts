@@ -1,9 +1,7 @@
-import {PrintTerritoryComponent} from './print-territory.component';
+import { PrintTerritoryComponent } from './print-territory.component';
 
-describe('PrintTerritoryComponent', () =>
-{
-  it('...', () =>
-  {
+describe('PrintTerritoryComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

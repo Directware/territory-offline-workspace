@@ -6,12 +6,13 @@ describe('FieldServiceInputsComponent', () => {
   let component: FieldServiceInputsComponent;
   let fixture: ComponentFixture<FieldServiceInputsComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FieldServiceInputsComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [FieldServiceInputsComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FieldServiceInputsComponent);

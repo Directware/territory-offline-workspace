@@ -1,9 +1,17 @@
-import {Component, OnInit, Input, Output, EventEmitter, HostBinding, Renderer2} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  HostBinding,
+  Renderer2,
+} from '@angular/core';
 
 @Component({
   selector: 'app-features-main-item',
   templateUrl: './features-main-item.component.html',
-  styleUrls: ['./features-main-item.component.scss']
+  styleUrls: ['./features-main-item.component.scss'],
 })
 export class FeaturesMainItemComponent implements OnInit {
   @HostBinding('class.odd') @Input() public odd: boolean;

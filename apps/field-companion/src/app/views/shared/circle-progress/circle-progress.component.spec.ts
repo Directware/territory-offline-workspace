@@ -6,12 +6,13 @@ describe('CircleProgressComponent', () => {
   let component: CircleProgressComponent;
   let fixture: ComponentFixture<CircleProgressComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ CircleProgressComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [CircleProgressComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CircleProgressComponent);

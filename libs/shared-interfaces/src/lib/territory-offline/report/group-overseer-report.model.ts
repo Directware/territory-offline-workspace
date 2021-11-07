@@ -1,5 +1,4 @@
-export interface GroupOverseerReport
-{
+export interface GroupOverseerReport {
   tags: {
     label: string;
     publishers: {
@@ -7,7 +6,7 @@ export interface GroupOverseerReport
       territories: {
         label: string;
         assignedSince: Date;
-      }[]
-    }[]
-  }[]
+      }[];
+    }[];
+  }[];
 }

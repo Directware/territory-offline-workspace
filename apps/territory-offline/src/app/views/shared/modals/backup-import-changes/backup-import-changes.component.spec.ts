@@ -1,9 +1,7 @@
-import {BackupImportChangesComponent} from './backup-import-changes.component';
+import { BackupImportChangesComponent } from './backup-import-changes.component';
 
-describe('BackupImportChangesComponent', () =>
-{
-  it('...', () =>
-  {
+describe('BackupImportChangesComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

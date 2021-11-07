@@ -1,9 +1,15 @@
-<div *ngFor="let weekDay of weekDays" class="grid-cell grid-cell-header">{{weekDay | translate}}</div>
+<div *ngFor="let weekDay of weekDays" class="grid-cell grid-cell-header">
+  {{ weekDay | translate }}
+</div>
 <ng-container *ngIf="grid">
-  <div class="grid-cell" (click)="chooseDate(day)" *ngFor="let day of grid"
-       [class.chosen]="chosenDay && day.dayIndex === chosenDay.dayIndex"
-       [class.has-data]="day.hasData" data-cy="number-days-calendar">
-    {{day.text}}
+  <div
+    class="grid-cell"
+    (click)="chooseDate(day)"
+    *ngFor="let day of grid"
+    [class.chosen]="chosenDay && day.dayIndex === chosenDay.dayIndex"
+    [class.has-data]="day.hasData"
+    data-cy="number-days-calendar">
+    {{ day.text }}
     <div *ngIf="day.hasDot" class="has-dot" data-cy="curr-day-with-dot"></div>
   </div>
 </ng-container>

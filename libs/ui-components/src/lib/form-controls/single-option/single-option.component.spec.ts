@@ -6,12 +6,13 @@ describe('DatePickerComponent', () => {
   let component: SingleOptionComponent;
   let fixture: ComponentFixture<SingleOptionComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ SingleOptionComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [SingleOptionComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SingleOptionComponent);

@@ -1,11 +1,11 @@
-import {Component, OnInit, Renderer2} from '@angular/core';
-import {trigger, transition, style, animate} from '@angular/animations';
-import {Router, ActivatedRoute, NavigationEnd} from '@angular/router';
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { trigger, transition, style, animate } from '@angular/animations';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-navigation-trigger',
   templateUrl: './navigation-trigger.component.html',
-  styleUrls: ['./navigation-trigger.component.scss']
+  styleUrls: ['./navigation-trigger.component.scss'],
 })
 export class NavigationTriggerComponent implements OnInit {
   public open = false;
@@ -14,10 +14,14 @@ export class NavigationTriggerComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private renderer: Renderer2) {}
 
   public ngOnInit() {
-    this.router.events.subscribe(val => {
+    this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         this.active =
-          val && val.url && val.url.startsWith('/features') ? 'features' : this.router.url.startsWith('/home') ? 'home' : 'imprint';
+          val && val.url && val.url.startsWith('/features')
+            ? 'features'
+            : this.router.url.startsWith('/home')
+            ? 'home'
+            : 'imprint';
       }
     });
   }
@@ -35,7 +39,7 @@ export class NavigationTriggerComponent implements OnInit {
   }
 
   public navigate(link: string, fragment?: string) {
-    this.router.navigate([link], {fragment: fragment});
+    this.router.navigate([link], { fragment: fragment });
     setTimeout(() => {
       this.router.navigate([link]);
     }, 100);

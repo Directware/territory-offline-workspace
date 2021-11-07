@@ -1,5 +1,5 @@
-export const PUBLISHER_TABLE_NAME = "publishers";
-export const HASHED_PUBLISHER_TABLE_NAME = btoa("publishers");
+export const PUBLISHER_TABLE_NAME = 'publishers';
+export const HASHED_PUBLISHER_TABLE_NAME = btoa('publishers');
 export const SQL_CREATE_PUBLISHER = `
   CREATE TABLE IF NOT EXISTS ${PUBLISHER_TABLE_NAME} (
     id TEXT PRIMARY KEY NOT NULL,

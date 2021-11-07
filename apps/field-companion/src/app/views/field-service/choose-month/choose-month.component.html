@@ -1,23 +1,34 @@
-<h1 class="header">{{"service.months" | translate}} <span (click)="done()" class="done">{{"common.done" | translate}}</span></h1>
+<h1 class="header">
+  {{ 'service.months' | translate }}
+  <span (click)="done()" class="done">{{ 'common.done' | translate }}</span>
+</h1>
 
 <div class="scrollable-wrapper" [class.without-main-navigation]="hideMainNavigation">
   <app-panel>
-    <app-list-item (click)="editYearPicker=true">
-      <p class="label">{{"service.year" | translate}}</p>
-      <p class="info">{{yearFormControl.value}}</p>
+    <app-list-item (click)="editYearPicker = true">
+      <p class="label">{{ 'service.year' | translate }}</p>
+      <p class="info">{{ yearFormControl.value }}</p>
     </app-list-item>
     <div class="wrapper" *ngIf="editYearPicker">
-      <ui-single-option class="ui-single-option"  [vFormControl]="yearFormControl" [optionSource]="yearOptionSource" [type]="'normal'"></ui-single-option>
+      <ui-single-option
+        class="ui-single-option"
+        [vFormControl]="yearFormControl"
+        [optionSource]="yearOptionSource"
+        [type]="'normal'"></ui-single-option>
     </div>
   </app-panel>
 
   <app-panel>
-    <app-list-item (click)="editMonthPicker=true">
-      <p class="label">{{"service.month" | translate}}</p>
-      <p class="info">{{("month." + monthFormControl.value)  | translate}}</p>
+    <app-list-item (click)="editMonthPicker = true">
+      <p class="label">{{ 'service.month' | translate }}</p>
+      <p class="info">{{ 'month.' + monthFormControl.value | translate }}</p>
     </app-list-item>
     <div class="wrapper" *ngIf="editMonthPicker">
-      <ui-single-option class="ui-single-option"  [vFormControl]="monthFormControl" [optionSource]="monthOptionSource" [type]="'normal'"></ui-single-option>
+      <ui-single-option
+        class="ui-single-option"
+        [vFormControl]="monthFormControl"
+        [optionSource]="monthOptionSource"
+        [type]="'normal'"></ui-single-option>
     </div>
   </app-panel>
 </div>

@@ -1,8 +1,11 @@
-<app-second-thread-header [readonly]="true" [specific]="true" (onBack)="back()"></app-second-thread-header>
+<app-second-thread-header
+  [readonly]="true"
+  [specific]="true"
+  (onBack)="back()"></app-second-thread-header>
 <div class="scrollable-wrapper">
   <div class="info-wrapper">
     <h4 class="h4-white no-user-selection">{{ 'transfer.import.title' | translate }}</h4>
-    <br/>
+    <br />
     <p class="body-grey no-user-selection">
       {{ 'transfer.import.geoJsonDesc' | translate }}
     </p>
@@ -10,19 +13,31 @@
 
   <app-list>
     <app-list-item (click)="setCurrentMapping('territoryName')">
-      <div class="label">{{keyMappings.territoryName.translation | translate}}</div>
-      <div *ngIf="keyMappings.territoryName.propName" class="info green">{{keyMappings.territoryName.propName}}</div>
-      <div *ngIf="!keyMappings.territoryName.propName" class="info">{{"common.nothingChosen" | translate}}</div>
+      <div class="label">{{ keyMappings.territoryName.translation | translate }}</div>
+      <div *ngIf="keyMappings.territoryName.propName" class="info green">
+        {{ keyMappings.territoryName.propName }}
+      </div>
+      <div *ngIf="!keyMappings.territoryName.propName" class="info">
+        {{ 'common.nothingChosen' | translate }}
+      </div>
     </app-list-item>
     <app-list-item (click)="setCurrentMapping('territoryKey')">
-      <div class="label">{{keyMappings.territoryKey.translation | translate}}</div>
-      <div *ngIf="keyMappings.territoryKey.propName" class="info green">{{keyMappings.territoryKey.propName}}</div>
-      <div *ngIf="!keyMappings.territoryKey.propName" class="info">{{"common.nothingChosen" | translate}}</div>
+      <div class="label">{{ keyMappings.territoryKey.translation | translate }}</div>
+      <div *ngIf="keyMappings.territoryKey.propName" class="info green">
+        {{ keyMappings.territoryKey.propName }}
+      </div>
+      <div *ngIf="!keyMappings.territoryKey.propName" class="info">
+        {{ 'common.nothingChosen' | translate }}
+      </div>
     </app-list-item>
     <app-list-item (click)="setCurrentMapping('territoryPCount')">
-      <div class="label">{{keyMappings.territoryPCount.translation | translate}}</div>
-      <div *ngIf="keyMappings.territoryPCount.propName" class="info green">{{keyMappings.territoryPCount.propName}}</div>
-      <div *ngIf="!keyMappings.territoryPCount.propName" class="info">{{"common.nothingChosen" | translate}}</div>
+      <div class="label">{{ keyMappings.territoryPCount.translation | translate }}</div>
+      <div *ngIf="keyMappings.territoryPCount.propName" class="info green">
+        {{ keyMappings.territoryPCount.propName }}
+      </div>
+      <div *ngIf="!keyMappings.territoryPCount.propName" class="info">
+        {{ 'common.nothingChosen' | translate }}
+      </div>
     </app-list-item>
   </app-list>
 
@@ -34,15 +49,18 @@
 
   <app-panel *ngIf="keyMappings[currentKeyMapping]">
     <div class="wrapper">
-      <h3 class="h3-white">{{"territory.title" | translate}} - <strong>{{keyMappings[currentKeyMapping]["translation"] | translate}}</strong></h3>
+      <h3 class="h3-white">
+        {{ 'territory.title' | translate }} -
+        <strong>{{ keyMappings[currentKeyMapping]['translation'] | translate }}</strong>
+      </h3>
 
       <app-list>
         <app-list-item (click)="setMapping('ignore')">
-          <div class="label warn">{{"common.ignore" | translate}}</div>
+          <div class="label warn">{{ 'common.ignore' | translate }}</div>
         </app-list-item>
         <app-list-item (click)="setMapping(prop)" *ngFor="let prop of featurePropertyKeys">
-          <div class="label">{{prop}}</div>
-          <div class="info">{{featureProperties[prop] || "-"}}</div>
+          <div class="label">{{ prop }}</div>
+          <div class="info">{{ featureProperties[prop] || '-' }}</div>
         </app-list-item>
       </app-list>
     </div>

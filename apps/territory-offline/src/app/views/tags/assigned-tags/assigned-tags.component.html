@@ -1,19 +1,37 @@
-<app-panel *ngIf="(allTagsEntities$ | async) as allTagsEntities">
+<app-panel *ngIf="allTagsEntities$ | async as allTagsEntities">
   <div class="wrapper">
     <h2 class="body-grey">{{ 'tag.assigned' | translate }}</h2>
     <app-list-item *ngFor="let tagId of assignedTags.value">
-      <p *ngIf="allTagsEntities[tagId] as tag" class="label">{{tag.name}}</p>
-      <i-feather *ngIf="!readonly" class="i-feather action trash"
-                 [class.ready-to-delete]="!!tagToBeDeleted && tagToBeDeleted === tagId"
-                 (click)="removeTag(tagId)" name="trash" data-cy="icon-delete-tag"></i-feather>
+      <p *ngIf="allTagsEntities[tagId] as tag" class="label">{{ tag.name }}</p>
+      <i-feather
+        *ngIf="!readonly"
+        class="i-feather action trash"
+        [class.ready-to-delete]="!!tagToBeDeleted && tagToBeDeleted === tagId"
+        (click)="removeTag(tagId)"
+        name="trash"
+        data-cy="icon-delete-tag"></i-feather>
     </app-list-item>
     <app-list-item *ngIf="!readonly">
-      <input class="input" [placeholder]="'tag.add' | translate" [formControl]="newTagName" data-cy="input-add-tag">
-      <i-feather class="i-feather action" (click)="addTag(searchResults[0])" name="plus"></i-feather>
+      <input
+        class="input"
+        [placeholder]="'tag.add' | translate"
+        [formControl]="newTagName"
+        data-cy="input-add-tag" />
+      <i-feather
+        class="i-feather action"
+        (click)="addTag(searchResults[0])"
+        name="plus"></i-feather>
     </app-list-item>
-    <app-list-item *ngFor="let result of searchResults" (click)="addTag(result)" class="search-result">
-      <p class="label" data-cy="search-result-tag">{{result.name}}</p>
-      <i-feather class="i-feather action" (click)="addTag(result)" name="plus" data-cy="icon-add-tag"></i-feather>
+    <app-list-item
+      *ngFor="let result of searchResults"
+      (click)="addTag(result)"
+      class="search-result">
+      <p class="label" data-cy="search-result-tag">{{ result.name }}</p>
+      <i-feather
+        class="i-feather action"
+        (click)="addTag(result)"
+        name="plus"
+        data-cy="icon-add-tag"></i-feather>
     </app-list-item>
   </div>
 </app-panel>

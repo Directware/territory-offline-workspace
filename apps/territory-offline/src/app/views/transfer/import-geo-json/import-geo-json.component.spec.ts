@@ -1,9 +1,7 @@
-import {ImportGeoJsonComponent} from './import-geo-json.component';
+import { ImportGeoJsonComponent } from './import-geo-json.component';
 
-describe('ImportGeoJsonComponent', () =>
-{
-  it('...', () =>
-  {
+describe('ImportGeoJsonComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

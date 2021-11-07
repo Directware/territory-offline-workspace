@@ -6,12 +6,13 @@ describe('EditReportBeforeSendComponent', () => {
   let component: EditReportBeforeSendComponent;
   let fixture: ComponentFixture<EditReportBeforeSendComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ EditReportBeforeSendComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [EditReportBeforeSendComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EditReportBeforeSendComponent);

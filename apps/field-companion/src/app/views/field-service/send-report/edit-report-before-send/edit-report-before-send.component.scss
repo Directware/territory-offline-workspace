@@ -1,4 +1,4 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
   width: 100%;
@@ -83,7 +83,7 @@
           }
 
           .value {
-            margin: .5rem 0;
+            margin: 0.5rem 0;
             font-family: Heebo-Medium, sans-serif;
             font-size: 22px;
             font-weight: 500;
@@ -94,7 +94,6 @@
             text-align: center;
             color: #ffffff;
           }
-
         }
       }
     }

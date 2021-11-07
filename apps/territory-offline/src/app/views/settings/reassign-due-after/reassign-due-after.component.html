@@ -1,53 +1,55 @@
-<app-second-thread-header [valid]="valueIsValid" (onCancel)="back()" (onSave)="save()"></app-second-thread-header>
+<app-second-thread-header
+  [valid]="valueIsValid"
+  (onCancel)="back()"
+  (onSave)="save()"></app-second-thread-header>
 
 <div class="scrollable-wrapper">
-
   <app-panel>
     <div class="wrapper">
       <h3 class="h3-white">{{ 'settings.reassignDueAfter' | translate }}</h3>
       <app-list>
         <app-list-item (click)="setNewValue(2)">
-          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 2 } }}</p>
+          <p class="label">{{ 'settings.dueMonth' | translate: { count: 2 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 2"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(3)">
-          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 3 } }}</p>
+          <p class="label">{{ 'settings.dueMonth' | translate: { count: 3 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 3"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(4)">
-          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 4 } }}</p>
+          <p class="label">{{ 'settings.dueMonth' | translate: { count: 4 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 4"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(5)">
-          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 5 } }}</p>
+          <p class="label">{{ 'settings.dueMonth' | translate: { count: 5 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 5"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(6)">
-          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 6 } }}</p>
+          <p class="label">{{ 'settings.dueMonth' | translate: { count: 6 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 6"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(7)">
-          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 7 } }}</p>
+          <p class="label">{{ 'settings.dueMonth' | translate: { count: 7 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 7"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(8)">
-          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 8 } }}</p>
+          <p class="label">{{ 'settings.dueMonth' | translate: { count: 8 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 8"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(9)">
-          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 9 } }}</p>
+          <p class="label">{{ 'settings.dueMonth' | translate: { count: 9 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 9"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(10)">
-          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 10 } }}</p>
+          <p class="label">{{ 'settings.dueMonth' | translate: { count: 10 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 10"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(11)">
-          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 11 } }}</p>
+          <p class="label">{{ 'settings.dueMonth' | translate: { count: 11 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 11"></i-feather>
         </app-list-item>
         <app-list-item (click)="setNewValue(12)">
-          <p class="label">{{ 'settings.dueMonth' | translate:{ count: 12 } }}</p>
+          <p class="label">{{ 'settings.dueMonth' | translate: { count: 12 } }}</p>
           <i-feather class="i-feather info" name="check" *ngIf="value === 12"></i-feather>
         </app-list-item>
       </app-list>
@@ -58,10 +60,9 @@
     <h4 class="h4-white">{{ 'settings.hint' | translate }}</h4>
     <p class="hint-text">
       {{ 'settings.reassignDueAfterHintLine1' | translate }}
-      <br/>
-      <br/>
-      {{ 'settings.reassignDueAfterHintLine2' | translate }}</p>
+      <br />
+      <br />
+      {{ 'settings.reassignDueAfterHintLine2' | translate }}
+    </p>
   </div>
-
-
 </div>

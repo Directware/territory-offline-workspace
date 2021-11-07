@@ -1,9 +1,7 @@
-import {TerritoryComponent} from './territory.component';
+import { TerritoryComponent } from './territory.component';
 
-describe('TerritoryComponent', () =>
-{
-  it('...', () =>
-  {
+describe('TerritoryComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

@@ -1,6 +1,6 @@
-import {Component, OnInit, Input, HostListener} from '@angular/core';
-import {trigger, transition, style, animate, state} from '@angular/animations';
-import {ScrollToService, ScrollToConfigOptions} from '@nicky-lenaers/ngx-scroll-to';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { trigger, transition, style, animate, state } from '@angular/animations';
+import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
 
 @Component({
   selector: 'app-features-main',
@@ -8,10 +8,13 @@ import {ScrollToService, ScrollToConfigOptions} from '@nicky-lenaers/ngx-scroll-
   styleUrls: ['./features-main.component.scss'],
   animations: [
     trigger('fade', [
-      transition(':enter', [style({opacity: 0}), animate('300ms ease-out', style({opacity: 1}))]),
-      transition(':leave', [style({opacity: 1}), animate('0s', style({opacity: 0}))])
-    ])
-  ]
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms ease-out', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [style({ opacity: 1 }), animate('0s', style({ opacity: 0 }))]),
+    ]),
+  ],
 })
 export class FeaturesMainComponent implements OnInit {
   @Input() public active: number;
@@ -23,7 +26,7 @@ export class FeaturesMainComponent implements OnInit {
     if (window.innerWidth < 1440) {
       this.active = number;
     } else {
-      this.scroll.scrollTo({target});
+      this.scroll.scrollTo({ target });
     }
   }
 }

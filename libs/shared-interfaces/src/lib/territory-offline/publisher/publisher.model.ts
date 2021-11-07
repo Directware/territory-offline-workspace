@@ -1,7 +1,6 @@
-import {TimedEntity} from "./../../common/timed-entity.model";
+import { TimedEntity } from './../../common/timed-entity.model';
 
-export interface Publisher extends TimedEntity
-{
+export interface Publisher extends TimedEntity {
   name: string;
   firstName: string;
   email: string;

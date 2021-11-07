@@ -1,35 +1,35 @@
-<ng-container *ngIf="(territoryCard$ | async) as territoryCard">
+<ng-container *ngIf="territoryCard$ | async as territoryCard">
   <h1 class="header">
     <div class="back" (click)="done()">
       <i-feather class="i-feather" name="chevron-left"></i-feather>
-      <span>{{"territories.title" | translate}}</span>
+      <span>{{ 'territories.title' | translate }}</span>
     </div>
-    {{territoryCard.territory.name}} {{territoryCard.territory.key}}
+    {{ territoryCard.territory.name }} {{ territoryCard.territory.key }}
   </h1>
 
   <div class="scrollable-wrapper">
     <app-list>
       <app-list-item>
-        <p class="label">{{"territories.assignTime" | translate}}</p>
-        <p class="info">{{territoryCard.assignment.startTime | date:'shortDate'}}</p>
+        <p class="label">{{ 'territories.assignTime' | translate }}</p>
+        <p class="info">{{ territoryCard.assignment.startTime | date: 'shortDate' }}</p>
       </app-list-item>
       <app-list-item>
-        <p class="label">{{"territories.assignEndTime" | translate}}</p>
-        <p class="info">{{assignEndTime(territoryCard) | date:'shortDate'}}</p>
+        <p class="label">{{ 'territories.assignEndTime' | translate }}</p>
+        <p class="info">{{ assignEndTime(territoryCard) | date: 'shortDate' }}</p>
       </app-list-item>
       <app-list-item>
-        <p class="label">{{"territories.populationCount" | translate}}</p>
-        <p class="info">{{territoryCard.territory.populationCount}}</p>
+        <p class="label">{{ 'territories.populationCount' | translate }}</p>
+        <p class="info">{{ territoryCard.territory.populationCount }}</p>
       </app-list-item>
       <app-list-item (click)="giveBack()" class="danger">
-        <p class="danger label">{{"territories.giveBack" | translate}}</p>
+        <p class="danger label">{{ 'territories.giveBack' | translate }}</p>
         <i-feather name="log-out" class="icon"></i-feather>
       </app-list-item>
     </app-list>
 
     <p *ngIf="territoryCard.territory.comment" class="comment">
       <i-feather class="info-icon" name="info"></i-feather>
-      {{territoryCard.territory.comment}}
+      {{ territoryCard.territory.comment }}
     </p>
 
     <fc-visit-bans [territoryCard]="territoryCard"></fc-visit-bans>

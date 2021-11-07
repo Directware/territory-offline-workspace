@@ -1,22 +1,37 @@
 <app-second-thread-header [specific]="true" (onBack)="back()">
-  <div class="action edit" (click)="createVisitBan()" data-cy="button-add-visit-ban-second-thread-header">+ {{ 'visitBan.add' | translate }}</div>
+  <div
+    class="action edit"
+    (click)="createVisitBan()"
+    data-cy="button-add-visit-ban-second-thread-header">
+    + {{ 'visitBan.add' | translate }}
+  </div>
 </app-second-thread-header>
 
-<div class="scrollable-wrapper" *ngIf="(visitBans$ | async) as visitBans">
+<div class="scrollable-wrapper" *ngIf="visitBans$ | async as visitBans">
   <app-panel *ngFor="let visitBan of visitBans">
     <app-list-item>
-      <p class="label h3-white" data-cy="label-visit-bans-name">{{visitBan.name}}</p>
+      <p class="label h3-white" data-cy="label-visit-bans-name">{{ visitBan.name }}</p>
     </app-list-item>
     <app-list-item>
-      <p class="label body-white" data-cy="label-visit-bans-street">{{ 'visitBan.street' | translate }}</p>
-      <p class="info" data-cy="info-visit-bans-street">{{visitBan.street}} {{visitBan.streetSuffix}}</p>
+      <p class="label body-white" data-cy="label-visit-bans-street">
+        {{ 'visitBan.street' | translate }}
+      </p>
+      <p class="info" data-cy="info-visit-bans-street">
+        {{ visitBan.street }} {{ visitBan.streetSuffix }}
+      </p>
     </app-list-item>
     <app-list-item>
-      <p class="label body-white" data-cy="label-visit-bans-last-visit">{{ 'visitBan.lastVisit' | translate }}</p>
-      <p class="info" data-cy="info-visit-bans-last-visit">{{visitBan.lastVisit ? (visitBan.lastVisit | date:'dd.MM.yyyy') : '-'}}</p>
+      <p class="label body-white" data-cy="label-visit-bans-last-visit">
+        {{ 'visitBan.lastVisit' | translate }}
+      </p>
+      <p class="info" data-cy="info-visit-bans-last-visit">
+        {{ visitBan.lastVisit ? (visitBan.lastVisit | date: 'dd.MM.yyyy') : '-' }}
+      </p>
     </app-list-item>
     <app-list-item>
-      <p (click)="editVisitBan(visitBan)" class="label blue">{{ 'visitBan.editAdress' | translate }}</p>
+      <p (click)="editVisitBan(visitBan)" class="label blue">
+        {{ 'visitBan.editAdress' | translate }}
+      </p>
     </app-list-item>
   </app-panel>
 </div>

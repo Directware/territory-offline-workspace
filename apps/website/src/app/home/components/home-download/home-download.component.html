@@ -4,17 +4,27 @@
     <div class="subtitle">{{ 'home.download.subtitle' | translate }}</div>
     <div class="text">{{ 'home.download.text' | translate }}</div>
     <div class="button-wrapper" *ngIf="releaseInfo">
-      <div class="button active" (click)="download(os)">{{ ('home.download.button' | translate) + ' ' + os }}</div>
-      <div class="button small" (click)="download(osNames.MACOS)" *ngIf="os !== osNames.MACOS"><div class="apple"></div></div>
-      <div class="button small" (click)="download(osNames.WIN64)" *ngIf="os !== osNames.WIN64"><div class="windows"></div></div>
-      <div class="button small" (click)="download(osNames.LINUX)" *ngIf="os !== osNames.LINUX"><div class="linux"></div></div>
+      <div class="button active" (click)="download(os)">
+        {{ ('home.download.button' | translate) + ' ' + os }}
+      </div>
+      <div class="button small" (click)="download(osNames.MACOS)" *ngIf="os !== osNames.MACOS">
+        <div class="apple"></div>
+      </div>
+      <div class="button small" (click)="download(osNames.WIN64)" *ngIf="os !== osNames.WIN64">
+        <div class="windows"></div>
+      </div>
+      <div class="button small" (click)="download(osNames.LINUX)" *ngIf="os !== osNames.LINUX">
+        <div class="linux"></div>
+      </div>
 
       <span class="version">
-        {{releaseInfo.version}}
-        <span class="creation-time">{{releaseInfo.creation | date:'dd.MM.yyyy'}}</span>
+        {{ releaseInfo.version }}
+        <span class="creation-time">{{ releaseInfo.creation | date: 'dd.MM.yyyy' }}</span>
       </span>
     </div>
 
-    <span class="loading-error" *ngIf="errorGettingReleaseInfo && !releaseInfo">{{'home.download.errorGettingReleaseInfo' | translate}}</span>
+    <span class="loading-error" *ngIf="errorGettingReleaseInfo && !releaseInfo">{{
+      'home.download.errorGettingReleaseInfo' | translate
+    }}</span>
   </div>
 </div>

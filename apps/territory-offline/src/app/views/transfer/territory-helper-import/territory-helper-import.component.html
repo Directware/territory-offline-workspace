@@ -1,43 +1,100 @@
 <div *ngIf="!disabledTitle" class="import-icon"></div>
 
-<h1 *ngIf="!disabledTitle" class="title h1-white">{{ 'transfer.territoryHelper.headLine1' | translate }} <br />{{ 'transfer.territoryHelper.headLine2' | translate }}</h1>
+<h1 *ngIf="!disabledTitle" class="title h1-white">
+  {{ 'transfer.territoryHelper.headLine1' | translate }} <br />{{
+    'transfer.territoryHelper.headLine2' | translate
+  }}
+</h1>
 
-<p *ngIf="!disabledText" class="info">{{ 'transfer.territoryHelper.infoLine1' | translate }} <br />
+<p *ngIf="!disabledText" class="info">
+  {{ 'transfer.territoryHelper.infoLine1' | translate }} <br />
   {{ 'transfer.territoryHelper.infoLine2' | translate }} <br />
-  {{ 'transfer.territoryHelper.infoLine3' | translate }} <br />{{ 'transfer.territoryHelper.infoLine4' | translate }}</p>
+  {{ 'transfer.territoryHelper.infoLine3' | translate }} <br />{{
+    'transfer.territoryHelper.infoLine4' | translate
+  }}
+</p>
 
 <div class="import-buttons">
-  <button matRipple [class.data-available]="parsedPreacher.length > 0" (click)="preacherInput.click()">
+  <button
+    matRipple
+    [class.data-available]="parsedPreacher.length > 0"
+    (click)="preacherInput.click()">
     <i-feather *ngIf="parsedPreacher.length === 0" name="user" class="i-feather icon"></i-feather>
-    <i-feather *ngIf="parsedPreacher.length > 0" name="check-circle" class="i-feather icon"></i-feather>
+    <i-feather
+      *ngIf="parsedPreacher.length > 0"
+      name="check-circle"
+      class="i-feather icon"></i-feather>
     {{ 'transfer.territoryHelper.publishers' | translate }}
   </button>
-  <button matRipple [class.data-available]="parsedTerritories.length > 0" (click)="territoryInput.click()">
-    <i-feather *ngIf="parsedTerritories.length === 0" name="layers" class="i-feather icon"></i-feather>
-    <i-feather *ngIf="parsedTerritories.length > 0" name="check-circle" class="i-feather icon"></i-feather>
+  <button
+    matRipple
+    [class.data-available]="parsedTerritories.length > 0"
+    (click)="territoryInput.click()">
+    <i-feather
+      *ngIf="parsedTerritories.length === 0"
+      name="layers"
+      class="i-feather icon"></i-feather>
+    <i-feather
+      *ngIf="parsedTerritories.length > 0"
+      name="check-circle"
+      class="i-feather icon"></i-feather>
     {{ 'transfer.territoryHelper.territories' | translate }}
   </button>
-  <button matRipple [class.data-available]="parsedAssignments.length > 0" (click)="assignmentInput.click()">
+  <button
+    matRipple
+    [class.data-available]="parsedAssignments.length > 0"
+    (click)="assignmentInput.click()">
     <i-feather *ngIf="parsedAssignments.length === 0" name="share2" class="icon"></i-feather>
     <i-feather *ngIf="parsedAssignments.length > 0" name="check-circle" class="icon"></i-feather>
-    {{ 'transfer.territoryHelper.assignments' | translate }} <span class="optional">{{ 'transfer.territoryHelper.optional' | translate }}</span>
+    {{ 'transfer.territoryHelper.assignments' | translate }}
+    <span class="optional">{{ 'transfer.territoryHelper.optional' | translate }}</span>
   </button>
-  <button matRipple [class.data-available]="parsedAddresses.length > 0" (click)="addressesInput.click()">
+  <button
+    matRipple
+    [class.data-available]="parsedAddresses.length > 0"
+    (click)="addressesInput.click()">
     <i-feather *ngIf="parsedAddresses.length === 0" name="bell-off" class="icon"></i-feather>
     <i-feather *ngIf="parsedAddresses.length > 0" name="check-circle" class="icon"></i-feather>
-    {{ 'transfer.territoryHelper.visitBans' | translate }} <span class="optional">{{ 'transfer.territoryHelper.optional' | translate }}</span>
+    {{ 'transfer.territoryHelper.visitBans' | translate }}
+    <span class="optional">{{ 'transfer.territoryHelper.optional' | translate }}</span>
   </button>
 </div>
 
-<input #territoryInput style="display: none;" (change)="importFile($event)" mat-button type="file"
-       class="import-territories" />
-<input #preacherInput style="display: none;" (change)="importFile($event, 'preacher')" mat-button type="file"
-       class="import-preacher" />
-<input #assignmentInput style="display: none;" (change)="importFile($event, 'assigment')" mat-button type="file"
-       class="import-assignment" />
-<input #addressesInput style="display: none;" (change)="importFile($event, 'address')" mat-button type="file"
-       class="import-visitbans" />
+<input
+  #territoryInput
+  style="display: none"
+  (change)="importFile($event)"
+  mat-button
+  type="file"
+  class="import-territories" />
+<input
+  #preacherInput
+  style="display: none"
+  (change)="importFile($event, 'preacher')"
+  mat-button
+  type="file"
+  class="import-preacher" />
+<input
+  #assignmentInput
+  style="display: none"
+  (change)="importFile($event, 'assigment')"
+  mat-button
+  type="file"
+  class="import-assignment" />
+<input
+  #addressesInput
+  style="display: none"
+  (change)="importFile($event, 'address')"
+  mat-button
+  type="file"
+  class="import-visitbans" />
 
-<ng-container  *ngIf="!disabledButtons">
-  <button *ngIf="!importPending" class="import" [disabled]="parsedPreacher.length === 0 || parsedTerritories.length === 0" (click)="importAll()">{{ 'transfer.territoryHelper.import' | translate }}</button>
+<ng-container *ngIf="!disabledButtons">
+  <button
+    *ngIf="!importPending"
+    class="import"
+    [disabled]="parsedPreacher.length === 0 || parsedTerritories.length === 0"
+    (click)="importAll()">
+    {{ 'transfer.territoryHelper.import' | translate }}
+  </button>
 </ng-container>

@@ -6,12 +6,13 @@ describe('FeaturesMainModalComponent', () => {
   let component: FeaturesMainModalComponent;
   let fixture: ComponentFixture<FeaturesMainModalComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FeaturesMainModalComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [FeaturesMainModalComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FeaturesMainModalComponent);

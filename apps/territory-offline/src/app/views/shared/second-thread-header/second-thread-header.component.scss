@@ -1,4 +1,4 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
   display: flex;
@@ -13,7 +13,8 @@
   padding: 1rem;
   box-sizing: border-box;
 
-  ::ng-deep .cancel, ::ng-deep .back {
+  ::ng-deep .cancel,
+  ::ng-deep .back {
     font-size: 1rem;
     line-height: 1.25;
     letter-spacing: 0.4px;
@@ -25,7 +26,8 @@
     opacity: 0.5;
   }
 
-  ::ng-deep .save, ::ng-deep .edit {
+  ::ng-deep .save,
+  ::ng-deep .edit {
     font-size: 1rem;
     font-weight: 500;
     line-height: 1.25;

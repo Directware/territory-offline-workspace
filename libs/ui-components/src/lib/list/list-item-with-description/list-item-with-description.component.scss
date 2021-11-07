@@ -1,4 +1,4 @@
-@import "./../../assets/styles/colors";
+@import './../../assets/styles/colors';
 
 :host {
   position: relative;
@@ -39,7 +39,6 @@
     }
 
     .bottom {
-
       ::ng-deep .description {
         font-size: 12px;
         margin: 3px 0 0 0;
@@ -61,7 +60,8 @@
     align-items: center;
   }
 
-  .action, .icon {
+  .action,
+  .icon {
     width: 18px;
     height: 18px;
     color: inherit;

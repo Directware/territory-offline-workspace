@@ -6,12 +6,13 @@ describe('GoalsInputComponent', () => {
   let component: GoalsInputComponent;
   let fixture: ComponentFixture<GoalsInputComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ GoalsInputComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [GoalsInputComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(GoalsInputComponent);

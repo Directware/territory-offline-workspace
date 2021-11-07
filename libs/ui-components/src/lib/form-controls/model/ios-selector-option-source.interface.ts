@@ -1,5 +1,4 @@
-export interface IosSelectorOptionSource
-{
-  text: string,
-  value: any
+export interface IosSelectorOptionSource {
+  text: string;
+  value: any;
 }

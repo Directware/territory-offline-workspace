@@ -1,3 +1,8 @@
-<h1 class="h1-white">{{ 'modal.synchronization' | translate }}<mat-spinner [strokeWidth]="3" [diameter]="30"></mat-spinner></h1>
+<h1 class="h1-white">
+  {{ 'modal.synchronization' | translate
+  }}<mat-spinner [strokeWidth]="3" [diameter]="30"></mat-spinner>
+</h1>
 
-<p class="msg" *ngFor="let msg of messages"><i-feather *ngIf="msg.icon" class="i-feather" name="{{msg.icon}}"></i-feather>{{msg.label}}</p>
+<p class="msg" *ngFor="let msg of messages">
+  <i-feather *ngIf="msg.icon" class="i-feather" name="{{ msg.icon }}"></i-feather>{{ msg.label }}
+</p>

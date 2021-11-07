@@ -1,9 +1,7 @@
-import {MainSearchComponent} from './main-search.component';
+import { MainSearchComponent } from './main-search.component';
 
-describe('MainSearchComponent', () =>
-{
-  it('...', () =>
-  {
+describe('MainSearchComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

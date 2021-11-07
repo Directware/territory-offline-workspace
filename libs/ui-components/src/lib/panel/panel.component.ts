@@ -1,20 +1,15 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-panel',
   templateUrl: './panel.component.html',
-  styleUrls: ['./panel.component.scss']
+  styleUrls: ['./panel.component.scss'],
 })
-export class PanelComponent implements OnInit
-{
-  @HostBinding("class.app-panel")
+export class PanelComponent implements OnInit {
+  @HostBinding('class.app-panel')
   public appPanelClass = true;
 
-  public constructor()
-  {
-  }
+  public constructor() {}
 
-  public ngOnInit(): void
-  {
-  }
+  public ngOnInit(): void {}
 }

@@ -1,7 +1,6 @@
-import {Geometry} from '@turf/turf';
+import { Geometry } from '@turf/turf';
 
-export interface TerritoryWebTerritories
-{
+export interface TerritoryWebTerritories {
   ExportedBy: string;
   TWGroupId: string;
   TWGroupName: string;
@@ -10,8 +9,7 @@ export interface TerritoryWebTerritories
   type: string;
 }
 
-export interface TerritoryWebTerritory
-{
+export interface TerritoryWebTerritory {
   geometry: Geometry;
   properties: {
     TWId: string;

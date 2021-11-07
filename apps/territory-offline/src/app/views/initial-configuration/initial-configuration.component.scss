@@ -1,4 +1,4 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
   position: fixed;
@@ -14,13 +14,13 @@
   overflow: auto;
 
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: url("./../../../assets/images/background-lock-screen.png");
+    background: url('./../../../assets/images/background-lock-screen.png');
     background-size: cover;
   }
 
@@ -38,7 +38,7 @@
     overflow: auto;
 
     .to-icon {
-      background: url("./../../../assets/images/icon-to-transparent.png");
+      background: url('./../../../assets/images/icon-to-transparent.png');
       background-size: cover;
       width: 7rem;
       height: 7rem;
@@ -132,7 +132,6 @@
         background: $seaweed-20;
       }
     }
-
   }
 }
 

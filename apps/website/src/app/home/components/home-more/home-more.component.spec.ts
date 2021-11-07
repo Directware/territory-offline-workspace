@@ -6,12 +6,13 @@ describe('HomeMoreComponent', () => {
   let component: HomeMoreComponent;
   let fixture: ComponentFixture<HomeMoreComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HomeMoreComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [HomeMoreComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeMoreComponent);

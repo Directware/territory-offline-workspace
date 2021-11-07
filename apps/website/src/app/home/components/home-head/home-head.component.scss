@@ -56,11 +56,7 @@
         right: 0;
         height: 160px;
 
-        background-image: linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 0),
-          #ffffff
-        );
+        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff);
       }
     }
 
@@ -139,7 +135,9 @@
       background: url('/assets/images/home-map-tablet.jpg'), no-repeat;
       background-size: cover;
 
-      .territories, .dashboard, .overlay {
+      .territories,
+      .dashboard,
+      .overlay {
         display: none;
       }
 

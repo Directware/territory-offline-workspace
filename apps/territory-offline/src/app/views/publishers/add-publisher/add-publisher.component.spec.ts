@@ -1,9 +1,7 @@
-import {AddPublisherComponent} from './add-publisher.component';
+import { AddPublisherComponent } from './add-publisher.component';
 
-describe('AddPublisherComponent', () =>
-{
-  it('...', () =>
-  {
+describe('AddPublisherComponent', () => {
+  it('...', () => {
     // TODO
   });
 });

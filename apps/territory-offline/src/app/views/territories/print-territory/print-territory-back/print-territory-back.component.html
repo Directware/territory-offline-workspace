@@ -1,8 +1,9 @@
-<ng-container *ngIf="(backCards$ | async) as cards">
-  <div *ngFor="let card of cards"
-       class="territory-card-visit-bans"
-       [class.has-bleeding-edges]="showBleedingEdges"
-       [ngStyle]="{'min-height': cardHeight}">
+<ng-container *ngIf="backCards$ | async as cards">
+  <div
+    *ngFor="let card of cards"
+    class="territory-card-visit-bans"
+    [class.has-bleeding-edges]="showBleedingEdges"
+    [ngStyle]="{ 'min-height': cardHeight }">
     <span class="first-item">
       <i-feather class="i-feather" name="bell-off"></i-feather>
       {{ 'territory.print.visitBans' | translate }}
@@ -13,15 +14,15 @@
         <div class="visit-ban">{{ 'territory.print.visitBanBell' | translate }}</div>
         <div class="date">{{ 'territory.print.visitBanDate' | translate }}</div>
       </div>
-      <div class="address-line" *ngFor="let address of card;let i = index">
-        <div class="street-name">{{address?.street}} {{address?.streetSuffix}}</div>
-        <div class="visit-ban-name">{{address?.name}}</div>
+      <div class="address-line" *ngFor="let address of card; let i = index">
+        <div class="street-name">{{ address?.street }} {{ address?.streetSuffix }}</div>
+        <div class="visit-ban-name">{{ address?.name }}</div>
         <div class="date-value">
           <ng-container *ngIf="address && address.creationTime && !address.lastVisit">
-            {{address.creationTime | dateNotOlderThan:"10"}}
+            {{ address.creationTime | dateNotOlderThan: '10' }}
           </ng-container>
           <ng-container *ngIf="address && address.lastVisit">
-            {{address.lastVisit | dateNotOlderThan:"10"}}
+            {{ address.lastVisit | dateNotOlderThan: '10' }}
           </ng-container>
         </div>
       </div>
@@ -29,10 +30,13 @@
 
     <div class="comment" *ngIf="showComment" data-cy="comment-territory-card-back">
       <i-feather class="i-feather" name="info"></i-feather>
-      {{territory.comment}}
+      {{ territory.comment }}
     </div>
 
-    <i-feather *ngIf="cards.length > 1 || showBoundaryNames" class="i-feather more-backs" name="arrow-down-circle"></i-feather>
+    <i-feather
+      *ngIf="cards.length > 1 || showBoundaryNames"
+      class="i-feather more-backs"
+      name="arrow-down-circle"></i-feather>
 
     <ng-container *ngIf="showBleedingEdges">
       <div class="bleed-edge-shadow top"></div>
@@ -53,7 +57,10 @@
     </div>
   </div>
 
-  <div *ngIf="showBoundaryNames" class="territory-card-visit-bans" [ngStyle]="{'min-height': cardHeight}">
+  <div
+    *ngIf="showBoundaryNames"
+    class="territory-card-visit-bans"
+    [ngStyle]="{ 'min-height': cardHeight }">
     <span class="first-item">
       <i-feather class="i-feather" name="map"></i-feather>
       {{ 'territory.print.streetList' | translate }}
@@ -62,10 +69,11 @@
       <div class="address-line first">
         <div class="street">{{ 'territory.print.streets' | translate }}</div>
       </div>
-      <div class="address-line" *ngFor="let boundaryName of boundaryNamesWithPadding();let i = index">
-        <div class="street-name" data-cy="street-names-territory-card-back">{{boundaryName}}</div>
+      <div
+        class="address-line"
+        *ngFor="let boundaryName of boundaryNamesWithPadding(); let i = index">
+        <div class="street-name" data-cy="street-names-territory-card-back">{{ boundaryName }}</div>
       </div>
     </div>
   </div>
-
 </ng-container>

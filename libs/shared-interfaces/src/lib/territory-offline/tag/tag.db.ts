@@ -1,5 +1,5 @@
-export const TAG_TABLE_NAME = "tags";
-export const HASHED_TAG_TABLE_NAME = btoa("tags");
+export const TAG_TABLE_NAME = 'tags';
+export const HASHED_TAG_TABLE_NAME = btoa('tags');
 export const SQL_CREATE_TAG = `
   CREATE TABLE IF NOT EXISTS ${TAG_TABLE_NAME} (
     id TEXT PRIMARY KEY NOT NULL,

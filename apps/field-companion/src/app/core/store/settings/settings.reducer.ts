@@ -1,11 +1,13 @@
-import {Action, createReducer, on} from '@ngrx/store';
-import {LoadSettingsSuccess, UpsertSettingsSuccess} from './settings.actions';
-import {ToLanguage} from "@territory-offline-workspace/ui-components";
-import {Dictionary} from "@ngrx/entity";
-import {settingsCollectionName, TimedEntity} from "@territory-offline-workspace/shared-interfaces";
+import { Action, createReducer, on } from '@ngrx/store';
+import { LoadSettingsSuccess, UpsertSettingsSuccess } from './settings.actions';
+import { ToLanguage } from '@territory-offline-workspace/ui-components';
+import { Dictionary } from '@ngrx/entity';
+import {
+  settingsCollectionName,
+  TimedEntity,
+} from '@territory-offline-workspace/shared-interfaces';
 
-export interface SettingsState extends TimedEntity
-{
+export interface SettingsState extends TimedEntity {
   id: string;
   userId: string;
   userName: string;
@@ -32,20 +34,19 @@ const initialState = {
   monthlyReminder: false,
   prefix: settingsCollectionName,
   durationStep: 30,
-  confirmedFeatures: null
+  confirmedFeatures: null,
 };
 
 const settingsReducer = createReducer(
   initialState,
   on(UpsertSettingsSuccess, (state, action) => ({
-    ...action.settings
+    ...action.settings,
   })),
   on(LoadSettingsSuccess, (state, action) => ({
-    ...action.settings
+    ...action.settings,
   }))
 );
 
-export function settingsReducerFunction(state: SettingsState | undefined, action: Action)
-{
+export function settingsReducerFunction(state: SettingsState | undefined, action: Action) {
   return settingsReducer(state, action);
 }

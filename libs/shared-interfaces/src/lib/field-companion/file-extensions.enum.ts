@@ -1,5 +1,4 @@
-export enum FileExtensions
-{
-  TERRITORY = "territory",
-  BACKUP = "fieldcompanion"
+export enum FileExtensions {
+  TERRITORY = 'territory',
+  BACKUP = 'fieldcompanion',
 }

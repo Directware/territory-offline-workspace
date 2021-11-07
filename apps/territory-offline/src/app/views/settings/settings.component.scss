@@ -1,4 +1,4 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
   display: block;
@@ -37,7 +37,8 @@
       backdrop-filter: blur(10px);
     }
 
-    h2, p {
+    h2,
+    p {
       text-align: center;
     }
 
@@ -103,7 +104,6 @@
     }
 
     ::ng-deep .app-language-search {
-
       > input {
         text-align: right;
       }

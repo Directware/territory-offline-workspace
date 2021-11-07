@@ -1,4 +1,23 @@
 # Add files here to ignore them from prettier formatting
 
+# Artifacts
 /dist
 /coverage
+/dev
+/tools
+.scannerwork
+
+# Platform boilerplate
+/apps/field-companion/android
+/apps/field-companion/ios
+/apps/field-companion/dist
+
+/apps/territory-offline/.gradle
+/apps/territory-offline/android
+/apps/territory-offline/electron
+/apps/territory-offline/ios
+/apps/territory-offline/dist
+
+# Specific file extensions
+*.md
+*.sh

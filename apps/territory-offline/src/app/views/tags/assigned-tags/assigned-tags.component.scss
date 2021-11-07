@@ -1,19 +1,18 @@
-@import "libs/ui-components/src/lib/assets/styles/colors";
+@import 'libs/ui-components/src/lib/assets/styles/colors';
 
 :host {
-
-  .app-panel .wrapper{
+  .app-panel .wrapper {
     padding-left: 0;
     padding-bottom: 0;
   }
 
   .app-list-item {
-
     .action.trash {
       color: $light-grey-blue;
     }
 
-    .input, .action {
+    .input,
+    .action {
       cursor: pointer;
       color: $dark-sky-blue;
     }
@@ -30,7 +29,8 @@
       padding: 0 0 0 1rem;
     }
 
-    .label, .action {
+    .label,
+    .action {
       color: $light-grey-blue !important;
     }
   }

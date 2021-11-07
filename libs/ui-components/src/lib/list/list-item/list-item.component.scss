@@ -1,4 +1,4 @@
-@import "./../../assets/styles/colors";
+@import './../../assets/styles/colors';
 
 :host {
   position: relative;
@@ -50,7 +50,8 @@
     white-space: nowrap;
   }
 
-  .action, .icon {
+  .action,
+  .icon {
     width: 18px;
     height: 18px;
     color: inherit;

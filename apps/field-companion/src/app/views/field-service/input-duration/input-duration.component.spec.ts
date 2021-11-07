@@ -6,12 +6,13 @@ describe('InputDurationComponent', () => {
   let component: InputDurationComponent;
   let fixture: ComponentFixture<InputDurationComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ InputDurationComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [InputDurationComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(InputDurationComponent);

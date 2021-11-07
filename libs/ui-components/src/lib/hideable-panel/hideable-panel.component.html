@@ -1,10 +1,9 @@
 <div (swipedown)="hide()" (swipeup)="show()">
   <div class="anchor"></div>
   <div (click)="toggle()" class="toggler"></div>
-  <h2 *ngIf="header" class="header">{{header}}</h2>
+  <h2 *ngIf="header" class="header">{{ header }}</h2>
 
   <div class="content">
     <ng-content></ng-content>
   </div>
-
 </div>

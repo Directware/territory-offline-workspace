@@ -1,19 +1,21 @@
 <div *ngIf="currentStep === 0" class="header">
   <p (click)="cancel()">{{ 'transfer.importExcel.cancel' | translate }}</p>
-  <p class="continue" [class.disabled]="!fileName" (click)="currentStep=currentStep+1">{{ 'transfer.importExcel.continue' | translate }}</p>
+  <p class="continue" [class.disabled]="!fileName" (click)="currentStep = currentStep + 1">
+    {{ 'transfer.importExcel.continue' | translate }}
+  </p>
 </div>
 <div *ngIf="currentStep === 0" class="step step1">
   <div class="drop-zone" (click)="fileChooser.click()">
     <div class="label">
       <h2 class="h2-white">{{ 'transfer.importExcel.fileType' | translate }}</h2>
-      <p *ngIf="fileName" class="body-grey">{{fileName}}</p>
+      <p *ngIf="fileName" class="body-grey">{{ fileName }}</p>
       <p *ngIf="!fileName" class="body-grey">{{ 'transfer.importExcel.chooseFile' | translate }}</p>
     </div>
 
     <div *ngIf="fileName" class="icon check"><i-feather name="check"></i-feather></div>
     <div *ngIf="!fileName" class="icon"><i-feather name="plus"></i-feather></div>
 
-    <input #fileChooser (change)="importFile($event)" type="file" style="display: none;">
+    <input #fileChooser (change)="importFile($event)" type="file" style="display: none" />
   </div>
   <div class="info-block">
     <i-feather name="info"></i-feather>
@@ -24,4 +26,6 @@
   </div>
 </div>
 
-<app-import-visit-bans-from-excel *ngIf="currentStep > 0" [workbook]="workbook"></app-import-visit-bans-from-excel>
+<app-import-visit-bans-from-excel
+  *ngIf="currentStep > 0"
+  [workbook]="workbook"></app-import-visit-bans-from-excel>
