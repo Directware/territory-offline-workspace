@@ -4,7 +4,7 @@
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -22,7 +22,11 @@ $territory-offline-v2-accent: mat-palette($mat-pink, A200, A100, A400);
 $territory-offline-v2-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$territory-offline-v2-theme: mat-light-theme($territory-offline-v2-primary, $territory-offline-v2-accent, $territory-offline-v2-warn);
+$territory-offline-v2-theme: mat-light-theme(
+  $territory-offline-v2-primary,
+  $territory-offline-v2-accent,
+  $territory-offline-v2-warn
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -32,9 +36,10 @@ $territory-offline-v2-theme: mat-light-theme($territory-offline-v2-primary, $ter
 body {
   margin: 0;
   background: $almost-black;
-  font-family: Heebo-Regular, sans-serif;
+  font-family: Heebo, sans-serif;
   overflow: hidden;
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
   box-sizing: border-box;
   max-height: 100vh;
 }
@@ -46,7 +51,6 @@ body {
 }
 
 @media print {
-
   #perspective-3d {
     padding-top: 5mm;
     align-items: start;
@@ -92,7 +96,9 @@ body {
     }
   }
 
-  .menu, .main-thread, .second-thread {
+  .menu,
+  .main-thread,
+  .second-thread {
     display: none !important;
 
     * {
@@ -135,7 +141,7 @@ body {
   padding: 0.5rem 0;
   border-radius: 8px;
   box-sizing: border-box;
-  transition: background-color .3s;
+  transition: background-color 0.3s;
 
   &::placeholder {
     margin: 0 0 0 0.5rem;
@@ -154,19 +160,19 @@ body {
 }
 
 .animate-color-and-transform {
-  transition: color .25s, transform .25s;
+  transition: color 0.25s, transform 0.25s;
 }
 
 .ready-to-delete-button {
   color: $reddish-orange !important;
   transform: scale(1.05) !important;
-  transition: color .25s, transform .25s;
+  transition: color 0.25s, transform 0.25s;
 }
 
 .ready-to-delete {
   color: $reddish-orange !important;
   transform: scale(1.3) !important;
-  transition: color .25s, transform .25s;
+  transition: color 0.25s, transform 0.25s;
 }
 
 .scrollable-wrapper {
@@ -191,7 +197,7 @@ body {
     &:before {
       content: "";
       position: absolute;
-      transition: background-color .15s;
+      transition: background-color 0.15s;
       background: $pale-blue-10;
       top: 0;
       left: -1.5rem;
@@ -228,7 +234,7 @@ body {
 }
 
 .mapboxgl-canvas {
-  transition: width .15s, height .15s;
+  transition: width 0.15s, height 0.15s;
 }
 
 /* Scroll bar */
@@ -258,7 +264,7 @@ body {
   border-radius: 6px;
   border: none;
   box-shadow: none;
-  font-family: Heebo-Medium, sans-serif;
+  font-family: Heebo, sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.25;
@@ -297,7 +303,6 @@ body {
 }
 
 body.with-error {
-
   .app-root {
     filter: blur(3px);
   }
@@ -361,7 +366,6 @@ body.with-error {
 }
 
 .backup-changes-dialog {
-
   mat-dialog-container {
     overflow: hidden;
     padding: 1.5rem 0;
@@ -371,7 +375,6 @@ body.with-error {
 /* Mapbox */
 
 .mapboxgl-control-container {
-
   .mapboxgl-ctrl-bottom-left,
   .mapboxgl-ctrl-bottom-right,
   .mapboxgl-ctrl-top-left,

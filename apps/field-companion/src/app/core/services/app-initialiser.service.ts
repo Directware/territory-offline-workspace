@@ -19,7 +19,7 @@ export class AppInitializerService
 
   public load(): Promise<any>
   {
-    return new Promise((resolve, reject) => this.loadAppConfiguration().then(() => resolve()));
+    return new Promise((resolve, reject) => this.loadAppConfiguration().then(() => resolve(null)));
   }
 
   private async loadAppConfiguration()
@@ -29,7 +29,7 @@ export class AppInitializerService
         .pipe(
           ofType(LoadSettingsSuccess),
           take(1)
-        ).subscribe(() => resolve())
+        ).subscribe(() => resolve(null))
     );
 
     await this.databaseService.initAppropriateSQLite();

@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -19,7 +19,11 @@ $field-companion-accent: mat-palette($mat-pink, A200, A100, A400);
 $field-companion-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$field-companion-theme: mat-light-theme($field-companion-primary, $field-companion-accent, $field-companion-warn);
+$field-companion-theme: mat-light-theme(
+  $field-companion-primary,
+  $field-companion-accent,
+  $field-companion-warn
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -30,12 +34,9 @@ $field-companion-theme: mat-light-theme($field-companion-primary, $field-compani
 @import "node_modules/ngx-ui-switch/ui-switch.component.scss";
 
 /* You can add global styles to this file, and also import other style files */
-@import "libs/ui-components/src/lib/assets/styles/typography";
+@import "heebo-fonts";
 @import "libs/ui-components/src/lib/assets/styles/colors";
 @import "libs/ui-components/src/lib/assets/styles/to-base-styles";
-
-@include heebo-regular("libs/ui-components/src/lib/assets/fonts/");
-@include heebo-medium("libs/ui-components/src/lib/assets/fonts/");
 
 html {
   overflow: hidden;
@@ -47,10 +48,18 @@ body {
   margin: 0;
   overflow: hidden;
   color: #ffffff;
-  font-family: Heebo-Regular, sans-serif;
+  font-family: Heebo, sans-serif;
   background-color: rgba(173, 177, 184, 0.08);
-  background-image: linear-gradient(to bottom, #080c11 5%, rgba(13, 19, 28, 0.8) 55%, rgba(18, 27, 38, 0.8) 67%, rgba(28, 41, 59, 0.6) 91%, rgba(12, 17, 24, 0.1));
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background-image: linear-gradient(
+    to bottom,
+    #080c11 5%,
+    rgba(13, 19, 28, 0.8) 55%,
+    rgba(18, 27, 38, 0.8) 67%,
+    rgba(28, 41, 59, 0.6) 91%,
+    rgba(12, 17, 24, 0.1)
+  );
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
   box-sizing: border-box;
 }
 
@@ -70,7 +79,7 @@ body {
   border-radius: 6px;
   border: none;
   box-shadow: none;
-  font-family: Heebo-Medium, sans-serif;
+  font-family: Heebo, sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.25;
@@ -90,7 +99,7 @@ body {
   }
 
   &.danger {
-    font-family: Heebo-Medium, sans-serif;
+    font-family: Heebo, sans-serif;
     font-size: 16px;
     font-weight: 500;
     line-height: 1.25;
@@ -119,7 +128,7 @@ body {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   background-color: rgba(255, 159, 27, 0.2);
-  font-family: Heebo-Medium, sans-serif;
+  font-family: Heebo, sans-serif;
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.09px;
@@ -185,7 +194,7 @@ body {
 
   .title {
     margin: 0;
-    font-family: Heebo-Medium, sans-serif;
+    font-family: Heebo, sans-serif;
     font-size: 1rem;
     font-weight: 500;
     font-stretch: normal;
@@ -198,7 +207,7 @@ body {
   .info {
     margin: 0.5rem 0 0 0;
 
-    font-family: Heebo-Regular, sans-serif;
+    font-family: Heebo, sans-serif;
     font-size: 1rem;
     font-weight: normal;
     font-stretch: normal;
@@ -220,7 +229,7 @@ body {
 
     .new-feature {
       margin: 0rem;
-      font-family: Heebo-Medium, sans-serif;
+      font-family: Heebo, sans-serif;
       font-size: 1.375rem;
       font-weight: 500;
       font-stretch: normal;
@@ -233,7 +242,7 @@ body {
 
     .title {
       margin: 0rem;
-      font-family: Heebo-Medium, sans-serif;
+      font-family: Heebo, sans-serif;
       font-size: 1rem;
       font-weight: 500;
       font-stretch: normal;
@@ -246,7 +255,7 @@ body {
 
     .description {
       max-width: 16.25rem;
-      font-family: Heebo-Regular, sans-serif;
+      font-family: Heebo, sans-serif;
       font-size: 16px;
       font-weight: normal;
       font-stretch: normal;
@@ -261,7 +270,7 @@ body {
       display: block;
       border-radius: 1.5rem;
       background-color: #3694e2;
-      font-family: Heebo-Medium, sans-serif;
+      font-family: Heebo, sans-serif;
       font-size: 1rem;
       font-weight: 500;
       font-stretch: normal;
@@ -313,5 +322,4 @@ body {
   max-width: none !important;
   width: 100vw;
   height: 100vh;
-
 }

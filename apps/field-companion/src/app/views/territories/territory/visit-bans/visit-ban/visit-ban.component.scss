@@ -18,7 +18,7 @@
     justify-content: space-between;
     align-items: center;
     z-index: 11;
-    font-family: Heebo-Medium, sans-serif;
+    font-family: Heebo, sans-serif;
     font-weight: 500;
     line-height: 1.2;
     color: #ffffff;
@@ -49,18 +49,17 @@
       padding: 0;
       border-bottom: 1px solid rgba(228, 230, 231, 0.2);
 
-     .app-list {
+      .app-list {
         padding: 0;
 
         .blured {
           background: rgba(235, 237, 239, 0.1);
         }
 
-       .app-list-item {
+        .app-list-item {
           padding: 0 1rem 0 1rem;
 
           &.geo-coding-result {
-
             flex-direction: row-reverse;
 
             .info {
@@ -81,8 +80,7 @@
     }
   }
 
- .app-list-item {
-
+  .app-list-item {
     .input {
       width: 100%;
       background: transparent;
@@ -113,5 +111,4 @@
   .address-ok {
     color: $seaweed;
   }
-
 }

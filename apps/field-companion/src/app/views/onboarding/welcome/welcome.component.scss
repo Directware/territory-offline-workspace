@@ -10,7 +10,8 @@
   height: 100vh;
   overflow: auto;
 
-  .h1-white, .h3-grey {
+  .h1-white,
+  .h3-grey {
     margin: 0;
     text-align: center;
   }
@@ -41,7 +42,7 @@
     height: 100%;
 
     .app-feature {
-      font-family: Heebo-Medium, sans-serif;
+      font-family: Heebo, sans-serif;
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -50,7 +51,6 @@
       margin: 1rem 0;
 
       .icon-wrapper {
-
         .icon {
           width: 1.5rem;
           height: 1.5rem;

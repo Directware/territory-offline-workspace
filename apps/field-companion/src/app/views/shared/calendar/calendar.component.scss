@@ -4,7 +4,7 @@
   grid-template-rows: 11vw 11vw 11vw 11vw 11vw 11vw;
 
   .grid-cell-header {
-    font-family: Heebo-Medium, sans-serif;
+    font-family: Heebo, sans-serif;
     font-size: 1rem;
     font-weight: 500;
     font-stretch: normal;
@@ -22,7 +22,7 @@
     justify-content: center;
     align-items: center;
     min-height: 1rem;
-    font-family: Heebo-Regular, sans-serif;
+    font-family: Heebo, sans-serif;
     font-size: 1rem;
     font-weight: normal;
     font-stretch: normal;
@@ -34,7 +34,6 @@
     margin: 0.5rem;
 
     &.chosen {
-
       &:before {
         content: "";
         position: absolute;

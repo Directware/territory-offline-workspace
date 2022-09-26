@@ -1,7 +1,6 @@
 @import "libs/ui-components/src/lib/assets/styles/colors";
 
 :host {
-
   .tag-input {
     cursor: pointer;
   }
@@ -19,7 +18,7 @@
       font-size: 10px;
       margin: 0.25rem;
       padding: 0 0.5rem;
-      font-family: Heebo-Regular, sans-serif;
+      font-family: Heebo, sans-serif;
       font-weight: 500;
       letter-spacing: 0.09px;
       color: $seaweed;
@@ -37,8 +36,7 @@
       outline: none;
       cursor: pointer;
       margin: 0 0.5rem 0 0;
-      border: 1px solid rgba(235,237,239,.1);
+      border: 1px solid rgba(235, 237, 239, 0.1);
     }
   }
-
 }

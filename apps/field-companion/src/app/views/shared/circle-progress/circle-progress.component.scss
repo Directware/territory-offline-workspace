@@ -20,7 +20,7 @@
 
   .progress__value {
     stroke-linecap: round;
-    transition: stroke-dashoffset .3s;
+    transition: stroke-dashoffset 0.3s;
   }
 
   .label-wrapper {
@@ -34,7 +34,7 @@
     align-items: flex-start;
 
     .hours {
-      font-family: Heebo-Medium, sans-serif;
+      font-family: Heebo, sans-serif;
       font-size: 22px;
       font-weight: 500;
       font-stretch: normal;
@@ -47,7 +47,7 @@
 
     .minutes {
       margin: 0.15rem 0 0 0.15rem;
-      font-family: Heebo-Medium, sans-serif;
+      font-family: Heebo, sans-serif;
       font-size: 14px;
       font-weight: 500;
       font-stretch: normal;
@@ -57,7 +57,5 @@
       text-align: center;
       color: #ffffff;
     }
-
-
   }
 }

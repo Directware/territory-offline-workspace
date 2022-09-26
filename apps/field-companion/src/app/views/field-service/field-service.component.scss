@@ -7,7 +7,9 @@
   justify-content: flex-start;
   padding: 1rem 0 0 0;
   box-sizing: border-box;
-  height: calc(100vh - 3.125rem - env(safe-area-inset-bottom) - env(safe-area-inset-top));
+  height: calc(
+    100vh - 3.125rem - env(safe-area-inset-bottom) - env(safe-area-inset-top)
+  );
   overflow: hidden;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -19,7 +21,7 @@
     align-items: center;
     z-index: 11;
 
-    font-family: Heebo-Medium, sans-serif;
+    font-family: Heebo, sans-serif;
     font-weight: 500;
     line-height: 1.2;
     color: #ffffff;
@@ -47,9 +49,9 @@
         top: -3px;
       }
 
-     .app-list {
+      .app-list {
         position: absolute;
-        top: calc(100% + .5rem);
+        top: calc(100% + 0.5rem);
         right: 0;
         width: 17rem;
         border-radius: 1rem;
@@ -60,14 +62,14 @@
         list-style-type: none;
         padding: 0 0 0 1rem;
         transform: scale(0);
-        transition: transform .1s;
+        transition: transform 0.1s;
 
         &.opened {
           transform: scale(1);
         }
 
         ::ng-deep .label {
-          font-family: Heebo-Regular, sans-serif;
+          font-family: Heebo, sans-serif;
           font-size: 1rem;
           line-height: 1.25;
           letter-spacing: 0.4px;
@@ -100,7 +102,7 @@
     min-height: 7.5rem;
     height: 7.5rem;
     max-height: 7.5rem;
-    margin: .5rem 1rem .5rem 1rem;
+    margin: 0.5rem 1rem 0.5rem 1rem;
     padding: 0;
     border-radius: 10px;
     box-sizing: border-box;
@@ -150,7 +152,7 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
-            font-family: Heebo-Medium, sans-serif;
+            font-family: Heebo, sans-serif;
             font-size: 18px;
             font-weight: 500;
             letter-spacing: 0.17px;
@@ -163,7 +165,6 @@
               color: #adb1b8;
             }
           }
-
         }
       }
     }
@@ -171,7 +172,7 @@
 
   .app-calendar {
     width: auto;
-    margin: .5rem auto;
+    margin: 0.5rem auto;
   }
 
   .service-input-wrapper {
@@ -190,8 +191,8 @@
     }
 
     .no-day-chosen {
-      margin: .5rem 0 .5rem 0;
-      font-family: Heebo-Medium, sans-serif;
+      margin: 0.5rem 0 0.5rem 0;
+      font-family: Heebo, sans-serif;
       font-size: 1rem;
       font-weight: 500;
       line-height: 1.25;
@@ -201,9 +202,9 @@
     }
 
     .no-day-chosen-desc {
-      margin: 0 0 .5rem 0;
+      margin: 0 0 0.5rem 0;
       max-width: 13.5rem;
-      font-family: Heebo-Medium, sans-serif;
+      font-family: Heebo, sans-serif;
       font-size: 1rem;
       line-height: 1.25;
       letter-spacing: 0.4px;

@@ -19,7 +19,7 @@
     align-items: center;
     margin: 0.5rem 0 0 0;
     z-index: 11;
-    font-family: Heebo-Medium, sans-serif;
+    font-family: Heebo, sans-serif;
     font-size: 30px;
     font-weight: 500;
     line-height: 1.2;
@@ -83,8 +83,8 @@
           }
 
           .value {
-            margin: .5rem 0;
-            font-family: Heebo-Medium, sans-serif;
+            margin: 0.5rem 0;
+            font-family: Heebo, sans-serif;
             font-size: 22px;
             font-weight: 500;
             font-stretch: normal;
@@ -94,7 +94,6 @@
             text-align: center;
             color: #ffffff;
           }
-
         }
       }
     }
