@@ -213,6 +213,12 @@ body {
   -webkit-user-select: none;
 }
 
+.red {
+  color: $reddish-orange !important;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 .green {
   color: seagreen !important;
 }

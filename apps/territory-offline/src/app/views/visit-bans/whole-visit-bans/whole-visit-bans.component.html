@@ -35,6 +35,7 @@
         </p>
         <p class="info" (click)="$event.stopPropagation()">
           {{visitBan | visitBanLastVisit}}
+          <span (click)="editVisitBan(visitBan)" *ngIf="!visitBan.gpsPosition" class="no-gps">Fehler!</span>
           <i-feather *ngIf="!visibleVisitBanMarkers[visitBan.id]" class="i-feather hidden" (click)="showVisitBanMarker($event, visitBan)" name="eye-off"></i-feather>
           <i-feather *ngIf="visibleVisitBanMarkers[visitBan.id]" class="i-feather visible" (click)="removeVisitBanMarker($event, visitBan)" name="eye"></i-feather>
         </p>
@@ -55,6 +56,7 @@
         </p>
         <p class="info" (click)="$event.stopPropagation()">
           {{visitBan | visitBanLastVisit}}
+          <span (click)="editVisitBan(visitBan)" *ngIf="!visitBan.gpsPosition" class="no-gps">Fehler!</span>
           <i-feather *ngIf="!visibleVisitBanMarkers[visitBan.id]" class="i-feather hidden" (click)="showVisitBanMarker($event, visitBan)" name="eye-off"></i-feather>
           <i-feather *ngIf="visibleVisitBanMarkers[visitBan.id]" class="i-feather visible" (click)="removeVisitBanMarker($event, visitBan)" name="eye"></i-feather>
         </p>
