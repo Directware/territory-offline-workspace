@@ -17,7 +17,12 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ]
       }
     }
   },
@@ -27,7 +32,9 @@
     },
     "territory-offline-e2e": {
       "tags": [],
-      "implicitDependencies": ["territory-offline"]
+      "implicitDependencies": [
+        "territory-offline"
+      ]
     },
     "ui-components": {
       "tags": []
@@ -37,14 +44,18 @@
     },
     "field-companion-e2e": {
       "tags": [],
-      "implicitDependencies": ["field-companion"]
+      "implicitDependencies": [
+        "field-companion"
+      ]
     },
     "website": {
       "tags": []
     },
     "website-e2e": {
       "tags": [],
-      "implicitDependencies": ["website"]
+      "implicitDependencies": [
+        "website"
+      ]
     },
     "shared-services": {
       "tags": []
@@ -54,6 +65,19 @@
     },
     "shared-interfaces": {
       "tags": []
+    }
+  },
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  },
+  "defaultProject": "territory-offline",
+  "generators": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
     }
   }
 }

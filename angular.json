@@ -80,7 +80,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -115,7 +118,10 @@
             "tsConfig": "apps/territory-offline/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "apps/territory-offline/src/test-setup.ts"
-          }
+          },
+          "outputs": [
+            "coverage/apps/territory-offline"
+          ]
         }
       }
     },
@@ -170,7 +176,10 @@
             "tsConfig": "libs/ui-components/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "libs/ui-components/src/test-setup.ts"
-          }
+          },
+          "outputs": [
+            "coverage/libs/ui-components"
+          ]
         }
       },
       "schematics": {
@@ -239,7 +248,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -274,7 +286,10 @@
             "tsConfig": "apps/field-companion/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "apps/field-companion/src/test-setup.ts"
-          }
+          },
+          "outputs": [
+            "coverage/apps/field-companion"
+          ]
         }
       }
     },
@@ -364,7 +379,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -399,7 +417,10 @@
             "tsConfig": "apps/website/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "apps/website/src/test-setup.ts"
-          }
+          },
+          "outputs": [
+            "coverage/apps/website"
+          ]
         }
       }
     },
@@ -454,7 +475,10 @@
             "tsConfig": "libs/shared-services/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "libs/shared-services/src/test-setup.ts"
-          }
+          },
+          "outputs": [
+            "coverage/libs/shared-services"
+          ]
         }
       },
       "schematics": {
@@ -485,7 +509,10 @@
             "tsConfig": "libs/shared-utils/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "libs/shared-utils/src/test-setup.ts"
-          }
+          },
+          "outputs": [
+            "coverage/libs/shared-utils"
+          ]
         }
       },
       "schematics": {
@@ -516,7 +543,10 @@
             "tsConfig": "libs/shared-interfaces/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "libs/shared-interfaces/src/test-setup.ts"
-          }
+          },
+          "outputs": [
+            "coverage/libs/shared-interfaces"
+          ]
         }
       },
       "schematics": {
@@ -525,18 +555,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
-  },
-  "schematics": {
-    "@nrwl/angular:application": {
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "unitTestRunner": "jest"
-    }
-  },
-  "defaultProject": "territory-offline"
+  }
 }
