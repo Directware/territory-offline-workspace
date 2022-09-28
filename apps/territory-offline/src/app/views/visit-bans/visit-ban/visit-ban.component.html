@@ -12,8 +12,8 @@
   </app-panel>
 
   <app-panel>
-    <app-list-item *ngIf="!visitBan.get('gpsPosition').value">
-      <p class="label red">Dieser Datensatz hat keine GPS Koordinaten. Du musst die Adresse nochmal eingeben und den richtigen Datensatz auswählen:</p>
+    <app-list-item *ngIf="!isCreation && !visitBan.get('gpsPosition').value">
+      <p class="label red">Dieser Datensatz hat keine GPS Koordinaten. Du musst die Adresse entweder manuell platzieren oder nochmal eingeben und den richtigen Datensatz auswählen:</p>
     </app-list-item>
     <app-list-item>
       <p class="label">
