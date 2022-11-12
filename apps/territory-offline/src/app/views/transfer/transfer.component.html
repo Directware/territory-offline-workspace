@@ -3,92 +3,116 @@
     <div class="refresh-icon">
       <i-feather class="i-feather" name="refresh-cw"></i-feather>
     </div>
-    <h2 class="h2-white">{{ 'transfer.sync.title' | translate }}</h2>
-    <p *ngIf="(congregationName$ | async) as congregationName" class="body-grey">{{congregationName}}</p>
-    <button (click)="openSyncDialog()" class="button primary">{{ 'transfer.sync.title' | translate }}</button>
+    <h2 class="h2-white">{{ "transfer.sync.title" | translate }}</h2>
+    <p *ngIf="congregationName$ | async as congregationName" class="body-grey">
+      {{ congregationName }}
+    </p>
+    <button (click)="openSyncDialog()" class="button primary">
+      {{ "transfer.sync.title" | translate }}
+    </button>
   </div>
 </app-panel>
 
 <div class="scrollable-wrapper">
   <div class="list-wrapper">
-    <h2 class="h2-white">{{ 'transfer.returnTerritory' | translate }}</h2>
+    <h2 class="h2-white">{{ "transfer.returnTerritory" | translate }}</h2>
     <app-list>
       <app-list-item (click)="importTerritoryFromFC.click()">
-        <p class="label">{{ 'transfer.returnTerritoryFromFieldCompanion' | translate }}</p>
+        <p class="label">
+          {{ "transfer.returnTerritoryFromFieldCompanion" | translate }}
+        </p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
-        <input #importTerritoryFromFC style="display: none;" type="file" (change)="importTerritoryFromFieldCompanion($event)" />
+        <input
+          #importTerritoryFromFC
+          style="display: none"
+          type="file"
+          (change)="importTerritoryFromFieldCompanion($event)"
+        />
       </app-list-item>
     </app-list>
   </div>
   <div class="list-wrapper">
-    <h2 class="h2-white">{{ 'transfer.export.title' | translate }}</h2>
+    <h2 class="h2-white">{{ "transfer.export.title" | translate }}</h2>
     <app-list>
       <app-list-item (click)="exportToBackupFile()">
-        <p class="label">{{ 'transfer.exportBackup' | translate }}</p>
+        <p class="label">{{ "transfer.exportBackup" | translate }}</p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
       <app-list-item (click)="exportToGroupOverseer()">
-        <p class="label">{{ 'transfer.exportGroupOverseerReport' | translate }}</p>
+        <p class="label">
+          {{ "transfer.exportGroupOverseerReport" | translate }}
+        </p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
       <app-list-item (click)="exportS13()">
-        <p class="label">{{ 'transfer.exportS13' | translate }}</p>
+        <p class="label">{{ "transfer.exportS13" | translate }}</p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
       <app-list-item (click)="exportWholeMap()">
-        <p class="label">{{ 'transfer.exportKML' | translate }}</p>
+        <p class="label">{{ "transfer.exportKML" | translate }}</p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
       <app-list-item (click)="exportVisitBans()">
-        <p class="label">{{ 'transfer.exportVisitBans' | translate }}</p>
+        <p class="label">{{ "transfer.exportVisitBans" | translate }}</p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
       <app-list-item (click)="exportPublishers()">
-        <p class="label">{{ 'transfer.exportPublishers' | translate }}</p>
+        <p class="label">{{ "transfer.exportPublishers" | translate }}</p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
-      <app-list-item (click)="exportTerritoryNames()">
-        <p class="label">{{ 'transfer.exportTerritoryNames' | translate }}</p>
+      <app-list-item (click)="exportTerritories()">
+        <p class="label">{{ "transfer.exportTerritoryNames" | translate }}</p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
       <app-list-item (click)="exportTerritoryState()">
-        <p class="label">{{ 'transfer.exportTerritoryState' | translate }}</p>
+        <p class="label">{{ "transfer.exportTerritoryState" | translate }}</p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
     </app-list>
   </div>
 
   <div class="list-wrapper">
-    <h2 class="h2-white">{{ 'transfer.import.title' | translate }}</h2>
+    <h2 class="h2-white">{{ "transfer.import.title" | translate }}</h2>
     <app-list>
       <app-list-item (click)="importGeoJsonInput.click()">
-        <p class="label">{{ 'transfer.import.geoJson' | translate }}</p>
+        <p class="label">{{ "transfer.import.geoJson" | translate }}</p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
-        <input #importGeoJsonInput style="display: none;" type="file" (change)="importGeoJson($event)" />
+        <input
+          #importGeoJsonInput
+          style="display: none"
+          type="file"
+          (change)="importGeoJson($event)"
+        />
       </app-list-item>
     </app-list>
   </div>
 
   <div class="list-wrapper">
-    <h2 class="h2-white">{{ 'transfer.importFromApp' | translate }}</h2>
+    <h2 class="h2-white">{{ "transfer.importFromApp" | translate }}</h2>
     <app-list>
       <app-list-item (click)="showTerritoryHelperImportDialog()">
-        <p class="label">{{ 'transfer.importFromTerritoryHelper' | translate }}</p>
+        <p class="label">
+          {{ "transfer.importFromTerritoryHelper" | translate }}
+        </p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
     </app-list>
   </div>
 
   <div class="list-wrapper">
-    <h2 class="h2-white">{{ 'transfer.importFromExcel' | translate }}</h2>
+    <h2 class="h2-white">{{ "transfer.importFromExcel" | translate }}</h2>
     <app-list>
       <app-list-item (click)="importFromExcel('visitbans')">
-        <p class="label">{{ 'transfer.importVisitBans' | translate }}</p>
+        <p class="label">{{ "transfer.importVisitBans" | translate }}</p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
       <app-list-item (click)="importFromExcel('publisher')" class="disabled">
-        <p class="label">{{ 'transfer.importPublishers' | translate }}</p>
-        <i-feather *ngIf="false" class="action" name="chevron-right"></i-feather>
+        <p class="label">{{ "transfer.importPublishers" | translate }}</p>
+        <i-feather
+          *ngIf="false"
+          class="action"
+          name="chevron-right"
+        ></i-feather>
       </app-list-item>
       <!--
       <app-list-item (click)="importAny.click()">
