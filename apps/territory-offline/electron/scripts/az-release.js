@@ -1,3 +1,4 @@
+require("dotenv").config();
 const pjson = require("./../../package.json");
 const fs = require("fs");
 const baseDir = `${__dirname}/../release/`;
@@ -17,6 +18,7 @@ const filesToBeDeployed = [
   currentReleaseConfigName,
 ];
 const startTime = new Date();
+
 const blobService = azure.createBlobService(
   process.env.AZURE_STORGE_ACCOUNT,
   process.env.AZURE_STORGE_ACCESS_KEY,
