@@ -28,6 +28,7 @@ import { UpsertVisitBan } from "../../store/visit-bans/visit-bans.actions";
 import { selectLastAssignmentOfEachTerritory } from "../../store/assignments/assignments.selectors";
 import { PlatformAgnosticActionsService } from "../common/platform-agnostic-actions.service";
 import { TerritoryMapsService } from "../territory/territory-maps.service";
+import { UpsertTerritory } from "../../store/territories/territories.actions";
 
 const { Device } = Plugins;
 
@@ -141,9 +142,15 @@ export class AssignmentsService {
 
           if (territoryCard.assignment.publisherId === assignment.publisherId) {
             this.giveBack(assignment);
+
             territoryCard.visitBans.forEach((visitBan) =>
               this.store.dispatch(UpsertVisitBan({ visitBan }))
             );
+
+            this.store.dispatch(
+              UpsertTerritory({ territory: territoryCard.territory })
+            );
+
             this.territoryMapsService.focusOnDrawingIds(null);
           } else {
             alert(`Fehler!`);
