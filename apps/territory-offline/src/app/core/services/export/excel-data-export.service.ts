@@ -179,9 +179,6 @@ export class ExcelDataExportService {
 
     wb.Sheets[translations["transfer.export.territories"]] = ws;
     this.saveWorkBook(wb, translations["transfer.export.territories"]);
-
-    // TODO: remove
-    XLSX.writeFile(wb, "das-ist-ein-test.xlsx");
   }
 
   /*
