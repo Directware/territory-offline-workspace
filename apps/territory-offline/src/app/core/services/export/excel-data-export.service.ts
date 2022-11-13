@@ -138,7 +138,7 @@ export class ExcelDataExportService {
     sheetColumns.push(sheetColumnNames);
 
     territories.forEach((t, index) => {
-      const lastPublisher = lastEndedAssignmentsByTerritoryId[t.id].endTime
+      const lastPublisher = lastEndedAssignmentsByTerritoryId[t.id]?.endTime
         ? publisherMap[lastEndedAssignmentsByTerritoryId[t.id].publisherId]
         : null;
 
@@ -149,7 +149,7 @@ export class ExcelDataExportService {
         t.key,
         t.name,
         t.populationCount,
-        lastEndedAssignmentsByTerritoryId[t.id].endTime || "-", // z.B. neue Gebiete sind aktuell zugeteilt aber haben noch keine früheren Einträge
+        lastEndedAssignmentsByTerritoryId[t.id]?.endTime || "-", // z.B. neue Gebiete sind aktuell zugeteilt aber haben noch keine früheren Einträge
         lastPublisher
           ? `${lastPublisher.name} ${lastPublisher.firstName}`
           : "-",
