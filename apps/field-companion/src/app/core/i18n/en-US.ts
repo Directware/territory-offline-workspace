@@ -14,28 +14,31 @@ export const enUS = {
     newFeature: "New Feature!",
     cool: "Cool!",
     remove: "Remove",
-    complete: "Complete"
+    complete: "Complete",
+    expired: "Expired",
   },
   featureConfirmation: {
     reportUpToTheMinute: {
       title: "Minute-based reporting",
-      description: "Press and hold the hour recording button to report your time to the minute. You can now also specify in the settings the steps you want to take to record your time."
+      description:
+        "Press and hold the hour recording button to report your time to the minute. You can now also specify in the settings the steps you want to take to record your time.",
     },
     territories: {
       title: "Always have territories with you",
-      description: "If your territory servant uses TerritoryOffline, you can ask him to send you your territories. This will allow you to view them on the map at any time and manage the non-visit addresses."
-    }
+      description:
+        "If your territory servant uses TerritoryOffline, you can ask him to send you your territories. This will allow you to view them on the map at any time and manage the non-visit addresses.",
+    },
   },
   actions: {
     continue: "Continue",
-    send: "Send"
+    send: "Send",
   },
   welcome: {
     origin: "by Territory Offline",
     feature1: "Report your service over the month",
     feature2: "Set hour targets and track your progress",
     feature3: "Send your report at the end of the month",
-    feature4: "Receive areas and view them on the map"
+    feature4: "Receive areas and view them on the map",
   },
   service: {
     noDayChosen: "No day selected",
@@ -59,11 +62,16 @@ export const enUS = {
     year: "Year",
     yearly: "Yearly",
     goals: "Hourly goals",
-    goalsDesc: "You can set a monthly and annual hourly target. The app shows you your progress.",
-    goalsInfo: "Tap on the number of hours in the report overview to switch between the display of the monthly / annual target.",
-    studiesDesc: "Enter the number of different people with whom you study the Bible so that it appears in your report.",
-    studiesInfo: "In the Overview report, tap the study icon (Person) to change the number of studies.",
-    explainDurationTrimmer: "Your reported hours are rounded off and the remaining time is carried over to the next month."
+    goalsDesc:
+      "You can set a monthly and annual hourly target. The app shows you your progress.",
+    goalsInfo:
+      "Tap on the number of hours in the report overview to switch between the display of the monthly / annual target.",
+    studiesDesc:
+      "Enter the number of different people with whom you study the Bible so that it appears in your report.",
+    studiesInfo:
+      "In the Overview report, tap the study icon (Person) to change the number of studies.",
+    explainDurationTrimmer:
+      "Your reported hours are rounded off and the remaining time is carried over to the next month.",
   },
   week: {
     shortNames: {
@@ -74,7 +82,7 @@ export const enUS = {
       friday: "Fr",
       saturday: "Sa",
       sunday: "Su",
-    }
+    },
   },
   month: {
     "0": "January",
@@ -94,7 +102,8 @@ export const enUS = {
     title: "Territories",
     addTerritory: "Add territory",
     noTerritories: "No territories",
-    noTerritoriesDesc: "If your territory servant uses TerritoryOffline, you can add your territories here",
+    noTerritoriesDesc:
+      "If your territory servant uses TerritoryOffline, you can add your territories here",
     yourTerritories: "Your Territories",
     feature1: "Receive areas via link from your territory servant",
     feature2: "View your territory on detailed maps",
@@ -121,12 +130,15 @@ export const enUS = {
     reallyDeleteVisitBan: "Do you really want to delete this address?",
     deleteConfirmation: "Do you really want to remove the territory?",
     returnInfo: "Submit territory",
-    returnInfoText: "To hand in your territory, please return it to your territory servant. As soon as you tap 'Complete', it will automatically be removed from the list of your territories.",
+    returnInfoText:
+      "To hand in your territory, please return it to your territory servant. As soon as you tap 'Complete', it will automatically be removed from the list of your territories.",
     remove: "Delete territory",
     inProgress: "Active territories",
     expired: "Expired territories",
-    wrongFileType: "Wrong file type! Please import a file with the extension '.territory'.",
-    sendToServant: "Send to territory servant"
+    wrongFileType:
+      "Wrong file type! Please import a file with the extension '.territory'.",
+    sendToServant: "Send to territory servant",
+    provideNewPopulationCount: "Please enter a new number for addresses.",
   },
   settings: {
     title: "Settings",
@@ -163,11 +175,15 @@ export const enUS = {
       sendYourId: "Share your User ID",
       exportReports: "Export to excel",
       exportBackup: "Create backup",
-      importBackup: "Import backup"
-    }
+      importBackup: "Import backup",
+    },
   },
   localNotifications: {
     monthlyReminderTitle: "Report",
-    monthlyReminderBody: "It's that time again! Your report is waiting to be sent 📮"
-  }
+    monthlyReminderBody:
+      "It's that time again! Your report is waiting to be sent 📮",
+  },
+  errors: {
+    inputShouldBeNumber: "Error! The input must be a number.",
+  },
 };

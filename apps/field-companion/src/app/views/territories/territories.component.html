@@ -1,45 +1,82 @@
 <h1 class="header">
-  {{"territories.title" | translate}}
-  <i-feather (click)="openFileConsideringPlatform()" class="blue add-territory" name="plus"></i-feather>
-  <input #htmlInputElement type="file" style="display: none;" (change)="openTerritoryCardFromWeb($event)">
+  {{ "territories.title" | translate }}
+  <i-feather
+    (click)="openFileConsideringPlatform()"
+    class="blue add-territory"
+    name="plus"
+  ></i-feather>
+  <input
+    #htmlInputElement
+    type="file"
+    style="display: none"
+    (change)="openTerritoryCardFromWeb($event)"
+  />
 </h1>
 
-<ng-container *ngIf="(territoryCards$ | async) as territoryCards">
+<ng-container *ngIf="territoryCards$ | async as territoryCards">
   <app-panel>
     <div *ngIf="territoryCards.length === 0" class="wrapper">
-      <img alt="image" src="/assets/images/territories-icon.svg">
+      <img alt="image" src="/assets/images/territories-icon.svg" />
 
       <div class="empty">
-        <p class="title">{{"territories.noTerritories" | translate}}</p>
-        <p class="desc">{{"territories.noTerritoriesDesc" | translate}}</p>
+        <p class="title">{{ "territories.noTerritories" | translate }}</p>
+        <p class="desc">{{ "territories.noTerritoriesDesc" | translate }}</p>
       </div>
     </div>
-    <div *ngIf="territoryCards.length > 0" class="wrapper map-preview">
+    <div
+      *ngIf="territoryCards.length > 0"
+      routerLink="/map"
+      class="wrapper map-preview"
+    >
       <div class="footer">
-        <h3 class="h3-grey">{{"territories.map" | translate}}</h3>
-        <button routerLink="/map">{{"common.open" | translate}}</button>
+        <h3 class="h3-grey">{{ "territories.map" | translate }}</h3>
+        <button routerLink="/map">{{ "common.open" | translate }}</button>
       </div>
     </div>
   </app-panel>
 </ng-container>
 
 <div class="scrollable-wrapper">
-  <ng-container *ngIf="(expiredTerritoryCards$ | async) as expiredTerritoryCards">
-    <h5 class="territory-section" *ngIf="expiredTerritoryCards.length > 0">{{"territories.expired" | translate}}</h5>
+  <ng-container *ngIf="expiredTerritoryCards$ | async as expiredTerritoryCards">
+    <h5 class="territory-section" *ngIf="expiredTerritoryCards.length > 0">
+      {{ "territories.expired" | translate }}
+    </h5>
     <app-list class="territories">
-      <app-list-item *ngFor="let territoryCard of expiredTerritoryCards" [routerLink]="'/territory/' + territoryCard.id + '/return-territory'">
-        <p class="label">{{territoryCard.territory.key}} {{territoryCard.territory.name}}</p>
-        <p class="info expired">{{territoryCard.assignment.startTime | durationLeftForTerritoryCard:territoryCard.estimationInMonths}}</p>
+      <app-list-item
+        *ngFor="let territoryCard of expiredTerritoryCards"
+        [routerLink]="'/territory/' + territoryCard.id + '/return-territory'"
+      >
+        <p class="label">
+          {{ territoryCard.territory.key }} {{ territoryCard.territory.name }}
+        </p>
+        <p class="info expired">
+          {{
+            territoryCard.assignment.startTime
+              | durationLeftForTerritoryCard: territoryCard.estimationInMonths
+          }}
+        </p>
       </app-list-item>
     </app-list>
   </ng-container>
 
-  <ng-container *ngIf="(territoryCards$ | async) as territoryCards">
-    <h5 class="territory-section" *ngIf="territoryCards.length > 0">{{"territories.inProgress" | translate}}</h5>
+  <ng-container *ngIf="territoryCards$ | async as territoryCards">
+    <h5 class="territory-section" *ngIf="territoryCards.length > 0">
+      {{ "territories.inProgress" | translate }}
+    </h5>
     <app-list class="territories">
-      <app-list-item *ngFor="let territoryCard of territoryCards" [routerLink]="'/territory/' + territoryCard.id">
-        <p class="label">{{territoryCard.territory.key}} {{territoryCard.territory.name}}</p>
-        <p class="info">{{territoryCard.assignment.startTime | durationLeftForTerritoryCard:territoryCard.estimationInMonths}}</p>
+      <app-list-item
+        *ngFor="let territoryCard of territoryCards"
+        [routerLink]="'/territory/' + territoryCard.id"
+      >
+        <p class="label">
+          {{ territoryCard.territory.key }} {{ territoryCard.territory.name }}
+        </p>
+        <p class="info">
+          {{
+            territoryCard.assignment.startTime
+              | durationLeftForTerritoryCard: territoryCard.estimationInMonths
+          }}
+        </p>
       </app-list-item>
     </app-list>
   </ng-container>

@@ -14,28 +14,31 @@ export const plPL = {
     newFeature: "Nowa funkcja!",
     cool: "Cool!",
     remove: "Usuń",
-    complete: "Zakończ"
+    complete: "Zakończ",
+    expired: "Teren wygasł",
   },
   featureConfirmation: {
     reportUpToTheMinute: {
       title: "Sprawozdawczość minutowa",
-      description: "Naciśnij i przytrzymaj przycisk nagrywania godzin, aby zgłosić swój czas do minuty. Teraz możesz również określić w ustawieniach kroki, które chcesz podjąć, aby nagrać swój czas."
+      description:
+        "Naciśnij i przytrzymaj przycisk nagrywania godzin, aby zgłosić swój czas do minuty. Teraz możesz również określić w ustawieniach kroki, które chcesz podjąć, aby nagrać swój czas.",
     },
     territories: {
       title: "Zawsze miej przy sobie swoje tereny",
-      description: "Jeśli twój sługa terenów korzysta z TerritoryOffline, możesz poprosić go, aby wysłał ci twoje tereny. Pozwala to na wyświetlenie ich na mapie i zarządzanie adresami których nie mamy odwiedzać."
-    }
+      description:
+        "Jeśli twój sługa terenów korzysta z TerritoryOffline, możesz poprosić go, aby wysłał ci twoje tereny. Pozwala to na wyświetlenie ich na mapie i zarządzanie adresami których nie mamy odwiedzać.",
+    },
   },
   actions: {
     continue: "Kontynuuj",
-    send: "Prześlij"
+    send: "Prześlij",
   },
   welcome: {
     origin: "by Territory Offline",
     feature1: "Sprawozdania za miesiąc z twojej służby",
     feature2: "Wyznaczaj cele godzinowe i śledź swoje postępy",
     feature3: "Wyślij swój owoc na koniec miesiąca",
-    feature4: "Odbieraj tereny i przeglądaj je na mapie"
+    feature4: "Odbieraj tereny i przeglądaj je na mapie",
   },
   service: {
     noDayChosen: "Nie wybrano żadnego dnia",
@@ -59,11 +62,16 @@ export const plPL = {
     year: "Rok",
     yearly: "Rocznie",
     goals: "Cele godzinowe",
-    goalsDesc: "Ustaw miesięczny i roczny cel godzinowy. Aplikacja pokazuje twoje postępy.",
-    goalsInfo: "Dotknij liczbę godzin w podsumowaniu raportu, aby przełączyć się pomiędzy wyświetlaniem celu miesięcznego i rocznego.",
-    studiesDesc: "Podaj liczbę różnych osób, z którymi studiujesz Biblię, tak aby pojawiła się ona w twoim raporcie.",
-    studiesInfo: "W podsumowaniu raportu dotknij ikony studium biblijnego (Osoba), aby zmienić liczbę studiów.",
-    explainDurationTrimmer: "Twoje godziny zostaną zaokrąglone, a pozostały czas zostanie przeniesiony na następny miesiąc."
+    goalsDesc:
+      "Ustaw miesięczny i roczny cel godzinowy. Aplikacja pokazuje twoje postępy.",
+    goalsInfo:
+      "Dotknij liczbę godzin w podsumowaniu raportu, aby przełączyć się pomiędzy wyświetlaniem celu miesięcznego i rocznego.",
+    studiesDesc:
+      "Podaj liczbę różnych osób, z którymi studiujesz Biblię, tak aby pojawiła się ona w twoim raporcie.",
+    studiesInfo:
+      "W podsumowaniu raportu dotknij ikony studium biblijnego (Osoba), aby zmienić liczbę studiów.",
+    explainDurationTrimmer:
+      "Twoje godziny zostaną zaokrąglone, a pozostały czas zostanie przeniesiony na następny miesiąc.",
   },
   week: {
     shortNames: {
@@ -74,7 +82,7 @@ export const plPL = {
       friday: "Pi",
       saturday: "So",
       sunday: "Ni",
-    }
+    },
   },
   month: {
     "0": "Styczeń",
@@ -94,7 +102,8 @@ export const plPL = {
     title: "Tereny",
     addTerritory: "Dodaj teren",
     noTerritories: "Brak terenow",
-    noTerritoriesDesc: "Jeśli twój sługa terenów korzysta z TerritoryOffline, możesz dodać swoje tereny tutaj",
+    noTerritoriesDesc:
+      "Jeśli twój sługa terenów korzysta z TerritoryOffline, możesz dodać swoje tereny tutaj",
     yourTerritories: "Twoje tereny",
     feature1: "Odbieraj tereny od swojego sługi terenów",
     feature2: "Zobacz swój teren na szczegółowych mapach",
@@ -121,12 +130,15 @@ export const plPL = {
     reallyDeleteVisitBan: "Czy naprawdę chcesz usunąć ten adres?",
     deleteConfirmation: "Naprawdę chcesz usunąć ten teren?",
     returnInfo: "Oddanie terenu",
-    returnInfoText: "Aby oddać teren, proszę wysłać go do sługi terenów. Po naciśnięciu przycisku 'Zakończ', zostanie on automatycznie usunięty z listy terenów.",
+    returnInfoText:
+      "Aby oddać teren, proszę wysłać go do sługi terenów. Po naciśnięciu przycisku 'Zakończ', zostanie on automatycznie usunięty z listy terenów.",
     remove: "Usuń teren",
     inProgress: "Aktywne tereny",
     expired: "Wygasłe tereny",
-    wrongFileType: "Zły typ pliku! Proszę zaimportować plik z rozszerzeniem '.territory'",
-    sendToServant: "Wyślij do sługi terenów"
+    wrongFileType:
+      "Zły typ pliku! Proszę zaimportować plik z rozszerzeniem '.territory'",
+    sendToServant: "Wyślij do sługi terenów",
+    provideNewPopulationCount: "Proszę wpisać nową liczbę do ilości adresów.",
   },
   settings: {
     title: "Ustawienia",
@@ -163,11 +175,14 @@ export const plPL = {
       sendYourId: "Udostępnij swój identyfikator użytkownika",
       exportReports: "Eksport do Excel",
       exportBackup: "Tworzenie kopii zapasowej",
-      importBackup: "Importowanie kopii zapasowej"
-    }
+      importBackup: "Importowanie kopii zapasowej",
+    },
   },
   localNotifications: {
     monthlyReminderTitle: "Owoc",
-    monthlyReminderBody: "Znów nadszedł czas! Twój owoc czeka na wysłanie 📮"
-  }
+    monthlyReminderBody: "Znów nadszedł czas! Twój owoc czeka na wysłanie 📮",
+  },
+  errors: {
+    inputShouldBeNumber: "Błąd! Dane wejściowe muszą być liczbą.",
+  },
 };

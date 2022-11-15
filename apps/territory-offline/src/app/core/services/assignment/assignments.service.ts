@@ -153,7 +153,9 @@ export class AssignmentsService {
 
             this.territoryMapsService.focusOnDrawingIds(null);
           } else {
-            alert(`Fehler!`);
+            alert(
+              `Fehler! Diese Datei kommt von anderen Verkündiger als der der eingetragen ist.`
+            );
           }
         } else {
           this.territoryMapsService.focusOnDrawingIds(null);

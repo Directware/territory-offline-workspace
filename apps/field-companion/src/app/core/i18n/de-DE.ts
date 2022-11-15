@@ -14,32 +14,36 @@ export const deDE = {
     newFeature: "Neues Feature!",
     cool: "Cool!",
     remove: "Löschen",
-    complete: "Abschließen"
+    complete: "Abschließen",
+    expired: "Abgelaufen",
   },
   featureConfirmation: {
     reportUpToTheMinute: {
       title: "Minutengenau Berichten",
-      description: "Halte die Schaltfläche zur Stundenerfassung gedrückt, um deine Zeit auf die Minute genau zu Berichten. Außerdem kannst du jetzt in den Einstellungen festlegen, in welchen Schritten du deine Zeit erfassen möchtest."
+      description:
+        "Halte die Schaltfläche zur Stundenerfassung gedrückt, um deine Zeit auf die Minute genau zu Berichten. Außerdem kannst du jetzt in den Einstellungen festlegen, in welchen Schritten du deine Zeit erfassen möchtest.",
     },
     territories: {
       title: "Gebiete immer dabei haben",
-      description: "Wenn dein Gebietsdiener TerritoryOffline nutzt, kannst du ihn bitten, dir deine Gebiete zu senden. Das ermöglicht dir sie jederzeit auf der Karte zu betrachten und die Nicht besuchen Adressen zu verwalten."
-    }
+      description:
+        "Wenn dein Gebietsdiener TerritoryOffline nutzt, kannst du ihn bitten, dir deine Gebiete zu senden. Das ermöglicht dir sie jederzeit auf der Karte zu betrachten und die Nicht besuchen Adressen zu verwalten.",
+    },
   },
   actions: {
     continue: "Fortfahren",
-    send: "Abschicken"
+    send: "Abschicken",
   },
   welcome: {
     origin: "by Territory Offline",
     feature1: "Berichte über den Monat hinweg deinen Dienst",
     feature2: "Setze Stundenziele und verfolge deinen Fortschritt",
     feature3: "Versende deinen Bericht am Monatsende",
-    feature4: "Empfange Gebiete und betrachte sie auf der Karte"
+    feature4: "Empfange Gebiete und betrachte sie auf der Karte",
   },
   service: {
     noDayChosen: "Kein Tag ausgewählt",
-    noDayChosenDesc: "Wähle einen Tag aus, um Berichte zu bearbeiten oder hinzuzufügen",
+    noDayChosenDesc:
+      "Wähle einen Tag aus, um Berichte zu bearbeiten oder hinzuzufügen",
     report: "Bericht",
     duration: "Stunden",
     studies: "Studien",
@@ -59,12 +63,17 @@ export const deDE = {
     year: "Jahr",
     yearly: "Jährlich",
     goals: "Stundenziele",
-    goalsDesc: "Du kannst ein monatliches und jährliches Stundenziel festlegen. Die App zeigt dir deinen Fortschritt an.",
-    goalsInfo: "Tippe auf die Stundenzahl in der Bericht Übersicht, um zwischen der Anzeige des monatlichen / jährlichen Ziels zu wechseln.",
-    studiesDesc: "Trage die Anzahl der unterschiedlichen Personen, mit denen du die Bibel studierst ein, damit sie in deinem Bericht erscheint.",
-    studiesInfo: "Tippe in der Bericht Übersicht auf das Studien-Icon (Person), um die Anzahl der Studien zu ändern.",
-    explainDurationTrimmer: "Deine berichteten Stunden werden abgerundet und die restliche Zeit in den nächsten Monat übernommen.",
-},
+    goalsDesc:
+      "Du kannst ein monatliches und jährliches Stundenziel festlegen. Die App zeigt dir deinen Fortschritt an.",
+    goalsInfo:
+      "Tippe auf die Stundenzahl in der Bericht Übersicht, um zwischen der Anzeige des monatlichen / jährlichen Ziels zu wechseln.",
+    studiesDesc:
+      "Trage die Anzahl der unterschiedlichen Personen, mit denen du die Bibel studierst ein, damit sie in deinem Bericht erscheint.",
+    studiesInfo:
+      "Tippe in der Bericht Übersicht auf das Studien-Icon (Person), um die Anzahl der Studien zu ändern.",
+    explainDurationTrimmer:
+      "Deine berichteten Stunden werden abgerundet und die restliche Zeit in den nächsten Monat übernommen.",
+  },
   week: {
     shortNames: {
       monday: "Mo",
@@ -74,7 +83,7 @@ export const deDE = {
       friday: "Fr",
       saturday: "Sa",
       sunday: "So",
-    }
+    },
   },
   month: {
     "0": "Januar",
@@ -94,7 +103,8 @@ export const deDE = {
     title: "Gebiete",
     addTerritory: "Gebiet hinzufügen",
     noTerritories: "Keine Gebiete",
-    noTerritoriesDesc: "Wenn dein Gebietsdiener TerritoryOffline verwendet, kannst du hier deine Gebiete hinzufügen",
+    noTerritoriesDesc:
+      "Wenn dein Gebietsdiener TerritoryOffline verwendet, kannst du hier deine Gebiete hinzufügen",
     yourTerritories: "Deine Gebiete",
     feature1: "Empfange Gebiete per Link von deinem Gebietsdiener",
     feature2: "Betrachte dein Gebiet auf detailierten Karten",
@@ -121,12 +131,15 @@ export const deDE = {
     reallyDeleteVisitBan: "Möchtest du diese Adresse wirklich löschen?",
     deleteConfirmation: "Möchtest du wirklich das Gebiet entfernen?",
     returnInfo: "Gebiet abgeben",
-    returnInfoText: "Um dein Gebiet abzugeben, sende es bitte an deinen Gebietsdiener zurück. Sobald du 'Abschließen' tippst, wird es automatisch aus der Liste deiner Gebieten entfernt.",
+    returnInfoText:
+      "Um dein Gebiet abzugeben, sende es bitte an deinen Gebietsdiener zurück. Sobald du 'Abschließen' tippst, wird es automatisch aus der Liste deiner Gebieten entfernt.",
     remove: "Gebiet löschen",
     inProgress: "Aktive Gebiete",
     expired: "Abgelaufene Gebiete",
-    wrongFileType: "Falscher Dateityp! Bitte importiere eine Datei mit der Endung '.territory'",
-    sendToServant: "An Gebietsdiener versenden"
+    wrongFileType:
+      "Falscher Dateityp! Bitte importiere eine Datei mit der Endung '.territory'",
+    sendToServant: "An Gebietsdiener versenden",
+    provideNewPopulationCount: "Trage bitte eine neue Zahl für Adressen ein.",
   },
   settings: {
     title: "Einstellungen",
@@ -163,11 +176,15 @@ export const deDE = {
       sendYourId: "Deine User ID teilen",
       exportReports: "Daten nach Excel exportieren",
       exportBackup: "Backup der Daten erstellen",
-      importBackup: "Daten aus Backup wiederherstellen"
-    }
+      importBackup: "Daten aus Backup wiederherstellen",
+    },
   },
   localNotifications: {
     monthlyReminderTitle: "Predigtdienstbericht",
-    monthlyReminderBody: "Es ist wieder soweit! Dein Bericht wartet darauf versendet zu werden 📮"
-  }
+    monthlyReminderBody:
+      "Es ist wieder soweit! Dein Bericht wartet darauf versendet zu werden 📮",
+  },
+  errors: {
+    inputShouldBeNumber: "Fehler! Die Eingabe muss eine Zahl sein.",
+  },
 };

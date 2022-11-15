@@ -2,12 +2,33 @@
 
 <fc-map-controls></fc-map-controls>
 
-<ui-hideable-panel #hideablePanelComponent *ngIf="(territoryCards$ | async) as territoryCards" [header]="'Deine Gebiete'">
-  <div class="territory-card" *ngFor="let territoryCard of territoryCards" (click)="focusOn(territoryCard)">
-    <div class="icon-wrapper"><i-feather class="i-feather" name="map"></i-feather></div>
-    <p class="label">{{territoryCard.territory.name}} {{territoryCard.territory.key}}</p>
+<ui-hideable-panel
+  #hideablePanelComponent
+  *ngIf="territoryCards$ | async as territoryCards"
+  [header]="'Deine Gebiete'"
+>
+  <div
+    class="territory-card"
+    *ngFor="let territoryCard of territoryCards"
+    (click)="focusOn(territoryCard)"
+  >
+    <div class="icon-wrapper">
+      <i-feather class="i-feather" name="map"></i-feather>
+    </div>
+    <p class="label">
+      {{ territoryCard.territory.name }} {{ territoryCard.territory.key }}
+    </p>
+    <p
+      class="info"
+      *ngIf="
+        territoryCard.drawing.featureCollection.features[0].properties.isExpired
+      "
+    >
+      {{ "common.expired" | translate }}
+    </p>
   </div>
 
-  <button (click)="close()" class="button leave">{{"territories.leaveMap" | translate}}</button>
-
+  <button (click)="close()" class="button leave">
+    {{ "territories.leaveMap" | translate }}
+  </button>
 </ui-hideable-panel>
