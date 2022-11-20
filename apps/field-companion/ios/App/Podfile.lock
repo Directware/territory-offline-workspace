@@ -1,9 +1,9 @@
 PODS:
   - ByteowlsCapacitorFilesharer (2.0.0):
     - Capacitor
-  - Capacitor (2.4.7):
+  - Capacitor (2.5.0):
     - CapacitorCordova
-  - CapacitorCordova (2.4.7)
+  - CapacitorCordova (2.5.0)
   - CapacitorDataStorageSqlite (2.4.5):
     - Capacitor
     - SQLCipher
@@ -39,13 +39,13 @@ EXTERNAL SOURCES:
     :path: "../../../../node_modules/capacitor-file-selector"
 
 SPEC CHECKSUMS:
-  ByteowlsCapacitorFilesharer: fb53acb4aba25134696ee965b460aed4b5be7538
-  Capacitor: 4cd7b342d5a15b1f6f333d687358953afd7b2d8b
-  CapacitorCordova: 2c9d6e28d9d86c4da087fa2c3537c1841954bb12
-  CapacitorDataStorageSqlite: 88f4b1d8c9fe202afeaeb4beecab3d76b6be0012
-  CapacitorFileSelector: b2af1fd522ec9e4214e0b11f73171075cea79894
+  ByteowlsCapacitorFilesharer: 47ed630b8d8f9c91b6ba5197d4e5be7513e633e7
+  Capacitor: cf2174bec9bfe65f1c956616ac1d94afcef7d24d
+  CapacitorCordova: 03d0a19b737e65c94825b20222c804d5467e1c5e
+  CapacitorDataStorageSqlite: e5c6a0ef08858bd048e5a976d663bfcdeb35c2bf
+  CapacitorFileSelector: 4ccc8108f5b301929d8da529269a74fc0e6901bb
   SQLCipher: 155ffeafc9ac102e5c9b68e3e9a1297a98a27096
 
 PODFILE CHECKSUM: 050e8d080daf4314e8945863018f50aaa52a2bbe
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.11.3
