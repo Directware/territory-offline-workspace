@@ -10,7 +10,7 @@
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
 
-    <activity
+    <activity android:exported="true"
       android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
       android:name="com.territoryoffline.fieldcompanion.MainActivity"
       android:label="@string/title_activity_main"

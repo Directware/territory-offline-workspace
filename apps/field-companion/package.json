@@ -9,6 +9,7 @@
     "capacitor:update": "npx cap update",
     "start:ios": "npx cap open ios",
     "capacitor:ios:sync": "npx cap sync",
+    "capacitor:android:sync": "npx cap sync",
     "start:android": "npx cap sync && npx cap open android"
   },
   "dependencies": {
@@ -18,5 +19,3 @@
     "capacitor-file-selector": "0.0.4"
   }
 }
-
-
