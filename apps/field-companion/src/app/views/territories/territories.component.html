@@ -13,7 +13,7 @@
   />
 </h1>
 
-<ng-container *ngIf="territoryCards$ | async as territoryCards">
+<ng-container *ngIf="allTerritoryCards$ | async as territoryCards">
   <app-panel>
     <div *ngIf="territoryCards.length === 0" class="wrapper">
       <img alt="image" src="/assets/images/territories-icon.svg" />

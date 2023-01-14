@@ -6,11 +6,12 @@ import {
   selectAllExpiredTerritoryCards,
   selectAllNotExpiredTerritoryCards,
 } from "../../core/store/territory-card/territory-card.selectors";
-import { Observable } from "rxjs";
+import { combineLatest, Observable } from "rxjs";
 import { TerritoryCard } from "@territory-offline-workspace/shared-interfaces";
 import { TranslateService } from "@ngx-translate/core";
 import { Plugins } from "@capacitor/core";
 import { TerritoryCardService } from "../../core/services/territory-card.service";
+import { map } from "rxjs/operators";
 
 const { FileSelector, Device } = Plugins;
 
@@ -24,6 +25,7 @@ export class TerritoriesComponent implements OnInit {
   public htmlInputElement: ElementRef;
 
   public isMenuOpened: boolean;
+  public allTerritoryCards$: Observable<TerritoryCard[]>;
   public territoryCards$: Observable<TerritoryCard[]>;
   public expiredTerritoryCards$: Observable<TerritoryCard[]>;
 
@@ -40,6 +42,11 @@ export class TerritoriesComponent implements OnInit {
     this.expiredTerritoryCards$ = this.store.pipe(
       select(selectAllExpiredTerritoryCards)
     );
+
+    this.allTerritoryCards$ = combineLatest([
+      this.territoryCards$,
+      this.expiredTerritoryCards$,
+    ]).pipe(map(([cards, expiredCards]) => [...cards, ...expiredCards]));
   }
 
   public async openFileConsideringPlatform() {
