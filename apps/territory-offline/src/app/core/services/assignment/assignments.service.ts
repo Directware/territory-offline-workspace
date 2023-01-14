@@ -74,10 +74,24 @@ export class AssignmentsService {
 
     const deviceInfo = await Device.getInfo();
 
+    const drawingWithoutProperties = {
+      ...drawing,
+      featureCollection: {
+        ...drawing.featureCollection,
+        features: drawing.featureCollection.features.map((feat) => ({
+          ...feat,
+          properties: {
+            opacity: 0.3,
+            description: territory.key,
+          },
+        })),
+      },
+    };
+
     const digitalTerritoryCard: TerritoryCard = {
       id: uuid(),
       territory: territory,
-      drawing: drawing,
+      drawing: drawingWithoutProperties,
       publisher: {
         ...publisher,
         dsgvoSignature: null,
