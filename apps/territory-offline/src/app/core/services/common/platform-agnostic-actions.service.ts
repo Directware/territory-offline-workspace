@@ -26,12 +26,13 @@ export class PlatformAgnosticActionsService {
     switch (info.platform) {
       case "web": {
         // TODO: für Excel, Gzip Dateien geht das aber PDFs nicht
-        var blob = new Blob([this.stringToArrayBuffer(file)]);
-        saveAs(blob, fileName);
-        break;
+        // var blob = new Blob([this.stringToArrayBuffer(file)]);
+        // saveAs(blob, fileName);
+        // PROBLEM: Electron App hat die platform "web"
+
+        await this.ipcService.send("save-file", { file, subPath, fileName });
       }
       default: {
-        await this.ipcService.send("save-file", { file, subPath, fileName });
       }
     }
     /*
