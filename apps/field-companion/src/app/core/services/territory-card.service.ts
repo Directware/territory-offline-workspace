@@ -34,6 +34,7 @@ export class TerritoryCardService {
           ...feature,
           properties: {
             ...feature.properties,
+            opacity: 0.3,
             description: parsedData.territory.key, // Should show the territory key on the map
           },
         })

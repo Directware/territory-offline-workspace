@@ -23,6 +23,8 @@ export const selectAllTerritoryCards = createSelector(
             ...f.properties,
             isExpired: _isExpired,
             color: _isExpired ? "#ff5f1b" : "#4f9cdc",
+            opacity: 0.3,
+            description: t.territory.key,
           },
         };
       });
