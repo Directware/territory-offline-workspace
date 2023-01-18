@@ -355,6 +355,7 @@ export const pt = {
     },
     import: {
       title: "Importação",
+      territoriesFromKml: "KML",
       geoJson: "GEO Json",
       geoJsonDesc:
         "O formato GEO Json pode ter campos de propriedades que também pode querer importar. Estes campos podem ter um valor:",

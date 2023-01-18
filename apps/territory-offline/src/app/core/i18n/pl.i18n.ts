@@ -357,6 +357,7 @@ export const pl = {
     },
     import: {
       title: "Import",
+      territoriesFromKml: "KML",
       geoJson: "GEO Json",
       geoJsonDesc:
         "Format GEO Json może posiadać pola właściwości, które możesz również zaimportować. Te pola mogą przybrać wartość:",
