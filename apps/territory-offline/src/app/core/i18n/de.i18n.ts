@@ -113,7 +113,8 @@ export const de = {
   },
   dashboard: {
     serviceYear: "Dienstjahr",
-    processed: "Gebiete bearbeitet",
+    processed: "Gebiete in letzen 12 Monaten bearbeitet",
+    processedInThisServiceYear: "Gebiete im Dienstjahr bearbeitet",
     PopulationCountProcessed: "Wohnungseinheiten bearbeitet",
     assignments: "Gebiete zugeteilt",
     overdueAssignments: "Fällige Bearbeitungen",

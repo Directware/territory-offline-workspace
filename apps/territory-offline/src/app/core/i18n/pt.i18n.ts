@@ -112,7 +112,8 @@ export const pt = {
   },
   dashboard: {
     serviceYear: "Ano de serviço",
-    processed: "Territórios editados",
+    processed: "Áreas processados nos últimos 12 meses",
+    processedInThisServiceYear: "Áreas processados durante o ano de serviço",
     PopulationCountProcessed: "Unidades de apartamentos editadas",
     assignments: "Áreas atribuídas",
     overdueAssignments: "Processamento devido",

@@ -112,7 +112,8 @@ export const pl = {
   },
   dashboard: {
     serviceYear: "Rok służbowy",
-    processed: "Opracowane tereny",
+    processed: "opracowanych terenów w ciągu ostatnich 12 miesięcy",
+    processedInThisServiceYear: "opracowanych terenów w ciągu roku służbowego",
     PopulationCountProcessed: "Opracowane Jednostki mieszkalne",
     assignments: "Przydzielone tereny",
     overdueAssignments: "Spóźnione opracowania",

@@ -1,72 +1,156 @@
-<app-panel *ngIf="(dashboardData$ | async) as dashboardData">
+<app-panel *ngIf="dashboardData$ | async as dashboardData">
   <div class="wrapper">
-    <h2 class="h2-white">{{ 'dashboard.serviceYear' | translate }} {{dashboardData.serviceYear}}</h2>
+    <h2 class="h2-white">
+      {{ "dashboard.serviceYear" | translate }} {{ dashboardData.serviceYear }}
+    </h2>
 
-    <div class="progress-wrapper first-element">
-      <progress [value]="dashboardData.currentlyDoneCount" [max]="dashboardData.assignmentsTotal"></progress>
-      <p class="body-grey">{{dashboardData.currentlyDoneCount}} {{ 'dashboard.processed' | translate }}</p>
+    <!-- Done in this service year -->
+    <div
+      class="progress-wrapper first-element"
+      [matTooltip]="'dashboard.processedInThisServiceYear' | translate"
+      [matTooltipShowDelay]="1000"
+      matTooltipPosition="below"
+    >
+      <progress
+        [value]="dashboardData.doneInThisServiceYear"
+        [max]="dashboardData.territoriesTotal"
+      ></progress>
+      <p class="body-grey" style="font-size: 14px">
+        {{ dashboardData.doneInThisServiceYear }}
+        {{ "dashboard.processedInThisServiceYear" | translate }}
+      </p>
     </div>
 
-    <div class="progress-wrapper second-element">
-      <progress [value]="dashboardData.currentlyDonePopulationCount"
-                [max]="dashboardData.totalPopulationCount"></progress>
-      <p class="body-grey" style="font-size: 14px;">{{dashboardData.currentlyDonePopulationCount}} {{ 'dashboard.PopulationCountProcessed' | translate }}</p>
+    <!-- Done in last 12 months -->
+    <div
+      class="progress-wrapper second-element"
+      [matTooltip]="'dashboard.processed' | translate"
+      [matTooltipShowDelay]="1000"
+      matTooltipPosition="below"
+    >
+      <progress
+        [value]="dashboardData.currentlyDoneCount"
+        [max]="dashboardData.assignmentsTotal"
+      ></progress>
+      <p class="body-grey">
+        {{ dashboardData.currentlyDoneCount }}
+        {{ "dashboard.processed" | translate }}
+      </p>
     </div>
 
-    <div class="progress-wrapper third-element">
-      <progress [value]="dashboardData.currentlyAssignedTerritoriesCount"
-                [max]="dashboardData.territoriesTotal"></progress>
-      <p class="body-grey">{{dashboardData.currentlyAssignedTerritoriesCount}} {{ 'dashboard.assignments' | translate }}</p>
+    <div
+      class="progress-wrapper third-element"
+      [matTooltip]="'dashboard.assignments' | translate"
+      [matTooltipShowDelay]="1000"
+      matTooltipPosition="below"
+    >
+      <progress
+        [value]="dashboardData.currentlyAssignedTerritoriesCount"
+        [max]="dashboardData.territoriesTotal"
+      ></progress>
+      <p class="body-grey">
+        {{ dashboardData.currentlyAssignedTerritoriesCount }}
+        {{ "dashboard.assignments" | translate }}
+      </p>
     </div>
   </div>
 </app-panel>
 
 <div class="scrollable-wrapper">
+  <div
+    *ngIf="overdueAssignments$ | async as overdueAssignments"
+    class="list-wrapper"
+  >
+    <h2 class="h2-white">
+      {{ "dashboard.overdueAssignments" | translate }}
+      <span>{{ overdueAssignmentsCount(overdueAssignments) }}</span>
+    </h2>
 
-  <div *ngIf="(overdueAssignments$ | async) as overdueAssignments" class="list-wrapper">
-    <h2 class="h2-white">{{ 'dashboard.overdueAssignments' | translate }} <span>{{overdueAssignmentsCount(overdueAssignments)}}</span></h2>
-
-    <ng-container *ngIf="(showAllOverdueAssignments ? overdueAssignments : overdueAssignments | slice:0:4) as dtos">
-      <app-list>
-        <app-list-item *ngFor="let dto of dtos"
-                       (click)="showPublisherOverdueAssignments(dto)"
-                       [class.active]="dto.publisher.id === currentSecondThreadUuid">
-          <p class="label">{{dto.publisher.name}} {{dto.publisher.firstName}}</p>
-          <p class="info">{{dto.assignments.length}}</p>
-        </app-list-item>
-      </app-list>
-      <i-feather *ngIf="overdueAssignments.length > 4 && !showAllOverdueAssignments"
-                 (click)="showAllOverdueAssignments=true" name="chevrons-down" class="i-feather blue"></i-feather>
-      <i-feather *ngIf="overdueAssignments.length > 4 && showAllOverdueAssignments"
-                 (click)="showAllOverdueAssignments=false" name="chevrons-up" class="i-feather blue"></i-feather>
-
-      <br/>
-      <p class="body-grey" style="font-size: 14px;" *ngIf="dtos.length === 0">{{ 'dashboard.noOverdueAssignments' | translate }}</p>
-    </ng-container>
-  </div>
-
-  <div *ngIf="(overdueTerritories$ | async) as overdueTerritories" class="list-wrapper">
-    <h2 class="h2-white">{{ 'dashboard.overdueTerritories' | translate }} <span>{{overdueTerritories.length}}</span></h2>
-
-    <ng-container *ngIf="(showAllOverdueTerritories ? overdueTerritories : overdueTerritories | slice:0:4) as dtos">
+    <ng-container
+      *ngIf="
+        showAllOverdueAssignments
+          ? overdueAssignments
+          : (overdueAssignments | slice: 0:4) as dtos
+      "
+    >
       <app-list>
         <app-list-item
-          *ngFor="let dto of dtos "
-          (click)="showOverdueTerritory(dto)" [class.active]="dto.territory.id === currentSecondThreadUuid">
-          <p class="label">{{dto.territory.key}} {{dto.territory.name | slice:0:30}} {{dto.territory?.name?.length > 30 ? "..." : ""}}</p>
-          <p class="info">{{dto.durationPhrase}}</p>
+          *ngFor="let dto of dtos"
+          (click)="showPublisherOverdueAssignments(dto)"
+          [class.active]="dto.publisher.id === currentSecondThreadUuid"
+        >
+          <p class="label">
+            {{ dto.publisher.name }} {{ dto.publisher.firstName }}
+          </p>
+          <p class="info">{{ dto.assignments.length }}</p>
         </app-list-item>
       </app-list>
-      <i-feather *ngIf="overdueTerritories.length > 4 && !showAllOverdueTerritories"
-                 (click)="showAllOverdueTerritories=true" name="chevrons-down" class="i-feather blue"></i-feather>
-      <i-feather *ngIf="overdueTerritories.length > 4 && showAllOverdueTerritories"
-                 (click)="showAllOverdueTerritories=false" name="chevrons-up" class="i-feather blue"></i-feather>
+      <i-feather
+        *ngIf="overdueAssignments.length > 4 && !showAllOverdueAssignments"
+        (click)="showAllOverdueAssignments = true"
+        name="chevrons-down"
+        class="i-feather blue"
+      ></i-feather>
+      <i-feather
+        *ngIf="overdueAssignments.length > 4 && showAllOverdueAssignments"
+        (click)="showAllOverdueAssignments = false"
+        name="chevrons-up"
+        class="i-feather blue"
+      ></i-feather>
 
-      <br/>
-      <p class="body-grey" style="font-size: 14px;" *ngIf="dtos.length === 0">{{ 'dashboard.noOverdueTerritories' | translate }}</p>
+      <br />
+      <p class="body-grey" style="font-size: 14px" *ngIf="dtos.length === 0">
+        {{ "dashboard.noOverdueAssignments" | translate }}
+      </p>
     </ng-container>
-
   </div>
 
-</div>
+  <div
+    *ngIf="overdueTerritories$ | async as overdueTerritories"
+    class="list-wrapper"
+  >
+    <h2 class="h2-white">
+      {{ "dashboard.overdueTerritories" | translate }}
+      <span>{{ overdueTerritories.length }}</span>
+    </h2>
 
+    <ng-container
+      *ngIf="
+        showAllOverdueTerritories
+          ? overdueTerritories
+          : (overdueTerritories | slice: 0:4) as dtos
+      "
+    >
+      <app-list>
+        <app-list-item
+          *ngFor="let dto of dtos"
+          (click)="showOverdueTerritory(dto)"
+          [class.active]="dto.territory.id === currentSecondThreadUuid"
+        >
+          <p class="label">
+            {{ dto.territory.key }} {{ dto.territory.name | slice: 0:30 }}
+            {{ dto.territory?.name?.length > 30 ? "..." : "" }}
+          </p>
+          <p class="info">{{ dto.durationPhrase }}</p>
+        </app-list-item>
+      </app-list>
+      <i-feather
+        *ngIf="overdueTerritories.length > 4 && !showAllOverdueTerritories"
+        (click)="showAllOverdueTerritories = true"
+        name="chevrons-down"
+        class="i-feather blue"
+      ></i-feather>
+      <i-feather
+        *ngIf="overdueTerritories.length > 4 && showAllOverdueTerritories"
+        (click)="showAllOverdueTerritories = false"
+        name="chevrons-up"
+        class="i-feather blue"
+      ></i-feather>
+
+      <br />
+      <p class="body-grey" style="font-size: 14px" *ngIf="dtos.length === 0">
+        {{ "dashboard.noOverdueTerritories" | translate }}
+      </p>
+    </ng-container>
+  </div>
+</div>

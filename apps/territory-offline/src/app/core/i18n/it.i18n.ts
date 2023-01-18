@@ -113,7 +113,8 @@ export const it = {
   },
   dashboard: {
     serviceYear: "Service year",
-    processed: "Territories edited",
+    processed: "territories processed in the last 12 months",
+    processedInThisServiceYear: "territories processed during the service year",
     PopulationCountProcessed: "Edited population count",
     assignments: "Assigned territories",
     overdueAssignments: "Overdue assignments",

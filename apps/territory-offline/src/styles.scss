@@ -404,3 +404,16 @@ body.with-error {
 .mapboxgl-popup {
   z-index: 10;
 }
+
+/* Mat tooltip */
+
+.mat-tooltip {
+  /* your own custom styles here */
+  /* e.g. */
+  color: #bbbec4 !important;
+  padding: 8px 12px !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(20, 25, 31, 0.5) !important;
+  font-size: 14px;
+}

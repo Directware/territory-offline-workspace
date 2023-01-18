@@ -1,7 +1,6 @@
 @import "libs/ui-components/src/lib/assets/styles/colors";
 
 :host {
-
   .app-panel {
     padding: 0;
     box-shadow: 0 8px 16px 0 rgba(24, 30, 37, 0.3);
@@ -22,6 +21,12 @@
         flex: 1;
         width: 100%;
         font-size: 14px;
+
+        &.body-grey {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
       }
     }
   }
@@ -73,6 +78,8 @@
   }
 
   .third-element {
+    margin-bottom: 0 !important;
+
     progress {
       border-radius: 4px;
       height: 0.5rem;
@@ -110,12 +117,12 @@
     .app-list {
       padding: 0;
 
-      .active{
+      .active {
         position: relative;
         background: rgba(235, 237, 239, 0.1);
         border-color: transparent;
 
-        &:before{
+        &:before {
           content: "";
           position: absolute;
           left: -1.5rem;
