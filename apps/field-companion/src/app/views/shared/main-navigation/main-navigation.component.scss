@@ -10,17 +10,24 @@
   height: 3.125rem;
 
   .navigation-items {
-    display: grid;
-    grid-template-columns: auto auto auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
 
-    > * {
-      margin: 1rem auto;
-      width: 18px;
-      height: 18px;
-      outline: none;
+    > div {
+      flex: 1;
+      text-align: center;
 
-      &.active {
-        color: #3694e2;
+      .i-feather {
+        width: 18px;
+        height: 18px;
+        outline: none;
+
+        &.active {
+          color: #3694e2;
+        }
       }
     }
   }

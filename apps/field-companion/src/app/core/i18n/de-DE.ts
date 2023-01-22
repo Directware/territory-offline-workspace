@@ -149,7 +149,7 @@ export const deDE = {
     changeLanguage: "Sprache ändern",
     language: "Sprache",
     share1: "Dir gefällt unsere App?",
-    share2: "Teile Grapes mit andern!",
+    share2: "Teile es mit andern!",
     aboutApp: "Über die App",
     appIdea: "Idee & Entwicklung",
     appDesign: "Design & Texte",
