@@ -1,40 +1,40 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
-import { TerritoryHelperImportComponent } from "./territory-helper-import/territory-helper-import.component";
-import { SyncDataComponent } from "./sync-data/sync-data.component";
-import { PdfDataExportService } from "../../core/services/export/pdf-data-export.service";
-import { Observable } from "rxjs";
+import { Router } from "@angular/router";
+import { Actions, ofType } from "@ngrx/effects";
 import { select, Store } from "@ngrx/store";
-import { ApplicationState } from "../../core/store/index.reducers";
-import { selectCurrentCongregation } from "../../core/store/congregation/congregations.selectors";
-import { first, map, take, tap } from "rxjs/operators";
-import { DataExportService } from "../../core/services/import/data-export.service";
-import { wholeTerritory } from "../../core/store/drawings/drawings.selectors";
-import * as tokml from "tokml";
-import { PlatformAgnosticActionsService } from "../../core/services/common/platform-agnostic-actions.service";
-import { ImportFromExcelModalComponent } from "./import-from-excel-modal/import-from-excel-modal.component";
-import { ExcelDataExportService } from "../../core/services/export/excel-data-export.service";
-import * as Pako from "pako";
-import { AssignmentsService } from "../../core/services/assignment/assignments.service";
+import { TranslateService } from "@ngx-translate/core";
 import {
+  Drawing,
   Territory,
   TerritoryCard,
-  Drawing,
 } from "@territory-offline-workspace/shared-interfaces";
-import { TranslateService } from "@ngx-translate/core";
-import { DataImportService } from "../../core/services/import/data-import.service";
-import { selectAllTerritories } from "../../core/store/territories/territories.selectors";
-import { GeoJsonParseService } from "../../core/services/territory/geo-json-parse.service";
-import { FileLoaderService } from "../../core/services/common/file/file-loader.service";
-import { TerritoryWebTerritories } from "../../../../../../libs/shared-interfaces/src/lib/territory-offline/territory-web/territory-web.territories";
+import * as Pako from "pako";
+import { Observable } from "rxjs";
+import { first, map, take, tap } from "rxjs/operators";
+import * as tokml from "tokml";
 import { v4 as uuid4 } from "uuid";
-import { BulkUpsertTerritory } from "../../core/store/territories/territories.actions";
+import { TerritoryWebTerritories } from "../../../../../../libs/shared-interfaces/src/lib/territory-offline/territory-web/territory-web.territories";
+import { AssignmentsService } from "../../core/services/assignment/assignments.service";
+import { FileLoaderService } from "../../core/services/common/file/file-loader.service";
+import { PlatformAgnosticActionsService } from "../../core/services/common/platform-agnostic-actions.service";
+import { ExcelDataExportService } from "../../core/services/export/excel-data-export.service";
+import { PdfDataExportService } from "../../core/services/export/pdf-data-export.service";
+import { DataExportService } from "../../core/services/import/data-export.service";
+import { DataImportService } from "../../core/services/import/data-import.service";
+import { GeoJsonParseService } from "../../core/services/territory/geo-json-parse.service";
+import { selectCurrentCongregation } from "../../core/store/congregation/congregations.selectors";
 import {
   BulkImportDrawings,
   BulkImportDrawingsSuccess,
 } from "../../core/store/drawings/drawings.actions";
-import { Actions, ofType } from "@ngrx/effects";
+import { wholeTerritory } from "../../core/store/drawings/drawings.selectors";
+import { ApplicationState } from "../../core/store/index.reducers";
+import { BulkUpsertTerritory } from "../../core/store/territories/territories.actions";
+import { selectAllTerritories } from "../../core/store/territories/territories.selectors";
+import { ImportFromExcelModalComponent } from "./import-from-excel-modal/import-from-excel-modal.component";
+import { SyncDataComponent } from "./sync-data/sync-data.component";
+import { TerritoryHelperImportComponent } from "./territory-helper-import/territory-helper-import.component";
 
 @Component({
   selector: "app-transfer",
@@ -86,7 +86,10 @@ export class TransferComponent implements OnInit {
   }
 
   public exportS13() {
-    this.pdfDataExportService.exportS13();
+    const today = new Date();
+    this.pdfDataExportService.exportNewS13(today);
+    // prettier-ignore
+    // this.pdfDataExportService.exportNewS13(new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()));
   }
 
   public exportWholeMap() {

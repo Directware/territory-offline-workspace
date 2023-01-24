@@ -177,13 +177,18 @@ export function isInLocationPath(pathName: string): boolean {
 }
 
 export function currentServiceYear(): string {
+  return serviceYearByDate(new Date());
+}
+
+export function serviceYearByDate(date: Date) {
   const september = 8;
-  const today = new Date();
-  if (today.getMonth() >= september) {
-    return `${today.getFullYear()}/${today.getFullYear() + 1}`;
+  const startingPoint = date;
+
+  if (startingPoint.getMonth() >= september) {
+    return `${startingPoint.getFullYear()}/${startingPoint.getFullYear() + 1}`;
   }
 
-  return `${today.getFullYear() - 1} / ${today.getFullYear()}`;
+  return `${startingPoint.getFullYear() - 1} / ${startingPoint.getFullYear()}`;
 }
 
 export function includedInThisServiceYear(a: Assignment): boolean {
@@ -193,37 +198,69 @@ export function includedInThisServiceYear(a: Assignment): boolean {
     return false;
   }
 
-  const today = new Date();
-  const september = 8;
-  let serviceYearStart;
-  let serviceYearEnd;
-
-  if (today.getMonth() >= september) {
-    // Angefangen: dieses Jahr am 1. September
-    serviceYearStart = new Date(today.getFullYear(), september, 1, 0, 0, 0);
-
-    // Endet: nächstes Jahr am 31. August um Mitternacht
-    serviceYearEnd = new Date(
-      today.getFullYear() + 1,
-      september,
-      0,
-      23,
-      59,
-      59
-    );
-  } else {
-    // Angefangen: letzes Jahr am 1. September
-    serviceYearStart = new Date(today.getFullYear() - 1, september, 1, 0, 0, 0);
-
-    // Endet: dieses Jahr am 31. August um Mitternacht
-    serviceYearEnd = new Date(today.getFullYear(), september, 0, 23, 59, 59);
-  }
+  const { serviceYearStart, serviceYearEnd } = getServiceYearTimes(new Date());
 
   const startTime = serviceYearStart.getTime();
   const endTime = serviceYearEnd.getTime();
   const assignmentTime = a.endTime.getTime();
 
   return startTime < assignmentTime && endTime > assignmentTime;
+}
+
+export function startedInServiceYear(
+  serviceYear: Date,
+  a: Assignment
+): boolean {
+  if (!a) {
+    return false;
+  }
+
+  const { serviceYearStart, serviceYearEnd } = getServiceYearTimes(serviceYear);
+  const startTime = serviceYearStart.getTime();
+  const endTime = serviceYearEnd.getTime();
+
+  const assignmentTime = a.startTime.getTime();
+
+  return startTime < assignmentTime && endTime > assignmentTime;
+}
+
+export function endedInServiceYear(serviceYear: Date, a: Assignment): boolean {
+  if (!a || !a.endTime) {
+    return false;
+  }
+
+  const { serviceYearStart, serviceYearEnd } = getServiceYearTimes(serviceYear);
+  const startTime = serviceYearStart.getTime();
+  const endTime = serviceYearEnd.getTime();
+
+  const assignmentTime = a.endTime.getTime();
+
+  return startTime < assignmentTime && endTime > assignmentTime;
+}
+
+export function getServiceYearTimes(startTimePoint: Date) {
+  const september = 8;
+  let serviceYearStart;
+  let serviceYearEnd;
+
+  if (startTimePoint.getMonth() >= september) {
+    // Angefangen: dieses Jahr am 1. September
+    // prettier-ignore
+    serviceYearStart = new Date(startTimePoint.getFullYear(),september,1,0,0,0);
+
+    // Endet: nächstes Jahr am 31. August um Mitternacht
+    // prettier-ignore
+    serviceYearEnd = new Date(startTimePoint.getFullYear() + 1,september,0,23,59,59);
+  } else {
+    // Angefangen: letzes Jahr am 1. September
+    // prettier-ignore
+    serviceYearStart = new Date(startTimePoint.getFullYear() - 1,september,1,0,0,0);
+
+    // Endet: dieses Jahr am 31. August um Mitternacht
+    // prettier-ignore
+    serviceYearEnd = new Date(startTimePoint.getFullYear(),september,0,23,59,59);
+  }
+  return { serviceYearStart, serviceYearEnd };
 }
 
 export function normalizeStreetName(street: string): string {
