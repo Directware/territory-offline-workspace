@@ -44,7 +44,7 @@
     <app-list class="territories">
       <app-list-item
         *ngFor="let territoryCard of expiredTerritoryCards"
-        [routerLink]="'/territory/' + territoryCard.id + '/return-territory'"
+        [routerLink]="'/territory/' + territoryCard.id"
       >
         <p class="label">
           {{ territoryCard.territory.key }} {{ territoryCard.territory.name }}
