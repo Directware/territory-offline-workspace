@@ -17,8 +17,7 @@ import {
   selectTerritoryCardById,
 } from "../../store/territory-card/territory-card.selectors";
 import { mergeDrawings } from "../../utils/usefull.functions";
-
-const { Network } = Plugins;
+import { Network } from "@capacitor/network";
 
 @Injectable({
   providedIn: "root",

@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
-import { Plugins } from "@capacitor/core";
 import { TranslateService } from "@ngx-translate/core";
 import { saveAs } from "file-saver";
 import { IpcService } from "./ipc.service";
 
-const { Share, Clipboard, Device } = Plugins;
+import { Clipboard } from "@capacitor/clipboard";
+import { Device } from "@capacitor/device";
+import { Share } from "@capacitor/share";
 
 @Injectable({
   providedIn: "root",

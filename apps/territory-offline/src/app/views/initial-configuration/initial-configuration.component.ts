@@ -1,72 +1,77 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Actions, ofType} from '@ngrx/effects';
-import {CryptoService} from '../../core/services/encryption/crypto.service';
-import {Store} from '@ngrx/store';
-import {ApplicationState} from '../../core/store/index.reducers';
-import {v4 as uuid} from 'uuid';
-import {SettingsState} from '../../core/store/settings/settings.reducer';
-import {UnlockApp, UpsertSettings, UpsertSettingsSuccess} from '../../core/store/settings/settings.actions';
-import {take, tap} from 'rxjs/operators';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Actions, ofType } from "@ngrx/effects";
+import { CryptoService } from "../../core/services/encryption/crypto.service";
+import { Store } from "@ngrx/store";
+import { ApplicationState } from "../../core/store/index.reducers";
+import { v4 as uuid } from "uuid";
+import { SettingsState } from "../../core/store/settings/settings.reducer";
+import {
+  UnlockApp,
+  UpsertSettings,
+  UpsertSettingsSuccess,
+} from "../../core/store/settings/settings.actions";
+import { take, tap } from "rxjs/operators";
 import {
   UpsertCongregation,
   UpsertCongregationSuccess,
-  UseCongregation
-} from '../../core/store/congregation/congregations.actions';
-import {LoadDrawings} from "../../core/store/drawings/drawings.actions";
-import {DataSecurityService} from "../../core/services/common/data-security.service";
-import {environment} from "../../../environments/environment";
-import {TerritoryLanguageService, ToLanguage} from "@territory-offline-workspace/ui-components";
-import {Congregation} from "@territory-offline-workspace/shared-interfaces";
-import {Plugins} from '@capacitor/core';
-import {TranslateService} from "@ngx-translate/core";
-const {Device} = Plugins;
+  UseCongregation,
+} from "../../core/store/congregation/congregations.actions";
+import { LoadDrawings } from "../../core/store/drawings/drawings.actions";
+import { DataSecurityService } from "../../core/services/common/data-security.service";
+import { environment } from "../../../environments/environment";
+import {
+  TerritoryLanguageService,
+  ToLanguage,
+} from "@territory-offline-workspace/ui-components";
+import { Congregation } from "@territory-offline-workspace/shared-interfaces";
+import { TranslateService } from "@ngx-translate/core";
+import { Device } from "@capacitor/device";
 
 @Component({
-  selector: 'app-initial-configuration',
-  templateUrl: './initial-configuration.component.html',
-  styleUrls: ['./initial-configuration.component.scss']
+  selector: "app-initial-configuration",
+  templateUrl: "./initial-configuration.component.html",
+  styleUrls: ["./initial-configuration.component.scss"],
 })
-export class InitialConfigurationComponent implements OnInit
-{
+export class InitialConfigurationComponent implements OnInit {
   public currentStep = 0;
   public initialConfigFormGroup: FormGroup;
   public isPasswordNeeded: boolean;
 
-  constructor(private actions$: Actions,
-              private cryptoService: CryptoService,
-              private fb: FormBuilder,
-              private languageService: TerritoryLanguageService,
-              private translateService: TranslateService,
-              private dataSecurityService: DataSecurityService,
-              private store: Store<ApplicationState>)
-  {
-  }
+  constructor(
+    private actions$: Actions,
+    private cryptoService: CryptoService,
+    private fb: FormBuilder,
+    private languageService: TerritoryLanguageService,
+    private translateService: TranslateService,
+    private dataSecurityService: DataSecurityService,
+    private store: Store<ApplicationState>
+  ) {}
 
-  public ngOnInit()
-  {
+  public ngOnInit() {
     const passwordValidators = [];
     this.isPasswordNeeded = this.dataSecurityService.mustUsePassword();
 
-    if (this.isPasswordNeeded)
-    {
+    if (this.isPasswordNeeded) {
       passwordValidators.push(Validators.required, Validators.minLength(7));
     }
 
-    this.initialConfigFormGroup = this.fb.group({
-      id: [uuid()],
-      lockPassword: ['', passwordValidators],
-      lockPasswordRepetition: ['', passwordValidators],
-      congregation: ['', [Validators.required]],
-      language: ['', [Validators.required]],
-      languageCode: ['', [Validators.required]],
-      isAppLocked: [false]
-    }, {validator: this.isPasswordNeeded ? this.checkPasswords : null});
+    this.initialConfigFormGroup = this.fb.group(
+      {
+        id: [uuid()],
+        lockPassword: ["", passwordValidators],
+        lockPasswordRepetition: ["", passwordValidators],
+        congregation: ["", [Validators.required]],
+        language: ["", [Validators.required]],
+        languageCode: ["", [Validators.required]],
+        isAppLocked: [false],
+      },
+      { validator: this.isPasswordNeeded ? this.checkPasswords : null }
+    );
 
-    if (!environment.production)
-    {
+    if (!environment.production) {
       const language = this.languageService.getLanguageByCode("de");
-      this.initialConfigFormGroup.patchValue({congregation: "Augsburg West"});
+      this.initialConfigFormGroup.patchValue({ congregation: "Augsburg West" });
       this.initialConfigFormGroup.patchValue({
         language: language.nativeName,
         languageCode: language.languageCode,
@@ -74,16 +79,14 @@ export class InitialConfigurationComponent implements OnInit
     }
   }
 
-  public setLanguage(language: ToLanguage)
-  {
+  public setLanguage(language: ToLanguage) {
     this.initialConfigFormGroup.patchValue({
       language: language ? language.nativeName : null,
       languageCode: language ? language.languageCode : null,
     });
   }
 
-  public async createInitialConfiguration(center)
-  {
+  public async createInitialConfiguration(center) {
     const tmp = this.initialConfigFormGroup.getRawValue();
 
     const currentCongregationId = uuid();
@@ -91,8 +94,7 @@ export class InitialConfigurationComponent implements OnInit
     const langCode = await Device.getLanguageCode();
     let systemLang = this.languageService.getLanguageByCode(langCode.value);
 
-    if (!this.translateService.getLangs().includes(systemLang?.languageCode))
-    {
+    if (!this.translateService.getLangs().includes(systemLang?.languageCode)) {
       systemLang = this.languageService.getLanguageByCode("en");
     }
 
@@ -109,7 +111,7 @@ export class InitialConfigurationComponent implements OnInit
       processingBreakInMonths: 4,
       overdueBreakInMonths: 8,
       autoAppLockingInMinutes: 0,
-      appLanguage: systemLang
+      appLanguage: systemLang,
     };
 
     const congregation: Congregation = {
@@ -118,58 +120,73 @@ export class InitialConfigurationComponent implements OnInit
       language: tmp.language,
       languageCode: tmp.languageCode,
       hashedName: btoa(tmp.congregation),
-      creationTime: new Date()
+      creationTime: new Date(),
     };
 
-    if (this.isPasswordNeeded)
-    {
-      const encryptionConfig = this.cryptoService.generateInitialConfig(tmp.lockPassword);
+    if (this.isPasswordNeeded) {
+      const encryptionConfig = this.cryptoService.generateInitialConfig(
+        tmp.lockPassword
+      );
       createdSettings.passwordHash = encryptionConfig.hash;
       createdSettings.encryptedSecretKey = encryptionConfig.encryptedSecretKey;
-      createdSettings.publicKey = new Uint8Array(Object.values(encryptionConfig.publicKey));
+      createdSettings.publicKey = new Uint8Array(
+        Object.values(encryptionConfig.publicKey)
+      );
     }
 
     this.firstOpenSequence(congregation);
 
-    this.store.dispatch(UpsertSettings({settings: createdSettings}));
+    this.store.dispatch(UpsertSettings({ settings: createdSettings }));
   }
 
-  private firstOpenSequence(congregation)
-  {
+  private firstOpenSequence(congregation) {
     this.actions$
       .pipe(
         ofType(UpsertSettingsSuccess),
         take(1),
-        tap(() => this.store.dispatch(UpsertCongregation({congregation: congregation})))
-      ).subscribe();
+        tap(() =>
+          this.store.dispatch(
+            UpsertCongregation({ congregation: congregation })
+          )
+        )
+      )
+      .subscribe();
 
     this.actions$
       .pipe(
         ofType(UpsertCongregationSuccess),
         take(1),
-        tap(() => this.store.dispatch(UseCongregation({congregationId: congregation.id})))
-      ).subscribe();
+        tap(() =>
+          this.store.dispatch(
+            UseCongregation({ congregationId: congregation.id })
+          )
+        )
+      )
+      .subscribe();
 
     this.actions$
       .pipe(
         ofType(UseCongregation),
         take(1),
         tap(() => this.store.dispatch(UnlockApp()))
-      ).subscribe();
+      )
+      .subscribe();
 
     this.actions$
       .pipe(
         ofType(UnlockApp),
         take(1),
         tap(() => this.store.dispatch(LoadDrawings())) // Wichtig für die Initialisierung der Landkarte!
-      ).subscribe();
+      )
+      .subscribe();
   }
 
-  private checkPasswords(group: FormGroup)
-  {
+  private checkPasswords(group: FormGroup) {
     const pass = group.controls.lockPassword.value;
     const confirmPass = group.controls.lockPasswordRepetition.value;
 
-    return pass === confirmPass || !pass || !confirmPass ? null : {notSame: true};
+    return pass === confirmPass || !pass || !confirmPass
+      ? null
+      : { notSame: true };
   }
 }

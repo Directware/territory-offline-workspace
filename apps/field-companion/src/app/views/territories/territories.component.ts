@@ -13,7 +13,8 @@ import { Plugins } from "@capacitor/core";
 import { TerritoryCardService } from "../../core/services/territory-card.service";
 import { map } from "rxjs/operators";
 
-const { FileSelector, Device } = Plugins;
+import { Device } from "@capacitor/device";
+import { FilePicker } from "@capawesome/capacitor-file-picker";
 
 @Component({
   selector: "fc-territories",
@@ -68,10 +69,11 @@ export class TerritoriesComponent implements OnInit {
   }
 
   public async select() {
-    const selectedFile = await FileSelector.fileSelector({
-      multiple_selection: false,
-      ext: ["*"],
+    const selectedFileResult = await FilePicker.pickFiles({
+      multiple: false,
     });
+
+    const selectedFile = selectedFileResult[0];
 
     const deviceInfo = await Device.getInfo();
     let paths;

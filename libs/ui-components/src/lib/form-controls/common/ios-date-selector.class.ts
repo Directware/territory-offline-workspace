@@ -1,5 +1,5 @@
-import { Plugins } from "@capacitor/core";
-const { Device, HapticsImpactStyle, Haptics } = Plugins;
+import { Device } from "@capacitor/device";
+import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
 // Source from here https://codepen.io/gnauhca/pen/JrdpZZ
 const easing = {
@@ -366,7 +366,7 @@ export class IosSelector {
         this.currentScrollIndex !== Math.round(scroll)
       ) {
         this.currentScrollIndex = Math.round(scroll);
-        Haptics.impact({ style: HapticsImpactStyle.Light });
+        Haptics.impact({ style: ImpactStyle.Light });
       }
     }
   }

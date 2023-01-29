@@ -11,10 +11,9 @@ import { v4 as uuid4 } from "uuid";
 import { Actions, ofType } from "@ngrx/effects";
 import { TerritoryLanguageService } from "@territory-offline-workspace/ui-components";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Plugins } from "@capacitor/core";
 import { DonateHintService } from "@territory-offline-workspace/shared-services";
 import { settingsCollectionName } from "@territory-offline-workspace/shared-interfaces";
-const { Device } = Plugins;
+import { Device } from "@capacitor/device";
 
 @Component({
   selector: "app-welcome",

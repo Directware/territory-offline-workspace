@@ -1,43 +1,37 @@
-import {Injectable} from '@angular/core';
-import {Plugins} from "@capacitor/core";
-import {TranslateService} from "@ngx-translate/core";
+import { Injectable } from "@angular/core";
+import { Plugins } from "@capacitor/core";
+import { TranslateService } from "@ngx-translate/core";
 
-const {App, Filesystem} = Plugins;
+import { App } from "@capacitor/app";
+import { Filesystem } from "@capacitor/filesystem";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
-export class AppUrlOpenService
-{
-  constructor(private translateService: TranslateService)
-  {
-  }
+export class AppUrlOpenService {
+  constructor(private translateService: TranslateService) {}
 
-  public async init(fileExtensionHandler: { extension: string, handler: Function }[])
-  {
-    App.addListener("appUrlOpen", async (appUrlOpen) =>
-    {
-      const foundFeh = fileExtensionHandler.find(feh => appUrlOpen.url.endsWith(feh.extension));
+  public async init(
+    fileExtensionHandler: { extension: string; handler: Function }[]
+  ) {
+    App.addListener("appUrlOpen", async (appUrlOpen) => {
+      const foundFeh = fileExtensionHandler.find((feh) =>
+        appUrlOpen.url.endsWith(feh.extension)
+      );
 
-      if (foundFeh && foundFeh.handler)
-      {
-        try
-        {
-          const contents = await Filesystem.readFile({path: appUrlOpen.url});
+      if (foundFeh && foundFeh.handler) {
+        try {
+          const contents = await Filesystem.readFile({ path: appUrlOpen.url });
           const reader = new FileReader();
           reader.onload = () => foundFeh.handler(reader.result);
           reader.readAsText(new Blob([atob(contents.data)]));
-        }
-        catch (e)
-        {
+        } catch (e) {
           alert(e.errorMessage);
         }
-      }
-      else
-      {
+      } else {
         // TODO need generic message not from FC
         alert(this.translateService.instant("territories.wrongFileType"));
       }
-    })
+    });
   }
 }

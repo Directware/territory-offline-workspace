@@ -11,7 +11,6 @@ import { first, take, tap } from "rxjs/operators";
 import { selectTerritoryById } from "../../store/territories/territories.selectors";
 import { ApplicationState } from "../../store/index.reducers";
 import { selectPublisherById } from "../../store/publishers/publishers.selectors";
-import { Plugins } from "@capacitor/core";
 import * as Pako from "pako";
 import { selectDrawingById } from "../../store/drawings/drawings.selectors";
 import { selectVisitBansByTerritoryId } from "../../store/visit-bans/visit-bans.selectors";
@@ -30,7 +29,7 @@ import { PlatformAgnosticActionsService } from "../common/platform-agnostic-acti
 import { TerritoryMapsService } from "../territory/territory-maps.service";
 import { UpsertTerritory } from "../../store/territories/territories.actions";
 
-const { Device } = Plugins;
+import { Device } from "@capacitor/device";
 
 @Injectable({
   providedIn: "root",

@@ -82,7 +82,6 @@ import {
 import { AVAILABLE_LANGUAGES } from "./core/i18n/all.i18n";
 import { first, tap } from "rxjs/operators";
 import { LoadSettingsSuccess } from "./core/store/settings/settings.actions";
-import { Plugins } from "@capacitor/core";
 import { DurationPhrasePipe } from "./core/pipes/duration-phrase.pipe";
 import { ImportGeoJsonComponent } from "./views/transfer/import-geo-json/import-geo-json.component";
 import { Router } from "@angular/router";
@@ -92,10 +91,11 @@ import { OrphanVisitBanPipe } from "./core/pipes/visit-bans/orphan-visit-ban.pip
 import { MatSliderModule } from "@angular/material/slider";
 import { DateNotOlderThanPipe } from "./core/pipes/date-not-older-than.pipe";
 import { ExportReportForGroupOverseerComponent } from "./views/transfer/export-report-for-group-overseer/export-report-for-group-overseer.component";
-import { FingerprintAIO } from "@ionic-native/fingerprint-aio/ngx";
 import { DataImportService } from "./core/services/import/data-import.service";
 
-const { Device, App, Filesystem } = Plugins;
+import { Device } from "@capacitor/device";
+import { App } from "@capacitor/app";
+import { Filesystem } from "@capacitor/filesystem";
 
 declare const sourceMapSupport: any;
 
@@ -200,7 +200,6 @@ declare const sourceMapSupport: any;
     },
     { provide: ErrorHandler, useClass: GlobalErrorHandlerService },
     { provide: HAMMER_GESTURE_CONFIG, useClass: HammerConfig },
-    FingerprintAIO,
   ],
   bootstrap: [AppComponent],
 })
