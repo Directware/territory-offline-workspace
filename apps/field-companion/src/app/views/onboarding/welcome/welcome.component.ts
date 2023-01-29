@@ -50,7 +50,7 @@ export class WelcomeComponent implements OnInit {
       )
       .subscribe();
 
-    const info = await Device.getInfo();
+    const deviceId = await Device.getId();
     const languageCode = await Device.getLanguageCode();
 
     const lang =
@@ -61,7 +61,7 @@ export class WelcomeComponent implements OnInit {
       UpsertSettings({
         settings: {
           id: uuid4(),
-          userId: info.uuid || uuid4(),
+          userId: deviceId || uuid4(),
           userName: null,
           userLanguage: lang,
           initialConfigurationDone: true,

@@ -1,0 +1,7 @@
+{
+  "appId": "com.territoryoffline.fieldcompanion",
+  "appName": "Field Companion",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist/field-companion"
+}

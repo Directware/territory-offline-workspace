@@ -3,5 +3,6 @@
     <string name="app_name">Field Companion</string>
     <string name="title_activity_main">Field Companion</string>
     <string name="package_name">com.territoryoffline.fieldcompanion</string>
+    <string name="fileprovider_authority">com.territoryoffline.fieldcompanion.fileprovider</string>
     <string name="custom_url_scheme">com.territoryoffline.fieldcompanion</string>
 </resources>

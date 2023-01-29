@@ -3,7 +3,6 @@
   "appName": "Field Companion",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "dist/field-companion",
   "cordova": {},
   "scripts": {
     "capacitor:update": "npx cap update",
@@ -13,9 +12,10 @@
     "start:android": "npx cap sync && npx cap open android"
   },
   "dependencies": {
-    "@byteowls/capacitor-filesharer": "^2.0.0",
-    "@capacitor/android": "^2.3.0",
-    "capacitor-data-storage-sqlite": "^2.1.0",
-    "capacitor-file-selector": "0.0.4"
+    "@byteowls/capacitor-filesharer": "^4.0.0",
+    "@capacitor/android": "^4.0.0",
+    "@capacitor/ios": "^4.0.0",
+    "capacitor-data-storage-sqlite": "^4.0.1",
+    "@capawesome/capacitor-file-picker": "^0.5.9"
   }
 }
