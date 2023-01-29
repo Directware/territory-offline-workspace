@@ -1,0 +1,14 @@
+[
+	{
+		"pkg": "@byteowls/capacitor-filesharer",
+		"classpath": "com.byteowls.capacitor.filesharer.FileSharerPlugin"
+	},
+	{
+		"pkg": "capacitor-data-storage-sqlite",
+		"classpath": "com.jeep.plugin.capacitor.capacitordatastoragesqlite.CapacitorDataStorageSqlitePlugin"
+	},
+	{
+		"pkg": "@capawesome/capacitor-file-picker",
+		"classpath": "io.capawesome.capacitorjs.plugins.filepicker.FilePickerPlugin"
+	}
+]

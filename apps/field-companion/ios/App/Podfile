@@ -9,13 +9,11 @@ use_frameworks!
 install! 'cocoapods', :disable_input_output_paths => true
 
 def capacitor_pods
-  # Automatic Capacitor Pod dependencies, do not delete
-  pod 'Capacitor', :path => '../../node_modules/@capacitor/ios'
-  pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
-  pod 'ByteowlsCapacitorFilesharer', :path => '../../node_modules/@byteowls/capacitor-filesharer'
-  pod 'CapacitorDataStorageSqlite', :path => '../../node_modules/capacitor-data-storage-sqlite'
-  pod 'CapawesomeCapacitorFilePicker', :path => '../../node_modules/@capawesome/capacitor-file-picker'
-  # Do not delete
+  pod 'Capacitor', :path => '../../../../node_modules/@capacitor/ios'
+  pod 'CapacitorCordova', :path => '../../../../node_modules/@capacitor/ios'
+  pod 'ByteowlsCapacitorFilesharer', :path => '../../../../node_modules/@byteowls/capacitor-filesharer'
+  pod 'CapacitorDataStorageSqlite', :path => '../../../../node_modules/capacitor-data-storage-sqlite'
+  pod 'CapawesomeCapacitorFilePicker', :path => '../../../../node_modules/@capawesome/capacitor-file-picker'
 end
 
 target 'App' do
