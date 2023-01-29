@@ -9,13 +9,22 @@
     "start:ios": "npx cap open ios",
     "capacitor:ios:sync": "npx cap sync",
     "capacitor:android:sync": "npx cap sync",
-    "start:android": "npx cap sync && npx cap open android"
+    "start:android": "npx cap sync android"
   },
   "dependencies": {
     "@byteowls/capacitor-filesharer": "^4.0.0",
     "@capacitor/android": "^4.0.0",
     "@capacitor/ios": "^4.0.0",
     "capacitor-data-storage-sqlite": "^4.0.1",
-    "@capawesome/capacitor-file-picker": "^0.5.9"
+    "@capawesome/capacitor-file-picker": "^0.5.9",
+    "@capacitor/app": "^4.0.0",
+    "@capacitor/browser": "^4.0.0",
+    "@capacitor/clipboard": "^4.0.0",
+    "@capacitor/device": "^4.0.0",
+    "@capacitor/filesystem": "^4.0.0",
+    "@capacitor/haptics": "^4.0.0",
+    "@capacitor/local-notifications": "^4.0.0",
+    "@capacitor/network": "^4.0.0",
+    "@capacitor/share": "^4.0.0"
   }
 }

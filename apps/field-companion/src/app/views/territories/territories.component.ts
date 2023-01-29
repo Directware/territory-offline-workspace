@@ -9,7 +9,6 @@ import {
 import { combineLatest, Observable } from "rxjs";
 import { TerritoryCard } from "@territory-offline-workspace/shared-interfaces";
 import { TranslateService } from "@ngx-translate/core";
-import { Plugins } from "@capacitor/core";
 import { TerritoryCardService } from "../../core/services/territory-card.service";
 import { map } from "rxjs/operators";
 
@@ -71,22 +70,13 @@ export class TerritoriesComponent implements OnInit {
   public async select() {
     const selectedFileResult = await FilePicker.pickFiles({
       multiple: false,
+      readData: true,
     });
 
-    const selectedFile = selectedFileResult[0];
+    const selectedFile = selectedFileResult.files[0];
 
-    const deviceInfo = await Device.getInfo();
-    let paths;
-
-    if (deviceInfo.platform === "ios") {
-      paths = selectedFile.paths;
-    } else if (deviceInfo.platform === "android") {
-      paths = JSON.parse(selectedFile.paths);
-    }
-
-    if (selectedFile.extensions.includes("territory")) {
-      const file = await fetch(paths[0]).then((r) => r.blob());
-      this.readFile(file);
+    if (selectedFile.name.includes("territory")) {
+      this.readFile(this.b64toBlob(selectedFile.data));
     } else {
       alert(this.translateService.instant("territories.wrongFileType"));
     }
@@ -101,5 +91,25 @@ export class TerritoriesComponent implements OnInit {
     reader.onload = () =>
       this.territoryCardService.importTerritory(reader.result as any);
     reader.readAsArrayBuffer(file);
+  }
+
+  private b64toBlob(b64Data: string, contentType = "", sliceSize = 512) {
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, { type: contentType });
+    return blob;
   }
 }

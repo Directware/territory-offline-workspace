@@ -24,6 +24,7 @@ import { FileExtensions } from "@territory-offline-workspace/shared-interfaces";
 
 import { Browser } from "@capacitor/browser";
 import { Share } from "@capacitor/share";
+import { Device } from "@capacitor/device";
 
 @Component({
   selector: "app-settings",

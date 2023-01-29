@@ -61,7 +61,7 @@ export class WelcomeComponent implements OnInit {
       UpsertSettings({
         settings: {
           id: uuid4(),
-          userId: deviceId || uuid4(),
+          userId: deviceId?.uuid || uuid4(),
           userName: null,
           userLanguage: lang,
           initialConfigurationDone: true,
