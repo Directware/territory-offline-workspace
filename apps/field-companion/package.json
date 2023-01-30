@@ -7,9 +7,9 @@
   "scripts": {
     "capacitor:update": "npx cap update",
     "start:ios": "npx cap open ios",
-    "capacitor:ios:sync": "npx cap sync",
-    "capacitor:android:sync": "npx cap sync",
-    "start:android": "npx cap sync android"
+    "capacitor:ios:sync": "npx cap sync ios",
+    "capacitor:android:sync": "npx cap sync android",
+    "start:android": "npx cap open android"
   },
   "dependencies": {
     "@byteowls/capacitor-filesharer": "^4.0.0",
