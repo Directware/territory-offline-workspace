@@ -24,15 +24,27 @@ export class AppInitializerService {
   ) {}
 
   public async load(): Promise<any> {
+    console.log("AppInitializerService");
     return new Promise((resolve, reject) =>
-      this.beforeAppStart().then(() => resolve(null))
+      this.beforeAppStart()
+        .then(() => {
+          console.log("[AppInitializerService] resolved");
+          resolve(null);
+        })
+        .catch((e) => {
+          console.error("[AppInitializerService] rejected");
+          console.error(e);
+        })
     );
   }
 
   private async beforeAppStart(): Promise<any> {
     this.logNgrxActions();
+    console.log("[AppInitializerService] init data security");
     await this.dataSecurityService.init();
+    console.log("[AppInitializerService] init database");
     await this.settingsDatabaseService.initAppropriateSQLite();
+    console.log("[AppInitializerService] open data security");
     await this.databaseService
       .init()
       .then(() => logger(`Database successfully opened.`))
@@ -40,7 +52,9 @@ export class AppInitializerService {
         console.error("####### \n\n Fehler beim öffnen der Datenbank! \n\n", e)
       );
 
+    console.log("[AppInitializerService] load app configuration");
     await this.loadAppConfiguration();
+    console.log("[AppInitializerService] ready state");
     return "ready";
   }
 

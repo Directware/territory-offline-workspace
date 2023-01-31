@@ -44,8 +44,12 @@
         </p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
-      <app-list-item (click)="exportS13()">
-        <p class="label">{{ "transfer.exportS13" | translate }}</p>
+      <app-list-item (click)="exportS13CurrentServiceYear()">
+        <p class="label">{{ "transfer.exportS13Current" | translate }}</p>
+        <i-feather class="i-feather action" name="chevron-right"></i-feather>
+      </app-list-item>
+      <app-list-item (click)="exportS13LastServiceYear()">
+        <p class="label">{{ "transfer.exportS13Last" | translate }}</p>
         <i-feather class="i-feather action" name="chevron-right"></i-feather>
       </app-list-item>
       <app-list-item (click)="exportWholeMap()">

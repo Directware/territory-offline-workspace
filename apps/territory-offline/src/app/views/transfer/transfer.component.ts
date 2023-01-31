@@ -85,11 +85,15 @@ export class TransferComponent implements OnInit {
     ]);
   }
 
-  public exportS13() {
+  public exportS13CurrentServiceYear() {
     const today = new Date();
     this.pdfDataExportService.exportNewS13(today);
+  }
+
+  public exportS13LastServiceYear() {
+    const today = new Date();
     // prettier-ignore
-    // this.pdfDataExportService.exportNewS13(new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()));
+    this.pdfDataExportService.exportNewS13(new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()), false);
   }
 
   public exportWholeMap() {

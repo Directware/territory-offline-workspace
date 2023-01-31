@@ -310,7 +310,7 @@ export class PdfDataExportService {
     this.save(createdPdf, "S-13.pdf");
   }
 
-  public async exportNewS13(serviceYear: Date) {
+  public async exportNewS13(serviceYear: Date, isCurrentServiceYear = true) {
     const headerStyle = {
       fontSize: 9,
       fillColor: "#d9d9d9",
@@ -336,7 +336,7 @@ export class PdfDataExportService {
           },
           {
             ...headerStyle,
-            text: "Datum der letzen Bearbeitung",
+            text: "Datum der letzten Bearbeitung",
             colspan: 1,
             rowSpan: 2,
           },
@@ -353,13 +353,13 @@ export class PdfDataExportService {
           { ...headerStyle, text: "" },
           { ...headerStyle, text: "" },
           { ...headerStyle, fontSize: 8, text: "ausgegeben am" },
+          { ...headerStyle, fontSize: 8, text: "bearbeitet am" },
           { ...headerStyle, fontSize: 8, text: "ausgegeben am" },
+          { ...headerStyle, fontSize: 8, text: "bearbeitet am" },
           { ...headerStyle, fontSize: 8, text: "ausgegeben am" },
+          { ...headerStyle, fontSize: 8, text: "bearbeitet am" },
           { ...headerStyle, fontSize: 8, text: "ausgegeben am" },
-          { ...headerStyle, fontSize: 8, text: "ausgegeben am" },
-          { ...headerStyle, fontSize: 8, text: "ausgegeben am" },
-          { ...headerStyle, fontSize: 8, text: "ausgegeben am" },
-          { ...headerStyle, fontSize: 8, text: "ausgegeben am" },
+          { ...headerStyle, fontSize: 8, text: "bearbeitet am" },
         ],
       ],
     };
@@ -391,13 +391,17 @@ export class PdfDataExportService {
 
       // prettier-ignore
       const sortedLastFourAssignments = assignments
-        .filter((a) => startedInServiceYear(serviceYear, a) || endedInServiceYear(serviceYear, a))
+        .filter((a) => isCurrentServiceYear ? startedInServiceYear(serviceYear, a) || endedInServiceYear(serviceYear, a) : startedInServiceYear(serviceYear, a) && endedInServiceYear(serviceYear, a))
         .sort((a1, a2) => (a1.startTime < a2.startTime ? 1 : -1))
         .slice(0, 4)
         .reverse();
 
       const lastDoneAssignment = assignments
-        .filter((a) => !!a.endTime)
+        .filter((a) =>
+          isCurrentServiceYear
+            ? !!a.endTime
+            : !!a.endTime && endedInServiceYear(serviceYear, a)
+        )
         .sort((a1, a2) => (a1.startTime < a2.startTime ? 1 : -1))[0];
 
       const bodyStyle = { fontSize: 9, lineHeight: 1, alignment: "center" };

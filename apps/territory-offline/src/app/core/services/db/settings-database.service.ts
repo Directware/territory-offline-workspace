@@ -26,7 +26,8 @@ export class SettingsDatabaseService {
     const dataStorageResult = await this._storage.get({
       key: this.SETTINGS_PREFIX,
     });
-    return JSON.parse(dataStorageResult.value);
+
+    return JSON.parse(dataStorageResult.value || null);
   }
 
   public async create(entity: SettingsState): Promise<SettingsState> {
