@@ -22,7 +22,9 @@ export class PlatformAgnosticActionsService {
 
   // TODO handle Mobile
   public async share(file: any, fileName: string, subPath = "") {
+    console.log("[PlatformAgnosticActionsService] share.");
     const info = await Device.getInfo();
+    console.log("[PlatformAgnosticActionsService] device info: ", info);
 
     switch (info.platform) {
       case "web": {

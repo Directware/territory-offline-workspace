@@ -1,7 +1,7 @@
 {
   "name": "territory-offline",
   "version": "2.1.45",
-  "description": "",
+  "description": "Territory offline",
   "main": "index.js",
   "scripts": {
     "electron:start": "electron ./",
@@ -10,7 +10,7 @@
     "dist:mac": "electron-builder -m",
     "dist:win": "electron-builder -w",
     "dist:linux": "electron-builder -l",
-    "dist:all": "npm run dist:mac && npm run dist:win && npm run dist:linux",
+    "dist:all": "npm run dist:win && npm run dist:linux && dist:max",
     "upload:azure-blob": "node ./scripts/az-release.js",
     "release": "npm run dist:all && npm run upload:azure-blob"
   },
@@ -23,7 +23,7 @@
     "azure-storage": "^2.10.3",
     "cli-progress": "^3.5.0",
     "dotenv": "^8.2.0",
-    "electron": "^8.2.5",
+    "electron": "^22.1.0",
     "electron-builder": "^23.6.0",
     "@electron/notarize": "^1.2.3"
   },
@@ -37,9 +37,7 @@
     "afterSign": "scripts/notarize.js",
     "appId": "com.territoryoffline.to",
     "productName": "Territory-Offline",
-    "asarUnpack": [
-      "**/*.node"
-    ],
+    "asar": true,
     "files": [
       "index.js",
       "preload.js",
@@ -61,7 +59,7 @@
       "entitlementsInherit": "entitlements.mac.plist"
     },
     "dmg": {
-      "sign": false,
+      "sign": true,
       "background": "./splash_assets/mac-installer-background.png"
     },
     "win": {
@@ -77,7 +75,8 @@
     },
     "linux": {
       "target": "AppImage",
-      "artifactName": "territory-offline.${ext}"
+      "artifactName": "territory-offline.${ext}",
+      "category": "territoryoffline"
     },
     "nsis": {
       "perMachine": true,

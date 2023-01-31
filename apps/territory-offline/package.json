@@ -15,7 +15,7 @@
     "capacitor:ios:sync": "npx cap sync ios",
     "capacitor:update": "npx cap update",
     "capacitor:copy": "npx cap copy",
-    "capacitor:electron:start": "npx cap sync && npx cap open electron",
+    "capacitor:electron:start": "npx cap sync electron && npx cap open electron",
     "capacitor:ios:start": "npx cap open ios",
     "capacitor:android:start": "npx cap open android",
     "cypress:open": "npx cypress open"

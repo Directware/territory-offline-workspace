@@ -1,9 +1,9 @@
-require('dotenv').config();
-var { notarize } = require('@electron/notarize');
+require("dotenv").config();
+var { notarize } = require("@electron/notarize");
 
 exports.default = async function notarizing(context) {
-  const {electronPlatformName, appOutDir} = context;
-  if (electronPlatformName !== 'darwin') {
+  const { electronPlatformName, appOutDir } = context;
+  if (electronPlatformName !== "darwin") {
     return;
   }
 
@@ -11,7 +11,7 @@ exports.default = async function notarizing(context) {
   console.log("\n\n\t Notarizing " + appName + "! Please wait...");
 
   return await notarize({
-    appBundleId: 'com.territoryoffline.to',
+    appBundleId: "com.territoryoffline.to",
     appPath: `${appOutDir}/${appName}.app`,
     appleId: process.env.APPLEID,
     appleIdPassword: process.env.APPLEIDPASS,

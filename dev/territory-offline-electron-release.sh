@@ -26,7 +26,9 @@ npm run build:territory-offline:prod || exit
 
 # synchronize capacitor electron resources
 cd ./apps/territory-offline/ || exit
-npm run capacitor:copy || exit
+mkdir -p ./electron/app || exit
+cp -R ./dist/territory-offline/** ./electron/app || exit
+#npm run capacitor:copy || exit
 
 # bump version in electron folder
 cd ./electron || exit
