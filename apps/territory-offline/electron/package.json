@@ -17,18 +17,15 @@
   "dependencies": {
     "@capacitor/electron": "^2.5.0",
     "electron-is-dev": "^1.1.0",
-    "sqlite3": "^5.0.3",
     "js-base64": "^3.6.0"
   },
   "devDependencies": {
-    "@types/sqlite3": "^3.1.6",
     "azure-storage": "^2.10.3",
     "cli-progress": "^3.5.0",
     "dotenv": "^8.2.0",
     "electron": "^8.2.5",
     "electron-builder": "^23.6.0",
-    "electron-notarize": "^0.3.0",
-    "electron-rebuild": "^1.11.0"
+    "@electron/notarize": "^1.2.3"
   },
   "keywords": [
     "capacitor",
@@ -40,6 +37,9 @@
     "afterSign": "scripts/notarize.js",
     "appId": "com.territoryoffline.to",
     "productName": "Territory-Offline",
+    "asarUnpack": [
+      "**/*.node"
+    ],
     "files": [
       "index.js",
       "preload.js",
