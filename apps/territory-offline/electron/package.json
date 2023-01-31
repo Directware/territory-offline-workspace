@@ -10,7 +10,7 @@
     "dist:mac": "electron-builder -m",
     "dist:win": "electron-builder -w",
     "dist:linux": "electron-builder -l",
-    "dist:all": "npm run dist:win && npm run dist:linux && dist:mac",
+    "dist:all": "npm run dist:win && npm run dist:linux && npm run dist:mac",
     "upload:azure-blob": "node ./scripts/az-release.js",
     "release": "npm run dist:all && npm run upload:azure-blob"
   },
