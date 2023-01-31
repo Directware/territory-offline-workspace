@@ -45,10 +45,7 @@ async function createWindow() {
     },
   });
 
-  mainWindow.webContents.on("dom-ready", () => {
-    console.log("[INDEX] 'dom-ready' event");
-    ipcMainListeners();
-  });
+  ipcMainListeners(path);
 
   configCapacitor(mainWindow);
 
@@ -74,7 +71,7 @@ async function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some Electron APIs can only be used after this event occurs.
-app.on("ready", createWindow);
+app.on("ready", createWindow.bind(this));
 
 // Quit when all windows are closed.
 app.on("window-all-closed", function () {
@@ -96,7 +93,7 @@ app.on("activate", function () {
 });
 
 // Define any IPC or other custom functionality below here
-function ipcMainListeners() {
+function ipcMainListeners(_path) {
   console.log("[INDEX] init ipc main listeners");
 
   ipcMain.on("getSystemInfo", (e) =>
@@ -118,9 +115,10 @@ function ipcMainListeners() {
     console.log("[INDEX] ipc main 'save-file' event");
 
     const path = msg.data.subPath
-      ? `${APP_DIR_PATH}/${msg.data.subPath}`
+      ? _path.join(APP_DIR_PATH, msg.data.subPath)
       : APP_DIR_PATH;
-    const filePath = `${path}/${msg.data.fileName}`;
+
+    const filePath = _path.join(path, msg.data.fileName);
 
     const createFile = () => {
       let data;
