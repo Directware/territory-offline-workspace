@@ -8,9 +8,14 @@ const fs = require("fs");
 const path = require("path");
 const { Base64 } = require("js-base64");
 
+console.log("############################");
+console.log("Start Territory Offline.");
+console.log("############################");
+
 /* App configs */
 app.allowRendererProcessReuse = true;
 const APP_DIR_PATH = `${app.getPath("home")}/territory-offline`;
+console.log("[INDEX] app dir path: " + APP_DIR_PATH);
 
 // Place holders for our windows so they don't get garbage collected.
 let mainWindow = null;
@@ -19,35 +24,42 @@ let mainWindow = null;
 let splashScreen = null;
 
 //Change this if you do not wish to have a splash screen
-let useSplashScreen = true;
+let useSplashScreen = false;
 
 async function createWindow() {
+  const preload = path.join(__dirname, "preload.js");
+  console.log("[INDEX] create window");
+  console.log("[INDEX] preload: " + preload);
+
   // Define our main window size
   mainWindow = new BrowserWindow({
     height: 920,
     width: 1600,
     show: false,
     webPreferences: {
-      nodeIntegration: false,
+      preload: preload,
+      nodeIntegration: true,
       devTools: true,
-      contextIsolation: true,
-      preload: path.join(__dirname, "preload.js"),
+      contextIsolation: false,
       experimentalFeatures: false,
     },
   });
 
   mainWindow.webContents.on("dom-ready", () => {
+    console.log("[INDEX] 'dom-ready' event");
     ipcMainListeners();
   });
 
   configCapacitor(mainWindow);
 
   if (useSplashScreen) {
+    console.log("[INDEX] using splsh screen.");
     splashScreen = new CapacitorSplashScreen(mainWindow, {
       imageFileName: "splash.jpeg",
     });
     splashScreen.init(false);
   } else {
+    console.log("[INDEX] skip splash screen.");
     mainWindow.loadURL(`file://${__dirname}/app/index.html`);
     mainWindow.webContents.on("dom-ready", () => {
       mainWindow.show();
@@ -85,7 +97,7 @@ app.on("activate", function () {
 
 // Define any IPC or other custom functionality below here
 function ipcMainListeners() {
-  console.log("init ipc main listeners");
+  console.log("[INDEX] init ipc main listeners");
 
   ipcMain.on("getSystemInfo", (e) =>
     mainWindow.webContents.send("systemInfo", {
@@ -94,11 +106,16 @@ function ipcMainListeners() {
   );
 
   ipcMain.on("print", (e) => {
+    console.log("[INDEX] ipc main 'print' event");
     mainWindow.webContents.print();
   });
 
+  ipcMain.on("ping", (e) => {
+    console.log("[INDEX] ipc main 'ping' event");
+  });
+
   ipcMain.on("save-file", (e, msg) => {
-    console.log("save-file");
+    console.log("[INDEX] ipc main 'save-file' event");
 
     const path = msg.data.subPath
       ? `${APP_DIR_PATH}/${msg.data.subPath}`
