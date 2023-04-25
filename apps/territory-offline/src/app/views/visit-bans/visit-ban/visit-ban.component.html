@@ -1,83 +1,141 @@
-<app-second-thread-header [valid]="visitBan.valid && !visitBan.pristine"
-                          (onCancel)="cancel()"
-                          (onSave)="createVisitBans()"></app-second-thread-header>
+<app-second-thread-header
+  [valid]="visitBan.valid && !visitBan.pristine"
+  (onCancel)="cancel()"
+  (onSave)="createVisitBans()"
+></app-second-thread-header>
 
 <form [formGroup]="visitBan">
   <app-panel>
     <app-list-item>
       <p class="label">
-        <input [placeholder]="'visitBan.name' | translate" class="input" formControlName="name" name="fullName" data-cy="input-visit-ban-name">
+        <input
+          [placeholder]="'visitBan.name' | translate"
+          class="input"
+          formControlName="name"
+          name="fullName"
+          data-cy="input-visit-ban-name"
+        />
       </p>
     </app-list-item>
   </app-panel>
 
   <app-panel>
     <app-list-item *ngIf="!isCreation && !visitBan.get('gpsPosition').value">
-      <p class="label red">Dieser Datensatz hat keine GPS Koordinaten. Du musst die Adresse entweder manuell platzieren oder nochmal eingeben und den richtigen Datensatz auswählen:</p>
+      <p class="label red">
+        Dieser Datensatz hat keine GPS Koordinaten. Du musst die Adresse
+        entweder manuell platzieren oder nochmal eingeben und den richtigen
+        Datensatz auswählen:
+      </p>
     </app-list-item>
     <app-list-item>
       <p class="label">
-        <input [placeholder]="('visitBan.address' | translate) + '*'" class="input" [formControl]="geoCodingForm" name="geocoding" data-cy="input-visit-ban-address">
+        <input
+          [placeholder]="('visitBan.address' | translate) + '*'"
+          class="input"
+          [formControl]="geoCodingForm"
+          name="geocoding"
+          data-cy="input-visit-ban-address"
+        />
       </p>
     </app-list-item>
-    <app-list-item *ngFor="let r of geoCodingResults" (click)="chooseGeoCodingResult(r)">
-      <p class="label blue">{{r.place_name}}</p>
+    <app-list-item
+      *ngFor="let r of geoCodingResults"
+      (click)="chooseGeoCodingResult(r)"
+    >
+      <p class="label blue">{{ r.place_name }}</p>
       <i-feather class="i-feather info blue" name="map-pin"></i-feather>
     </app-list-item>
-    <app-list-item *ngIf="geoCodingResults && geoCodingResults.length === 0 && !isManuallyPositioning">
-      <p class="label warn">{{ 'visitBan.noAdresses' | translate }}</p>
+    <app-list-item
+      *ngIf="
+        geoCodingResults &&
+        geoCodingResults.length === 0 &&
+        !isManuallyPositioning
+      "
+    >
+      <p class="label warn">{{ "visitBan.noAdresses" | translate }}</p>
       <i-feather class="i-feather info warn" name="alert-circle"></i-feather>
     </app-list-item>
     <app-list-item *ngIf="isManuallyPositioning">
-      <p class="label">{{ 'visitBan.setMark' | translate }}</p>
+      <p class="label">{{ "visitBan.setMark" | translate }}</p>
       <i-feather class="i-feather info" name="arrow-right"></i-feather>
     </app-list-item>
-    <app-list-item (click)="reset()" *ngIf="visitBan.get('territoryId').value && visitBan.get('street').value">
-      <p class="label blue">{{ 'visitBan.reset' | translate }}</p>
+    <app-list-item
+      (click)="reset()"
+      *ngIf="visitBan.get('territoryId').value && visitBan.get('street').value"
+    >
+      <p class="label blue">{{ "visitBan.reset" | translate }}</p>
       <i-feather class="i-feather info blue" name="refresh-cw"></i-feather>
     </app-list-item>
-    <app-list-item (click)="setVisitBanManually()" *ngIf="geoCodingResults && geoCodingForm.value && !isManuallyPositioning">
-      <p class="label blue">{{ 'visitBan.setManually' | translate }}</p>
+    <app-list-item
+      (click)="setVisitBanManually()"
+      *ngIf="geoCodingResults && geoCodingForm.value && !isManuallyPositioning"
+    >
+      <p class="label blue">{{ "visitBan.setManually" | translate }}</p>
       <i-feather class="i-feather info blue" name="map-pin"></i-feather>
     </app-list-item>
   </app-panel>
 
   <app-panel>
     <app-list-item>
-      <textarea [placeholder]="'visitBan.comment' | translate" class="input" formControlName="comment" name="comment" data-cy="input-visit-ban-comment"></textarea>
+      <textarea
+        [placeholder]="'visitBan.comment' | translate"
+        class="input"
+        formControlName="comment"
+        name="comment"
+        data-cy="input-visit-ban-comment"
+      ></textarea>
     </app-list-item>
   </app-panel>
 
   <app-panel>
-    <app-list-item (click)="editLastVisit=true">
-      <p class="label" data-cy="label-visit-ban-last-visit">{{ 'visitBan.lastVisit' | translate }}</p>
-      <p class="info" data-cy="info-visit-ban-last-visit">{{(visitBan.get('lastVisit').value | date:'dd.MM.yyyy') || '-'}}</p>
+    <app-list-item (click)="editLastVisit = true">
+      <p class="label" data-cy="label-visit-ban-last-visit">
+        {{ "visitBan.lastVisit" | translate }}
+      </p>
+      <p class="info" data-cy="info-visit-ban-last-visit">
+        {{ (visitBan.get("lastVisit").value | date : "dd.MM.yyyy") || "-" }}
+      </p>
     </app-list-item>
     <div class="wrapper" *ngIf="editLastVisit">
-      <app-date-picker [vFormControl]="visitBan.get('lastVisit')" data-cy="input-visit-ban-last-visit"></app-date-picker>
+      <!-- <app-date-picker [vFormControl]="visitBan.get('lastVisit')" data-cy="input-visit-ban-last-visit"></app-date-picker> -->
+      <ui-date-input
+        [vFormControl]="visitBan.get('lastVisit')"
+        data-cy="input-date-start-time-assignment"
+      ></ui-date-input>
     </div>
     <app-list-item (click)="setLastVisitToday()">
-      <p class="label blue">{{ 'visitBan.today' | translate }}</p>
+      <p class="label blue">{{ "visitBan.today" | translate }}</p>
       <i-feather class="action blue" name="calendar"></i-feather>
     </app-list-item>
   </app-panel>
 
-  <app-panel *ngIf="!isCreation" class="delete-visit-ban animate-color-and-transform"
-             (click)="deleteVisitBan()" data-cy="button-delete-visit-ban">
+  <app-panel
+    *ngIf="!isCreation"
+    class="delete-visit-ban animate-color-and-transform"
+    (click)="deleteVisitBan()"
+    data-cy="button-delete-visit-ban"
+  >
     <app-list-item>
-      <p class="label">{{ 'visitBan.delete' | translate }}</p>
+      <p class="label">{{ "visitBan.delete" | translate }}</p>
       <i-feather class="i-feather action" name="trash"></i-feather>
     </app-list-item>
   </app-panel>
 
-  <app-panel *ngIf="visitBan.get('street').value && visitBan.get('streetSuffix').value && !visitBan.get('territoryId').value" class="no-territory-hint">
+  <app-panel
+    *ngIf="
+      visitBan.get('street').value &&
+      visitBan.get('streetSuffix').value &&
+      !visitBan.get('territoryId').value
+    "
+    class="no-territory-hint"
+  >
     <app-list-item>
-      <p class="label">{{ 'visitBan.notTerritoryReference' | translate }}</p>
+      <p class="label">{{ "visitBan.notTerritoryReference" | translate }}</p>
       <i-feather class="i-feather action" name="alert-circle"></i-feather>
     </app-list-item>
 
     <app-list-item (click)="geoCodeAgainCurrentPlaceName()">
-      <p class="label blue">{{ 'visitBan.retry' | translate }}</p>
+      <p class="label blue">{{ "visitBan.retry" | translate }}</p>
       <i-feather class="i-feather action blue" name="refresh-cw"></i-feather>
     </app-list-item>
   </app-panel>
