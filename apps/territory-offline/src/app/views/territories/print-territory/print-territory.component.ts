@@ -285,9 +285,17 @@ export class PrintTerritoryComponent implements OnInit, OnDestroy
     this.store.pipe(
       select(selectDrawingById, this.territory.territoryDrawingId),
       take(1),
-      tap((territoryDrawing) => territoryDrawing.printConfiguration
-        ? this.territoryMapsService.applyMapParameterSnapshot(territoryDrawing.printConfiguration)
-        : this.autoZoom())
+      tap((territoryDrawing) => {
+        const hasPrintConfiguration =
+          territoryDrawing.printConfiguration &&
+         Object.keys(territoryDrawing.printConfiguration).length > 0;
+  
+        hasPrintConfiguration
+          ? this.territoryMapsService.applyMapParameterSnapshot(
+              territoryDrawing.printConfiguration
+            )
+          : this.autoZoom();
+      })
     ).subscribe();
   }
 
