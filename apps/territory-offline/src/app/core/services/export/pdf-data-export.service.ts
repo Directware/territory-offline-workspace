@@ -87,7 +87,7 @@ export class PdfDataExportService {
         };
 
         const docDefinition = {
-          footer: this.pdfFooter,
+          footer: this.pdfFooter.bind(this),
           pageMargins: [25, 20, 30, 30],
           content: table,
         };
@@ -142,7 +142,7 @@ export class PdfDataExportService {
         };
 
         const docDefinition = {
-          footer: this.pdfFooter,
+          footer: this.pdfFooter.bind(this),
           pageOrientation: "landscape",
           pageMargins: [25, 20, 30, 20],
           content: table,
@@ -175,7 +175,7 @@ export class PdfDataExportService {
     );
 
     const docDefinition = {
-      footer: this.pdfFooter,
+      footer: this.pdfFooter.bind(this),
       pageMargins: [30, 30, 30, 30],
       content: groupOverseerPdfMakeContentFactory(groupOverseerReport, {
         since: "seit",
@@ -298,7 +298,7 @@ export class PdfDataExportService {
     };
 
     const docDefinition = {
-      footer: this.pdfFooter,
+      footer: this.pdfFooter.bind(this),
       pageMargins: [25, 40, 30, 20],
       content: content,
     };
@@ -329,37 +329,93 @@ export class PdfDataExportService {
         [
           {
             ...headerStyle,
-            text: "Geb.- Nr.",
+            text: this.translate.instant("transfer.templateS13TerritoryNumber"),
             margin: [1, 7, 0, 0],
             colSpan: 1,
             rowSpan: 2,
           },
           {
             ...headerStyle,
-            text: "Datum der letzten Bearbeitung",
+            text: this.translate.instant("transfer.templateS13DateOfLastDoing"),
             colspan: 1,
             rowSpan: 2,
           },
-          { ...headerStyle, text: "Gebiet ausgegeben an", colSpan: 2 },
+          {
+            ...headerStyle,
+            text: this.translate.instant(
+              "transfer.templateS13TerritoryAssined"
+            ),
+            colSpan: 2,
+          },
           { ...headerStyle, text: "" },
-          { ...headerStyle, text: "Gebiet ausgegeben an", colSpan: 2 },
+          {
+            ...headerStyle,
+            text: this.translate.instant(
+              "transfer.templateS13TerritoryAssined"
+            ),
+            colSpan: 2,
+          },
           { ...headerStyle, text: "" },
-          { ...headerStyle, text: "Gebiet ausgegeben an", colSpan: 2 },
+          {
+            ...headerStyle,
+            text: this.translate.instant(
+              "transfer.templateS13TerritoryAssined"
+            ),
+            colSpan: 2,
+          },
           { ...headerStyle, text: "" },
-          { ...headerStyle, text: "Gebiet ausgegeben an", colSpan: 2 },
+          {
+            ...headerStyle,
+            text: this.translate.instant(
+              "transfer.templateS13TerritoryAssined"
+            ),
+            colSpan: 2,
+          },
           { ...headerStyle, text: "" },
         ],
         [
           { ...headerStyle, text: "" },
           { ...headerStyle, text: "" },
-          { ...headerStyle, fontSize: 8, text: "ausgegeben am" },
-          { ...headerStyle, fontSize: 8, text: "bearbeitet am" },
-          { ...headerStyle, fontSize: 8, text: "ausgegeben am" },
-          { ...headerStyle, fontSize: 8, text: "bearbeitet am" },
-          { ...headerStyle, fontSize: 8, text: "ausgegeben am" },
-          { ...headerStyle, fontSize: 8, text: "bearbeitet am" },
-          { ...headerStyle, fontSize: 8, text: "ausgegeben am" },
-          { ...headerStyle, fontSize: 8, text: "bearbeitet am" },
+          {
+            ...headerStyle,
+            fontSize: 8,
+            text: this.translate.instant("transfer.templateS13Assigned"),
+          },
+          {
+            ...headerStyle,
+            fontSize: 8,
+            text: this.translate.instant("transfer.templateS13Returned"),
+          },
+          {
+            ...headerStyle,
+            fontSize: 8,
+            text: this.translate.instant("transfer.templateS13Assigned"),
+          },
+          {
+            ...headerStyle,
+            fontSize: 8,
+            text: this.translate.instant("transfer.templateS13Returned"),
+          },
+          {
+            ...headerStyle,
+            fontSize: 8,
+            text: this.translate.instant("transfer.templateS13Assigned"),
+          },
+          {
+            ...headerStyle,
+            fontSize: 8,
+            text: this.translate.instant("transfer.templateS13Returned"),
+          },
+          {
+            ...headerStyle,
+            fontSize: 8,
+            text: this.translate.instant("transfer.templateS13Assigned"),
+          },
+          {
+            ...headerStyle,
+            fontSize: 8,
+            text: this.translate.instant("transfer.templateS13Returned"),
+          },
         ],
       ],
     };
@@ -452,14 +508,16 @@ export class PdfDataExportService {
 
     const CONTENT = [
       {
-        text: "GEBIETSZUTEILUNGSKARTE",
+        text: this.translate.instant("transfer.templateS13Title"),
         margin: [0, 19, 0, 20],
         fontSize: 16,
         alignment: "center",
         bold: true,
       },
       {
-        text: `Dienstjahr: ${serviceYearByDate(serviceYear)}`,
+        text: `${this.translate.instant(
+          "transfer.templateS13ServiceYear"
+        )}: ${serviceYearByDate(serviceYear)}`,
         margin: [0, 0, 0, 15],
         fontSize: 12,
         bold: true,
@@ -477,7 +535,7 @@ export class PdfDataExportService {
     ];
 
     const docDefinition = {
-      footer: this.pdfFooter,
+      footer: this.pdfFooter.bind(this),
       pageMargins: [35, 35, 30, 50],
       content: CONTENT,
     };
@@ -529,7 +587,7 @@ export class PdfDataExportService {
         fontSize: 8,
         margin: [0, 0, 35, 0],
         // prettier-ignore
-        text: `Erstellt am ${new Date().toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit"})}`,
+        text: `${this.translate.instant("transfer.templateS13Generated")} ${new Date().toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit"})}`,
       },
     ];
   }
