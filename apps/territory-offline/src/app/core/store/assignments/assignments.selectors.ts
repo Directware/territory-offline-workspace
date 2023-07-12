@@ -70,6 +70,30 @@ export const selectLastAssignmentOfEachTerritory = createSelector(
   }
 );
 
+export const selectLastDoneAssignmentOfEachTerritory = createSelector(
+  selectAll,
+  selectAllTerritories,
+  (assignments: Assignment[], territories) => {
+    const lastAssignments = [];
+
+    territories.forEach((t) => {
+      const sortedAssignments = assignments
+        .filter((a) => a.territoryId === t.id)
+        .sort((a1, a2) => (a1.startTime > a2.startTime ? -1 : 1));
+
+        let lastAssignment = sortedAssignments[0];
+
+        if(!lastAssignment?.endTime) {
+          lastAssignment = sortedAssignments[1];
+        }
+
+      lastAssignments.push(lastAssignment || {});
+    });
+
+    return lastAssignments;
+  }
+);
+
 export const selectCurrentlyOpenAssignments = createSelector(
   selectAll,
   (assignments) => assignments.filter((a) => !a.endTime)
@@ -92,21 +116,24 @@ export const selectLastEndedAssignmentOfEachTerritory = createSelector(
 );
 
 export const selectDashboardData = createSelector(
+  selectLastDoneAssignmentOfEachTerritory,
   selectLastAssignmentOfEachTerritory,
   selectAllTerritories,
   selectSettings,
-  (lastAssignments, territories, settings) => {
-    const doneInThisServiceYear = lastAssignments.filter((a) =>
+  (lastDoneAssignments, lastAssignments, territories, settings) => {
+    const doneInThisServiceYear = lastDoneAssignments.filter((a) =>
       includedInThisServiceYear(a)
     );
 
-    const currentlyDone = lastAssignments.filter(
+    const currentlyDone = lastDoneAssignments.filter(
       (a) =>
         a && !!a.startTime && !!a.endTime && a.endTime > pastDateByMonths(12)
     );
+
     const currentlyInProgress = lastAssignments.filter(
       (a) => a && !!a.startTime && !a.endTime
     );
+
     const totalPopulationCount =
       territories && territories.length > 0
         ? territories
