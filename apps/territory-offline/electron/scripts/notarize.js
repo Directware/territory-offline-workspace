@@ -11,7 +11,7 @@ exports.default = async function notarizing(context) {
   console.log("\n\n\t Notarizing " + appName + "! Please wait...");
 
   return await notarize({
-    appBundleId: "com.territoryoffline.to",
+    appBundleId: "com.directware.territoryoffline",
     appPath: `${appOutDir}/${appName}.app`,
     appleId: process.env.APPLEID,
     appleIdPassword: process.env.APPLEIDPASS,
