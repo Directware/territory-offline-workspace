@@ -29,6 +29,7 @@ import {
   groupOverseerPdfMakeContentFactory,
   serviceYearByDate,
   startedInServiceYear,
+  startedInServiceYearButInProgress,
 } from "@territory-offline-workspace/shared-utils";
 import { PlatformAgnosticActionsService } from "../common/platform-agnostic-actions.service";
 import { environment } from "apps/territory-offline/src/environments/environment";
@@ -61,12 +62,12 @@ export class PdfDataExportService {
         const body = [];
         publisher.forEach(
           (p, index) =>
-            (body[index] = [
-              p.firstName,
-              p.name,
-              p.email || "-",
-              p.phone || "-",
-            ])
+          (body[index] = [
+            p.firstName,
+            p.name,
+            p.email || "-",
+            p.phone || "-",
+          ])
         );
 
         const table = {
@@ -112,14 +113,14 @@ export class PdfDataExportService {
         const body = [];
         visitBans.forEach(
           (a, index) =>
-            (body[index] = [
-              a.name,
-              a.floor,
-              a.street,
-              a.streetSuffix,
-              a.city,
-              !!a.lastVisit ? new Date(a.lastVisit).toLocaleDateString() : "",
-            ])
+          (body[index] = [
+            a.name,
+            a.floor,
+            a.street,
+            a.streetSuffix,
+            a.city,
+            !!a.lastVisit ? new Date(a.lastVisit).toLocaleDateString() : "",
+          ])
         );
 
         const table = {
@@ -447,17 +448,41 @@ export class PdfDataExportService {
 
       // prettier-ignore
       const sortedLastFourAssignments = assignments
-        .filter((a) => isCurrentServiceYear ? startedInServiceYear(serviceYear, a) || endedInServiceYear(serviceYear, a) : startedInServiceYear(serviceYear, a) && endedInServiceYear(serviceYear, a))
+        .filter((a) =>
+          isCurrentServiceYear ?
+            startedInServiceYear(serviceYear, a) &&
+            endedInServiceYear(serviceYear, a) ||
+            startedInServiceYearButInProgress(serviceYear, a)
+            :
+            startedInServiceYear(serviceYear, a) &&
+            endedInServiceYear(serviceYear, a) ||
+            startedInServiceYearButInProgress(serviceYear, a)
+        )
         .sort((a1, a2) => (a1.startTime < a2.startTime ? 1 : -1))
         .slice(0, 4)
         .reverse();
 
+      // Wenn es keine Zuteilung in diesem Dienstjahr gab, dann wird die letzte Zuteilung genommen
+      if (sortedLastFourAssignments.length === 0) {
+        const lastAssignmentInProgress = assignments.filter((a) => !a.endTime)[0];
+        sortedLastFourAssignments.push(lastAssignmentInProgress);
+      }
+
       const lastDoneAssignment = assignments
-        .filter((a) =>
-          isCurrentServiceYear
+        .filter((a) => {
+          const _result = assignments.filter(_a => isCurrentServiceYear
             ? !!a.endTime
-            : !!a.endTime && endedInServiceYear(serviceYear, a)
-        )
+            : !!a.endTime && endedInServiceYear(serviceYear, a));
+
+          if (_result.length > 0) {
+            return isCurrentServiceYear
+              ? !!a.endTime
+              : !!a.endTime && endedInServiceYear(serviceYear, a)
+          }
+
+          // Wenn es keine Zuteilung in diesem Dienstjahr gab, dann wird generell die letzte Zuteilung genommen
+          return !!a.endTime;
+        })
         .sort((a1, a2) => (a1.startTime < a2.startTime ? 1 : -1))[0];
 
       const bodyStyle = { fontSize: 9, lineHeight: 1, alignment: "center" };
@@ -471,7 +496,7 @@ export class PdfDataExportService {
         {
           ...bodyStyle,
           // prettier-ignore
-          text: lastDoneAssignment?.endTime.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit"}) || EMPTY_CELL,
+          text: lastDoneAssignment?.endTime.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit" }) || EMPTY_CELL,
           colspan: 1,
           rowSpan: 2,
         },
@@ -493,14 +518,14 @@ export class PdfDataExportService {
       const tmp2: any = [
         { ...bodyStyle, text: "" },
         { ...bodyStyle, text: "" },
-        { ...bodyStyle, fontSize: 8, text: sortedLastFourAssignments[0]?.startTime?.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit"}) || EMPTY_CELL },
-        { ...bodyStyle, fontSize: 8, text: sortedLastFourAssignments[0]?.endTime?.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit"}) || EMPTY_CELL },
-        { ...bodyStyle, fontSize: 8, text: sortedLastFourAssignments[1]?.startTime?.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit"}) || EMPTY_CELL },
-        { ...bodyStyle, fontSize: 8, text: sortedLastFourAssignments[1]?.endTime?.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit"}) || EMPTY_CELL },
-        { ...bodyStyle, fontSize: 8, text: sortedLastFourAssignments[2]?.startTime?.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit"}) || EMPTY_CELL },
-        { ...bodyStyle, fontSize: 8, text: sortedLastFourAssignments[2]?.endTime?.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit"}) || EMPTY_CELL },
-        { ...bodyStyle, fontSize: 8, text: sortedLastFourAssignments[3]?.startTime?.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit"}) || EMPTY_CELL },
-        { ...bodyStyle, fontSize: 8, text: sortedLastFourAssignments[3]?.endTime?.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit"}) || EMPTY_CELL },
+        { ...bodyStyle, fontSize: 8, text: sortedLastFourAssignments[0]?.startTime?.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit" }) || EMPTY_CELL },
+        { ...bodyStyle, fontSize: 8, text: sortedLastFourAssignments[0]?.endTime?.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit" }) || EMPTY_CELL },
+        { ...bodyStyle, fontSize: 8, text: sortedLastFourAssignments[1]?.startTime?.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit" }) || EMPTY_CELL },
+        { ...bodyStyle, fontSize: 8, text: sortedLastFourAssignments[1]?.endTime?.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit" }) || EMPTY_CELL },
+        { ...bodyStyle, fontSize: 8, text: sortedLastFourAssignments[2]?.startTime?.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit" }) || EMPTY_CELL },
+        { ...bodyStyle, fontSize: 8, text: sortedLastFourAssignments[2]?.endTime?.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit" }) || EMPTY_CELL },
+        { ...bodyStyle, fontSize: 8, text: sortedLastFourAssignments[3]?.startTime?.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit" }) || EMPTY_CELL },
+        { ...bodyStyle, fontSize: 8, text: sortedLastFourAssignments[3]?.endTime?.toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit" }) || EMPTY_CELL },
       ];
 
       TABLE.body.push(tmp1, tmp2);
@@ -587,7 +612,7 @@ export class PdfDataExportService {
         fontSize: 8,
         margin: [0, 0, 35, 0],
         // prettier-ignore
-        text: `${this.translate.instant("transfer.templateS13Generated")} ${new Date().toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit"})}`,
+        text: `${this.translate.instant("transfer.templateS13Generated")} ${new Date().toLocaleDateString("de-DE", { year: "numeric", month: "2-digit", day: "2-digit" })}`,
       },
     ];
   }

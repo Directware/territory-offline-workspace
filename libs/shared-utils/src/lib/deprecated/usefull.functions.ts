@@ -74,13 +74,12 @@ export function evaluateDrawingProperties(
       ...evaluateTerritoryStatus(assignment, settings),
       isAssigned,
       description: territory.key,
-      durationPhrase: `${territory.key} (${
-        assignment
-          ? createDurationPhrase(
-              isAssigned ? assignment.startTime : assignment.endTime
-            )
-          : "-"
-      })`,
+      durationPhrase: `${territory.key} (${assignment
+        ? createDurationPhrase(
+          isAssigned ? assignment.startTime : assignment.endTime
+        )
+        : "-"
+        })`,
     };
   }
 
@@ -224,6 +223,17 @@ export function startedInServiceYear(
   return startTime < assignmentTime && endTime > assignmentTime;
 }
 
+export function startedInServiceYearButInProgress(
+  serviceYear: Date,
+  a: Assignment
+): boolean {
+  if (startedInServiceYear(serviceYear, a) && !a.endTime) {
+    return true;
+  }
+
+  return false;
+}
+
 export function endedInServiceYear(serviceYear: Date, a: Assignment): boolean {
   if (!a || !a.endTime) {
     return false;
@@ -246,19 +256,19 @@ export function getServiceYearTimes(startTimePoint: Date) {
   if (startTimePoint.getMonth() >= september) {
     // Angefangen: dieses Jahr am 1. September
     // prettier-ignore
-    serviceYearStart = new Date(startTimePoint.getFullYear(),september,1,0,0,0);
+    serviceYearStart = new Date(startTimePoint.getFullYear(), september, 1, 0, 0, 0);
 
     // Endet: nächstes Jahr am 31. August um Mitternacht
     // prettier-ignore
-    serviceYearEnd = new Date(startTimePoint.getFullYear() + 1,september,0,23,59,59);
+    serviceYearEnd = new Date(startTimePoint.getFullYear() + 1, september, 0, 23, 59, 59);
   } else {
     // Angefangen: letzes Jahr am 1. September
     // prettier-ignore
-    serviceYearStart = new Date(startTimePoint.getFullYear() - 1,september,1,0,0,0);
+    serviceYearStart = new Date(startTimePoint.getFullYear() - 1, september, 1, 0, 0, 0);
 
     // Endet: dieses Jahr am 31. August um Mitternacht
     // prettier-ignore
-    serviceYearEnd = new Date(startTimePoint.getFullYear(),september,0,23,59,59);
+    serviceYearEnd = new Date(startTimePoint.getFullYear(), september, 0, 23, 59, 59);
   }
   return { serviceYearStart, serviceYearEnd };
 }

@@ -43,7 +43,7 @@ export class SettingsComponent implements OnInit {
     private toUpdatesService: ToUpdatesService,
     private store: Store<ApplicationState>,
     private translate: TranslateService
-  ) {}
+  ) { }
 
   public ngOnInit(): void {
     this.releaseInfo$ = this.toUpdatesService.getReleaseInfo();
@@ -125,13 +125,11 @@ export class SettingsComponent implements OnInit {
     const reallyDelete = confirm(translations["settings.reallyReset"]);
 
     if (reallyDelete) {
-      this.database.clear().then((resp) => {
-        if (resp.result) {
-          alert(translations["settings.restartApp"]);
-          this.ipcService.send("restartTerritoryOffline");
-          setTimeout(() => (window.location.href = "/"), 500);
-        }
-      });
+      this.database.clear().then(() => {
+        alert(translations["settings.restartApp"]);
+        this.ipcService.send("restartTerritoryOffline");
+        setTimeout(() => (window.location.href = "/"), 500);
+      }).catch(err => alert("Error: " + err));
     }
   }
 
