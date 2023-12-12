@@ -1,5 +1,7 @@
 #!/bin/bash
 
+nvm use 16
+
 npm run build:field-companion || exit
 
 cd ./../../apps/field-companion/ || exit

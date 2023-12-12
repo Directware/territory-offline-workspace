@@ -1,0 +1,105 @@
+PODS:
+  - ByteowlsCapacitorFilesharer (4.0.0):
+    - Capacitor
+  - Capacitor (4.6.2):
+    - CapacitorCordova
+  - CapacitorApp (4.1.1):
+    - Capacitor
+  - CapacitorBrowser (4.1.1):
+    - Capacitor
+  - CapacitorClipboard (4.1.0):
+    - Capacitor
+  - CapacitorCordova (4.6.2)
+  - CapacitorDataStorageSqlite (4.0.1):
+    - Capacitor
+    - SQLCipher
+  - CapacitorDevice (4.1.0):
+    - Capacitor
+  - CapacitorFilesystem (4.1.4):
+    - Capacitor
+  - CapacitorHaptics (4.1.0):
+    - Capacitor
+  - CapacitorLocalNotifications (4.1.4):
+    - Capacitor
+  - CapacitorNetwork (4.1.0):
+    - Capacitor
+  - CapacitorShare (4.1.0):
+    - Capacitor
+  - CapawesomeCapacitorFilePicker (0.5.9):
+    - Capacitor
+  - SQLCipher (4.5.3):
+    - SQLCipher/standard (= 4.5.3)
+  - SQLCipher/common (4.5.3)
+  - SQLCipher/standard (4.5.3):
+    - SQLCipher/common
+
+DEPENDENCIES:
+  - "ByteowlsCapacitorFilesharer (from `../../../../node_modules/@byteowls/capacitor-filesharer`)"
+  - "Capacitor (from `../../../../node_modules/@capacitor/ios`)"
+  - "CapacitorApp (from `../../../../node_modules/@capacitor/app`)"
+  - "CapacitorBrowser (from `../../../../node_modules/@capacitor/browser`)"
+  - "CapacitorClipboard (from `../../../../node_modules/@capacitor/clipboard`)"
+  - "CapacitorCordova (from `../../../../node_modules/@capacitor/ios`)"
+  - CapacitorDataStorageSqlite (from `../../../../node_modules/capacitor-data-storage-sqlite`)
+  - "CapacitorDevice (from `../../../../node_modules/@capacitor/device`)"
+  - "CapacitorFilesystem (from `../../../../node_modules/@capacitor/filesystem`)"
+  - "CapacitorHaptics (from `../../../../node_modules/@capacitor/haptics`)"
+  - "CapacitorLocalNotifications (from `../../../../node_modules/@capacitor/local-notifications`)"
+  - "CapacitorNetwork (from `../../../../node_modules/@capacitor/network`)"
+  - "CapacitorShare (from `../../../../node_modules/@capacitor/share`)"
+  - "CapawesomeCapacitorFilePicker (from `../../../../node_modules/@capawesome/capacitor-file-picker`)"
+
+SPEC REPOS:
+  trunk:
+    - SQLCipher
+
+EXTERNAL SOURCES:
+  ByteowlsCapacitorFilesharer:
+    :path: "../../../../node_modules/@byteowls/capacitor-filesharer"
+  Capacitor:
+    :path: "../../../../node_modules/@capacitor/ios"
+  CapacitorApp:
+    :path: "../../../../node_modules/@capacitor/app"
+  CapacitorBrowser:
+    :path: "../../../../node_modules/@capacitor/browser"
+  CapacitorClipboard:
+    :path: "../../../../node_modules/@capacitor/clipboard"
+  CapacitorCordova:
+    :path: "../../../../node_modules/@capacitor/ios"
+  CapacitorDataStorageSqlite:
+    :path: "../../../../node_modules/capacitor-data-storage-sqlite"
+  CapacitorDevice:
+    :path: "../../../../node_modules/@capacitor/device"
+  CapacitorFilesystem:
+    :path: "../../../../node_modules/@capacitor/filesystem"
+  CapacitorHaptics:
+    :path: "../../../../node_modules/@capacitor/haptics"
+  CapacitorLocalNotifications:
+    :path: "../../../../node_modules/@capacitor/local-notifications"
+  CapacitorNetwork:
+    :path: "../../../../node_modules/@capacitor/network"
+  CapacitorShare:
+    :path: "../../../../node_modules/@capacitor/share"
+  CapawesomeCapacitorFilePicker:
+    :path: "../../../../node_modules/@capawesome/capacitor-file-picker"
+
+SPEC CHECKSUMS:
+  ByteowlsCapacitorFilesharer: a8298f17cbae4692daaafcb204c5bf5e2d38de45
+  Capacitor: a83814f7b8678d3fbb8989324f51b442eafdb6f7
+  CapacitorApp: acd42fe8561fe751ad5b5f459aa85e6acd7bee24
+  CapacitorBrowser: b7d161fb82d591294cb81fcb12f950ae73470035
+  CapacitorClipboard: 4c092a2608520afb799429e63820256c3a59f1e5
+  CapacitorCordova: 855dd572d01508c8992d5470e0dfe33ebb169c4d
+  CapacitorDataStorageSqlite: 05be864e29e4b79fbcaddbb654d526a1dc35f440
+  CapacitorDevice: 63e8ef8837176b8caf67dc0717b8b1123754a955
+  CapacitorFilesystem: 3d665e5b3719d9f6e240480a7468861b0bb35f93
+  CapacitorHaptics: 213b3a1f3efd6dbf6e6b76a1b2bb0399cf43b213
+  CapacitorLocalNotifications: 5937199b3df1ef0cfe9e579882ca4f5fc4b31ff4
+  CapacitorNetwork: 7126b3d2d23ca60d5ac0d8d2ecccfab0b1f305c6
+  CapacitorShare: d81b40de329187f4669ad8a40ce90fe2bbe3eecd
+  CapawesomeCapacitorFilePicker: 62c5c9867b66d2bf470bda1f3fa186e9eadc480f
+  SQLCipher: 57fa9f863fa4a3ed9dd3c90ace52315db8c0fdca
+
+PODFILE CHECKSUM: 878e649f9e99f8db4c5e63ba9b67914e910732a7
+
+COCOAPODS: 1.11.3

@@ -88,6 +88,7 @@
     "@tmcw/togeojson": "^4.3.0",
     "@turf/turf": "^5.1.6",
     "angular-feather": "^6.0.1",
+    "caniuse-lite": "^1.0.30001534",
     "capacitor-data-storage-sqlite": "^4.0.1",
     "date-fns": "^2.16.1",
     "file-saver": "^2.0.2",
